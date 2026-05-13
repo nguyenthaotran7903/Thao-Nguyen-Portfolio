@@ -1,0 +1,228 @@
+{
+  "profile": {
+    "name": "Thảo Nguyên Trần",
+    "title": "Data Analyst · Risk Management · Quantitative Research",
+    "tagline": "Data is just numbers until people touch it. I analyze, I compute, then it becomes insight.",
+    "email": "nguyentrnthao@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/thao-nguyen-tran-309351300/",
+    "github": "https://github.com/",
+    "bio": "Mathematical Economics graduate specialized in quantitative analysis, risk modeling, and data-driven decision making. Skilled in fraud detection, credit risk assessment, and building early-warning systems.",
+    "location": "Ho Chi Minh City, Vietnam",
+    "english_level": "6.5"
+  },
+  "about": {
+    "background": "Bachelor of Mathematical Economics, University of Economics and Law, VNU-HCM (Nov 2021 – July 2025). Exchange Student at HSB Hochschule Bremen, Germany (Oct 2023 – Feb 2024).",
+    "professional_focus": "Risk Analysis, Data Analytics, and Business Intelligence — with emphasis on statistical modeling, machine learning, and quantitative research.",
+    "strengths": [
+      "Strong analytical thinking and problem-solving",
+      "Independent research capability",
+      "Cross-departmental collaboration",
+      "Data integrity and audit standards"
+    ]
+  },
+  "education": [
+    {
+      "degree": "Bachelor of Mathematical Economics",
+      "field": "Mathematic Applications in Economics, Administration & Finance",
+      "institution": "University of Economics and Law, VNU-HCM",
+      "period": "Nov 2021 – July 2025",
+      "status": "Graduated"
+    },
+    {
+      "degree": "Exchange Student – School of International Business",
+      "field": "International Business & Finance",
+      "institution": "HSB Hochschule Bremen – City University of Applied Sciences, Germany",
+      "period": "Oct 2023 – Feb 2024",
+      "status": "Completed"
+    }
+  ],
+  "scholarships": [
+    {
+      "title": "\"Young Scientific Researcher\" Award",
+      "org": "University of Economics and Law, Vietnam National University (VNU-HCM)",
+      "year": "2024"
+    },
+    {
+      "title": "National Student Science Competition – Olympic in Econometrics and Applications",
+      "org": "Central Committee of the Youth Union, Academy of Finance & Institute of Mathematics, Vietnam",
+      "year": "2024"
+    },
+    {
+      "title": "DAAD STIBET Scholarship",
+      "org": "German Academic Exchange Service (DAAD) – Exchange program at Hochschule Bremen, Germany",
+      "year": "2023"
+    }
+  ],
+  "training": [
+    {
+      "title": "Advanced Specialized Course in Data Science",
+      "org": "University of Science (HCMUS) – Vietnam National University (VNU-HCM)",
+      "topics": ["Mathematical Foundation for Data Science: Linear Algebra, Calculus, Probability & Statistics, Regression", "Machine Learning for Data Science: Linear Regression, Logistic Regression, Naive Bayes, Clustering, Decision Trees, Random Forest, SVM, Churn Prediction, Customer Segmentation"]
+    },
+    {
+      "title": "2025 Spring School on Statistics and Machine Learning",
+      "org": "Institute of Mathematics of Toulouse, ENS Paris-Saclay & Toulouse Graduate School | Organized by VIASM",
+      "topics": ["Bayesian Inference", "Stochastic Processes", "Random Matrix Theory", "Gaussian Processes", "High-Dimensional Statistical Modeling", "Scientific Machine Learning"]
+    }
+  ],
+  "coursework": [
+    "Certified Risk Management FMEA – ISO 31000 Expert | Six Sigma Academy Amsterdam (SSAA)",
+    "Spring School on Statistical & Machine Learning 2025 | VIASM & Toulouse Institute of Mathematics, ENS Paris-Saclay",
+    "Machine Learning for Data Science | University of Science – VNUHCM"
+  ],
+  "experience": [
+    {
+      "id": 1,
+      "title": "Quantitative Research Specialist",
+      "company": "Hung Vuong University, Ho Chi Minh City",
+      "period": "July 2025 – Jan 2026",
+      "highlights": [
+        "Collected, stored, and queried market data using SQL for internal analytics platform with 100% data integrity",
+        "Built early-warning system for VN-Index and sectoral indices — generated sell signals 2–4 weeks before major corrections",
+        "Reduced maximum drawdown from 47% to 18% in backtests through improved portfolio risk management",
+        "Standardized financial and regulatory data into auditable, reproducible formats for AI research project"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Risk Management & Planning Intern",
+      "company": "Vietnam Bank for Agriculture and Rural Development (Agribank)",
+      "period": "Mar 2020 – Jan 2021",
+      "highlights": [
+        "Built fraud detection models (Random Forest, SMOTE) on 284,807 credit card transactions",
+        "Improved fraud recall while reducing false positives to only 10 flagged legitimate transactions",
+        "Analyzed transaction patterns to identify anomalies and provide early-warning insights to risk monitoring team",
+        "Compiled weekly portfolio data, flagged documentation inconsistencies across Credit, Client, and Audit departments"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "Credit Risk Analysis at Agribank: Classification Techniques for Fraud Detection",
+      "category": "Risk Analysis",
+      "type": "Practical Project",
+      "year": 2025,
+      "context": "Modernizing credit risk early-warning systems at Vietnam's largest agricultural bank using ML classification for credit card fraud detection.",
+      "methodology": ["Analyzed 284,807 real credit card transactions", "Handled class imbalance (fraud = 0.172%) using SMOTE", "Normalized with Robust Scaler + IQR", "Compared Logistic Regression, Decision Tree, Random Forest"],
+      "results": [
+        "Random Forest: 99.95% Accuracy, 84.16% Recall, only 10 false positives",
+        "Identified payment history & collateral assets as top 2 risk factors",
+        "Proposed AI/ML-integrated early warning system — well-received by bank leadership"
+      ],
+      "tools": ["R (ggplot2, randomForest, DMwR, caret)", "Python (SMOTE)", "RStudio"],
+      "tags": ["fraud-detection", "classification", "risk-analysis", "machine-learning", "banking"]
+    },
+    {
+      "id": 2,
+      "title": "Walmart India E-commerce Platform: Data Visualization & Storytelling",
+      "category": "Data Analytics",
+      "type": "Team Project (7 members, UEL)",
+      "year": 2024,
+      "context": "Analyzed customer behavior on Walmart India's platform to extract business insights using data visualization and storytelling techniques.",
+      "methodology": ["Kaggle dataset: 14 variables", "Multi-dimensional analysis: demographic, product, payment, location", "Python visualization (Pandas, Matplotlib, Seaborn, Plotly)", "Data storytelling with buyer personas"],
+      "results": [
+        "Electronics: 45M INR revenue (highest), Clothing 30M INR, Beauty & Health 25M INR",
+        "Age group 25–45 contributed >60M INR — 3x the 45–60 group",
+        "Credit Card: >40% of payments; UPI/digital wallet growing at 14.6%",
+        "Mumbai & Delhi lead revenue; Dehradun & Srinagar identified as untapped growth markets",
+        "December peak: ~18M INR — strong seasonal promotion opportunity"
+      ],
+      "tools": ["Python (Pandas, Matplotlib, Seaborn, Plotly)", "Kaggle dataset"],
+      "tags": ["data-visualization", "business-analytics", "e-commerce", "storytelling"]
+    },
+    {
+      "id": 3,
+      "title": "Internal Banking IT Applications & Credit Risk: Ridge Regression Analysis",
+      "category": "Research",
+      "type": "Published Paper (Co-author)",
+      "year": 2024,
+      "context": "Investigated how Core Banking, basic IT applications, and e-payment systems affect credit risk in Vietnamese commercial banks.",
+      "methodology": ["121 observations from Vietnam ICT Index (2017–2022)", "3 independent variables: Core Banking, Basic IT, E-Payment Index", "Ridge Regression (λ = 0.156)", "Feature Importance via Mean Dropout Loss"],
+      "results": [
+        "Validation MSE = 0.423, Test MSE = 0.363, MAE = 0.457",
+        "Core Banking & IT applications → reduced credit risk (negative coefficients)",
+        "E-payment → increased credit risk (β = +0.206) — critical policy finding",
+        "Basic IT Application had highest feature importance (0.837)"
+      ],
+      "tools": ["R (Ridge Regression)", "Panel data analysis"],
+      "tags": ["research", "machine-learning", "credit-risk", "banking", "published"]
+    },
+    {
+      "id": 4,
+      "title": "AI Impact on the Sharing Economy: GSCA Structural Analysis",
+      "category": "Research",
+      "type": "Published Paper (Co-author with faculty)",
+      "year": 2024,
+      "context": "Investigated how AI transforms sharing economy models (transportation, accommodation, services) and which sectors benefit most.",
+      "methodology": ["12 AI application variables × 3 benefit variables", "300 students surveyed → 250 valid responses", "McDonald's Omega reliability test", "EFA with ULS & Promax rotation + GSCA modeling"],
+      "results": [
+        "Model fit: GFI = 0.973 (>0.93), SRMR = 0.046 (<0.08)",
+        "Shared transportation AI: β = 0.385 (strongest impact)",
+        "All paths statistically significant at 95% confidence",
+        "Schedule optimization (0.727) & device sharing (0.748) showed highest AI value"
+      ],
+      "tools": ["GSCA", "EFA", "McDonald's Omega", "SPSS/R"],
+      "tags": ["research", "structural-analysis", "sem", "ai-impact", "published"]
+    },
+    {
+      "id": 5,
+      "title": "Credit Risk in Vietnam's Commercial Banks: Panel Data Regression",
+      "category": "Risk Analysis",
+      "type": "Course Project (UEL)",
+      "year": 2024,
+      "context": "Analyzed factors influencing credit risk across 27 Vietnamese commercial banks. Credit risk represents ~54% of total banking system risk.",
+      "methodology": ["272 observations from 27 banks (2012–2022)", "11 variables: past credit risk, bank size, capital, GDP, inflation, unemployment", "OLS, FEM, REM comparison + GLS correction", "Hausman Test, VIF checks"],
+      "results": [
+        "Lagged credit risk β = 0.496 (strongest positive predictor)",
+        "Inflation β = 0.0016, Unemployment β = 0.0025 (both positive)",
+        "Bank size β = −0.0014 (larger banks → lower risk)",
+        "Policy solutions proposed based on Basel II & III frameworks"
+      ],
+      "tools": ["STATA 17", "Panel Data Regression (OLS/FEM/REM/GLS)"],
+      "tags": ["panel-data", "econometrics", "risk-analysis", "banking", "stata"]
+    },
+    {
+      "id": 6,
+      "title": "Stock Market Bubble Detection: Multifractal Analysis + Behavioral Signals",
+      "category": "Risk Analysis",
+      "type": "Independent Research (Working Paper)",
+      "year": 2024,
+      "context": "VN-Index crashed 35% in 6 months in 2018 and 2022. Can we detect bubbles earlier by combining market complexity with behavioral signals?",
+      "methodology": ["VN-Index daily data (2015–2024)", "MFDFA → 3 features: Δα, Hurst Exponent (H), Asymmetry (A)", "Google Trends → SVI & Search Momentum (ΔSVI)", "Random Forest + XGBoost, SVM, Neural Networks + SHAP explainability"],
+      "results": [
+        "Integrated model: F1 = 97.5%, AUC = 0.992",
+        "vs. multifractal-only (F1 = 84.7%) or behavioral-only (F1 = 72.3%)",
+        "Trading strategy Sharpe ratio: 1.87 vs. 0.94 (buy-and-hold)",
+        "Maximum drawdown reduced: 47% → 18%",
+        "Proposed 3-tier alert framework for State Securities Commission: Yellow / Orange / Red"
+      ],
+      "tools": ["Python (MF-DFA, Random Forest, XGBoost, SHAP)", "Google Trends API"],
+      "tags": ["bubble-detection", "time-series", "machine-learning", "financial-risk", "python"]
+    }
+  ],
+  "skills": {
+    "technical_tools": {
+      "programming": ["Python", "R", "SQL", "Excel"],
+      "data_visualization": ["Power BI", "Tableau", "Plotly", "Matplotlib", "Seaborn"],
+      "statistical_software": ["STATA 17", "SPSS", "RStudio"],
+      "platforms": ["Git", "Kaggle", "Google Trends API", "GitHub"]
+    },
+    "methodologies": {
+      "machine_learning": ["Classification", "Random Forest", "XGBoost", "Neural Networks", "SMOTE", "SVM", "Ridge Regression"],
+      "econometrics": ["Panel Data Regression", "Time Series Analysis", "MFDFA", "GLS", "Fixed & Random Effects"],
+      "statistical_analysis": ["Hypothesis Testing", "EFA", "Correlation Analysis", "Feature Importance (SHAP)"],
+      "structural_modeling": ["GSCA", "SEM", "PLS-SEM"],
+      "risk_analysis": ["Credit Risk Assessment", "Fraud Detection", "Basel II/III", "Early-Warning Systems", "Portfolio Risk"]
+    },
+    "domain_expertise": [
+      "Banking & Financial Risk",
+      "Credit Risk Modeling",
+      "Fraud Detection",
+      "Market Bubble Detection",
+      "Sharing Economy Analytics",
+      "Portfolio Management",
+      "E-commerce Analytics"
+    ]
+  }
+}
