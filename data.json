@@ -349,23 +349,99 @@
       "id": 3,
       "title": "Internal Banking IT Applications & Credit Risk: Ridge Regression Analysis",
       "category": "Research",
-      "type": "Published Paper (Co-author)",
+      "type": "Published Paper (Co-author) · University of Economics and Law VNU-HCM · 2024",
       "year": 2024,
-      "context": "Investigated how Core Banking, basic IT applications, and e-payment systems affect credit risk in Vietnamese commercial banks.",
+      "context": "While IT adoption in banking is well-studied, no prior research had examined the combined effect of core banking, basic IT, and e-payment systems on credit risk simultaneously. This study fills that gap using regularized regression on Vietnamese commercial bank data.",
+      "researchQuestion": "How do core banking implementation (COB), basic IT applications (BAD), and electronic payment deployment (DAP) individually and jointly affect credit risk (RIST) in Vietnamese commercial banks — and which component carries the greatest influence?",
+      "dataset": {
+        "source": "Vietnam ICT Index Reports (2017-2020, 2022) + Financial statements of listed Vietnamese commercial banks",
+        "observations": 121,
+        "period": "2017-2022 (unbalanced panel — no 2021 report)",
+        "variables": 4,
+        "target": "RIST: Credit Risk Index (% bad debt with capital loss risk / total outstanding debt)",
+        "features": "COB (Core Banking Index), BAD (Basic IT Application Index), DAP (Electronic Payment Index), RIST (Credit Risk)"
+      },
       "methodology": [
-        "121 observations from Vietnam ICT Index (2017–2022)",
-        "3 independent variables: Core Banking, Basic IT, E-Payment Index",
-        "Ridge Regression (lambda = 0.156)",
-        "Feature Importance via Mean Dropout Loss"
+        "Variable Construction: COB = SLMD + SLKN + PTKN + XLGD + XLDC (5 sub-components of core banking deployment)",
+        "Data Collection: Unbalanced panel from ICT Index reports — 121 observations across Vietnamese commercial banks",
+        "Model Selection: Ridge Regression (L2 regularization, lambda = 0.156) chosen to handle multicollinearity among IT indices",
+        "Train/Validation/Test Split: 77/20/24 observations",
+        "Model Validation: MSE, RMSE, MAE/MAD, MAPE across validation and test sets",
+        "Feature Importance: Mean Dropout Loss to rank variable contributions",
+        "Regression equation: RIST = 0.838 - 0.009*COB - 0.02*BAD + 0.206*DAP"
+      ],
+      "models": [
+        {
+          "name": "Ridge Regression (L2)",
+          "lambda": 0.156,
+          "val_mse": 0.423,
+          "test_mse": 0.363,
+          "rmse": 0.602,
+          "mae_mad": 0.457,
+          "mape": "55.55%",
+          "best": true
+        }
+      ],
+      "coefficients": [
+        {
+          "var": "Intercept",
+          "beta": 0.838,
+          "direction": "neutral",
+          "note": "Baseline credit risk level"
+        },
+        {
+          "var": "COB",
+          "beta": -0.009,
+          "direction": "negative",
+          "note": "Core banking reduces credit risk — more modules, better integration, lower RIST"
+        },
+        {
+          "var": "BAD",
+          "beta": -0.02,
+          "direction": "negative",
+          "note": "Basic IT reduces credit risk — strongest negative effect among IT components"
+        },
+        {
+          "var": "DAP",
+          "beta": 0.206,
+          "direction": "positive",
+          "note": "E-payment INCREASES credit risk — largest coefficient, critical policy finding"
+        }
+      ],
+      "featureImportance": [
+        {
+          "var": "BAD",
+          "score": 0.837,
+          "rank": 1
+        },
+        {
+          "var": "DAP",
+          "score": 0.832,
+          "rank": 2
+        },
+        {
+          "var": "COB",
+          "score": 0.816,
+          "rank": 3
+        }
       ],
       "results": [
-        "Validation MSE = 0.423, Test MSE = 0.363, MAE = 0.457",
-        "Core Banking & IT applications reduced credit risk (negative coefficients)",
-        "E-payment increased credit risk (beta = +0.206) — critical policy finding",
-        "Basic IT Application had highest feature importance (0.837)"
+        "Ridge Regression (λ=0.156): Validation MSE=0.423, Test MSE=0.363 — model not overfit",
+        "MAE/MAD=0.457 < 0.5 — model explains most variation in credit risk data",
+        "BAD has highest feature importance (0.837) — basic IT is the primary credit risk driver",
+        "COB (β=-0.009) and BAD (β=-0.020) both reduce credit risk — digitization helps",
+        "DAP (β=+0.206) INCREASES credit risk — e-payment expansion requires strict risk controls",
+        "MAPE=55.55% — acknowledged limitation; model needs improvement for point prediction"
+      ],
+      "keyFindings": [
+        "E-payment (DAP) is a double-edged sword: highest coefficient (+0.206) means rapid e-payment expansion without risk controls amplifies credit risk",
+        "Basic IT applications (BAD) matter more than core banking (COB) for credit risk reduction — infrastructure quality over system complexity",
+        "Ridge regularization was essential — multicollinearity between IT indices would have inflated OLS coefficients",
+        "Vietnamese banking context: ICT Index data reveals large variance in IT adoption across banks, making this a high-signal dataset for policy"
       ],
       "tools": [
-        "R (Ridge Regression)",
+        "R (Ridge Regression, glmnet)",
+        "Vietnam ICT Index 2017-2022",
         "Panel data analysis"
       ],
       "tags": [
@@ -374,7 +450,11 @@
         "credit-risk",
         "banking",
         "published"
-      ]
+      ],
+      "supervisor": "Nguyen Thi Ngoc Diep & Nguyen Ngoc Thach",
+      "institution": "University of Economics and Law VNU-HCM",
+      "period": "2024",
+      "doi": "Published in peer-reviewed journal"
     },
     {
       "id": 4,
