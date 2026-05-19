@@ -38,48 +38,48 @@ function PieChart() {
 
 function SmoteChart() {
   const max = 227454;
-  const H = 160, pad = 40, bW = 36, gap = 14;
+  const H = 120, padL = 44, bW = 28, gap = 10, W = 320;
   const groups = [
     { label: 'Before SMOTE', legit: 227454, fraud: 391 },
     { label: 'After SMOTE',  legit: 227454, fraud: 227454 },
   ];
-  const W = 340;
   const groupW = bW * 2 + gap;
-  const groupGap = (W - pad - groupW * 2) / 3;
+  const groupGap = (W - padL - groupW * 2) / 3;
 
   return (
     <div className={styles.chartWrap}>
       <div className={styles.chartTitle}>Class Distribution Before vs After SMOTE</div>
-      <svg width="100%" viewBox={`0 0 ${W} ${H + 60}`} style={{maxWidth: 400, fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif"}}>
-        {[0, 25, 50, 75, 100].map(v => {
+      <svg width="100%" viewBox={`0 0 ${W} ${H + 72}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", display:'block'}}>
+        {[0, 50, 100].map(v => {
           const y = H - (v / 100) * H + 10;
           return (
             <g key={v}>
-              <line x1={pad} y1={y} x2={W - 10} y2={y} stroke="#f0f0f0" strokeWidth="1"/>
-              <text x={pad - 6} y={y + 4} textAnchor="end" fontSize="9" fill="#bbb">{v}%</text>
+              <line x1={padL} y1={y} x2={W - 8} y2={y} stroke="#f0f0f0" strokeWidth="1"/>
+              <text x={padL - 5} y={y + 4} textAnchor="end" fontSize="9" fill="#bbb">{v}%</text>
             </g>
           );
         })}
         {groups.map((g, gi) => {
-          const gX = pad + groupGap * (gi + 1) + groupW * gi;
+          const gX = padL + groupGap * (gi + 1) + groupW * gi;
           const lH = (g.legit / max) * H;
           const fH = Math.max((g.fraud / max) * H, 3);
           return (
             <g key={gi}>
-              <rect x={gX} y={H - lH + 10} width={bW} height={lH} fill="#5b8db8" rx="3"/>
-              <rect x={gX + bW + gap} y={H - fH + 10} width={bW} height={fH} fill="#e8729a" rx="3"/>
-              <text x={gX + bW} y={H + 28} textAnchor="middle" fontSize="10" fontWeight="600" fill="#555">{g.label}</text>
-              <text x={gX + bW / 2} y={H - lH + 5} textAnchor="middle" fontSize="8" fill="#5b8db8">100%</text>
-              {gi === 0 && <text x={gX + bW + gap + bW / 2} y={H - fH + 5} textAnchor="middle" fontSize="8" fill="#e8729a">0.17%</text>}
-              {gi === 1 && <text x={gX + bW + gap + bW / 2} y={H - fH + 5} textAnchor="middle" fontSize="8" fontWeight="700" fill="#e8729a">100%</text>}
+              <rect x={gX} y={H - lH + 10} width={bW} height={lH} fill="#5b8db8" rx="2"/>
+              <text x={gX + bW / 2} y={H - lH + 6} textAnchor="middle" fontSize="8" fill="#5b8db8" fontWeight="600">100%</text>
+              <rect x={gX + bW + gap} y={H - fH + 10} width={bW} height={fH} fill="#e8729a" rx="2"/>
+              <text x={gX + bW + gap + bW / 2} y={H - fH + 6} textAnchor="middle" fontSize="8" fill="#e8729a" fontWeight="600">
+                {gi === 0 ? '0.17%' : '100%'}
+              </text>
+              <text x={gX + groupW / 2} y={H + 24} textAnchor="middle" fontSize="9" fontWeight="600" fill="#555">{g.label}</text>
             </g>
           );
         })}
-        <g transform={`translate(${pad}, ${H + 44})`}>
-          <rect width="10" height="10" fill="#5b8db8" rx="2"/>
-          <text x="14" y="9" fontSize="10" fill="#555">Legitimate (227,454)</text>
-          <rect x="130" width="10" height="10" fill="#e8729a" rx="2"/>
-          <text x="144" y="9" fontSize="10" fill="#555">Fraud (391 → 227,454)</text>
+        <g transform={`translate(${padL}, ${H + 38})`}>
+          <rect width="9" height="9" fill="#5b8db8" rx="1"/>
+          <text x="13" y="8" fontSize="9" fill="#666">Legitimate (227,454)</text>
+          <rect x="120" width="9" height="9" fill="#e8729a" rx="1"/>
+          <text x="133" y="8" fontSize="9" fill="#666">Fraud (391 to 227,454)</text>
         </g>
       </svg>
       <div className={styles.legendNote}>SMOTE generates synthetic minority samples — training set balanced without losing data</div>
@@ -99,8 +99,8 @@ function ModelCompareChart() {
     { key: 'recall', label: 'Recall — Fraud (%)',   color: '#e8729a' },
     { key: 'prec',   label: 'Precision — Fraud (%)', color: '#5a9e82' },
   ];
-  const W = 500, H = 180, padL = 36, padB = 80;
-  const bW = 18, bGap = 4;
+  const W = 420, H = 140, padL = 36, padB = 60;
+  const bW = 14, bGap = 3;
   const groupW = models.length * (bW + bGap) - bGap;
   const totalW = W - padL;
   const mGap = (totalW - groupW * metrics.length) / (metrics.length + 1);
@@ -108,18 +108,17 @@ function ModelCompareChart() {
   return (
     <div className={styles.chartWrap}>
       <div className={styles.chartTitle}>Model Performance Comparison</div>
-      <svg width="100%" viewBox={`0 0 ${W} ${H + padB + 20}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif"}}>
+      <svg width="100%" viewBox={`0 0 ${W} ${H + padB + 10}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", display:'block'}}>
         {/* Y gridlines */}
         {[0, 25, 50, 75, 100].map(v => {
           const y = H - (v / 100) * H + 10;
           return (
             <g key={v}>
               <line x1={padL} y1={y} x2={W} y2={y} stroke="#f0f0f0" strokeWidth="1"/>
-              <text x={padL - 5} y={y + 4} textAnchor="end" fontSize="9" fill="#bbb">{v}</text>
+              <text x={padL - 5} y={y + 4} textAnchor="end" fontSize="8" fill="#bbb">{v}</text>
             </g>
           );
         })}
-
         {/* Bars */}
         {metrics.map((m, mi) => {
           const gX = padL + mGap * (mi + 1) + groupW * mi;
@@ -133,29 +132,27 @@ function ModelCompareChart() {
                 const fill = mod.best ? m.color : m.color + '55';
                 return (
                   <g key={bi}>
-                    <rect x={x} y={y} width={bW} height={bH} fill={fill} rx="3"/>
+                    <rect x={x} y={y} width={bW} height={bH} fill={fill} rx="2"/>
                     {mod.best && (
-                      <text x={x + bW / 2} y={y - 5} textAnchor="middle" fontSize="9" fontWeight="700" fill={m.color}>{val}%</text>
+                      <text x={x + bW / 2} y={y - 4} textAnchor="middle" fontSize="8" fontWeight="700" fill={m.color}>{val}%</text>
                     )}
                   </g>
                 );
               })}
-              {/* Metric label */}
-              <text x={gX + groupW / 2} y={H + 24} textAnchor="middle" fontSize="10" fontWeight="600" fill="#444">{m.label}</text>
+              <text x={gX + groupW / 2} y={H + 22} textAnchor="middle" fontSize="9" fontWeight="600" fill="#444">{m.label}</text>
             </g>
           );
         })}
-
-        {/* Model legend — bottom, 2 rows */}
+        {/* Model legend — 2 rows */}
         {models.map((m, i) => {
           const col = i % 2;
           const row = Math.floor(i / 2);
-          const lx = padL + col * 200;
-          const ly = H + 44 + row * 18;
+          const lx = padL + col * 180;
+          const ly = H + 36 + row * 16;
           return (
             <g key={i} transform={`translate(${lx}, ${ly})`}>
-              <rect width="12" height="12" fill={m.best ? '#1a1a1a' : '#cccccc'} rx="2"/>
-              <text x="17" y="10" fontSize="10" fontWeight={m.best ? '700' : '400'} fill={m.best ? '#1a1a1a' : '#888'}>{m.name}{m.best ? ' ✦ Best' : ''}</text>
+              <rect width="10" height="10" fill={m.best ? '#1a1a1a' : '#cccccc'} rx="1"/>
+              <text x="14" y="9" fontSize="9" fontWeight={m.best ? '700' : '400'} fill={m.best ? '#1a1a1a' : '#888'}>{m.name}{m.best ? ' — Best' : ''}</text>
             </g>
           );
         })}
