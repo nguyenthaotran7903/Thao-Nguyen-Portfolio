@@ -253,10 +253,14 @@ function EdaCards() {
                 const cellSize=16, cellGap=2;
                 const v = Math.abs(Math.cos((i+1)*(j+1)*0.5));
                 const highlight = (i===0&&j===6)||(i===6&&j===0)||(i===1&&j===6)||(i===6&&j===1);
-                return <rect key={`${i}-${j}`} x={j*(cellSize+cellGap)+12} y={i*(cellSize+cellGap)+12} width={cellSize} height={cellSize} fill={highlight?'#e8729a':i===j?'#1a1a1a':'#5b8db8'} opacity={highlight?0.95:i===j?1:v*0.65+0.1} rx="2"/>;
+                return <rect key={`${i}-${j}`} x={j*(cellSize+cellGap)+12} y={i*(cellSize+cellGap)+8} width={cellSize} height={cellSize} fill={highlight?'#e8729a':i===j?'#1a1a1a':'#5b8db8'} opacity={highlight?0.95:i===j?1:v*0.65+0.1} rx="2"/>;
               })
             )}
-            <text x="12" y="162" fontSize="9" fill="#888">Features: V1–V28, Amount, Time, Class · Pink = high fraud correlation</text>
+            <text x="12" y="156" fontSize="8" fill="#888">8 key features shown</text>
+            <text x="100" y="156" fontSize="8" fill="#e8729a">■</text>
+            <text x="112" y="156" fontSize="8" fill="#e8729a">High fraud correlation</text>
+            <text x="252" y="156" fontSize="8" fill="#1a1a1a">■</text>
+            <text x="264" y="156" fontSize="8" fill="#888">Self correlation</text>
           </svg>
         );
       }
@@ -275,18 +279,20 @@ function EdaCards() {
         return (
           <svg width="100%" viewBox="0 0 380 172" style={{display:'block'}}>
             {(()=>{
-              const W2=380,H2=130,n2=pts.length;
-              const path2=pts.map((v,i)=>`${i===0?'M':'L'}${(i/(n2-1))*(W2-32)+16},${H2-(v/Math.max(...pts))*(H2-24)+10}`).join(' ');
+              const W2=380,H2=118,n2=pts.length;
+              const maxV=Math.max(...pts);
+              const path2=pts.map((v,i)=>`${i===0?'M':'L'}${(i/(n2-1))*(W2-32)+16},${H2-(v/maxV)*(H2-30)+16}`).join(' ');
+              const baseY=H2+16;
               return(<>
-                <path d={path2} fill="none" stroke="#9060c0" strokeWidth="2.5"/>
-                <path d={`${path2} L${W2-16},${H2+10} L16,${H2+10} Z`} fill="#9060c0" opacity="0.1"/>
-                <line x1="16" y1={H2+10} x2={W2-16} y2={H2+10} stroke="#eee" strokeWidth="1"/>
-                <text x="16" y={H2+24} fontSize="9" fill="#bbb">0h</text>
-                <text x={W2/2-8} y={H2+24} fontSize="9" fill="#bbb">12h</text>
-                <text x={W2-28} y={H2+24} fontSize="9" fill="#bbb">24h</text>
-                <text x="90" y="28" fontSize="9" fill="#9060c0" fontWeight="700">Morning peak</text>
-                <text x="230" y="28" fontSize="9" fill="#9060c0" fontWeight="700">Afternoon peak</text>
-                <text x="16" y={H2+38} fontSize="8" fill="#888">Bimodal distribution — most activity at business hours</text>
+                <line x1="16" y1={baseY} x2={W2-16} y2={baseY} stroke="#ebebeb" strokeWidth="1"/>
+                <path d={path2} fill="none" stroke="#9060c0" strokeWidth="2"/>
+                <path d={`${path2} L${W2-16},${baseY} L16,${baseY} Z`} fill="#9060c0" opacity="0.08"/>
+                <text x="16" y={baseY+14} fontSize="8" fill="#bbb">0h</text>
+                <text x={W2/2-8} y={baseY+14} fontSize="8" fill="#bbb">12h</text>
+                <text x={W2-26} y={baseY+14} fontSize="8" fill="#bbb">24h</text>
+                <text x="72" y="36" fontSize="8" fill="#9060c0" fontWeight="700">↑ Morning</text>
+                <text x="218" y="36" fontSize="8" fill="#9060c0" fontWeight="700">↑ Afternoon</text>
+                <text x="16" y="162" fontSize="8" fill="#888">Bimodal pattern — peaks at business hours, sparse overnight</text>
               </>);
             })()}
           </svg>
