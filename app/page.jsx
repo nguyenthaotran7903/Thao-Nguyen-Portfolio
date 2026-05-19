@@ -209,7 +209,7 @@ function ConfusionMatrix() {
 
 /* ── Interactive EDA Cards ── */
 function EdaCards() {
-  const [active, setActive] = useState(null);
+  const [active, setActive] = useState('outlier');
   const cards = [
     {
       key:'outlier', title:'Outliers', icon:'◈',
@@ -321,12 +321,10 @@ function EdaCards() {
       </div>
       {activeCard&&(
         <div className={styles.edaDetail} style={{borderLeftColor:activeCard.color}}>
-          <div className={styles.edaDetailRow}>
-            <div className={styles.edaDetailViz}>{activeCard.viz()}</div>
-            <div className={styles.edaDetailText}>
-              <div className={styles.edaDetailTitle} style={{color:activeCard.color}}>{activeCard.title}</div>
-              <div className={styles.edaDetailBody}>{activeCard.detail}</div>
-            </div>
+          <div className={styles.edaDetailViz}>{activeCard.viz()}</div>
+          <div className={styles.edaDetailText}>
+            <div className={styles.edaDetailTitle} style={{color:activeCard.color}}>{activeCard.title}</div>
+            <div className={styles.edaDetailBody}>{activeCard.detail}</div>
           </div>
         </div>
       )}
