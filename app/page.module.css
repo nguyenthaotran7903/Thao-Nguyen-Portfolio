@@ -148,10 +148,11 @@
   font-weight: 700;
 }
 .problemText {
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 15px;
+  line-height: 1.8;
   color: #f0f0f0;
-  font-style: italic;
+  font-style: normal;
+  font-weight: 400;
 }
 .statRow {
   display: grid;
@@ -488,3 +489,61 @@
   .edaDetailRow { flex-direction: column; }
   .edaDetailViz { width: 100%; }
 }
+
+/* ===== KEY FINDINGS HIGHLIGHT ===== */
+.findingPill {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #3a3a3a;
+  line-height: 1.55;
+}
+.findingHighlight {
+  background: #fdf5f8;
+  border-color: #e8729a;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+.findingHighlight .findingIcon {
+  color: #e8729a;
+}
+
+/* ===== CONTEXT TAB HIGHLIGHT ON OPEN ===== */
+@keyframes contextPulse {
+  0% { background: #fdf5f8; }
+  50% { background: #fce8f0; }
+  100% { background: #fafafa; }
+}
+.panelContentHighlight {
+  animation: contextPulse 1.2s ease;
+}
+
+/* ===== COLLAPSED PROJECTS ===== */
+.projectsCollapsed .projectCard:not(.projectExpanded) {
+  display: none;
+}
+
+/* ===== SHOW ALL BUTTON ===== */
+.showAllBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  margin-bottom: 16px;
+  border: 1px solid #ebebeb;
+  background: #fff;
+  color: #555;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+.showAllBtn:hover { border-color: #1a1a1a; color: #1a1a1a; }
