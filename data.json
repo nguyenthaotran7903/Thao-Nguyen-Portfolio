@@ -6,12 +6,12 @@
     "email": "nguyentrnthao@gmail.com",
     "linkedin": "https://www.linkedin.com/in/thao-nguyen-tran-309351300/",
     "github": "https://github.com/",
-    "bio": "Trained in Mathematical Economics with hands-on research across <strong>credit risk</strong>, <strong>banking performance</strong>, and <strong>market risk modeling</strong>. I use statistical and machine learning methods including <strong>panel data regression</strong>, <strong>Bayesian inference</strong>, and <strong>classification models</strong> to quantify uncertainty and support <strong>high-stakes decisions</strong> in finance, risk management, and economic policy. My work spans <strong>published research</strong>, regulatory-aligned frameworks (Basel II/III, ISO 31000), and production-ready risk pipelines.",
-    "location": "Ho Chi Minh City, Vietnam",
+    "bio": "Trained in Mathematical Economics with hands-on research across credit risk, banking performance, and market risk modeling. I use statistical and machine learning methods including panel data regression, Bayesian inference, and classification models to quantify uncertainty and support high-stakes decisions in finance, risk management, and economic policy. My work spans published research, regulatory-aligned frameworks (Basel II/III, ISO 31000), and production-ready risk pipelines.",
+    "location": "Ho Chi Minh City, Vietnam"
   },
   "about": {
-  "background": "Bachelor of Mathematical Economics — University of Economics and Law, VNU-HCM (Nov 2021 – July 2025) · Exchange Student - HSB Hochschule Bremen, Germany (Oct 2023 - Feb 2024)",
-    "professional_focus": "Risk Analysis, Data Analytics, and Business Intelligence - with emphasis on statistical modeling, machine learning, and quantitative research.",
+    "background": "Bachelor of Mathematical Economics — University of Economics and Law, VNU-HCM (Nov 2021 – July 2025) · Exchange Student — HSB Hochschule Bremen, Germany (Oct 2023 – Feb 2024)",
+    "professional_focus": "Risk Analysis, Data Analytics, and Business Intelligence — with emphasis on statistical modeling, machine learning, and quantitative research.",
     "strengths": [
       "Strong analytical thinking and problem-solving",
       "Independent research capability",
@@ -37,7 +37,7 @@
   ],
   "scholarships": [
     {
-      "title": "\"Young Scientific Researcher\" Award",
+      "title": "Young Scientific Researcher Award",
       "org": "University of Economics and Law, Vietnam National University (VNU-HCM)",
       "year": "2024"
     },
@@ -56,12 +56,22 @@
     {
       "title": "Advanced Specialized Course in Data Science",
       "org": "University of Science (HCMUS) – Vietnam National University (VNU-HCM)",
-      "topics": ["Mathematical Foundation for Data Science: Linear Algebra, Calculus, Probability & Statistics, Regression", "Machine Learning for Data Science: Linear Regression, Logistic Regression, Naive Bayes, Clustering, Decision Trees, Random Forest, SVM, Churn Prediction, Customer Segmentation"]
+      "topics": [
+        "Mathematical Foundation for Data Science: Linear Algebra, Calculus, Probability & Statistics, Regression",
+        "Machine Learning for Data Science: Linear Regression, Logistic Regression, Naive Bayes, Clustering, Decision Trees, Random Forest, SVM, Churn Prediction, Customer Segmentation"
+      ]
     },
     {
       "title": "2025 Spring School on Statistics and Machine Learning",
       "org": "Institute of Mathematics of Toulouse, ENS Paris-Saclay & Toulouse Graduate School | Organized by VIASM",
-      "topics": ["Bayesian Inference", "Stochastic Processes", "Random Matrix Theory", "Gaussian Processes", "High-Dimensional Statistical Modeling", "Scientific Machine Learning"]
+      "topics": [
+        "Bayesian Inference",
+        "Stochastic Processes",
+        "Random Matrix Theory",
+        "Gaussian Processes",
+        "High-Dimensional Statistical Modeling",
+        "Scientific Machine Learning"
+      ]
     }
   ],
   "coursework": [
@@ -71,128 +81,28 @@
   ],
   "experience": [
     {
-  "id": 1,
-  "title": "Credit Risk Analysis at Agribank: Classification Techniques for Fraud Detection",
-  "category": "Risk Analysis",
-  "type": "Graduation Internship Report · Agribank Saigon Branch · 2025",
-  "year": 2025,
-  "context": "Vietnam's rapid credit expansion has intensified fraud risk in personal credit portfolios. This study addresses a critical gap: Agribank Saigon Branch lacked an automated, data-driven early-warning system for credit card fraud detection, relying instead on manual review processes vulnerable to human error.",
-  "researchQuestion": "Which classification technique — Logistic Regression, Decision Tree, or Random Forest — best detects credit card fraud in a highly imbalanced banking dataset, and how can class imbalance be mitigated without sacrificing recall on the minority (fraud) class?",
-  "dataset": {
-    "source": "Agribank Saigon Branch internal transaction system",
-    "observations": 284807,
-    "period": "September 2023 (2-day window)",
-    "variables": 31,
-    "target": "Class (1 = fraud, 0 = legitimate)",
-    "imbalance": "Fraud = 0.172% (492 cases) vs Legitimate = 99.83% (284,315 cases)",
-    "features": "Time, V1–V28 (PCA-anonymized), Amount, Class"
-  },
-  "methodology": [
-    "Exploratory Data Analysis: outlier detection via scatter plots, transaction time distribution, class imbalance visualization",
-    "Data Preprocessing: IQR-based outlier handling, Robust Scaler normalization (median-centered, IQR-scaled) to resist outlier influence",
-    "Correlation analysis: heatmap of 30 features to identify multicollinearity and key fraud predictors",
-    "Train/Test Split: 80/20 stratified split → 227,845 training / 56,962 testing transactions",
-    "Class Imbalance Handling: SMOTE (Synthetic Minority Over-sampling Technique) applied to training set only → balanced to 227,454 samples per class",
-    "Models trained: Logistic Regression (baseline), Decision Tree (max depth = 16), Random Forest (100 trees, majority voting)",
-    "Evaluation metrics: Accuracy, Precision, Recall (primary), F1-Score, Confusion Matrix"
-  ],
-  "models": [
-    {
-      "name": "Logistic Regression (baseline, no SMOTE)",
-      "accuracy": "99.92%",
-      "recall_fraud": "63.37%",
-      "precision_fraud": "87.67%",
-      "f1_fraud": "73.56%",
-      "fp": 9,
-      "fn": 37,
-      "note": "High accuracy but 37% of fraudulent transactions missed — unacceptable for fraud detection"
+      "id": 1,
+      "title": "Quantitative Research Specialist",
+      "company": "Hung Vuong University, Ho Chi Minh City",
+      "period": "July 2025 – Jan 2026",
+      "highlights": [
+        "Collected, stored, and queried market data using SQL for internal analytics platform with 100% data integrity",
+        "Built early-warning system for VN-Index and sectoral indices — generated sell signals 2–4 weeks before major corrections",
+        "Reduced maximum drawdown from 47% to 18% in backtests through improved portfolio risk management",
+        "Standardized financial and regulatory data into auditable, reproducible formats for AI research project"
+      ]
     },
-    {
-      "name": "Logistic Regression (with SMOTE)",
-      "accuracy": "97.54%",
-      "recall_fraud": "94.06%",
-      "precision_fraud": "6.38%",
-      "f1_fraud": "11.96%",
-      "fp": 1393,
-      "fn": 6,
-      "note": "High recall but 1,393 false positives — operationally costly"
-    },
-    {
-      "name": "Decision Tree (with SMOTE)",
-      "accuracy": "99.36%",
-      "recall_fraud": "83.17%",
-      "precision_fraud": "19.49%",
-      "f1_fraud": "31.58%",
-      "fp": 347,
-      "fn": 17,
-      "note": "Improved balance — fewer false positives than LR with SMOTE"
-    },
-    {
-      "name": "Random Forest (with SMOTE) ✦ Best Model",
-      "accuracy": "99.95%",
-      "recall_fraud": "84.16%",
-      "precision_fraud": "89.47%",
-      "f1_fraud": "86.73%",
-      "fp": 10,
-      "fn": 16,
-      "note": "Best overall — only 10 false positives, highest precision-recall balance"
-    }
-  ],
-  "results": [
-    "Random Forest achieved 99.95% accuracy with 84.16% recall and 89.47% precision on fraud class — best balance across all models",
-    "SMOTE oversampling raised fraud recall from 63% (baseline) to 94% in Logistic Regression, but at the cost of 1,393 false positives",
-    "Random Forest produced only 10 false positives vs 1,393 for Logistic Regression — critical for operational efficiency",
-    "Payment history and collateral assets identified as the top 2 predictors of credit risk via feature correlation analysis",
-    "PCA dimension reduction (15 → 8 features) retained 95% of original information while improving model efficiency"
-  ],
-  "keyFindings": [
-    "Class imbalance (fraud = 0.172%) is the central challenge — accuracy alone is a misleading metric in fraud detection",
-    "SMOTE effectively addresses recall at the cost of precision; Random Forest naturally handles imbalance better than linear models",
-    "Robust Scaler outperforms Standard Scaler for financial transaction data due to outlier resistance",
-    "Random Forest's ensemble structure (100 trees, bootstrap sampling, Gini impurity splitting) provides superior generalization",
-    "Proposed 3-tier alert system for Agribank: auto-approve (high confidence legitimate), flag for review (borderline), auto-block (high confidence fraud)"
-  ],
-  "tools": [
-    "R (ggplot2, randomForest, DMwR, caret, rpart)",
-    "Python (SMOTE)",
-    "RStudio"
-  ],
-  "tags": [
-    "fraud-detection",
-    "classification",
-    "risk-analysis",
-    "machine-learning",
-    "banking",
-    "published"
-  ],
-  "figures": [
-    "Fig 4.1: Scatter plot — Amount vs Time showing outlier transactions above $10,000",
-    "Fig 4.2: Pie chart — 99.83% legitimate vs 0.17% fraudulent transactions",
-    "Fig 4.3: Heatmap — full 31×31 feature correlation matrix",
-    "Fig 4.4: Density plot — transaction time distribution showing daytime peak activity",
-    "Fig 4.5: Heatmap — post-scaling correlation matrix with scaled_amount and scaled_time",
-    "Fig 4.6: Confusion matrix — baseline Logistic Regression (no SMOTE)",
-    "Fig 4.7: Diagram — undersampling vs oversampling illustration",
-    "Fig 4.8/4.9: Bar charts — class distribution before and after SMOTE",
-    "Fig 4.10: Confusion matrix structure (TP/FP/FN/TN)",
-    "Fig 4.11: Confusion matrix — Logistic Regression with SMOTE",
-    "Fig 4.12: Confusion matrix — Decision Tree with SMOTE",
-    "Fig 4.13: Confusion matrix — Random Forest with SMOTE (best result)"
-  ],
-  "supervisor": "Assoc. Prof. Pham Hoang Uyen, University of Economics and Law VNU-HCM",
-  "institution": "Agribank – Saigon Branch (Tier 1, Rank 1)",
-  "period": "Dec 2024 – Mar 2025"
-},
     {
       "id": 2,
       "title": "Risk Management & Planning Intern",
-      "company": "Vietnam Bank for Agriculture and Rural Development (Agribank)",
-      "period": "Mar 2020 – Jan 2021",
+      "company": "Vietnam Bank for Agriculture and Rural Development (Agribank) – Saigon Branch",
+      "period": "Dec 2024 – Mar 2025",
+      "projectId": 1,
       "highlights": [
-        "Built fraud detection models (Random Forest, SMOTE) on 284,807 credit card transactions",
-        "Improved fraud recall while reducing false positives to only 10 flagged legitimate transactions",
-        "Analyzed transaction patterns to identify anomalies and provide early-warning insights to risk monitoring team",
-        "Compiled weekly portfolio data, flagged documentation inconsistencies across Credit, Client, and Audit departments"
+        "Built fraud detection models (Random Forest, SMOTE) on 284,807 real credit card transactions from Agribank's internal system",
+        "Achieved 99.95% accuracy and 84.16% recall with only 10 false positives using Random Forest — best model across 3 classifiers",
+        "Applied SMOTE to handle severe class imbalance (fraud = 0.172%) and Robust Scaler for outlier-resistant normalization",
+        "Proposed AI/ML-integrated 3-tier early warning system — well-received by Planning & Risk Management Department leadership"
       ]
     }
   ],
@@ -201,17 +111,103 @@
       "id": 1,
       "title": "Credit Risk Analysis at Agribank: Classification Techniques for Fraud Detection",
       "category": "Risk Analysis",
-      "type": "Practical Project",
+      "type": "Graduation Internship Report · Agribank Saigon Branch · 2025",
       "year": 2025,
-      "context": "Modernizing credit risk early-warning systems at Vietnam's largest agricultural bank using ML classification for credit card fraud detection.",
-      "methodology": ["Analyzed 284,807 real credit card transactions", "Handled class imbalance (fraud = 0.172%) using SMOTE", "Normalized with Robust Scaler + IQR", "Compared Logistic Regression, Decision Tree, Random Forest"],
-      "results": [
-        "Random Forest: 99.95% Accuracy, 84.16% Recall, only 10 false positives",
-        "Identified payment history & collateral assets as top 2 risk factors",
-        "Proposed AI/ML-integrated early warning system — well-received by bank leadership"
+      "context": "Vietnam's rapid credit expansion has intensified fraud risk in personal credit portfolios. This study addresses a critical gap: Agribank Saigon Branch lacked an automated, data-driven early-warning system for credit card fraud detection, relying instead on manual review processes vulnerable to human error.",
+      "researchQuestion": "Which classification technique — Logistic Regression, Decision Tree, or Random Forest — best detects credit card fraud in a highly imbalanced banking dataset, and how can class imbalance be mitigated without sacrificing recall on the minority (fraud) class?",
+      "dataset": {
+        "source": "Agribank Saigon Branch internal transaction system",
+        "observations": 284807,
+        "period": "September 2023 (2-day window)",
+        "variables": 31,
+        "target": "Class (1 = fraud, 0 = legitimate)",
+        "imbalance": "Fraud = 0.172% (492 cases) vs Legitimate = 99.83% (284,315 cases)",
+        "features": "Time, V1–V28 (PCA-anonymized), Amount, Class"
+      },
+      "methodology": [
+        "Exploratory Data Analysis: outlier detection via scatter plots, transaction time distribution, class imbalance visualization",
+        "Data Preprocessing: IQR-based outlier handling, Robust Scaler normalization (median-centered, IQR-scaled) to resist outlier influence",
+        "Correlation analysis: heatmap of 30 features to identify multicollinearity and key fraud predictors",
+        "Train/Test Split: 80/20 stratified split — 227,845 training / 56,962 testing transactions",
+        "Class Imbalance Handling: SMOTE applied to training set only — balanced to 227,454 samples per class",
+        "Models trained: Logistic Regression (baseline), Decision Tree (max depth = 16), Random Forest (100 trees, majority voting)",
+        "Evaluation metrics: Accuracy, Precision, Recall (primary), F1-Score, Confusion Matrix"
       ],
-      "tools": ["R (ggplot2, randomForest, DMwR, caret)", "Python (SMOTE)", "RStudio"],
-      "tags": ["fraud-detection", "classification", "risk-analysis", "machine-learning", "banking"]
+      "models": [
+        {
+          "name": "Logistic Regression (baseline, no SMOTE)",
+          "accuracy": "99.92%",
+          "recall_fraud": "63.37%",
+          "precision_fraud": "87.67%",
+          "f1_fraud": "73.56%",
+          "fp": 9,
+          "fn": 37,
+          "note": "High accuracy but 37% of fraudulent transactions missed — unacceptable for fraud detection"
+        },
+        {
+          "name": "Logistic Regression (with SMOTE)",
+          "accuracy": "97.54%",
+          "recall_fraud": "94.06%",
+          "precision_fraud": "6.38%",
+          "f1_fraud": "11.96%",
+          "fp": 1393,
+          "fn": 6,
+          "note": "High recall but 1,393 false positives — operationally costly"
+        },
+        {
+          "name": "Decision Tree (with SMOTE)",
+          "accuracy": "99.36%",
+          "recall_fraud": "83.17%",
+          "precision_fraud": "19.49%",
+          "f1_fraud": "31.58%",
+          "fp": 347,
+          "fn": 17,
+          "note": "Improved balance — fewer false positives than LR with SMOTE"
+        },
+        {
+          "name": "Random Forest (with SMOTE) — Best Model",
+          "accuracy": "99.95%",
+          "recall_fraud": "84.16%",
+          "precision_fraud": "89.47%",
+          "f1_fraud": "86.73%",
+          "fp": 10,
+          "fn": 16,
+          "note": "Best overall — only 10 false positives, highest precision-recall balance"
+        }
+      ],
+      "results": [
+        "Random Forest achieved 99.95% accuracy with 84.16% recall and 89.47% precision on fraud class — best balance across all models",
+        "SMOTE oversampling raised fraud recall from 63% (baseline) to 94% in Logistic Regression, but at the cost of 1,393 false positives",
+        "Random Forest produced only 10 false positives vs 1,393 for Logistic Regression — critical for operational efficiency",
+        "Payment history and collateral assets identified as the top 2 predictors of credit risk via feature correlation analysis",
+        "PCA dimension reduction (15 to 8 features) retained 95% of original information while improving model efficiency"
+      ],
+      "keyFindings": [
+        "Class imbalance (fraud = 0.172%) is the central challenge — accuracy alone is a misleading metric in fraud detection",
+        "SMOTE effectively addresses recall at the cost of precision; Random Forest naturally handles imbalance better than linear models",
+        "Robust Scaler outperforms Standard Scaler for financial transaction data due to outlier resistance",
+        "Random Forest ensemble structure (100 trees, bootstrap sampling, Gini impurity splitting) provides superior generalization",
+        "Proposed 3-tier alert system for Agribank: auto-approve (high confidence legitimate), flag for review (borderline), auto-block (high confidence fraud)"
+      ],
+      "tools": ["R (ggplot2, randomForest, DMwR, caret, rpart)", "Python (SMOTE)", "RStudio"],
+      "tags": ["fraud-detection", "classification", "risk-analysis", "machine-learning", "banking"],
+      "figures": [
+        "Fig 4.1: Scatter plot — Amount vs Time showing outlier transactions above $10,000",
+        "Fig 4.2: Pie chart — 99.83% legitimate vs 0.17% fraudulent transactions",
+        "Fig 4.3: Heatmap — full 31x31 feature correlation matrix",
+        "Fig 4.4: Density plot — transaction time distribution showing daytime peak activity",
+        "Fig 4.5: Heatmap — post-scaling correlation matrix with scaled_amount and scaled_time",
+        "Fig 4.6: Confusion matrix — baseline Logistic Regression (no SMOTE)",
+        "Fig 4.7: Diagram — undersampling vs oversampling illustration",
+        "Fig 4.8/4.9: Bar charts — class distribution before and after SMOTE",
+        "Fig 4.10: Confusion matrix structure (TP/FP/FN/TN)",
+        "Fig 4.11: Confusion matrix — Logistic Regression with SMOTE",
+        "Fig 4.12: Confusion matrix — Decision Tree with SMOTE",
+        "Fig 4.13: Confusion matrix — Random Forest with SMOTE (best result)"
+      ],
+      "supervisor": "Assoc. Prof. Pham Hoang Uyen, University of Economics and Law VNU-HCM",
+      "institution": "Agribank – Saigon Branch (Tier 1, Rank 1)",
+      "period": "Dec 2024 – Mar 2025"
     },
     {
       "id": 2,
@@ -220,11 +216,16 @@
       "type": "Team Project (7 members, UEL)",
       "year": 2024,
       "context": "Analyzed customer behavior on Walmart India's platform to extract business insights using data visualization and storytelling techniques.",
-      "methodology": ["Kaggle dataset: 14 variables", "Multi-dimensional analysis: demographic, product, payment, location", "Python visualization (Pandas, Matplotlib, Seaborn, Plotly)", "Data storytelling with buyer personas"],
+      "methodology": [
+        "Kaggle dataset: 14 variables",
+        "Multi-dimensional analysis: demographic, product, payment, location",
+        "Python visualization (Pandas, Matplotlib, Seaborn, Plotly)",
+        "Data storytelling with buyer personas"
+      ],
       "results": [
         "Electronics: 45M INR revenue (highest), Clothing 30M INR, Beauty & Health 25M INR",
-        "Age group 25–45 contributed >60M INR — 3x the 45–60 group",
-        "Credit Card: >40% of payments; UPI/digital wallet growing at 14.6%",
+        "Age group 25–45 contributed over 60M INR — 3x the 45–60 group",
+        "Credit Card: over 40% of payments; UPI/digital wallet growing at 14.6%",
         "Mumbai & Delhi lead revenue; Dehradun & Srinagar identified as untapped growth markets",
         "December peak: ~18M INR — strong seasonal promotion opportunity"
       ],
@@ -238,11 +239,16 @@
       "type": "Published Paper (Co-author)",
       "year": 2024,
       "context": "Investigated how Core Banking, basic IT applications, and e-payment systems affect credit risk in Vietnamese commercial banks.",
-      "methodology": ["121 observations from Vietnam ICT Index (2017–2022)", "3 independent variables: Core Banking, Basic IT, E-Payment Index", "Ridge Regression (λ = 0.156)", "Feature Importance via Mean Dropout Loss"],
+      "methodology": [
+        "121 observations from Vietnam ICT Index (2017–2022)",
+        "3 independent variables: Core Banking, Basic IT, E-Payment Index",
+        "Ridge Regression (lambda = 0.156)",
+        "Feature Importance via Mean Dropout Loss"
+      ],
       "results": [
         "Validation MSE = 0.423, Test MSE = 0.363, MAE = 0.457",
-        "Core Banking & IT applications → reduced credit risk (negative coefficients)",
-        "E-payment → increased credit risk (β = +0.206) — critical policy finding",
+        "Core Banking & IT applications reduced credit risk (negative coefficients)",
+        "E-payment increased credit risk (beta = +0.206) — critical policy finding",
         "Basic IT Application had highest feature importance (0.837)"
       ],
       "tools": ["R (Ridge Regression)", "Panel data analysis"],
@@ -255,10 +261,15 @@
       "type": "Published Paper (Co-author with faculty)",
       "year": 2024,
       "context": "Investigated how AI transforms sharing economy models (transportation, accommodation, services) and which sectors benefit most.",
-      "methodology": ["12 AI application variables × 3 benefit variables", "300 students surveyed → 250 valid responses", "McDonald's Omega reliability test", "EFA with ULS & Promax rotation + GSCA modeling"],
+      "methodology": [
+        "12 AI application variables x 3 benefit variables",
+        "300 students surveyed, 250 valid responses",
+        "McDonald's Omega reliability test",
+        "EFA with ULS & Promax rotation + GSCA modeling"
+      ],
       "results": [
-        "Model fit: GFI = 0.973 (>0.93), SRMR = 0.046 (<0.08)",
-        "Shared transportation AI: β = 0.385 (strongest impact)",
+        "Model fit: GFI = 0.973 (above 0.93), SRMR = 0.046 (below 0.08)",
+        "Shared transportation AI: beta = 0.385 (strongest impact)",
         "All paths statistically significant at 95% confidence",
         "Schedule optimization (0.727) & device sharing (0.748) showed highest AI value"
       ],
@@ -272,11 +283,16 @@
       "type": "Course Project (UEL)",
       "year": 2024,
       "context": "Analyzed factors influencing credit risk across 27 Vietnamese commercial banks. Credit risk represents ~54% of total banking system risk.",
-      "methodology": ["272 observations from 27 banks (2012–2022)", "11 variables: past credit risk, bank size, capital, GDP, inflation, unemployment", "OLS, FEM, REM comparison + GLS correction", "Hausman Test, VIF checks"],
+      "methodology": [
+        "272 observations from 27 banks (2012–2022)",
+        "11 variables: past credit risk, bank size, capital, GDP, inflation, unemployment",
+        "OLS, FEM, REM comparison + GLS correction",
+        "Hausman Test, VIF checks"
+      ],
       "results": [
-        "Lagged credit risk β = 0.496 (strongest positive predictor)",
-        "Inflation β = 0.0016, Unemployment β = 0.0025 (both positive)",
-        "Bank size β = −0.0014 (larger banks → lower risk)",
+        "Lagged credit risk beta = 0.496 (strongest positive predictor)",
+        "Inflation beta = 0.0016, Unemployment beta = 0.0025 (both positive)",
+        "Bank size beta = -0.0014 (larger banks lower risk)",
         "Policy solutions proposed based on Basel II & III frameworks"
       ],
       "tools": ["STATA 17", "Panel Data Regression (OLS/FEM/REM/GLS)"],
@@ -289,12 +305,17 @@
       "type": "Independent Research (Working Paper)",
       "year": 2024,
       "context": "VN-Index crashed 35% in 6 months in 2018 and 2022. Can we detect bubbles earlier by combining market complexity with behavioral signals?",
-      "methodology": ["VN-Index daily data (2015–2024)", "MFDFA → 3 features: Δα, Hurst Exponent (H), Asymmetry (A)", "Google Trends → SVI & Search Momentum (ΔSVI)", "Random Forest + XGBoost, SVM, Neural Networks + SHAP explainability"],
+      "methodology": [
+        "VN-Index daily data (2015–2024)",
+        "MFDFA: 3 features — Delta-alpha, Hurst Exponent (H), Asymmetry (A)",
+        "Google Trends: SVI & Search Momentum (Delta-SVI)",
+        "Random Forest + XGBoost, SVM, Neural Networks + SHAP explainability"
+      ],
       "results": [
         "Integrated model: F1 = 97.5%, AUC = 0.992",
         "vs. multifractal-only (F1 = 84.7%) or behavioral-only (F1 = 72.3%)",
         "Trading strategy Sharpe ratio: 1.87 vs. 0.94 (buy-and-hold)",
-        "Maximum drawdown reduced: 47% → 18%",
+        "Maximum drawdown reduced: 47% to 18%",
         "Proposed 3-tier alert framework for State Securities Commission: Yellow / Orange / Red"
       ],
       "tools": ["Python (MF-DFA, Random Forest, XGBoost, SHAP)", "Google Trends API"],
