@@ -338,7 +338,7 @@ function PipelineSteps({steps, hasCharts}) {
               </div>
               {isActive&&(
                 <div className={styles.pipelineDetail}>
-                  <div className={styles.pipelineDetailText}>{step}</div>
+                  <div className={styles.pipelineDetailText}>{step.includes(':')?step.split(':').slice(1).join(':').trim():step}</div>
                   {i===4&&hasCharts&&<SmoteChart/>}
                 </div>
               )}
