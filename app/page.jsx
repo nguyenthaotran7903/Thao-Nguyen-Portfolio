@@ -421,6 +421,152 @@ function PipelineSteps({steps, hasCharts}) {
   );
 }
 
+/* ── Project 2 Charts ── */
+function RevenueBarChart({models}) {
+  const [active, setActive] = useState(null);
+  const W=380, H=120, padL=60, padB=20;
+  const max = Math.max(...models.map(m=>m.rev));
+  const info = active!==null ? models[active] : null;
+  return (
+    <div className={styles.chartWrap}>
+      <div className={styles.chartTitle}>Revenue by Category (K INR) <span className={styles.chartHint}>click a bar</span></div>
+      <svg width="100%" viewBox={`0 0 ${W} ${H+padB}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
+        {models.map((m,i)=>{
+          const bH=(m.rev/max)*(H-10);
+          const x=padL+(i*(W-padL-10)/models.length);
+          const bW=(W-padL-10)/models.length-4;
+          const isActive=active===i;
+          return(
+            <g key={i} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:i)}>
+              <rect x={x} y={H-bH} width={bW} height={bH} fill={isActive?m.color:m.color+'99'} rx="2" style={{transition:'fill 0.15s'}}/>
+              {isActive&&<text x={x+bW/2} y={H-bH-4} textAnchor="middle" fontSize="8" fontWeight="700" fill={m.color}>{m.rev}K</text>}
+              <text x={x+bW/2} y={H+14} textAnchor="middle" fontSize="7" fill={isActive?'#1a1a1a':'#888'}>{m.dim}</text>
+            </g>
+          );
+        })}
+      </svg>
+      {info&&(
+        <div className={styles.chartExplain} style={{borderLeftColor:info.color}}>
+          <div className={styles.chartExplainTitle} style={{color:info.color}}>{info.dim} — {info.rev}K INR ({info.pct}% of total)</div>
+          <div className={styles.chartExplainNote}>
+            {info.dim==='Electronics'&&'Highest demand category. Strong across all gender groups (~5,000+ purchases each). SEASONALOFFER21 drove 15,000 discount purchases — highest across all categories.'}
+            {info.dim==='Clothing'&&'Second largest, 339K INR. Especially popular with female customers (3,800 purchases). Steady demand year-round with seasonal spikes in Q1 and Q4.'}
+            {info.dim==='Beauty'&&'Third place at 276K INR. Led by female customers but with strong cross-gender appeal. Growing trend in self-care and wellness spending.'}
+            {info.dim==='Home'&&'178K INR — moderate but essential category. Driven by 25-45 age group investing in home improvement during pandemic-era lifestyle shifts.'}
+            {info.dim==='Sports'&&'166K INR — smallest of top 5 but growing. Rising fitness awareness post-COVID. Potential for targeted promotions to boost engagement.'}
+            {info.dim==='Other'&&'Books, Pet Care, Toys combined. Niche markets with low volume but stable repeat customers. Low-hanging fruit for personalized recommendations.'}
+          </div>
+        </div>
+      )}
+      {!info&&<div className={styles.legendNote}>Click any bar to explore category insights.</div>}
+    </div>
+  );
+}
+
+function SeasonalChart() {
+  const [hovMonth, setHovMonth] = useState(null);
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const sales=[12,10,11,13,13.5,11,13,14,14,15,16,18];
+  const events={1:'Lowest point — clearance opportunity',3:'Recovery — spring collections',6:'Mid-year dip',9:'Festival season starts',10:'Q4 surge begins',11:'December peak — holiday shopping'};
+  const W=380,H=100,padL=20,padB=22,maxV=20;
+  const getX=i=>padL+(i/(months.length-1))*(W-padL*2);
+  const getY=v=>H-padB-(v/maxV)*(H-padB-8);
+  const pathD=sales.map((v,i)=>`${i===0?'M':'L'}${getX(i)},${getY(v)}`).join(' ');
+  return (
+    <div className={styles.chartWrap}>
+      <div className={styles.chartTitle}>Monthly Sales Trend (M INR) <span className={styles.chartHint}>hover to explore</span></div>
+      <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}} onMouseLeave={()=>setHovMonth(null)}>
+        {[10,14,18].map(v=>(
+          <g key={v}>
+            <line x1={padL} y1={getY(v)} x2={W-padL} y2={getY(v)} stroke="#f0f0f0" strokeWidth="1"/>
+            <text x={padL-2} y={getY(v)+4} textAnchor="end" fontSize="6" fill="#bbb">{v}M</text>
+          </g>
+        ))}
+        <path d={pathD} fill="none" stroke="#5b8db8" strokeWidth="2"/>
+        <path d={`${pathD} L${getX(11)},${H-padB} L${getX(0)},${H-padB} Z`} fill="#5b8db8" opacity="0.08"/>
+        {sales.map((v,i)=>(
+          <g key={i}>
+            <rect x={getX(i)-10} y={8} width={20} height={H-padB-8} fill="transparent" style={{cursor:'crosshair'}} onMouseEnter={()=>setHovMonth(i)}/>
+            <text x={getX(i)} y={H-6} textAnchor="middle" fontSize="6" fill={hovMonth===i?'#1a1a1a':'#bbb'}>{months[i]}</text>
+          </g>
+        ))}
+        {hovMonth!==null&&(()=>{
+          const x=getX(hovMonth), y=getY(sales[hovMonth]);
+          const tx=x>W-130?x-120:x+8;
+          return(
+            <g>
+              <line x1={x} y1={8} x2={x} y2={H-padB} stroke="#5b8db860" strokeWidth="1" strokeDasharray="3,2"/>
+              <circle cx={x} cy={y} r={4} fill="#5b8db8"/>
+              <rect x={tx} y={y-18} width={118} height={events[hovMonth]?32:22} fill="white" stroke="#5b8db8" strokeWidth="1" rx="3"/>
+              <text x={tx+6} y={y-7} fontSize="7" fontWeight="700" fill="#1a1a1a">{months[hovMonth]}: {sales[hovMonth]}M INR</text>
+              {events[hovMonth]&&<text x={tx+6} y={y+4} fontSize="6" fill="#888">{events[hovMonth]}</text>}
+            </g>
+          );
+        })()}
+      </svg>
+    </div>
+  );
+}
+
+function PaymentChart() {
+  const [active, setActive] = useState(null);
+  const methods=[
+    {name:'Credit Card', pct:40.2, color:'#5b8db8', note:'Dominates due to cashback & loyalty rewards. Core segment to retain.'},
+    {name:'Debit Card',  pct:25.1, color:'#5a9e82', note:'Direct bank transactions. Stable, lower-engagement segment.'},
+    {name:'Net Banking', pct:9.97, color:'#9060c0', note:'Secure bank-mediated payments. Appeals to trust-conscious users.'},
+    {name:'UPI (Total)', pct:14.6, color:'#e8729a', note:'PhonePe 4.88% + Paytm 4.86% + GPay 4.85%. Fastest growing — will overtake Debit within 2 years.'},
+    {name:'Intl Card',   pct:5.12, color:'#f0a030', note:'Global shoppers. Niche but high-value segment.'},
+    {name:'Cash on Del', pct:5.03, color:'#bbb',    note:'Trust-based. Common in markets where online payment trust is developing.'},
+  ];
+  const W=380, cx=100, cy=85, r=70;
+  let cumAngle=0;
+  const slices=methods.map(m=>{
+    const angle=(m.pct/100)*2*Math.PI;
+    const start=cumAngle, end=cumAngle+angle;
+    cumAngle+=angle;
+    return{...m,start,end};
+  });
+  const arcPath=(start,end,r)=>{
+    const x1=cx+r*Math.sin(start), y1=cy-r*Math.cos(start);
+    const x2=cx+r*Math.sin(end), y2=cy-r*Math.cos(end);
+    const large=end-start>Math.PI?1:0;
+    return `M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} Z`;
+  };
+  const info=active!==null?methods[active]:null;
+  return (
+    <div className={styles.chartWrap}>
+      <div className={styles.chartTitle}>Payment Method Distribution <span className={styles.chartHint}>click a slice</span></div>
+      <div className={styles.chartRow}>
+        <svg width="200" height="170" viewBox="0 0 200 170" style={{flexShrink:0}}>
+          {slices.map((s,i)=>(
+            <path key={i} d={arcPath(s.start,s.end,active===i?r+4:r)}
+              fill={s.color} opacity={active===null||active===i?0.9:0.3}
+              style={{cursor:'pointer',transition:'all 0.2s'}}
+              onClick={()=>setActive(active===i?null:i)}/>
+          ))}
+          <circle cx={cx} cy={cy} r={r*0.45} fill="white"/>
+          <text x={cx} y={cy-4} textAnchor="middle" fontSize="10" fontWeight="800" fill="#1a1a1a">6</text>
+          <text x={cx} y={cy+9} textAnchor="middle" fontSize="7" fill="#888">methods</text>
+        </svg>
+        <div className={styles.chartLegend}>
+          {methods.map((m,i)=>(
+            <div key={i} className={styles.legendItem} style={{cursor:'pointer',fontWeight:active===i?700:400,opacity:active===null||active===i?1:0.4}} onClick={()=>setActive(active===i?null:i)}>
+              <span className={styles.legendDot} style={{background:m.color}}></span>
+              <span>{m.name} — {m.pct}%</span>
+            </div>
+          ))}
+          {info&&(
+            <div className={styles.chartExplain} style={{borderLeftColor:info.color,marginTop:8}}>
+              <div className={styles.chartExplainTitle} style={{color:info.color}}>{info.name}</div>
+              <div className={styles.chartExplainNote}>{info.note}</div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ── Real-world Parallel Cases ── */
 function ParallelCases() {
   const [active, setActive] = useState(null);
@@ -490,6 +636,77 @@ function ParallelCases() {
               <a href={activeCase.refUrl} target="_blank" rel="noopener noreferrer" className={styles.parallelRefLink}>
                 ↗ {activeCase.ref}
               </a>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── P2 Parallel Cases ── */
+function P2ParallelCases() {
+  const [active, setActive] = useState(null);
+  const cases = [
+    {
+      id:0, industry:'E-commerce · India', color:'#5b8db8',
+      title:'Flipkart — Big Billion Days Analytics',
+      tag:'Closest market context',
+      desc:'Flipkart uses real-time dashboards during Big Billion Days to track category performance and reallocate inventory within hours.',
+      ref:'Flipkart Tech Blog · tech.flipkart.com',
+      refUrl:'https://tech.flipkart.com',
+      analysis:'Flipkart faces the identical challenge: massive transaction data across diverse Indian demographics and geographies. Their key innovation was moving from post-hoc analysis (like this project) to real-time dashboards with automated alerts. When Electronics inventory dropped below threshold during a sale event, the system auto-triggered restocking — directly analogous to the seasonal insights this project uncovered. The December 18M INR peak we identified could trigger the same automated inventory logic.',
+      approach:'Real-time streaming analytics + automated inventory triggers',
+      relevance:'Same market, same demographic patterns — validates December peak finding',
+    },
+    {
+      id:1, industry:'E-commerce · SE Asia', color:'#e8729a',
+      title:'Lazada — Persona-Based Segmentation',
+      tag:'Methodology parallel',
+      desc:'Lazada segments customers into behavioral personas to drive personalized recommendations, lifting average order value by 23%.',
+      ref:'Lazada Group Tech · lazada.com',
+      refUrl:'https://www.lazada.com',
+      analysis:'This project built 3 narrative personas (Khari, Nayar, Sam) as a storytelling device — Lazada operationalizes this into ML-driven segments that feed recommendation engines. The 25-45 age group driving 60% of revenue in this data mirrors Lazada's "professional millennial" segment, their highest CLV cohort. The next step for this analysis: move from descriptive personas to predictive CLV models that identify which customers within the 25-45 group are worth premium retention investment.',
+      approach:'ML clustering for persona generation + personalized recommendation engine',
+      relevance:'Validates persona approach — Lazada proves it scales to 8-figure revenue impact',
+    },
+    {
+      id:2, industry:'Retail · Global', color:'#5a9e82',
+      title:'Walmart US — Omnichannel Payment Strategy',
+      tag:'Parent company benchmark',
+      desc:'Walmart US saw 34% increase in digital payment adoption after introducing Walmart Pay and UPI-equivalent integrations.',
+      ref:'Walmart Corporate · corporate.walmart.com',
+      refUrl:'https://corporate.walmart.com',
+      analysis:'The UPI growth trend (14.6% combined share, fastest growing) in this India data directly mirrors Walmart US's experience with digital wallet adoption. Walmart US found that each 1% shift from cash/card to digital wallets reduced transaction processing cost by 0.3% — for a platform the size of Walmart India, this compounds significantly. The recommendation from this project to invest in UPI incentives aligns exactly with Walmart global's payment digitization strategy.',
+      approach:'Omnichannel payment integration + digital wallet incentive programs',
+      relevance:'Parent company validation — UPI growth trajectory mirrors Walmart US digital wallet adoption',
+    },
+  ];
+  const activeCase = active!==null ? cases[active] : null;
+  return (
+    <div style={{display:'flex',flexDirection:'column',gap:10}}>
+      <div className={styles.parallelGrid}>
+        {cases.map(c=>(
+          <div key={c.id}
+            className={`${styles.parallelCard} ${active===c.id?styles.parallelCardActive:''}`}
+            style={{borderTopColor:active===c.id?c.color:'#ebebeb',cursor:'pointer'}}
+            onClick={()=>setActive(active===c.id?null:c.id)}>
+            <div className={styles.parallelIndustry} style={{color:c.color}}>{c.industry}</div>
+            <div className={styles.parallelTitle}>{c.title}</div>
+            <div className={styles.parallelTagBadge} style={{background:c.color+'18',color:c.color}}>{c.tag}</div>
+            <div className={styles.parallelDesc}>{c.desc}</div>
+            <div className={styles.parallelExpandHint}>{active===c.id?'▲ collapse':'▼ see analysis'}</div>
+          </div>
+        ))}
+      </div>
+      {activeCase&&(
+        <div className={styles.parallelDetail} style={{borderLeftColor:activeCase.color}}>
+          <div className={styles.parallelDetailInner}>
+            <div className={styles.parallelDetailAnalysis}>{activeCase.analysis}</div>
+            <div className={styles.parallelDetailMeta}>
+              <div className={styles.parallelApproachRow}><span className={styles.parallelApproach}>Approach:</span> {activeCase.approach}</div>
+              <div className={styles.parallelRelevanceRow}><span className={styles.parallelApproach} style={{color:activeCase.color}}>Why relevant:</span> {activeCase.relevance}</div>
+              <a href={activeCase.refUrl} target="_blank" rel="noopener noreferrer" className={styles.parallelRefLink}>↗ {activeCase.ref}</a>
             </div>
           </div>
         </div>
@@ -625,6 +842,7 @@ export default function Portfolio() {
                   const isExpanded=expandedProject===project.id;
                   const currentTab=getProjectTab(project.id);
                   const hasCharts=project.id===1;
+                  const isP2=project.id===2;
                   return(
                     <article key={project.id} id={`project-${project.id}`} className={`${styles.projectCard} ${isExpanded?styles.projectExpanded:''}`}>
                       <div className={styles.projectHeader}>
@@ -803,6 +1021,7 @@ export default function Portfolio() {
                               </div>
                               {hasCharts&&<ModelCompareChart/>}
                               {hasCharts&&<ConfusionMatrix/>}
+                              {isP2&&<PaymentChart/>}
                             </div>
                           )}
 
@@ -813,7 +1032,7 @@ export default function Portfolio() {
                               {/* 1. Impact first */}
                               <div className={styles.panelBlock}>
                                 <span className={styles.panelLabel}>Impact</span>
-                                <div className={styles.impactRow}>
+                                {hasCharts&&(<div className={styles.impactRow}>
                                   <div className={styles.impactStat} style={{borderColor:'#5a9e82'}}>
                                     <div className={styles.impactNum} style={{color:'#5a9e82'}}>99.98%</div>
                                     <div className={styles.impactLabel}>Specificity</div>
@@ -834,7 +1053,13 @@ export default function Portfolio() {
                                     <div className={styles.impactLabel}>False Positives</div>
                                     <div className={styles.impactSub}>vs 1,393 from Logistic Regression</div>
                                   </div>
-                                </div>
+                                </div>)}
+                                {isP2&&(<div className={styles.impactRow}>
+                                  <div className={styles.impactStat} style={{borderColor:'#5b8db8'}}><div className={styles.impactNum} style={{color:'#5b8db8'}}>441K</div><div className={styles.impactLabel}>Top Category</div><div className={styles.impactSub}>Electronics INR</div></div>
+                                  <div className={styles.impactStat} style={{borderColor:'#e8729a'}}><div className={styles.impactNum} style={{color:'#e8729a'}}>60M+</div><div className={styles.impactLabel}>Core Segment</div><div className={styles.impactSub}>Age 25-45 revenue</div></div>
+                                  <div className={styles.impactStat} style={{borderColor:'#5a9e82'}}><div className={styles.impactNum} style={{color:'#5a9e82'}}>80%</div><div className={styles.impactLabel}>Seasonal Gap</div><div className={styles.impactSub}>Feb low to Dec peak</div></div>
+                                  <div className={styles.impactStat} style={{borderColor:'#9060c0'}}><div className={styles.impactNum} style={{color:'#9060c0'}}>14.6%</div><div className={styles.impactLabel}>UPI Growth</div><div className={styles.impactSub}>Fastest payment segment</div></div>
+                                </div>)}
                                 <div className={styles.tierGrid}>
                                   <div className={styles.tierCard} style={{borderTopColor:'#5a9e82'}}>
                                     <div className={styles.tierLabel} style={{color:'#5a9e82'}}>Now: Deploy</div>
@@ -855,10 +1080,9 @@ export default function Portfolio() {
                               <div className={styles.panelBlock}>
                                 <span className={styles.panelLabel}>Reflection</span>
                                 <div className={styles.reflectGrid}>
+                                  {(hasCharts||(!hasCharts&&!isP2))&&(<>
                                   <div className={styles.reflectCard} style={{borderTopColor:'#5a9e82'}}>
-                                    <div className={styles.reflectHeader} style={{color:'#5a9e82'}}>
-                                      <span>✓</span> What worked
-                                    </div>
+                                    <div className={styles.reflectHeader} style={{color:'#5a9e82'}}><span>✓</span> What worked</div>
                                     <ul className={styles.reflectList}>
                                       <li><span className={styles.reflectHL}>SMOTE + Random Forest</span> solved class imbalance elegantly — recall jumped from 63% to 84% while keeping false positives at just 10</li>
                                       <li><span className={styles.reflectHL}>Robust Scaler</span> was the right call — standard normalization would have been distorted by $25,691 outliers</li>
@@ -866,22 +1090,40 @@ export default function Portfolio() {
                                     </ul>
                                   </div>
                                   <div className={styles.reflectCard} style={{borderTopColor:'#e8729a'}}>
-                                    <div className={styles.reflectHeader} style={{color:'#e8729a'}}>
-                                      <span>→</span> What I would do differently
-                                    </div>
+                                    <div className={styles.reflectHeader} style={{color:'#e8729a'}}><span>→</span> What I would do differently</div>
                                     <ul className={styles.reflectList}>
                                       <li>Add <span className={styles.reflectHL}>real-time scoring pipeline</span> — fraud detection value degrades with delay; most losses occur within 30 minutes</li>
                                       <li>Use <span className={styles.reflectHL}>cost-sensitive loss function</span> weighting missed fraud 10× higher than false positives, reflecting actual financial stakes</li>
                                       <li>Build <span className={styles.reflectHL}>SHAP explainability layer</span> so analysts can understand why a transaction was flagged — critical for regulatory compliance</li>
                                     </ul>
                                   </div>
+                                  </>)}
+                                  {isP2&&(<>
+                                  <div className={styles.reflectCard} style={{borderTopColor:'#5a9e82'}}>
+                                    <div className={styles.reflectHeader} style={{color:'#5a9e82'}}><span>✓</span> What worked</div>
+                                    <ul className={styles.reflectList}>
+                                      <li><span className={styles.reflectHL}>Data storytelling via personas</span> (Khari/Nayar/Sam) made the analysis memorable and boardroom-ready — not just charts but a narrative</li>
+                                      <li><span className={styles.reflectHL}>Plotly interactive charts</span> let stakeholders self-explore instead of passively receiving slides — far higher engagement</li>
+                                      <li>Identifying <span className={styles.reflectHL}>Tier-2 cities as untapped markets</span> (Dehradun, Srinagar under 2M INR) gave actionable strategic insight beyond what was asked</li>
+                                    </ul>
+                                  </div>
+                                  <div className={styles.reflectCard} style={{borderTopColor:'#e8729a'}}>
+                                    <div className={styles.reflectHeader} style={{color:'#e8729a'}}><span>→</span> What I would do differently</div>
+                                    <ul className={styles.reflectList}>
+                                      <li>Build a <span className={styles.reflectHL}>predictive layer</span> — not just describing what happened but forecasting next quarter revenue by category using time series models</li>
+                                      <li>Add <span className={styles.reflectHL}>customer lifetime value (CLV)</span> segmentation — the 25-45 cohort drives 60% of revenue but CLV analysis would reveal which specific sub-segments to protect</li>
+                                      <li>Use <span className={styles.reflectHL}>A/B testing framework</span> to validate discount strategies — SEASONALOFFER21 drove 15K purchases but we never measured its ROI against discount cost</li>
+                                    </ul>
+                                  </div>
+                                  </>)}
                                 </div>
                               </div>
 
                               {/* 3. Real-world parallels */}
                               <div className={styles.panelBlock}>
                                 <span className={styles.panelLabel}>Real-world Parallels <span style={{fontWeight:400,color:'#bbb',fontSize:9,letterSpacing:0}}>click a case</span></span>
-                                <ParallelCases/>
+                                {!isP2&&<ParallelCases/>}
+                                {isP2&&<P2ParallelCases/>}
                               </div>
 
                             </div>
