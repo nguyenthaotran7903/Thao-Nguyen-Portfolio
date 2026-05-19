@@ -698,3 +698,78 @@
   .parallelGrid { grid-template-columns: 1fr; }
   .impactBox { grid-template-columns: 1fr; }
 }
+
+/* ===== OUTCOME - IMPACT ROW ===== */
+.impactRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.impactStat {
+  background: #fff;
+  border: 2px solid #ebebeb;
+  border-radius: 8px;
+  padding: 16px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.impactNum { font-size: 26px; font-weight: 800; letter-spacing: -1px; line-height: 1; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.impactLabel { font-size: 11px; font-weight: 700; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+.impactSub { font-size: 10px; color: #888; line-height: 1.4; }
+
+/* ===== REFLECT HIGHLIGHT ===== */
+.reflectHL {
+  background: #fdf5f8;
+  color: #e8729a;
+  font-weight: 700;
+  padding: 0 3px;
+  border-radius: 2px;
+}
+
+/* ===== PARALLEL CASES ===== */
+.parallelCardActive { background: #fafafa; }
+.parallelTagBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  width: fit-content;
+}
+.parallelExpandHint {
+  font-size: 10px;
+  color: #bbb;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin-top: 4px;
+}
+.parallelDetail {
+  border-left: 3px solid #5b8db8;
+  background: #fafafa;
+  border-radius: 0 6px 6px 0;
+  padding: 16px 20px;
+  animation: fadeIn 0.2s ease;
+}
+.parallelDetailInner { display: flex; flex-direction: column; gap: 12px; }
+.parallelDetailAnalysis { font-size: 13px; color: #3a3a3a; line-height: 1.7; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.parallelDetailMeta { display: flex; flex-direction: column; gap: 6px; padding-top: 10px; border-top: 1px solid #ebebeb; }
+.parallelApproachRow { font-size: 12px; color: #555; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.parallelRelevanceRow { font-size: 12px; color: #555; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.parallelRefLink {
+  font-size: 11px;
+  color: #5b8db8;
+  text-decoration: none;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+}
+.parallelRefLink:hover { color: #1a1a1a; }
+
+@media (max-width: 768px) {
+  .impactRow { grid-template-columns: repeat(2, 1fr); }
+}
