@@ -1,648 +1,449 @@
-'use client';
+/* ===== BASE ===== */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 32px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.mounted { opacity: 1; transform: translateY(0); }
 
-import React, { useState, useMemo, useEffect } from 'react';
-import data from '../data.json';
-import styles from './page.module.css';
+/* ===== HEADER ===== */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 72px 0 56px;
+  border-bottom: 1px solid #ebebeb;
+  gap: 16px;
+}
+.avatarWrapper {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #ebebeb;
+  margin-bottom: 8px;
+  transition: border-color 0.3s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.avatarWrapper:hover { border-color: #e8729a; }
+.avatar { width: 100%; height: 100%; object-fit: cover; }
+.name {
+  font-size: 62px;
+  font-weight: 800;
+  color: #1a1a1a;
+  letter-spacing: -2px;
+  line-height: 1.0;
+  margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.title {
+  font-size: 12px;
+  color: #1a1a1a;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.tagline {
+  font-size: 17px;
+  color: #444;
+  font-style: italic;
+  max-width: 800px;
+  line-height: 1.75;
+  margin: 4px 0 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+.contact { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 4px; }
+.contactLink {
+  color: #5b8db8;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+  border-bottom: 1px solid transparent;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.contactLink:hover { color: #1a1a1a; border-bottom-color: #e8729a; }
+.contactDot { color: #ddd; font-size: 12px; }
+.contactInfo { color: #888; font-size: 14px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
 
-/* ── Inline charts for Project 1 ── */
+/* ===== TABS ===== */
+.tabs { display: flex; border-bottom: 1px solid #ebebeb; margin-bottom: 56px; }
+.tab {
+  padding: 18px 28px;
+  border: none;
+  background: none;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #bbb;
+  transition: color 0.2s;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.tab:hover { color: #555; }
+.tabActive { color: #1a1a1a; border-bottom-color: #e8729a; }
 
-function PieChart() {
-  const cx = 80, cy = 80, r = 70;
-  const fraud = 0.00172, legit = 1 - fraud;
-  const angle = fraud * 2 * Math.PI;
-  const x1 = cx + r * Math.sin(0), y1 = cy - r * Math.cos(0);
-  const x2 = cx + r * Math.sin(angle), y2 = cy - r * Math.cos(angle);
-  return (
-    <div className={styles.chartWrap}>
-      <div className={styles.chartTitle}>Transaction Class Distribution</div>
-      <div className={styles.chartRow}>
-        <svg width="160" height="160" viewBox="0 0 160 160">
-          <circle cx={cx} cy={cy} r={r} fill="#e8e8e8" />
-          <path
-            d={`M${cx},${cy} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z`}
-            fill="#e8729a"
-          />
-          <circle cx={cx} cy={cy} r={r * 0.55} fill="white" />
-          <text x={cx} y={cy - 6} textAnchor="middle" fontSize="11" fontWeight="700" fill="#1a1a1a">0.17%</text>
-          <text x={cx} y={cy + 10} textAnchor="middle" fontSize="9" fill="#888">Fraud</text>
-        </svg>
-        <div className={styles.chartLegend}>
-          <div className={styles.legendItem}><span className={styles.legendDot} style={{background:'#e8e8e8'}}></span><span>Legitimate — 284,315 (99.83%)</span></div>
-          <div className={styles.legendItem}><span className={styles.legendDot} style={{background:'#e8729a'}}></span><span>Fraud — 492 (0.17%)</span></div>
-          <div className={styles.legendNote}>Extreme imbalance = core challenge of this study</div>
-        </div>
-      </div>
-    </div>
-  );
+/* ===== CONTENT ===== */
+.content { min-height: 500px; padding-bottom: 80px; }
+.section { max-width: 900px; }
+
+/* ===== ABOUT ===== */
+.aboutBio {
+  font-size: 17px;
+  color: #3a3a3a;
+  line-height: 1.85;
+  font-weight: 400;
+  max-width: 100%;
+  border-left: 3px solid #e8729a;
+  padding-left: 24px;
+  margin: 0 0 48px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-align: justify;
+}
+.aboutGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: #ebebeb;
+  border: 1px solid #ebebeb;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.aboutCard { background: #ffffff; padding: 28px; transition: background 0.2s; }
+.aboutCard:hover { background: #f7f7f7; }
+.cardLabel {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #5a9e82;
+  margin-bottom: 14px;
+  font-weight: 700;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.aboutCard p { font-size: 15px; color: #3a3a3a; line-height: 1.7; margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.strengthsList { list-style: none; padding: 0; margin: 0; }
+.strengthsList li { font-size: 15px; color: #3a3a3a; padding: 7px 0; border-bottom: 1px solid #f2f2f2; line-height: 1.5; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.strengthsList li:last-child { border-bottom: none; }
+
+/* ===== EDUCATION ===== */
+.eduBlock { display: grid; grid-template-columns: 160px 1fr; gap: 28px; padding: 28px 0; border-bottom: 1px solid #f2f2f2; align-items: start; }
+.eduBlock:last-of-type { border-bottom: none; }
+.eduLeft { display: flex; flex-direction: column; gap: 6px; padding-top: 3px; }
+.eduPeriod { font-size: 13px; color: #888; letter-spacing: 0.3px; display: block; line-height: 1.5; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.eduStatus { font-size: 11px; color: #bbb; letter-spacing: 0.5px; display: block; text-transform: uppercase; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.eduRight { display: flex; flex-direction: column; gap: 7px; }
+.eduDegree { font-size: 17px; font-weight: 700; color: #1a1a1a; display: block; line-height: 1.3; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.eduInst { font-size: 15px; color: #5b8db8; display: block; line-height: 1.4; font-weight: 500; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.eduField { font-size: 14px; color: #888; display: block; line-height: 1.5; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+/* ===== SCHOLARSHIPS ===== */
+.awardsList { display: flex; flex-direction: column; gap: 0; }
+.awardItem { display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px solid #f2f2f2; align-items: start; }
+.awardItem:last-child { border-bottom: none; }
+.awardYear { font-size: 13px; color: #1a1a1a; font-weight: 700; padding-top: 3px; display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.awardBody { display: flex; flex-direction: column; gap: 5px; }
+.awardTitle { font-size: 16px; font-weight: 600; color: #1a1a1a; display: block; line-height: 1.4; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.awardOrg { font-size: 13px; color: #888; display: block; line-height: 1.5; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+/* ===== TRAINING ===== */
+.trainingList { display: flex; flex-direction: column; gap: 0; }
+.trainingItem { padding: 24px 0; border-bottom: 1px solid #f2f2f2; display: flex; flex-direction: column; gap: 6px; }
+.trainingItem:last-child { border-bottom: none; }
+.trainingTitle { font-size: 16px; font-weight: 700; color: #1a1a1a; display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.trainingOrg { font-size: 14px; color: #888; display: block; line-height: 1.5; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.trainingTopics { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-direction: column; gap: 6px; }
+.trainingTopics li { font-size: 14px; color: #555; padding-left: 16px; position: relative; line-height: 1.55; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.trainingTopics li:before { content: "–"; position: absolute; left: 0; color: #5a9e82; }
+
+/* ===== CERTIFICATIONS ===== */
+.certList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0; }
+.certList li { font-size: 15px; color: #3a3a3a; padding: 16px 0 16px 20px; position: relative; border-bottom: 1px solid #f2f2f2; line-height: 1.5; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.certList li:last-child { border-bottom: none; }
+.certList li:before { content: "✦"; position: absolute; left: 0; color: #e8729a; font-size: 9px; top: 20px; }
+
+/* ===== EXPERTISE ===== */
+.expertiseList { display: flex; flex-wrap: wrap; gap: 8px; }
+.expertiseBadge { padding: 7px 14px; border: 1px solid #ebebeb; color: #3a3a3a; border-radius: 4px; font-size: 13px; background: #f7f7f7; transition: all 0.2s; cursor: default; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.expertiseBadge:hover { border-color: #5b8db8; color: #1a1a1a; background: #fff; }
+
+/* ===== PROJECTS LIST ===== */
+.controls { margin-bottom: 24px; }
+.searchInput { width: 100%; padding: 13px 18px; font-size: 15px; border: 1px solid #ebebeb; border-radius: 4px; background: #fff; color: #1a1a1a; transition: border-color 0.2s; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin-bottom: 14px; }
+.searchInput::placeholder { color: #ccc; }
+.searchInput:focus { outline: none; border-color: #e8729a; }
+.filterButtons { display: flex; gap: 6px; flex-wrap: wrap; }
+.filterBtn { padding: 6px 14px; border: 1px solid #ebebeb; background: #fff; color: #888; border-radius: 4px; cursor: pointer; font-size: 12px; letter-spacing: 0.3px; transition: all 0.2s; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 500; }
+.filterBtn:hover { border-color: #888; color: #333; }
+.filterBtn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; font-weight: 600; }
+.resultsCount { font-size: 12px; color: #bbb; letter-spacing: 0.5px; margin-bottom: 20px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+.projectsList { display: flex; flex-direction: column; gap: 1px; }
+
+/* ===== PROJECT CARD ===== */
+.projectCard {
+  background: #ffffff;
+  border: 1px solid #ebebeb;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+  margin-bottom: 12px;
+}
+.projectCard:hover { box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
+.projectExpanded { box-shadow: 0 4px 24px rgba(0,0,0,0.08) !important; border-color: #e8729a; }
+
+.projectHeader { padding: 28px; }
+.projectMeta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.projectCategory { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #5a9e82; font-weight: 700; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.projectYear { font-size: 12px; color: #bbb; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.projectTitle { font-size: 18px; font-weight: 700; color: #1a1a1a; line-height: 1.35; margin: 0 0 6px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.projectType { font-size: 13px; color: #999; margin: 0 0 12px; font-style: italic; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.projectContext { font-size: 15px; color: #555; line-height: 1.65; margin: 0 0 16px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+.projectQuickResults { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; padding: 14px 16px; background: #fdf5f8; border-left: 2px solid #e8729a; border-radius: 0 4px 4px 0; }
+.quickResult { display: flex; gap: 10px; align-items: flex-start; }
+.quickResultDot { color: #e8729a; font-weight: 700; flex-shrink: 0; font-size: 14px; }
+.quickResult span:last-child { font-size: 14px; color: #3a3a3a; line-height: 1.5; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+.projectCardFooter { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid #f2f2f2; }
+.toolsList { display: flex; flex-wrap: wrap; gap: 5px; }
+.tool { padding: 3px 9px; background: #f7f7f7; color: #666; border-radius: 3px; font-size: 11px; border: 1px solid #ebebeb; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.expandBtn { background: none; border: 1px solid #1a1a1a; color: #1a1a1a; font-size: 12px; cursor: pointer; padding: 6px 14px; border-radius: 4px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; letter-spacing: 0.5px; transition: all 0.2s; font-weight: 600; }
+.expandBtn:hover { background: #1a1a1a; color: #fff; }
+
+/* ===== PROJECT EXPANDED PANEL ===== */
+.projectPanel {
+  border-top: 1px solid #ebebeb;
+  background: #fafafa;
 }
 
-function SmoteChart() {
-  const max = 227454;
-  const H = 160, pad = 40, bW = 36, gap = 14;
-  const groups = [
-    { label: 'Before SMOTE', legit: 227454, fraud: 391 },
-    { label: 'After SMOTE',  legit: 227454, fraud: 227454 },
-  ];
-  const W = 340;
-  const groupW = bW * 2 + gap;
-  const groupGap = (W - pad - groupW * 2) / 3;
+.panelTabs {
+  display: flex;
+  border-bottom: 1px solid #ebebeb;
+  background: #fff;
+  padding: 0 28px;
+}
+.panelTab {
+  padding: 14px 20px;
+  border: none;
+  background: none;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #bbb;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.panelTab:hover { color: #555; }
+.panelTabActive { color: #1a1a1a; border-bottom-color: #e8729a; }
 
-  return (
-    <div className={styles.chartWrap}>
-      <div className={styles.chartTitle}>Class Distribution Before vs After SMOTE</div>
-      <svg width="100%" viewBox={`0 0 ${W} ${H + 60}`} style={{maxWidth: 400, fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif"}}>
-        {[0, 25, 50, 75, 100].map(v => {
-          const y = H - (v / 100) * H + 10;
-          return (
-            <g key={v}>
-              <line x1={pad} y1={y} x2={W - 10} y2={y} stroke="#f0f0f0" strokeWidth="1"/>
-              <text x={pad - 6} y={y + 4} textAnchor="end" fontSize="9" fill="#bbb">{v}%</text>
-            </g>
-          );
-        })}
-        {groups.map((g, gi) => {
-          const gX = pad + groupGap * (gi + 1) + groupW * gi;
-          const lH = (g.legit / max) * H;
-          const fH = Math.max((g.fraud / max) * H, 3);
-          return (
-            <g key={gi}>
-              <rect x={gX} y={H - lH + 10} width={bW} height={lH} fill="#5b8db8" rx="3"/>
-              <rect x={gX + bW + gap} y={H - fH + 10} width={bW} height={fH} fill="#e8729a" rx="3"/>
-              <text x={gX + bW} y={H + 28} textAnchor="middle" fontSize="10" fontWeight="600" fill="#555">{g.label}</text>
-              <text x={gX + bW / 2} y={H - lH + 5} textAnchor="middle" fontSize="8" fill="#5b8db8">100%</text>
-              {gi === 0 && <text x={gX + bW + gap + bW / 2} y={H - fH + 5} textAnchor="middle" fontSize="8" fill="#e8729a">0.17%</text>}
-              {gi === 1 && <text x={gX + bW + gap + bW / 2} y={H - fH + 5} textAnchor="middle" fontSize="8" fontWeight="700" fill="#e8729a">100%</text>}
-            </g>
-          );
-        })}
-        <g transform={`translate(${pad}, ${H + 44})`}>
-          <rect width="10" height="10" fill="#5b8db8" rx="2"/>
-          <text x="14" y="9" fontSize="10" fill="#555">Legitimate (227,454)</text>
-          <rect x="130" width="10" height="10" fill="#e8729a" rx="2"/>
-          <text x="144" y="9" fontSize="10" fill="#555">Fraud (391 → 227,454)</text>
-        </g>
-      </svg>
-      <div className={styles.legendNote}>SMOTE generates synthetic minority samples — training set balanced without losing data</div>
-    </div>
-  );
+.panelContent { padding: 28px; display: flex; flex-direction: column; gap: 28px; }
+
+.panelBlock { display: flex; flex-direction: column; gap: 12px; }
+
+.panelLabel {
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  font-weight: 700;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-function ModelCompareChart() {
-  const models = [
-    { name: 'LR Baseline',   acc: 99.92, recall: 63.37, prec: 87.67, best: false },
-    { name: 'LR + SMOTE',    acc: 97.54, recall: 94.06, prec: 6.38,  best: false },
-    { name: 'Decision Tree', acc: 99.36, recall: 83.17, prec: 19.49, best: false },
-    { name: 'Random Forest', acc: 99.95, recall: 84.16, prec: 89.47, best: true  },
-  ];
-  const metrics = [
-    { key: 'acc',    label: 'Accuracy (%)',         color: '#5b8db8' },
-    { key: 'recall', label: 'Recall — Fraud (%)',   color: '#e8729a' },
-    { key: 'prec',   label: 'Precision — Fraud (%)', color: '#5a9e82' },
-  ];
-  const W = 500, H = 180, padL = 36, padB = 80;
-  const bW = 18, bGap = 4;
-  const groupW = models.length * (bW + bGap) - bGap;
-  const totalW = W - padL;
-  const mGap = (totalW - groupW * metrics.length) / (metrics.length + 1);
-
-  return (
-    <div className={styles.chartWrap}>
-      <div className={styles.chartTitle}>Model Performance Comparison</div>
-      <svg width="100%" viewBox={`0 0 ${W} ${H + padB + 20}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif"}}>
-        {/* Y gridlines */}
-        {[0, 25, 50, 75, 100].map(v => {
-          const y = H - (v / 100) * H + 10;
-          return (
-            <g key={v}>
-              <line x1={padL} y1={y} x2={W} y2={y} stroke="#f0f0f0" strokeWidth="1"/>
-              <text x={padL - 5} y={y + 4} textAnchor="end" fontSize="9" fill="#bbb">{v}</text>
-            </g>
-          );
-        })}
-
-        {/* Bars */}
-        {metrics.map((m, mi) => {
-          const gX = padL + mGap * (mi + 1) + groupW * mi;
-          return (
-            <g key={m.key}>
-              {models.map((mod, bi) => {
-                const val = mod[m.key];
-                const bH = (val / 100) * H;
-                const x = gX + bi * (bW + bGap);
-                const y = H - bH + 10;
-                const fill = mod.best ? m.color : m.color + '55';
-                return (
-                  <g key={bi}>
-                    <rect x={x} y={y} width={bW} height={bH} fill={fill} rx="3"/>
-                    {mod.best && (
-                      <text x={x + bW / 2} y={y - 5} textAnchor="middle" fontSize="9" fontWeight="700" fill={m.color}>{val}%</text>
-                    )}
-                  </g>
-                );
-              })}
-              {/* Metric label */}
-              <text x={gX + groupW / 2} y={H + 24} textAnchor="middle" fontSize="10" fontWeight="600" fill="#444">{m.label}</text>
-            </g>
-          );
-        })}
-
-        {/* Model legend — bottom, 2 rows */}
-        {models.map((m, i) => {
-          const col = i % 2;
-          const row = Math.floor(i / 2);
-          const lx = padL + col * 200;
-          const ly = H + 44 + row * 18;
-          return (
-            <g key={i} transform={`translate(${lx}, ${ly})`}>
-              <rect width="12" height="12" fill={m.best ? '#1a1a1a' : '#cccccc'} rx="2"/>
-              <text x="17" y="10" fontSize="10" fontWeight={m.best ? '700' : '400'} fill={m.best ? '#1a1a1a' : '#888'}>{m.name}{m.best ? ' ✦ Best' : ''}</text>
-            </g>
-          );
-        })}
-      </svg>
-      <div className={styles.legendNote}>Random Forest (darker bars) achieves the best Recall–Precision balance — only 10 false positives.</div>
-    </div>
-  );
+.panelText {
+  font-size: 15px;
+  color: #3a3a3a;
+  line-height: 1.75;
+  padding: 16px 20px;
+  background: #fff;
+  border-left: 3px solid #5b8db8;
+  border-radius: 0 4px 4px 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-style: italic;
 }
 
-function ConfusionMatrix() {
-  const cells = [
-    { label: 'TN', val: 56851, desc: 'Correctly identified\nas legitimate', color: '#5b8db8', light: '#f0f6fb' },
-    { label: 'FP', val: 10, desc: 'Legitimate flagged\nas fraud', color: '#5a9e82', light: '#f4faf7' },
-    { label: 'FN', val: 16, desc: 'Fraud missed\nby model', color: '#e8729a', light: '#fdf5f8' },
-    { label: 'TP', val: 85, desc: 'Correctly identified\nas fraud', color: '#1a1a1a', light: '#f7f7f7' },
-  ];
-  return (
-    <div className={styles.chartWrap}>
-      <div className={styles.chartTitle}>Confusion Matrix — Random Forest (Best Model)</div>
-      <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:2, maxWidth:320, margin:'0 auto'}}>
-        {cells.map((c, i) => (
-          <div key={i} style={{background: c.light, border: `1px solid ${c.color}33`, borderRadius:6, padding:'16px 12px', textAlign:'center'}}>
-            <div style={{fontSize:24, fontWeight:800, color: c.color, fontFamily:'Helvetica Neue, sans-serif', letterSpacing:'-1px'}}>{c.val.toLocaleString()}</div>
-            <div style={{fontSize:11, fontWeight:700, color: c.color, marginTop:2}}>{c.label}</div>
-            <div style={{fontSize:11, color:'#888', marginTop:4, lineHeight:1.4, whiteSpace:'pre-line'}}>{c.desc}</div>
-          </div>
-        ))}
-      </div>
-      <div style={{display:'flex', gap:16, marginTop:12, fontSize:11, color:'#888', justifyContent:'center'}}>
-        <span>Predicted →</span>
-        <span style={{color:'#5b8db8'}}>Legitimate | </span>
-        <span style={{color:'#e8729a'}}>Fraud</span>
-      </div>
-      <div className={styles.legendNote} style={{marginTop:8, textAlign:'center'}}>Only 10 false positives out of 56,861 legitimate transactions — 99.98% specificity</div>
-    </div>
-  );
+.panelSubtext { font-size: 13px; color: #888; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.5; }
+
+/* Dataset stats */
+.datasetGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #ebebeb; border: 1px solid #ebebeb; border-radius: 6px; overflow: hidden; }
+.datasetItem { background: #fff; padding: 16px; text-align: center; display: flex; flex-direction: column; gap: 4px; }
+.datasetNum { font-size: 22px; font-weight: 800; color: #1a1a1a; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; letter-spacing: -0.5px; }
+.datasetDesc { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+/* Figures list */
+.figuresList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.figuresList li { font-size: 14px; color: #555; padding-left: 16px; position: relative; line-height: 1.5; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.figuresList li:before { content: "◦"; position: absolute; left: 0; color: #5a9e82; }
+
+/* Panel meta */
+.panelMeta { display: flex; flex-direction: column; gap: 6px; padding: 16px; background: #f7f7f7; border-radius: 6px; border: 1px solid #ebebeb; }
+.panelMeta span { font-size: 13px; color: #666; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+/* Methodology list */
+.methodologyList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; counter-reset: method; }
+.methodologyList li { font-size: 14px; color: #3a3a3a; padding-left: 28px; position: relative; line-height: 1.6; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; counter-increment: method; }
+.methodologyList li:before { content: counter(method); position: absolute; left: 0; top: 0; width: 20px; height: 20px; background: #1a1a1a; color: #fff; border-radius: 50%; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* Models grid */
+.modelsGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.modelCard { padding: 20px; border: 1px solid #ebebeb; border-radius: 6px; background: #fff; display: flex; flex-direction: column; gap: 12px; }
+.modelCardBest { border-color: #e8729a; background: #fdf5f8; }
+.modelName { font-size: 13px; font-weight: 700; color: #1a1a1a; line-height: 1.4; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.modelMetrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.modelMetric { display: flex; flex-direction: column; gap: 2px; padding: 8px; background: #f7f7f7; border-radius: 4px; }
+.modelCardBest .modelMetric { background: #fff; }
+.metricVal { font-size: 16px; font-weight: 800; color: #1a1a1a; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.metricLabel { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.modelNote { font-size: 12px; color: #666; line-height: 1.5; font-style: italic; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; border-top: 1px solid #f2f2f2; padding-top: 10px; margin: 0; }
+
+/* Results & Findings */
+.resultsList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.resultsList li { font-size: 15px; color: #3a3a3a; padding-left: 20px; position: relative; line-height: 1.65; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.resultsList li:before { content: "→"; position: absolute; left: 0; color: #e8729a; font-size: 12px; top: 3px; }
+
+.findingsList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.findingsList li { font-size: 14px; color: #444; padding-left: 20px; position: relative; line-height: 1.65; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.findingsList li:before { content: "◆"; position: absolute; left: 0; color: #5b8db8; font-size: 8px; top: 5px; }
+
+/* Tags row */
+.panelTagRow { display: flex; flex-wrap: wrap; gap: 6px; padding: 16px 28px; border-top: 1px solid #ebebeb; background: #fff; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag { padding: 3px 10px; color: #5b8db8; border: 1px solid #d4e4f0; border-radius: 3px; font-size: 11px; letter-spacing: 0.3px; background: #f0f6fb; cursor: pointer; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; transition: all 0.2s; }
+.tag:hover { border-color: #5b8db8; color: #1a1a1a; background: #fff; }
+.tagActive { background: #ddeef8; border-color: #5b8db8; color: #1a1a1a; }
+.noResults { color: #ccc; padding: 40px 0; text-align: center; font-size: 15px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+/* ===== EXPERIENCE ===== */
+.timeline { display: flex; flex-direction: column; }
+.timelineItem { display: grid; grid-template-columns: 150px 32px 1fr; padding: 36px 0; border-bottom: 1px solid #f2f2f2; }
+.timelineItem:last-child { border-bottom: none; }
+.timelineLeft { padding-top: 3px; }
+.jobPeriod { font-size: 13px; color: #888; line-height: 1.6; display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.timelineLine { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.timelineDot { width: 8px; height: 8px; border-radius: 50%; background: #e8729a; flex-shrink: 0; margin-top: 5px; }
+.timelineTrack { width: 1px; flex: 1; background: #ebebeb; margin-top: 8px; }
+.timelineRight { padding-left: 20px; }
+.jobTitle { font-size: 19px; font-weight: 700; color: #1a1a1a; margin: 0 0 5px; line-height: 1.25; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.jobCompany { font-size: 14px; color: #5b8db8; display: block; margin-bottom: 18px; font-weight: 500; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.highlightsList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.highlightsList li { font-size: 15px; color: #3a3a3a; padding-left: 20px; position: relative; line-height: 1.65; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.highlightsList li:before { content: "→"; position: absolute; left: 0; color: #e8729a; font-size: 12px; top: 3px; }
+
+.viewProjectBtn {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid #1a1a1a;
+  background: transparent;
+  color: #1a1a1a;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.viewProjectBtn:hover { background: #1a1a1a; color: #fff; }
+
+/* ===== SKILLS ===== */
+.skillGroup { display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: start; padding: 28px 0; border-bottom: 1px solid #f2f2f2; }
+.skillGroup:last-child { border-bottom: none; }
+.skillGroupLabel { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #555; font-weight: 700; padding-top: 8px; display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.skillBadges { display: flex; flex-wrap: wrap; gap: 8px; }
+.skillBadge { padding: 7px 14px; background: #f7f7f7; border: 1px solid #ebebeb; color: #3a3a3a; border-radius: 4px; font-size: 14px; font-weight: 400; transition: all 0.2s; cursor: default; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.skillBadge:hover, .skillHovered { border-color: #1a1a1a; color: #1a1a1a; background: #fff; }
+
+/* ===== FOOTER ===== */
+.footer { text-align: center; padding: 32px 0; border-top: 1px solid #f2f2f2; color: #ccc; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  .name { font-size: 40px; letter-spacing: -1px; }
+  .avatarWrapper { width: 110px; height: 110px; }
+  .aboutGrid { grid-template-columns: 1fr; }
+  .timelineItem { grid-template-columns: 1fr; gap: 8px; }
+  .timelineLine { display: none; }
+  .skillGroup { grid-template-columns: 1fr; gap: 12px; }
+  .eduBlock { grid-template-columns: 1fr; gap: 12px; }
+  .awardItem { grid-template-columns: 1fr; gap: 6px; }
+  .tabs { overflow-x: auto; }
+  .tab { padding: 14px 16px; font-size: 11px; }
+  .datasetGrid { grid-template-columns: repeat(2, 1fr); }
+  .modelsGrid { grid-template-columns: 1fr; }
+  .panelTabs { padding: 0 16px; }
+  .panelContent { padding: 20px; }
+  .projectHeader { padding: 20px; }
 }
 
-/* ── Main component ── */
-export default function Portfolio() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [activeTab, setActiveTab] = useState('about');
-  const [expandedProject, setExpandedProject] = useState(null);
-  const [activeProjectTab, setActiveProjectTab] = useState({});
-  const [hoveredSkill, setHoveredSkill] = useState(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => { setMounted(true); }, []);
-
-  const allTags = useMemo(() => {
-    const tags = new Set();
-    data.projects.forEach(p => p.tags?.forEach(t => tags.add(t)));
-    return Array.from(tags).sort();
-  }, []);
-
-  const filteredProjects = useMemo(() => {
-    return data.projects.filter(project => {
-      const matchesSearch =
-        project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.context.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.category.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesFilter = activeFilter === 'all' || project.tags?.includes(activeFilter);
-      return matchesSearch && matchesFilter;
-    });
-  }, [searchTerm, activeFilter]);
-
-  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-  const getProjectTab = (id) => activeProjectTab[id] || 'overview';
-  const setProjectTab = (id, tab) => setActiveProjectTab(prev => ({ ...prev, [id]: tab }));
-
-  const openProject = (projectId) => {
-    setActiveTab('projects');
-    setExpandedProject(projectId);
-    setTimeout(() => {
-      const el = document.getElementById(`project-${projectId}`);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
-  };
-
-  return (
-    <div className={`${styles.container} ${mounted ? styles.mounted : ''}`}>
-
-      {/* HEADER */}
-      <header className={styles.header}>
-        <div className={styles.avatarWrapper}>
-          <img src="/avatar.png" alt="Thảo Nguyên Trần" className={styles.avatar} />
-        </div>
-        <h1 className={styles.name}>{data.profile.name}</h1>
-        <p className={styles.title}>{data.profile.title}</p>
-        <p className={styles.tagline}>"{data.profile.tagline}"</p>
-        <div className={styles.contact}>
-          <a href={`mailto:${data.profile.email}`} className={styles.contactLink}>Email</a>
-          <span className={styles.contactDot}>·</span>
-          <a href={data.profile.linkedin} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>LinkedIn</a>
-          <span className={styles.contactDot}>·</span>
-          <span className={styles.contactInfo}>{data.profile.location}</span>
-        </div>
-      </header>
-
-      {/* TABS */}
-      <nav className={styles.tabs}>
-        {['about', 'projects', 'experience', 'skills'].map(tab => (
-          <button
-            key={tab}
-            className={`${styles.tab} ${activeTab === tab ? styles.tabActive : ''}`}
-            onClick={() => setActiveTab(tab)}
-          >
-            {tab === 'projects' ? `Projects (${data.projects.length})` : cap(tab)}
-          </button>
-        ))}
-      </nav>
-
-      <main className={styles.content}>
-
-        {/* ── ABOUT ── */}
-        {activeTab === 'about' && (
-          <section className={styles.section}>
-            <p className={styles.aboutBio}>{data.profile.bio}</p>
-            <div className={styles.aboutGrid}>
-              <div className={styles.aboutCard}>
-                <span className={styles.cardLabel}>Background</span>
-                <p>{data.about.background}</p>
-              </div>
-              <div className={styles.aboutCard}>
-                <span className={styles.cardLabel}>Focus</span>
-                <p>{data.about.professional_focus}</p>
-              </div>
-              <div className={styles.aboutCard}>
-                <span className={styles.cardLabel}>Strengths</span>
-                <ul className={styles.strengthsList}>
-                  {data.about.strengths.map((s, i) => <li key={i}>{s}</li>)}
-                </ul>
-              </div>
-            </div>
-
-            <Divider label="Education" />
-            {data.education.map((edu, i) => (
-              <div key={i} className={styles.eduBlock}>
-                <div className={styles.eduLeft}>
-                  <span className={styles.eduPeriod}>{edu.period}</span>
-                  <span className={styles.eduStatus}>{edu.status}</span>
-                </div>
-                <div className={styles.eduRight}>
-                  <span className={styles.eduDegree}>{edu.degree}</span>
-                  <span className={styles.eduInst}>{edu.institution}</span>
-                  <span className={styles.eduField}>{edu.field}</span>
-                </div>
-              </div>
-            ))}
-
-            <Divider label="Scholarships & Awards" />
-            <div className={styles.awardsList}>
-              {data.scholarships.map((s, i) => (
-                <div key={i} className={styles.awardItem}>
-                  <span className={styles.awardYear}>{s.year}</span>
-                  <div className={styles.awardBody}>
-                    <span className={styles.awardTitle}>{s.title}</span>
-                    <span className={styles.awardOrg}>{s.org}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <Divider label="Training & Courses" />
-            <div className={styles.trainingList}>
-              {data.training.map((t, i) => (
-                <div key={i} className={styles.trainingItem}>
-                  <span className={styles.trainingTitle}>{t.title}</span>
-                  <span className={styles.trainingOrg}>{t.org}</span>
-                  <ul className={styles.trainingTopics}>
-                    {t.topics.map((topic, j) => <li key={j}>{topic}</li>)}
-                  </ul>
-                </div>
-              ))}
-            </div>
-
-            <Divider label="Certifications" />
-            <ul className={styles.certList}>
-              {data.coursework.map((c, i) => <li key={i}>{c}</li>)}
-            </ul>
-
-            <Divider label="Domain Expertise" />
-            <div className={styles.expertiseList}>
-              {data.skills.domain_expertise.map((e, i) => (
-                <span key={i} className={styles.expertiseBadge}>{e}</span>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ── PROJECTS ── */}
-        {activeTab === 'projects' && (
-          <>
-            <div className={styles.controls}>
-              <input
-                type="text"
-                placeholder="Search projects..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className={styles.searchInput}
-              />
-              <div className={styles.filterButtons}>
-                <button className={`${styles.filterBtn} ${activeFilter === 'all' ? styles.active : ''}`} onClick={() => setActiveFilter('all')}>All</button>
-                {allTags.map(tag => (
-                  <button key={tag} className={`${styles.filterBtn} ${activeFilter === tag ? styles.active : ''}`} onClick={() => setActiveFilter(tag)}>{tag}</button>
-                ))}
-              </div>
-            </div>
-
-            <p className={styles.resultsCount}>
-              {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''}
-              {activeFilter !== 'all' && ` tagged "${activeFilter}"`}
-              {searchTerm && ` matching "${searchTerm}"`}
-            </p>
-
-            {filteredProjects.length === 0 ? (
-              <p className={styles.noResults}>No projects found.</p>
-            ) : (
-              <div className={styles.projectsList}>
-                {filteredProjects.map(project => {
-                  const isExpanded = expandedProject === project.id;
-                  const currentTab = getProjectTab(project.id);
-                  const hasCharts = project.id === 1;
-
-                  return (
-                    <article key={project.id} id={`project-${project.id}`} className={`${styles.projectCard} ${isExpanded ? styles.projectExpanded : ''}`}>
-
-                      {/* Card header */}
-                      <div className={styles.projectHeader}>
-                        <div className={styles.projectMeta}>
-                          <span className={styles.projectCategory}>{project.category}</span>
-                          <span className={styles.projectYear}>{project.year}</span>
-                        </div>
-                        <h3 className={styles.projectTitle}>{project.title}</h3>
-                        <p className={styles.projectType}>{project.type}</p>
-                        <p className={styles.projectContext}>{project.context}</p>
-
-                        {project.results?.length > 0 && !isExpanded && (
-                          <div className={styles.projectQuickResults}>
-                            {project.results.slice(0, 2).map((r, i) => (
-                              <div key={i} className={styles.quickResult}>
-                                <span className={styles.quickResultDot}>→</span>
-                                <span>{r}</span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-
-                        <div className={styles.projectCardFooter}>
-                          <div className={styles.toolsList}>
-                            {project.tools?.map((t, i) => <span key={i} className={styles.tool}>{t}</span>)}
-                          </div>
-                          <button
-                            className={styles.expandBtn}
-                            onClick={() => {
-                              setExpandedProject(isExpanded ? null : project.id);
-                              if (!isExpanded) setProjectTab(project.id, 'overview');
-                            }}
-                          >
-                            {isExpanded ? '↑ Close' : 'Explore Project'}
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Expanded panel */}
-                      {isExpanded && (
-                        <div className={styles.projectPanel}>
-                          <div className={styles.panelTabs}>
-                            {['overview', 'methodology', 'results'].map(t => (
-                              <button
-                                key={t}
-                                className={`${styles.panelTab} ${currentTab === t ? styles.panelTabActive : ''}`}
-                                onClick={() => setProjectTab(project.id, t)}
-                              >
-                                {t === 'overview' ? 'Overview' : t === 'methodology' ? 'Model & Method' : 'Results'}
-                              </button>
-                            ))}
-                          </div>
-
-                          {/* OVERVIEW */}
-                          {currentTab === 'overview' && (
-                            <div className={styles.panelContent}>
-                              {project.researchQuestion && (
-                                <div className={styles.panelBlock}>
-                                  <span className={styles.panelLabel}>Research Question</span>
-                                  <p className={styles.panelText}>{project.researchQuestion}</p>
-                                </div>
-                              )}
-
-                              {project.dataset && (
-                                <div className={styles.panelBlock}>
-                                  <span className={styles.panelLabel}>Dataset</span>
-                                  <div className={styles.datasetGrid}>
-                                    <div className={styles.datasetItem}>
-                                      <span className={styles.datasetNum}>{project.dataset.observations?.toLocaleString()}</span>
-                                      <span className={styles.datasetDesc}>transactions</span>
-                                    </div>
-                                    <div className={styles.datasetItem}>
-                                      <span className={styles.datasetNum}>{project.dataset.variables}</span>
-                                      <span className={styles.datasetDesc}>variables</span>
-                                    </div>
-                                    <div className={styles.datasetItem}>
-                                      <span className={styles.datasetNum}>0.172%</span>
-                                      <span className={styles.datasetDesc}>fraud rate</span>
-                                    </div>
-                                    <div className={styles.datasetItem}>
-                                      <span className={styles.datasetNum}>2 days</span>
-                                      <span className={styles.datasetDesc}>collection window</span>
-                                    </div>
-                                  </div>
-                                  <p className={styles.panelSubtext}>{project.dataset.source} · {project.dataset.period}</p>
-                                </div>
-                              )}
-
-                              {/* Fig 4.2 — Pie chart */}
-                              {hasCharts && <PieChart />}
-
-                              {project.supervisor && (
-                                <div className={styles.panelMeta}>
-                                  <span>Supervisor: {project.supervisor}</span>
-                                  <span>Institution: {project.institution}</span>
-                                  <span>Period: {project.period}</span>
-                                </div>
-                              )}
-                            </div>
-                          )}
-
-                          {/* METHODOLOGY */}
-                          {currentTab === 'methodology' && (
-                            <div className={styles.panelContent}>
-                              <div className={styles.panelBlock}>
-                                <span className={styles.panelLabel}>Pipeline</span>
-                                <ol className={styles.methodologyList}>
-                                  {project.methodology?.map((m, i) => <li key={i}>{m}</li>)}
-                                </ol>
-                              </div>
-
-                              {/* Fig 4.8/4.9 — SMOTE chart */}
-                              {hasCharts && <SmoteChart />}
-
-                              {project.models && (
-                                <div className={styles.panelBlock}>
-                                  <span className={styles.panelLabel}>Models Compared</span>
-                                  <div className={styles.modelsGrid}>
-                                    {project.models.map((m, i) => (
-                                      <div key={i} className={`${styles.modelCard} ${m.name.includes('Best') ? styles.modelCardBest : ''}`}>
-                                        <div className={styles.modelName}>{m.name}</div>
-                                        <div className={styles.modelMetrics}>
-                                          <div className={styles.modelMetric}>
-                                            <span className={styles.metricVal}>{m.accuracy}</span>
-                                            <span className={styles.metricLabel}>Accuracy</span>
-                                          </div>
-                                          <div className={styles.modelMetric}>
-                                            <span className={styles.metricVal}>{m.recall_fraud}</span>
-                                            <span className={styles.metricLabel}>Recall (fraud)</span>
-                                          </div>
-                                          <div className={styles.modelMetric}>
-                                            <span className={styles.metricVal}>{m.precision_fraud}</span>
-                                            <span className={styles.metricLabel}>Precision (fraud)</span>
-                                          </div>
-                                          <div className={styles.modelMetric}>
-                                            <span className={styles.metricVal}>{m.fp}</span>
-                                            <span className={styles.metricLabel}>False Positives</span>
-                                          </div>
-                                        </div>
-                                        <p className={styles.modelNote}>{m.note}</p>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          )}
-
-                          {/* RESULTS */}
-                          {currentTab === 'results' && (
-                            <div className={styles.panelContent}>
-                              {/* Fig 4.13 — Model comparison chart */}
-                              {hasCharts && <ModelCompareChart />}
-
-                              <div className={styles.panelBlock}>
-                                <span className={styles.panelLabel}>Key Results</span>
-                                <ul className={styles.resultsList}>
-                                  {project.results?.map((r, i) => <li key={i}>{r}</li>)}
-                                </ul>
-                              </div>
-
-                              {/* Fig 4.13 — Confusion matrix RF */}
-                              {hasCharts && <ConfusionMatrix />}
-
-                              {project.keyFindings && (
-                                <div className={styles.panelBlock}>
-                                  <span className={styles.panelLabel}>Key Findings & Implications</span>
-                                  <ul className={styles.findingsList}>
-                                    {project.keyFindings.map((f, i) => <li key={i}>{f}</li>)}
-                                  </ul>
-                                </div>
-                              )}
-                            </div>
-                          )}
-
-                          <div className={styles.panelTagRow}>
-                            {project.tags?.map(tag => (
-                              <button key={tag} className={`${styles.tag} ${activeFilter === tag ? styles.tagActive : ''}`} onClick={() => setActiveFilter(tag === activeFilter ? 'all' : tag)}>{tag}</button>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </article>
-                  );
-                })}
-              </div>
-            )}
-          </>
-        )}
-
-        {/* ── EXPERIENCE ── */}
-        {activeTab === 'experience' && (
-          <section className={styles.section}>
-            <div className={styles.timeline}>
-              {data.experience.map((job) => (
-                <div key={job.id} className={styles.timelineItem}>
-                  <div className={styles.timelineLeft}>
-                    <span className={styles.jobPeriod}>{job.period}</span>
-                  </div>
-                  <div className={styles.timelineLine}>
-                    <div className={styles.timelineDot}></div>
-                    <div className={styles.timelineTrack}></div>
-                  </div>
-                  <div className={styles.timelineRight}>
-                    <h3 className={styles.jobTitle}>{job.title}</h3>
-                    <span className={styles.jobCompany}>{job.company}</span>
-                    <ul className={styles.highlightsList}>
-                      {job.highlights.map((h, i) => <li key={i}>{h}</li>)}
-                    </ul>
-                    {job.projectId && (
-                      <button className={styles.viewProjectBtn} onClick={() => openProject(job.projectId)}>
-                        View related project →
-                      </button>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ── SKILLS ── */}
-        {activeTab === 'skills' && (
-          <section className={styles.section}>
-            {[
-              { label: 'Programming & Platforms', items: [...data.skills.technical_tools.programming, ...data.skills.technical_tools.platforms] },
-              { label: 'Visualization & BI', items: data.skills.technical_tools.data_visualization },
-              { label: 'Statistical Software', items: data.skills.technical_tools.statistical_software },
-              { label: 'Machine Learning', items: data.skills.methodologies.machine_learning },
-              { label: 'Econometrics & Time Series', items: data.skills.methodologies.econometrics },
-              { label: 'Statistical Analysis', items: data.skills.methodologies.statistical_analysis },
-              { label: 'Structural Modeling', items: data.skills.methodologies.structural_modeling },
-              { label: 'Risk Management', items: data.skills.methodologies.risk_analysis },
-            ].map((group, i) => (
-              <div key={i} className={styles.skillGroup}>
-                <span className={styles.skillGroupLabel}>{group.label}</span>
-                <div className={styles.skillBadges}>
-                  {group.items.map((skill, j) => (
-                    <span key={j} className={`${styles.skillBadge} ${hoveredSkill === skill ? styles.skillHovered : ''}`} onMouseEnter={() => setHoveredSkill(skill)} onMouseLeave={() => setHoveredSkill(null)}>{skill}</span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </section>
-        )}
-
-      </main>
-
-      <footer className={styles.footer}>
-        <p>{data.profile.name} · {new Date().getFullYear()}</p>
-      </footer>
-    </div>
-  );
+/* ===== CHARTS ===== */
+.chartWrap {
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
-
-function Divider({ label }) {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '16px', margin: '48px 0 28px' }}>
-      <span style={{ fontSize: '11px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#1a1a1a', fontWeight: 700, whiteSpace: 'nowrap', fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}>{label}</span>
-      <div style={{ flex: 1, height: '1px', background: '#ebebeb' }}></div>
-    </div>
-  );
+.chartTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.chartRow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.chartLegend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 160px;
+}
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #444;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.legendDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.legendNote {
+  font-size: 12px;
+  color: #888;
+  font-style: italic;
+  line-height: 1.5;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
