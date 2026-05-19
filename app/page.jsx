@@ -421,6 +421,187 @@ function PipelineSteps({steps, hasCharts}) {
   );
 }
 
+/* ── P3 Parallel Cases ── */
+function P3ParallelCases() {
+  const [active, setActive] = useState(null);
+  const cases = [
+    {
+      id:0, industry:'Banking Research · Global', color:'#5b8db8',
+      title:'Basel III IT Risk Framework',
+      tag:'Regulatory context',
+      desc:'Basel III requires banks to assess operational risk from IT systems, directly validating the DAP finding that e-payment expansion increases credit exposure.',
+      ref:'Bank for International Settlements · bis.org/basel_framework',
+      refUrl:'https://www.bis.org/basel_framework/',
+      analysis:'The DAP coefficient (+0.206) aligns precisely with Basel III operational risk concerns: rapid digitization without adequate controls creates new risk vectors. Basel III mandates that banks hold capital against IT-related operational risk — implying regulators already knew what this regression confirmed empirically. This study provides Vietnamese-specific quantification of that theoretical concern. The policy implication: DAP expansion must be paired with increased operational risk capital buffers.',
+      approach:'Operational risk capital requirements tied to IT system complexity',
+      relevance:'Validates DAP finding with global regulatory framework',
+    },
+    {
+      id:1, industry:'Fintech Research · Vietnam', color:'#e8729a',
+      title:'SBV Digital Banking Circular 2023',
+      tag:'Direct policy link',
+      desc:'State Bank of Vietnam Circular 09/2023 mandates IT risk assessment for all commercial banks — directly citing e-payment risk as a priority concern.',
+      ref:'State Bank of Vietnam · sbv.gov.vn',
+      refUrl:'https://www.sbv.gov.vn',
+      analysis:'SBV Circular 09/2023 requires banks to implement comprehensive IT risk management frameworks specifically for e-payment systems — precisely the risk identified by the DAP coefficient in this study. The timing is notable: the circular was issued as Vietnamese banks were rapidly expanding QR payment and mobile banking. This study provides empirical evidence that the regulatory concern was warranted: each unit increase in DAP index raises RIST by 0.206 percentage points of bad debt ratio.',
+      approach:'Mandatory IT risk assessment + e-payment monitoring requirements',
+      relevance:'This study directly supports the regulatory rationale behind SBV Circular 09/2023',
+    },
+    {
+      id:2, industry:'Academic · SE Asia', color:'#5a9e82',
+      title:'IT-Credit Risk Studies in Emerging Markets',
+      tag:'Literature gap filled',
+      desc:'Prior studies examined IT in banking but none combined COB + BAD + DAP simultaneously in a single regularized model for Vietnamese banks.',
+      ref:'Journal of Social Research and Behavioral Sciences · Altunoz (2024)',
+      refUrl:'https://doi.org/10.52096/jsrbs.10.21.32',
+      analysis:'Altunoz (2024) and similar studies use logistic regression or neural networks for credit risk prediction — but focus on customer-level data (income, credit history). This study takes a different angle: bank-level IT infrastructure as predictors. The Ridge approach is novel in this literature — Moumane et al. (2024) specifically identified regularized regression as an underexplored method for banking credit risk. This paper directly addresses that gap while adding a Vietnamese emerging-market context absent from most existing studies.',
+      approach:'Ridge regularized regression — novel method in Vietnamese banking literature',
+      relevance:'Fills identified research gap; adds emerging market evidence to IT-credit risk literature',
+    },
+  ];
+  const activeCase = active!==null ? cases[active] : null;
+  return (
+    <div style={{display:'flex',flexDirection:'column',gap:10}}>
+      <div className={styles.parallelGrid}>
+        {cases.map(c=>(
+          <div key={c.id}
+            className={`${styles.parallelCard} ${active===c.id?styles.parallelCardActive:''}`}
+            style={{borderTopColor:active===c.id?c.color:'#ebebeb',cursor:'pointer'}}
+            onClick={()=>setActive(active===c.id?null:c.id)}>
+            <div className={styles.parallelIndustry} style={{color:c.color}}>{c.industry}</div>
+            <div className={styles.parallelTitle}>{c.title}</div>
+            <div className={styles.parallelTagBadge} style={{background:c.color+'18',color:c.color}}>{c.tag}</div>
+            <div className={styles.parallelDesc}>{c.desc}</div>
+            <div className={styles.parallelExpandHint}>{active===c.id?'▲ collapse':'▼ see analysis'}</div>
+          </div>
+        ))}
+      </div>
+      {activeCase&&(
+        <div className={styles.parallelDetail} style={{borderLeftColor:activeCase.color}}>
+          <div className={styles.parallelDetailInner}>
+            <div className={styles.parallelDetailAnalysis}>{activeCase.analysis}</div>
+            <div className={styles.parallelDetailMeta}>
+              <div className={styles.parallelApproachRow}><span className={styles.parallelApproach}>Approach:</span> {activeCase.approach}</div>
+              <div className={styles.parallelRelevanceRow}><span className={styles.parallelApproach} style={{color:activeCase.color}}>Why relevant:</span> {activeCase.relevance}</div>
+              <a href={activeCase.refUrl} target="_blank" rel="noopener noreferrer" className={styles.parallelRefLink}>↗ {activeCase.ref}</a>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── Project 3 Charts ── */
+function CoefficientChart() {
+  const [active, setActive] = useState(null);
+  const vars = [
+    {name:'COB', beta:-0.009, color:'#5a9e82', note:'Core Banking: more modules + better integration reduces credit risk. Each unit increase in COB decreases RIST by 0.009 — digitization helps but effect is modest.'},
+    {name:'BAD', beta:-0.020, color:'#5b8db8', note:'Basic IT Applications: strongest risk-reducing effect. Data management and analytics tools improve credit assessment accuracy. Each unit increase decreases RIST by 0.020.'},
+    {name:'DAP', beta:+0.206, color:'#e8729a', note:'E-Payment: INCREASES credit risk (β=+0.206) — largest coefficient. Rapid e-payment expansion without strict controls creates new fraud vectors and credit exposure. Critical policy finding.'},
+  ];
+  const W=380, H=120, cx=190, zeroY=60;
+  const maxAbs=0.25;
+  const info = active!==null ? vars[active] : null;
+  return (
+    <div className={styles.chartWrap}>
+      <div className={styles.chartTitle}>Regression Coefficients (β) <span className={styles.chartHint}>click a bar</span></div>
+      <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
+        <line x1={40} y1={zeroY} x2={W-10} y2={zeroY} stroke="#1a1a1a" strokeWidth="1"/>
+        <text x={38} y={zeroY+4} textAnchor="end" fontSize="7" fill="#888">0</text>
+        {[-0.2,-0.1,0.1,0.2].map(v=>{
+          const y=zeroY-(v/maxAbs)*(zeroY-10);
+          return(<g key={v}><line x1={36} y1={y} x2={W-10} y2={y} stroke="#f0f0f0" strokeWidth="1"/><text x={34} y={y+4} textAnchor="end" fontSize="6" fill="#bbb">{v}</text></g>);
+        })}
+        {vars.map((v,i)=>{
+          const bW=48, x=60+i*90;
+          const bH=Math.abs(v.beta/maxAbs)*(zeroY-10);
+          const isPos=v.beta>0;
+          const y=isPos?zeroY:zeroY-bH;
+          const isActive=active===i;
+          return(
+            <g key={i} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:i)}>
+              <rect x={x-bW/2} y={y} width={bW} height={bH} fill={isActive?v.color:v.color+'88'} rx="2" style={{transition:'fill 0.15s'}}/>
+              <text x={x} y={isPos?zeroY+bH+10:zeroY-bH-4} textAnchor="middle" fontSize="8" fontWeight="700" fill={v.color}>{v.beta>0?'+':''}{v.beta}</text>
+              <text x={x} y={H-2} textAnchor="middle" fontSize="9" fontWeight={isActive?700:500} fill={isActive?'#1a1a1a':'#555'}>{v.name}</text>
+            </g>
+          );
+        })}
+        <text x={cx} y={8} textAnchor="middle" fontSize="6" fill="#888">RIST = 0.838 - 0.009·COB - 0.020·BAD + 0.206·DAP</text>
+      </svg>
+      {info&&(
+        <div className={styles.chartExplain} style={{borderLeftColor:info.color}}>
+          <div className={styles.chartExplainTitle} style={{color:info.color}}>{info.name} (β = {info.beta>0?'+':''}{info.beta})</div>
+          <div className={styles.chartExplainNote}>{info.note}</div>
+        </div>
+      )}
+      {!info&&<div className={styles.legendNote}>Click each variable to understand its effect on credit risk.</div>}
+    </div>
+  );
+}
+
+function FeatureImportanceChart() {
+  const [active, setActive] = useState(null);
+  const features = [
+    {name:'BAD', score:0.837, color:'#5b8db8', rank:1, note:'Basic IT Applications rank #1 in feature importance. Data quality and analytics infrastructure matter more than system complexity for credit risk prediction.'},
+    {name:'DAP', score:0.832, color:'#e8729a', rank:2, note:'E-Payment ranks #2 — its large positive coefficient (+0.206) combined with high importance makes it the most impactful variable to monitor and control.'},
+    {name:'COB', score:0.816, rank:3, color:'#5a9e82', note:'Core Banking ranks #3 — still important but scores are close (0.816-0.837), suggesting all 3 IT dimensions contribute meaningfully to credit risk prediction.'},
+  ];
+  const W=380, H=90, padL=50;
+  const maxScore=0.85, minScore=0.80;
+  return (
+    <div className={styles.chartWrap}>
+      <div className={styles.chartTitle}>Feature Importance (Mean Dropout Loss) <span className={styles.chartHint}>click a bar</span></div>
+      <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
+        {features.map((f,i)=>{
+          const bW=((f.score-minScore)/(maxScore-minScore))*(W-padL-20);
+          const y=10+i*26;
+          const isActive=active===i;
+          return(
+            <g key={i} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:i)}>
+              <text x={padL-6} y={y+11} textAnchor="end" fontSize="9" fontWeight={isActive?700:500} fill={isActive?f.color:'#555'}>#{f.rank} {f.name}</text>
+              <rect x={padL} y={y} width={bW} height={18} fill={isActive?f.color:f.color+'88'} rx="2" style={{transition:'all 0.15s'}}/>
+              <text x={padL+bW+4} y={y+12} fontSize="8" fontWeight="700" fill={f.color}>{f.score}</text>
+            </g>
+          );
+        })}
+        <text x={padL} y={H-2} fontSize="6" fill="#bbb">Scores 0.80-0.85 — all variables contribute meaningfully (small gap)</text>
+      </svg>
+      {active!==null&&(
+        <div className={styles.chartExplain} style={{borderLeftColor:features[active].color}}>
+          <div className={styles.chartExplainTitle} style={{color:features[active].color}}>#{features[active].rank} {features[active].name} — Score: {features[active].score}</div>
+          <div className={styles.chartExplainNote}>{features[active].note}</div>
+        </div>
+      )}
+      {active===null&&<div className={styles.legendNote}>Click each feature to understand its importance ranking.</div>}
+    </div>
+  );
+}
+
+function ModelMetricsChart() {
+  const metrics = [
+    {name:'Val MSE', val:0.423, threshold:0.5, good:true, note:'Validation MSE = 0.423 < 0.5 threshold — acceptable model quality', color:'#5a9e82'},
+    {name:'Test MSE', val:0.363, threshold:0.5, good:true, note:'Test MSE = 0.363 < Val MSE — model is not overfit. Lower on unseen data is a good sign.', color:'#5b8db8'},
+    {name:'MAE/MAD', val:0.457, threshold:0.5, good:true, note:'MAE/MAD = 0.457 < 0.5 — model explains most variation in credit risk data', color:'#9060c0'},
+  ];
+  return (
+    <div className={styles.chartWrap}>
+      <div className={styles.chartTitle}>Model Performance Metrics</div>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}}>
+        {metrics.map((m,i)=>(
+          <div key={i} style={{background:'#fff',border:`1px solid ${m.color}44`,borderTop:`3px solid ${m.color}`,borderRadius:6,padding:'12px 10px',textAlign:'center'}}>
+            <div style={{fontSize:22,fontWeight:800,color:m.color,letterSpacing:'-0.5px'}}>{m.val}</div>
+            <div style={{fontSize:10,fontWeight:700,color:'#1a1a1a',textTransform:'uppercase',letterSpacing:'0.5px',margin:'4px 0 2px'}}>{m.name}</div>
+            <div style={{fontSize:10,color:'#5a9e82',fontWeight:600}}>below threshold</div>
+            <div style={{fontSize:10,color:'#888',marginTop:4,lineHeight:1.4}}>{m.note}</div>
+          </div>
+        ))}
+      </div>
+      <div className={styles.legendNote}>MAPE=55.55% is acknowledged as a limitation — point prediction accuracy needs improvement.</div>
+    </div>
+  );
+}
+
 /* ── Project 2 Charts ── */
 function RevenueBarChart({models}) {
   const [active, setActive] = useState(null);
@@ -1122,8 +1303,138 @@ export default function Portfolio() {
                             </>
                           )}
 
+                          {/* ══ PROJECT 3 ══ */}
+                          {project.id===3&&(
+                            <>
+                            {currentTab==='context'&&(
+                              <div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}>
+                                <div className={styles.problemBox}>
+                                  <div className={styles.problemLabel}>The Problem</div>
+                                  <div className={styles.problemText}>While IT adoption in banking is well-studied, no prior research had examined the combined effect of core banking, basic IT, and e-payment systems on credit risk simultaneously. This study fills that gap using regularized regression on Vietnamese commercial bank data — 2017 to 2022.</div>
+                                </div>
+                                <div className={styles.statRow}>
+                                  <div className={styles.statBox}><div className={styles.statNum}>121</div><div className={styles.statLabel}>Observations</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>3</div><div className={styles.statLabel}>IT Variables</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#e8729a'}}>0.156</div><div className={styles.statLabel}>Ridge Lambda</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>5 yrs</div><div className={styles.statLabel}>Data Period</div></div>
+                                </div>
+                                <div className={styles.eda3col}>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>COB</div><div className={styles.edaStat} style={{color:'#5a9e82'}}>β = -0.009</div><div className={styles.edaDesc}>Core Banking Index: modules deployed, system connections, automation level, data reconciliation quality.</div></div>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>BAD</div><div className={styles.edaStat} style={{color:'#5b8db8'}}>β = -0.020</div><div className={styles.edaDesc}>Basic IT Applications: data management, analytics tools, IT infrastructure quality across the bank.</div></div>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>DAP</div><div className={styles.edaStat} style={{color:'#e8729a'}}>β = +0.206</div><div className={styles.edaDesc}>Electronic Payment: interbank e-payment, SWIFT, bilateral payment systems — increases credit risk.</div></div>
+                                </div>
+                                <div className={styles.contextMeta}>
+                                  <span>Co-authors: {project.supervisor}</span>
+                                  <span>{project.institution} · {project.period} · {project.doi}</span>
+                                </div>
+                              </div>
+                            )}
+                            {currentTab==='approach'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.problemBox}>
+                                  <div className={styles.problemLabel}>Research Question</div>
+                                  <div className={styles.problemText}>{project.researchQuestion}</div>
+                                </div>
+                                <div className={styles.approachGrid}>
+                                  {[{icon:'01',label:'Gap Identification',desc:'First study to combine COB + BAD + DAP effects on credit risk simultaneously'},{icon:'02',label:'Variable Construction',desc:'COB = 5 sub-indices from ICT Report; RIST = bad debt % of total outstanding'},{icon:'03',label:'Ridge Regression',desc:'L2 regularization (λ=0.156) handles multicollinearity between IT indices'},{icon:'04',label:'Validation Strategy',desc:'77/20/24 train-validation-test split; MSE, RMSE, MAE/MAD, MAPE evaluated'}].map((a,i)=>(
+                                    <div key={i} className={styles.approachCard}><div className={styles.approachIcon}>{a.icon}</div><div className={styles.approachLabel}>{a.label}</div><div className={styles.approachDesc}>{a.desc}</div></div>
+                                  ))}
+                                </div>
+                                <div className={styles.toolsRow}><span className={styles.panelLabel}>Tools</span><div className={styles.toolsList} style={{marginTop:8}}>{project.tools?.map((t,i)=><span key={i} className={styles.tool} style={{fontSize:13,padding:'5px 12px'}}>{t}</span>)}</div></div>
+                              </div>
+                            )}
+                            {currentTab==='analysis'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.statRow}>
+                                  <div className={styles.statBox}><div className={styles.statNum}>121</div><div className={styles.statLabel}>Observations</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>2017-22</div><div className={styles.statLabel}>Period</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#e8729a'}}>Unbalanced</div><div className={styles.statLabel}>Panel Type</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>Listed</div><div className={styles.statLabel}>Bank Coverage</div></div>
+                                </div>
+                                <div className={styles.eda3col}>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>Data Source 1</div><div className={styles.edaDesc}>Vietnam ICT Index Reports (2017-2020, 2022) — Ministry of Information and Communications. No 2021 report exists, creating unbalanced panel.</div></div>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>Data Source 2</div><div className={styles.edaDesc}>Financial statements of Vietnamese commercial banks listed on stock exchange. RIST = % bad debt with capital loss risk / total outstanding debt.</div></div>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>Panel Structure</div><div className={styles.edaDesc}>Unbalanced panel — bank list in ICT Index varies by year. 121 obs collected across banks with complete COB, BAD, DAP, and RIST data.</div></div>
+                                </div>
+                                <ModelMetricsChart/>
+                              </div>
+                            )}
+                            {currentTab==='methodology'&&(
+                              <div className={styles.panelContent}>
+                                {project.methodology&&<PipelineSteps steps={project.methodology} hasCharts={false}/>}
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Why Ridge Regression?</span>
+                                  <div className={styles.eda3col}>
+                                    <div className={styles.edaCard}><div className={styles.edaTitle}>Multicollinearity</div><div className={styles.edaDesc}>COB, BAD, DAP are correlated IT indices. OLS would inflate coefficients. Ridge L2 penalty shrinks them toward zero stably.</div></div>
+                                    <div className={styles.edaCard}><div className={styles.edaTitle}>Small Sample</div><div className={styles.edaDesc}>121 observations across 5 years. Regularization prevents overfitting — critical when n is small relative to variable complexity.</div></div>
+                                    <div className={styles.edaCard}><div className={styles.edaTitle}>Lambda = 0.156</div><div className={styles.edaDesc}>Optimal penalty found via cross-validation. Balances bias-variance tradeoff: enough shrinkage without losing explanatory power.</div></div>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                            {currentTab==='results'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.heroStats}>
+                                  <div className={styles.heroStat} style={{borderColor:'#e8729a'}}><div className={styles.heroNum} style={{color:'#e8729a'}}>+0.206</div><div className={styles.heroLabel}>DAP Coefficient</div><div className={styles.heroSub}>E-payment INCREASES risk</div></div>
+                                  <div className={styles.heroStat} style={{borderColor:'#5b8db8'}}><div className={styles.heroNum} style={{color:'#5b8db8'}}>0.837</div><div className={styles.heroLabel}>BAD Importance</div><div className={styles.heroSub}>Highest feature score</div></div>
+                                  <div className={styles.heroStat} style={{borderColor:'#5a9e82'}}><div className={styles.heroNum} style={{color:'#5a9e82'}}>0.363</div><div className={styles.heroLabel}>Test MSE</div><div className={styles.heroSub}>No overfitting detected</div></div>
+                                </div>
+                                <CoefficientChart/>
+                                <FeatureImportanceChart/>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Key Results</span>
+                                  <ul className={styles.resultsList}>{project.results?.map((r,i)=><li key={i}>{r}</li>)}</ul>
+                                </div>
+                              </div>
+                            )}
+                            {currentTab==='outcome'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Policy Impact</span>
+                                  <div className={styles.impactRow}>
+                                    <div className={styles.impactStat} style={{borderColor:'#e8729a'}}><div className={styles.impactNum} style={{color:'#e8729a'}}>+0.206</div><div className={styles.impactLabel}>DAP Risk Signal</div><div className={styles.impactSub}>Largest coefficient — highest priority for monitoring</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#5b8db8'}}><div className={styles.impactNum} style={{color:'#5b8db8'}}>0.837</div><div className={styles.impactLabel}>BAD Importance</div><div className={styles.impactSub}>IT infrastructure quality matters most</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#5a9e82'}}><div className={styles.impactNum} style={{color:'#5a9e82'}}>0.457</div><div className={styles.impactLabel}>MAE/MAD</div><div className={styles.impactSub}>Below 0.5 threshold — model valid</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#9060c0'}}><div className={styles.impactNum} style={{color:'#9060c0'}}>121</div><div className={styles.impactLabel}>Observations</div><div className={styles.impactSub}>Vietnamese commercial banks 2017-2022</div></div>
+                                  </div>
+                                  <div className={styles.tierGrid}>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#5a9e82'}}><div className={styles.tierLabel} style={{color:'#5a9e82'}}>Invest: COB + BAD</div><div className={styles.tierDesc}>Upgrading core banking and basic IT reduces credit risk. Prioritize data analytics and automation quality.</div></div>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#e8729a'}}><div className={styles.tierLabel} style={{color:'#e8729a'}}>Control: DAP</div><div className={styles.tierDesc}>E-payment expansion must be paired with strict security policies and real-time transaction monitoring.</div></div>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#5b8db8'}}><div className={styles.tierLabel} style={{color:'#5b8db8'}}>Improve: Model</div><div className={styles.tierDesc}>MAPE=55.55% is a known limitation. XGBoost or neural networks could improve point prediction accuracy.</div></div>
+                                  </div>
+                                </div>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Reflection</span>
+                                  <div className={styles.reflectGrid}>
+                                    <div className={styles.reflectCard} style={{borderTopColor:'#5a9e82'}}>
+                                      <div className={styles.reflectHeader} style={{color:'#5a9e82'}}><span>✓</span> What worked</div>
+                                      <ul className={styles.reflectList}>
+                                        <li><span className={styles.reflectHL}>Ridge regression</span> was the right choice — multicollinearity between IT indices would have corrupted OLS estimates</li>
+                                        <li>The <span className={styles.reflectHL}>DAP finding (+0.206)</span> was counterintuitive and immediately policy-relevant — e-payments increase risk</li>
+                                        <li>Using <span className={styles.reflectHL}>mean dropout loss</span> for feature importance gave a more stable ranking than permutation importance on small samples</li>
+                                      </ul>
+                                    </div>
+                                    <div className={styles.reflectCard} style={{borderTopColor:'#e8729a'}}>
+                                      <div className={styles.reflectHeader} style={{color:'#e8729a'}}><span>→</span> What I would do differently</div>
+                                      <ul className={styles.reflectList}>
+                                        <li>Address <span className={styles.reflectHL}>MAPE=55.55%</span> — try XGBoost or Elastic Net; the high MAPE suggests non-linear relationships the linear model misses</li>
+                                        <li>Expand dataset: <span className={styles.reflectHL}>include 2021 imputed data</span> and extend to non-listed banks for a balanced panel</li>
+                                        <li>Add <span className={styles.reflectHL}>interaction terms</span> (COB × DAP) to capture whether core banking modernization moderates e-payment risk</li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Real-world Parallels <span style={{fontWeight:400,color:'#bbb',fontSize:9,letterSpacing:0}}>click a case</span></span>
+                                  <P3ParallelCases/>
+                                </div>
+                              </div>
+                            )}
+                            </>
+                          )}
+
                           {/* ══ OTHER PROJECTS ══ */}
-                          {!hasCharts&&!isP2&&(
+                          {!hasCharts&&!isP2&&project.id!==3&&(
                             <>
                             {currentTab==='context'&&(
                               <div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}>
