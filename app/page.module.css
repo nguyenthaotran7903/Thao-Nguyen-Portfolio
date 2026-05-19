@@ -134,11 +134,12 @@
   color: #3a3a3a;
   line-height: 1.85;
   font-weight: 400;
-  max-width: 760px;
+  max-width: 100%;
   border-left: 3px solid #e8729a;
   padding-left: 24px;
   margin: 0 0 48px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-align: justify;
 }
  
 .aboutGrid {
