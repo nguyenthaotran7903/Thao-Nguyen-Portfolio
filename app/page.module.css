@@ -450,8 +450,8 @@
   padding: 16px;
   animation: fadeIn 0.2s ease;
 }
-.edaDetailRow { display: flex; gap: 16px; align-items: flex-start; }
-.edaDetailViz { flex-shrink: 0; width: 280px; max-width: 100%; }
+.edaDetailRow { display: flex; flex-direction: column; gap: 12px; }
+.edaDetailViz { width: 100%; }
 .edaDetailText { flex: 1; display: flex; flex-direction: column; gap: 8px; }
 .edaDetailTitle { font-size: 12px; font-weight: 700; }
 .edaDetailBody { font-size: 12px; color: #555; line-height: 1.65; }
