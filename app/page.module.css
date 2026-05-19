@@ -397,3 +397,35 @@
   .projectHeader { padding: 20px; }
   .modelCompact { grid-template-columns: 1fr; }
 }
+
+/* ===== 6-TAB PANEL ===== */
+.panelTabs { overflow-x: auto; }
+.panelTab { padding: 12px 16px; font-size: 11px; letter-spacing: 1px; }
+
+/* Approach grid */
+.approachGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.approachCard { background: #fff; border: 1px solid #ebebeb; border-radius: 6px; padding: 16px; display: flex; flex-direction: column; gap: 6px; transition: border-color 0.2s; }
+.approachCard:hover { border-color: #1a1a1a; }
+.approachIcon { font-size: 20px; font-weight: 800; color: #ebebeb; letter-spacing: -1px; }
+.approachLabel { font-size: 13px; font-weight: 700; color: #1a1a1a; }
+.approachDesc { font-size: 12px; color: #888; line-height: 1.5; }
+.toolsRow { display: flex; flex-direction: column; gap: 8px; }
+
+/* EDA 3 col */
+.eda3col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.edaCard { background: #fff; border: 1px solid #ebebeb; border-radius: 6px; padding: 16px; }
+.edaTitle { font-size: 12px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+.edaDesc { font-size: 12px; color: #888; line-height: 1.5; }
+
+/* Decision tier */
+.decisionBox { background: #1a1a1a; color: #fff; border-radius: 8px; padding: 20px 24px; display: flex; flex-direction: column; gap: 8px; }
+.tierGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.tierCard { background: #fff; border: 1px solid #ebebeb; border-top: 3px solid #ccc; border-radius: 6px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.tierLabel { font-size: 12px; font-weight: 700; }
+.tierDesc { font-size: 12px; color: #888; line-height: 1.5; }
+
+@media (max-width: 768px) {
+  .approachGrid { grid-template-columns: 1fr; }
+  .eda3col { grid-template-columns: 1fr; }
+  .tierGrid { grid-template-columns: 1fr; }
+}
