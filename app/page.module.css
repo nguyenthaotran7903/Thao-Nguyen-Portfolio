@@ -32,7 +32,7 @@
   transition: border-color 0.3s;
 }
 
-.avatarWrapper:hover { border-color: #F2C4CE; }
+.avatarWrapper:hover { border-color: #FFB3D9; }
 .avatar { width: 100%; height: 100%; object-fit: cover; }
 
 .name {
@@ -46,7 +46,7 @@
 
 .title {
   font-size: 14px;
-  color: #A8D8C8;
+  color: #B3FFD9;
   font-weight: 500;
   letter-spacing: 2.5px;
   text-transform: uppercase;
@@ -65,7 +65,7 @@
 .contact { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
 
 .contactLink {
-  color: #C4B8E8;
+  color: #D9B3FF;
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
@@ -74,7 +74,7 @@
   border-bottom: 1px solid transparent;
 }
 
-.contactLink:hover { color: #fff; border-bottom-color: #F2C4CE; }
+.contactLink:hover { color: #fff; border-bottom-color: #FFB3D9; }
 .contactDot { color: #444; font-size: 12px; }
 .contactInfo { color: #999; font-size: 14px; }
 
@@ -98,7 +98,7 @@
 }
 
 .tab:hover { color: #dddddd; }
-.tabActive { color: #ffffff; border-bottom-color: #F2C4CE; }
+.tabActive { color: #ffffff; border-bottom-color: #FFB3D9; }
 
 /* ===== CONTENT ===== */
 .content { min-height: 500px; padding-bottom: 80px; }
@@ -111,7 +111,7 @@
   line-height: 1.85;
   font-weight: 300;
   max-width: 760px;
-  border-left: 2px solid #F2C4CE;
+  border-left: 2px solid #FFB3D9;
   padding-left: 24px;
   margin: 0 0 48px;
 }
@@ -140,7 +140,7 @@
   font-size: 11px;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: #A8D8C8;
+  color: #B3FFD9;
   margin-bottom: 14px;
   font-weight: 600;
 }
@@ -201,7 +201,7 @@
 
 .eduInst {
   font-size: 15px;
-  color: #A8D8C8;
+  color: #B3FFD9;
   display: block;
   line-height: 1.4;
 }
@@ -229,7 +229,7 @@
 
 .awardYear {
   font-size: 13px;
-  color: #F8E4A8;
+  color: #FFD9B3;
   font-weight: 600;
   padding-top: 3px;
   display: block;
@@ -296,7 +296,7 @@
   line-height: 1.55;
 }
 
-.trainingTopics li:before { content: "–"; position: absolute; left: 0; color: #A8D8C8; }
+.trainingTopics li:before { content: "–"; position: absolute; left: 0; color: #B3FFD9; }
 
 /* ===== CERTIFICATIONS ===== */
 .certList {
@@ -318,7 +318,7 @@
 }
 
 .certList li:last-child { border-bottom: none; }
-.certList li:before { content: "✦"; position: absolute; left: 0; color: #F2C4CE; font-size: 9px; top: 20px; }
+.certList li:before { content: "✦"; position: absolute; left: 0; color: #FFB3D9; font-size: 9px; top: 20px; }
 
 /* ===== EXPERTISE ===== */
 .expertiseList { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -334,7 +334,7 @@
   cursor: default;
 }
 
-.expertiseBadge:hover { border-color: #C4B8E8; color: #ffffff; background: #161616; }
+.expertiseBadge:hover { border-color: #D9B3FF; color: #ffffff; background: #161616; }
 
 /* ===== PROJECTS ===== */
 .controls { margin-bottom: 24px; }
@@ -353,7 +353,7 @@
 }
 
 .searchInput::placeholder { color: #555; }
-.searchInput:focus { outline: none; border-color: #F2C4CE; }
+.searchInput:focus { outline: none; border-color: #FFB3D9; }
 
 .filterButtons { display: flex; gap: 6px; flex-wrap: wrap; }
 
@@ -371,7 +371,7 @@
 }
 
 .filterBtn:hover { border-color: #aaa; color: #ddd; }
-.filterBtn.active { background: #F2C4CE; color: #1a1a1a; border-color: #F2C4CE; font-weight: 600; }
+.filterBtn.active { background: #FFB3D9; color: #1a1a1a; border-color: #FFB3D9; font-weight: 600; }
 
 .resultsCount {
   font-size: 12px;
@@ -408,7 +408,7 @@
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #A8D8C8;
+  color: #B3FFD9;
   font-weight: 600;
 }
 
@@ -428,13 +428,13 @@
 
 .projectResults {
   background: #111;
-  border-left: 2px solid #F2C4CE;
+  border-left: 2px solid #FFB3D9;
   padding: 14px 16px;
 }
 
 .projectMethodology {
   background: #0f0f0f;
-  border-left: 2px solid #A8D8C8;
+  border-left: 2px solid #B3FFD9;
   padding: 14px 16px;
 }
 
@@ -442,7 +442,7 @@
   font-size: 10px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #F2C4CE;
+  color: #FFB3D9;
   font-weight: 600;
   display: block;
   margin-bottom: 10px;
@@ -465,8 +465,8 @@
   line-height: 1.5;
 }
 
-.projectResults li:before { content: "–"; position: absolute; left: 0; color: #F2C4CE; }
-.projectMethodology li:before { content: "–"; position: absolute; left: 0; color: #A8D8C8; }
+.projectResults li:before { content: "–"; position: absolute; left: 0; color: #FFB3D9; }
+.projectMethodology li:before { content: "–"; position: absolute; left: 0; color: #B3FFD9; }
 
 .expandBtn {
   background: none;
@@ -481,7 +481,7 @@
   text-align: left;
 }
 
-.expandBtn:hover { color: #F2C4CE; }
+.expandBtn:hover { color: #FFB3D9; }
 
 .projectFooter {
   display: flex;
@@ -506,7 +506,7 @@
 
 .tag {
   padding: 4px 10px;
-  color: #C4B8E8;
+  color: #D9B3FF;
   border: 1px solid #2e2e2e;
   border-radius: 2px;
   font-size: 11px;
@@ -517,8 +517,8 @@
   transition: all 0.2s;
 }
 
-.tag:hover { border-color: #C4B8E8; color: #fff; }
-.tagActive { background: #1c1828; border-color: #C4B8E8; }
+.tag:hover { border-color: #D9B3FF; color: #fff; }
+.tagActive { background: #1e1428; border-color: #D9B3FF; }
 
 .noResults { color: #555; padding: 40px 0; text-align: center; font-size: 15px; }
 
@@ -554,7 +554,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #F2C4CE;
+  background: #FFB3D9;
   flex-shrink: 0;
   margin-top: 5px;
 }
@@ -578,7 +578,7 @@
 
 .jobCompany {
   font-size: 15px;
-  color: #C8E4F8;
+  color: #B3D9FF;
   display: block;
   margin-bottom: 18px;
 }
@@ -604,7 +604,7 @@
   content: "→";
   position: absolute;
   left: 0;
-  color: #F2C4CE;
+  color: #FFB3D9;
   font-size: 12px;
   top: 3px;
 }
@@ -625,7 +625,7 @@
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #A8D8C8;
+  color: #B3FFD9;
   font-weight: 600;
   padding-top: 8px;
   display: block;
@@ -646,7 +646,7 @@
 }
 
 .skillBadge:hover, .skillHovered {
-  border-color: #C4B8E8;
+  border-color: #D9B3FF;
   color: #ffffff;
   background: #1a1a1a;
 }
