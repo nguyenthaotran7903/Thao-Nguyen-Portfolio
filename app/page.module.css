@@ -1,16 +1,15 @@
 /*
   PALETTE — professional pastel on white
-  --rose    : #e8729a  → borders, dots, active tab, arrows (accent only)
+  --rose    : #e8729a  → borders, dots, active tab, arrows
   --slate   : #5b8db8  → institution names, company names, links
   --sage    : #5a9e82  → labels, skill group headers, category tags
   --ink     : #1a1a1a  → all headings & titles
   --body    : #3a3a3a  → body copy
   --muted   : #888888  → dates, meta, secondary
-  --faint   : #bbbbbb  → placeholders, dividers text
   --border  : #ebebeb  → all dividers
   --bg-sub  : #f7f7f7  → card / hover backgrounds
 */
-
+ 
 /* ===== BASE ===== */
 .container {
   max-width: 1000px;
@@ -21,89 +20,91 @@
   transform: translateY(12px);
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
-
+ 
 .mounted { opacity: 1; transform: translateY(0); }
-
+ 
 /* ===== HEADER ===== */
 .header {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 80px 0 56px;
+  padding: 72px 0 56px;
   border-bottom: 1px solid #ebebeb;
-  gap: 14px;
+  gap: 16px;
 }
-
+ 
 .avatarWrapper {
-  width: 110px;
-  height: 110px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid #ebebeb;
-  margin-bottom: 6px;
+  border: 3px solid #ebebeb;
+  margin-bottom: 8px;
   transition: border-color 0.3s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
-
+ 
 .avatarWrapper:hover { border-color: #e8729a; }
 .avatar { width: 100%; height: 100%; object-fit: cover; }
-
+ 
 .name {
-  font-size: 56px;
-  font-weight: 700;
+  font-size: 62px;
+  font-weight: 800;
   color: #1a1a1a;
-  letter-spacing: -1px;
-  line-height: 1.05;
+  letter-spacing: -2px;
+  line-height: 1.0;
   margin: 0;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .title {
-  font-size: 13px;
+  font-size: 12px;
   color: #1a1a1a;
-  font-weight: 600;
-  letter-spacing: 2.5px;
+  font-weight: 700;
+  letter-spacing: 3.5px;
   text-transform: uppercase;
   margin: 0;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .tagline {
-  font-size: 16px;
-  color: #555;
+  font-size: 17px;
+  color: #444;
   font-style: italic;
-  max-width: 580px;
-  line-height: 1.7;
-  margin: 0;
+  max-width: 640px;
+  line-height: 1.75;
+  margin: 4px 0 0;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .contact {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 4px;
 }
-
+ 
 .contactLink {
   color: #5b8db8;
   text-decoration: none;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.5px;
   transition: color 0.2s;
   border-bottom: 1px solid transparent;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .contactLink:hover { color: #1a1a1a; border-bottom-color: #e8729a; }
 .contactDot { color: #ddd; font-size: 12px; }
 .contactInfo { color: #888; font-size: 14px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-
+ 
 /* ===== TABS ===== */
 .tabs { display: flex; border-bottom: 1px solid #ebebeb; margin-bottom: 56px; }
-
+ 
 .tab {
   padding: 18px 28px;
   border: none;
@@ -119,14 +120,14 @@
   letter-spacing: 1.5px;
   text-transform: uppercase;
 }
-
+ 
 .tab:hover { color: #555; }
 .tabActive { color: #1a1a1a; border-bottom-color: #e8729a; }
-
+ 
 /* ===== CONTENT ===== */
 .content { min-height: 500px; padding-bottom: 80px; }
 .section { max-width: 900px; }
-
+ 
 /* ===== ABOUT ===== */
 .aboutBio {
   font-size: 17px;
@@ -139,7 +140,7 @@
   margin: 0 0 48px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .aboutGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -150,15 +151,15 @@
   overflow: hidden;
   margin-bottom: 8px;
 }
-
+ 
 .aboutCard {
   background: #ffffff;
   padding: 28px;
   transition: background 0.2s;
 }
-
+ 
 .aboutCard:hover { background: #f7f7f7; }
-
+ 
 .cardLabel {
   display: block;
   font-size: 10px;
@@ -169,7 +170,7 @@
   font-weight: 700;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .aboutCard p {
   font-size: 15px;
   color: #3a3a3a;
@@ -177,9 +178,9 @@
   margin: 0;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .strengthsList { list-style: none; padding: 0; margin: 0; }
-
+ 
 .strengthsList li {
   font-size: 15px;
   color: #3a3a3a;
@@ -188,9 +189,9 @@
   line-height: 1.5;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .strengthsList li:last-child { border-bottom: none; }
-
+ 
 /* ===== EDUCATION ===== */
 .eduBlock {
   display: grid;
@@ -200,11 +201,10 @@
   border-bottom: 1px solid #f2f2f2;
   align-items: start;
 }
-
+ 
 .eduBlock:last-of-type { border-bottom: none; }
-
 .eduLeft { display: flex; flex-direction: column; gap: 6px; padding-top: 3px; }
-
+ 
 .eduPeriod {
   font-size: 13px;
   color: #888;
@@ -213,7 +213,7 @@
   line-height: 1.5;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .eduStatus {
   font-size: 11px;
   color: #bbb;
@@ -222,9 +222,9 @@
   text-transform: uppercase;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .eduRight { display: flex; flex-direction: column; gap: 7px; }
-
+ 
 .eduDegree {
   font-size: 17px;
   font-weight: 700;
@@ -233,7 +233,7 @@
   line-height: 1.3;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .eduInst {
   font-size: 15px;
   color: #5b8db8;
@@ -242,7 +242,7 @@
   font-weight: 500;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .eduField {
   font-size: 14px;
   color: #888;
@@ -250,10 +250,10 @@
   line-height: 1.5;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 /* ===== SCHOLARSHIPS ===== */
 .awardsList { display: flex; flex-direction: column; gap: 0; }
-
+ 
 .awardItem {
   display: grid;
   grid-template-columns: 60px 1fr;
@@ -262,9 +262,9 @@
   border-bottom: 1px solid #f2f2f2;
   align-items: start;
 }
-
+ 
 .awardItem:last-child { border-bottom: none; }
-
+ 
 .awardYear {
   font-size: 13px;
   color: #1a1a1a;
@@ -273,9 +273,9 @@
   display: block;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .awardBody { display: flex; flex-direction: column; gap: 5px; }
-
+ 
 .awardTitle {
   font-size: 16px;
   font-weight: 600;
@@ -284,7 +284,7 @@
   line-height: 1.4;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .awardOrg {
   font-size: 13px;
   color: #888;
@@ -292,10 +292,10 @@
   line-height: 1.5;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 /* ===== TRAINING ===== */
 .trainingList { display: flex; flex-direction: column; gap: 0; }
-
+ 
 .trainingItem {
   padding: 24px 0;
   border-bottom: 1px solid #f2f2f2;
@@ -303,9 +303,9 @@
   flex-direction: column;
   gap: 6px;
 }
-
+ 
 .trainingItem:last-child { border-bottom: none; }
-
+ 
 .trainingTitle {
   font-size: 16px;
   font-weight: 700;
@@ -313,7 +313,7 @@
   display: block;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .trainingOrg {
   font-size: 14px;
   color: #888;
@@ -321,7 +321,7 @@
   line-height: 1.5;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .trainingTopics {
   list-style: none;
   padding: 0;
@@ -330,7 +330,7 @@
   flex-direction: column;
   gap: 6px;
 }
-
+ 
 .trainingTopics li {
   font-size: 14px;
   color: #555;
@@ -339,9 +339,9 @@
   line-height: 1.55;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .trainingTopics li:before { content: "–"; position: absolute; left: 0; color: #5a9e82; }
-
+ 
 /* ===== CERTIFICATIONS ===== */
 .certList {
   list-style: none;
@@ -351,7 +351,7 @@
   flex-direction: column;
   gap: 0;
 }
-
+ 
 .certList li {
   font-size: 15px;
   color: #3a3a3a;
@@ -361,13 +361,13 @@
   line-height: 1.5;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .certList li:last-child { border-bottom: none; }
 .certList li:before { content: "✦"; position: absolute; left: 0; color: #e8729a; font-size: 9px; top: 20px; }
-
+ 
 /* ===== EXPERTISE ===== */
 .expertiseList { display: flex; flex-wrap: wrap; gap: 8px; }
-
+ 
 .expertiseBadge {
   padding: 7px 14px;
   border: 1px solid #ebebeb;
@@ -379,12 +379,12 @@
   cursor: default;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .expertiseBadge:hover { border-color: #5b8db8; color: #1a1a1a; background: #fff; }
-
+ 
 /* ===== PROJECTS ===== */
 .controls { margin-bottom: 24px; }
-
+ 
 .searchInput {
   width: 100%;
   padding: 13px 18px;
@@ -397,12 +397,12 @@
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin-bottom: 14px;
 }
-
+ 
 .searchInput::placeholder { color: #ccc; }
 .searchInput:focus { outline: none; border-color: #e8729a; }
-
+ 
 .filterButtons { display: flex; gap: 6px; flex-wrap: wrap; }
-
+ 
 .filterBtn {
   padding: 6px 14px;
   border: 1px solid #ebebeb;
@@ -416,10 +416,10 @@
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 500;
 }
-
+ 
 .filterBtn:hover { border-color: #888; color: #333; }
 .filterBtn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; font-weight: 600; }
-
+ 
 .resultsCount {
   font-size: 12px;
   color: #bbb;
@@ -427,7 +427,7 @@
   margin-bottom: 20px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .projectsGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -437,7 +437,7 @@
   border-radius: 4px;
   overflow: hidden;
 }
-
+ 
 .projectCard {
   padding: 28px;
   background: #ffffff;
@@ -446,12 +446,12 @@
   flex-direction: column;
   gap: 10px;
 }
-
+ 
 .projectCard:hover { background: #f7f7f7; }
 .projectExpanded { background: #f7f7f7 !important; }
-
+ 
 .projectMeta { display: flex; justify-content: space-between; align-items: center; }
-
+ 
 .projectCategory {
   font-size: 10px;
   letter-spacing: 2px;
@@ -460,9 +460,9 @@
   font-weight: 700;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .projectYear { font-size: 12px; color: #bbb; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-
+ 
 .projectTitle {
   font-size: 16px;
   font-weight: 700;
@@ -471,7 +471,7 @@
   margin: 0;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .projectType {
   font-size: 13px;
   color: #999;
@@ -479,7 +479,7 @@
   font-style: italic;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .projectContext {
   font-size: 14px;
   color: #555;
@@ -488,19 +488,19 @@
   flex: 1;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .projectResults {
   background: #fdf5f8;
   border-left: 2px solid #e8729a;
   padding: 14px 16px;
 }
-
+ 
 .projectMethodology {
   background: #f4faf7;
   border-left: 2px solid #5a9e82;
   padding: 14px 16px;
 }
-
+ 
 .resultLabel {
   font-size: 10px;
   letter-spacing: 2px;
@@ -511,7 +511,7 @@
   margin-bottom: 10px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .projectResults ul, .projectMethodology ul {
   list-style: none;
   padding: 0;
@@ -520,7 +520,7 @@
   flex-direction: column;
   gap: 7px;
 }
-
+ 
 .projectResults li, .projectMethodology li {
   font-size: 14px;
   color: #3a3a3a;
@@ -529,10 +529,10 @@
   line-height: 1.5;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .projectResults li:before { content: "–"; position: absolute; left: 0; color: #e8729a; }
 .projectMethodology li:before { content: "–"; position: absolute; left: 0; color: #5a9e82; }
-
+ 
 .expandBtn {
   background: none;
   border: none;
@@ -545,9 +545,9 @@
   transition: color 0.2s;
   text-align: left;
 }
-
+ 
 .expandBtn:hover { color: #1a1a1a; }
-
+ 
 .projectFooter {
   display: flex;
   flex-direction: column;
@@ -555,9 +555,9 @@
   padding-top: 14px;
   border-top: 1px solid #f2f2f2;
 }
-
+ 
 .toolsList { display: flex; flex-wrap: wrap; gap: 5px; }
-
+ 
 .tool {
   padding: 3px 9px;
   background: #f7f7f7;
@@ -567,9 +567,9 @@
   border: 1px solid #ebebeb;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .tags { display: flex; flex-wrap: wrap; gap: 5px; }
-
+ 
 .tag {
   padding: 3px 10px;
   color: #5b8db8;
@@ -582,10 +582,10 @@
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   transition: all 0.2s;
 }
-
+ 
 .tag:hover { border-color: #5b8db8; color: #1a1a1a; background: #fff; }
 .tagActive { background: #ddeef8; border-color: #5b8db8; color: #1a1a1a; }
-
+ 
 .noResults {
   color: #ccc;
   padding: 40px 0;
@@ -593,21 +593,20 @@
   font-size: 15px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 /* ===== EXPERIENCE ===== */
 .timeline { display: flex; flex-direction: column; }
-
+ 
 .timelineItem {
   display: grid;
   grid-template-columns: 150px 32px 1fr;
   padding: 36px 0;
   border-bottom: 1px solid #f2f2f2;
 }
-
+ 
 .timelineItem:last-child { border-bottom: none; }
-
 .timelineLeft { padding-top: 3px; }
-
+ 
 .jobPeriod {
   font-size: 13px;
   color: #888;
@@ -615,14 +614,14 @@
   display: block;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .timelineLine {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0;
 }
-
+ 
 .timelineDot {
   width: 8px;
   height: 8px;
@@ -631,16 +630,16 @@
   flex-shrink: 0;
   margin-top: 5px;
 }
-
+ 
 .timelineTrack {
   width: 1px;
   flex: 1;
   background: #ebebeb;
   margin-top: 8px;
 }
-
+ 
 .timelineRight { padding-left: 20px; }
-
+ 
 .jobTitle {
   font-size: 19px;
   font-weight: 700;
@@ -649,7 +648,7 @@
   line-height: 1.25;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .jobCompany {
   font-size: 14px;
   color: #5b8db8;
@@ -658,7 +657,7 @@
   font-weight: 500;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .highlightsList {
   list-style: none;
   padding: 0;
@@ -667,7 +666,7 @@
   flex-direction: column;
   gap: 12px;
 }
-
+ 
 .highlightsList li {
   font-size: 15px;
   color: #3a3a3a;
@@ -676,7 +675,7 @@
   line-height: 1.65;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .highlightsList li:before {
   content: "→";
   position: absolute;
@@ -685,7 +684,7 @@
   font-size: 12px;
   top: 3px;
 }
-
+ 
 /* ===== SKILLS ===== */
 .skillGroup {
   display: grid;
@@ -695,9 +694,9 @@
   padding: 28px 0;
   border-bottom: 1px solid #f2f2f2;
 }
-
+ 
 .skillGroup:last-child { border-bottom: none; }
-
+ 
 .skillGroupLabel {
   font-size: 11px;
   letter-spacing: 2px;
@@ -708,9 +707,9 @@
   display: block;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .skillBadges { display: flex; flex-wrap: wrap; gap: 8px; }
-
+ 
 .skillBadge {
   padding: 7px 14px;
   background: #f7f7f7;
@@ -723,13 +722,13 @@
   cursor: default;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 .skillBadge:hover, .skillHovered {
   border-color: #1a1a1a;
   color: #1a1a1a;
   background: #fff;
 }
-
+ 
 /* ===== FOOTER ===== */
 .footer {
   text-align: center;
@@ -741,11 +740,12 @@
   text-transform: uppercase;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+ 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .container { padding: 0 20px; }
-  .name { font-size: 38px; }
+  .name { font-size: 40px; letter-spacing: -1px; }
+  .avatarWrapper { width: 110px; height: 110px; }
   .aboutGrid { grid-template-columns: 1fr; }
   .projectsGrid { grid-template-columns: 1fr; }
   .timelineItem { grid-template-columns: 1fr; gap: 8px; }
