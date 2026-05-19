@@ -454,7 +454,7 @@ function ParallelCases() {
       desc:'Replaced manual credit review for SME loans. Accuracy: 91%. Review time: 3 days → 4 hours.',
       ref:'DBS Group Research · dbs.com/research',
       refUrl:'https://www.dbs.com/research',
-      analysis:'DBS used Logistic Regression + Decision Tree ensemble with SMOTE — exactly this project's methodology. Their NPL ratio dropped 1.2 percentage points after deployment. Most relevant finding: analyst trust was the biggest adoption barrier, not model performance. They solved this with SHAP explanations showing which features drove each decision — the exact next step recommended here.',
+      analysis:"DBS used Logistic Regression + Decision Tree ensemble with SMOTE — exactly this project's methodology. Their NPL ratio dropped 1.2 percentage points after deployment. Most relevant finding: analyst trust was the biggest adoption barrier, not model performance. They solved this with SHAP explanations showing which features drove each decision — the exact next step recommended here.",
       approach:'LR + Decision Tree + SMOTE (same as this project)',
       relevance:'Identical methodology, proven in production banking environment',
     },
