@@ -221,18 +221,18 @@ function EdaCards() {
         const pts = [[5,120],[8,200],[12,800],[18,1200],[22,5000],[28,800],[35,9800],[40,200],[42,25691],[48,400]];
         const maxY = 25691;
         return (
-          <svg width="100%" viewBox="0 0 380 172" style={{display:'block'}}>
-            <line x1="20" y1="10" x2="20" y2="140" stroke="#eee" strokeWidth="1"/>
-            <line x1="20" y1="140" x2="370" y2="140" stroke="#eee" strokeWidth="1"/>
-            <line x1="20" y1="40" x2="370" y2="40" stroke="#e8729a55" strokeWidth="1" strokeDasharray="5,3"/>
-            <text x="22" y="37" fontSize="9" fill="#e8729a">Upper bound (IQR)</text>
+          <svg width="100%" viewBox="0 0 380 155" style={{display:'block'}}>
+            <line x1="20" y1="10" x2="20" y2="128" stroke="#eee" strokeWidth="1"/>
+            <line x1="20" y1="128" x2="370" y2="128" stroke="#eee" strokeWidth="1"/>
+            <line x1="20" y1="32" x2="370" y2="32" stroke="#e8729a55" strokeWidth="1" strokeDasharray="5,3"/>
+            <text x="22" y="29" fontSize="9" fill="#e8729a">Upper bound (IQR)</text>
             {pts.map(([x,y],i)=>{
-              const cy = 140 - (y/maxY)*125;
+              const cy = 128 - (y/maxY)*112;
               const isOut = y > 5000;
               return <circle key={i} cx={x*6.8} cy={cy} r={isOut?5:2.5} fill={isOut?'#e8729a':'#5b8db8'} opacity={0.8}/>;
             })}
-            <text x="20" y="158" fontSize="8" fill="#bbb">Time (hours) →</text>
-            <text x="22" y="162" fontSize="8" fill="#888">Outliers in pink — transactions above $10,000</text>
+            <text x="20" y="142" fontSize="8" fill="#bbb">Time (hours) →</text>
+            <text x="20" y="153" fontSize="8" fill="#888">Pink dots = outliers above $10,000</text>
           </svg>
         );
       }
@@ -277,7 +277,7 @@ function EdaCards() {
         const W = 180, H = 50, n = pts.length;
         const path = pts.map((v,i)=>`${i===0?'M':'L'}${(i/(n-1))*(W-20)+10},${H-5-(v/max)*(H-10)}`).join(' ');
         return (
-          <svg width="100%" viewBox="0 0 380 172" style={{display:'block'}}>
+          <svg width="100%" viewBox="0 0 380 155" style={{display:'block'}}>
             {(()=>{
               const W2=380,H2=118,n2=pts.length;
               const maxV=Math.max(...pts);
@@ -788,6 +788,5 @@ function Divider({label}) {
     </div>
   );
 }
-
 
 
