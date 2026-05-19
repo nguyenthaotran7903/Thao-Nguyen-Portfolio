@@ -218,22 +218,46 @@ function EdaCards() {
       stat:'$25,691', statLabel:'Max transaction',
       color:'#5b8db8',
       viz: () => {
+        const [hov, setHov] = React.useState(null);
         const pts = [[5,120],[8,200],[12,800],[18,1200],[22,5000],[28,800],[35,9800],[40,200],[42,25691],[48,400]];
         const maxY = 25691;
+        const W=380, H=120;
         return (
-          <svg width="100%" viewBox="0 0 380 145" style={{display:'block'}}>
-            <line x1="20" y1="10" x2="20" y2="128" stroke="#eee" strokeWidth="1"/>
-            <line x1="20" y1="128" x2="370" y2="128" stroke="#eee" strokeWidth="1"/>
-            <line x1="20" y1="32" x2="370" y2="32" stroke="#e8729a55" strokeWidth="1" strokeDasharray="5,3"/>
-            <text x="22" y="29" fontSize="9" fill="#e8729a">Upper bound (IQR)</text>
-            {pts.map(([x,y],i)=>{
-              const cy = 128 - (y/maxY)*112;
-              const isOut = y > 5000;
-              return <circle key={i} cx={x*6.8} cy={cy} r={isOut?5:2.5} fill={isOut?'#e8729a':'#5b8db8'} opacity={0.8}/>;
-            })}
-            <text x="20" y="140" fontSize="6" fill="#bbb">Time (hours) →</text>
-            <text x="100" y="140" fontSize="6" fill="#888">Pink = outliers above $10,000</text>
-          </svg>
+          <div style={{position:'relative'}}>
+            <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{display:'block'}}>
+              <line x1="28" y1="4" x2="28" y2={H-14} stroke="#eee" strokeWidth="1"/>
+              <line x1="28" y1={H-14} x2={W-8} y2={H-14} stroke="#eee" strokeWidth="1"/>
+              <line x1="28" y1="22" x2={W-8} y2="22" stroke="#e8729a44" strokeWidth="1" strokeDasharray="4,3"/>
+              <text x="30" y="19" fontSize="6" fill="#e8729a88">IQR upper bound</text>
+              {pts.map(([x,y],i)=>{
+                const cx=28+(x/50)*(W-36);
+                const cy=(H-14)-(y/maxY)*((H-14)-4);
+                const isOut=y>5000;
+                return(
+                  <circle key={i} cx={cx} cy={cy} r={hov===i?6:isOut?4:2}
+                    fill={isOut?'#e8729a':'#5b8db8'} opacity={0.85}
+                    style={{cursor:isOut?'pointer':'default',transition:'r 0.15s'}}
+                    onMouseEnter={()=>setHov(i)} onMouseLeave={()=>setHov(null)}/>
+                );
+              })}
+              {hov!==null&&(()=>{
+                const [x,y]=pts[hov];
+                const cx=28+(x/50)*(W-36);
+                const cy=(H-14)-(y/maxY)*((H-14)-4);
+                const isOut=y>5000;
+                return(
+                  <g>
+                    <rect x={cx+8} y={cy-18} width={110} height={22} fill="white" stroke={isOut?'#e8729a':'#5b8db8'} strokeWidth="1" rx="3"/>
+                    <text x={cx+14} y={cy-10} fontSize="7" fill="#1a1a1a" fontWeight="600">${y.toLocaleString()}</text>
+                    <text x={cx+14} y={cy-2} fontSize="6" fill={isOut?'#e8729a':'#888'}>{isOut?'Outlier detected':'Normal transaction'}</text>
+                  </g>
+                );
+              })()}
+              <text x="28" y={H-3} fontSize="6" fill="#bbb">0h</text>
+              <text x={W/2} y={H-3} fontSize="6" fill="#bbb">25h</text>
+              <text x={W-20} y={H-3} fontSize="6" fill="#bbb">50h</text>
+            </svg>
+          </div>
         );
       }
     },
