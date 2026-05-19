@@ -468,10 +468,10 @@ export default function Portfolio() {
               </div>
             </div>
             <p className={styles.resultsCount}>{filteredProjects.length} project{filteredProjects.length!==1?'s':''}{activeFilter!=='all'&&` tagged "${activeFilter}"`}{searchTerm&&` matching "${searchTerm}"`}</p>
+            {expandedProject!==null&&(
+              <button className={styles.showAllBtn} onClick={()=>setExpandedProject(null)}>← Show all projects</button>
+            )}
             {filteredProjects.length===0?<p className={styles.noResults}>No projects found.</p>:(
-              {expandedProject!==null&&(
-                <button className={styles.showAllBtn} onClick={()=>setExpandedProject(null)}>← Show all projects</button>
-              )}
               <div className={styles.projectsList}>
                 {filteredProjects.filter(p=>expandedProject===null||p.id===expandedProject).map(project=>{
                   const isExpanded=expandedProject===project.id;
@@ -770,4 +770,5 @@ function Divider({label}) {
     </div>
   );
 }
+
 
