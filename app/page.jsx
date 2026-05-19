@@ -978,12 +978,12 @@ export default function Portfolio() {
                           {currentTab==='methodology'&&(
                             <div className={styles.panelContent}>
                               {project.methodology&&<PipelineSteps steps={project.methodology} hasCharts={hasCharts}/>}
-                              {project.models&&(
+                              {hasCharts&&project.models&&(
                                 <div className={styles.panelBlock}>
                                   <span className={styles.panelLabel}>Models</span>
                                   <div className={styles.modelsCompact}>
                                     {project.models.map((m,i)=>(
-                                      <div key={i} className={`${styles.modelCompact} ${m.name.includes('Best')?styles.modelCompactBest:''}`}>
+                                      <div key={i} className={`${styles.modelCompact} ${m.name&&m.name.includes('Best')?styles.modelCompactBest:''}`}>
                                         <div className={styles.modelCompactName}>{m.name}</div>
                                         <div className={styles.modelCompactStats}>
                                           <span className={styles.mStat}><span className={styles.mVal}>{m.accuracy}</span><span className={styles.mKey}>Acc</span></span>
@@ -1019,7 +1019,7 @@ export default function Portfolio() {
                                   <div className={styles.heroSub}>vs 1,393 (LR+SMOTE)</div>
                                 </div>
                               </div>
-                              {hasCharts&&<ModelCompareChart/>}
+                              {hasCharts&&project.id===1&&<ModelCompareChart/>}
                               {hasCharts&&<ConfusionMatrix/>}
                               {isP2&&<PaymentChart/>}
                             </div>
@@ -1203,3 +1203,4 @@ function Divider({label}) {
     </div>
   );
 }
+
