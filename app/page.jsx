@@ -876,258 +876,274 @@ export default function Portfolio() {
                             ))}
                           </div>
 
-                          {/* ── CONTEXT ── */}
-                          {currentTab==='context'&&(
-                            <div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}>
-                              <div className={styles.problemBox}>
-                                <div className={styles.problemLabel}>The Problem</div>
-                                <div className={styles.problemText}>
-                                  {hasCharts
-                                    ? "Vietnam's rapid credit expansion has intensified fraud risk in personal credit portfolios. This study addresses a critical gap: Agribank Saigon Branch lacked an automated, data-driven early-warning system for credit card fraud detection, relying instead on manual review processes vulnerable to human error."
-                                    : project.context}
+                          {/* ══ PROJECT 1 TABS ══ */}
+                          {hasCharts&&(
+                            <>
+                            {currentTab==='context'&&(
+                              <div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}>
+                                <div className={styles.problemBox}>
+                                  <div className={styles.problemLabel}>The Problem</div>
+                                  <div className={styles.problemText}>{"Vietnam's rapid credit expansion has intensified fraud risk in personal credit portfolios. This study addresses a critical gap: Agribank Saigon Branch lacked an automated, data-driven early-warning system for credit card fraud detection, relying instead on manual review processes vulnerable to human error."}</div>
                                 </div>
+                                <div className={styles.statRow}>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#e8729a'}}>0.17%</div><div className={styles.statLabel}>Fraud Rate</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>Manual</div><div className={styles.statLabel}>Detection Method</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>1.5%</div><div className={styles.statLabel}>NPL Ratio</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>Tier 1</div><div className={styles.statLabel}>Branch Rank</div></div>
+                                </div>
+                                {project.supervisor&&(<div className={styles.contextMeta}><span>Supervisor: {project.supervisor}</span><span>{project.institution} / {project.period}</span></div>)}
                               </div>
-                              <div className={styles.statRow}>
-                                <div className={styles.statBox}>
-                                  <div className={styles.statNum} style={{color:'#e8729a'}}>0.17%</div>
-                                  <div className={styles.statLabel}>Fraud Rate</div>
-                                </div>
-                                <div className={styles.statBox}>
-                                  <div className={styles.statNum}>Manual</div>
-                                  <div className={styles.statLabel}>Detection Method</div>
-                                </div>
-                                <div className={styles.statBox}>
-                                  <div className={styles.statNum}>NPL</div>
-                                  <div className={styles.statLabel}>1.5% (below avg)</div>
-                                </div>
-                                <div className={styles.statBox}>
-                                  <div className={styles.statNum}>Tier 1</div>
-                                  <div className={styles.statLabel}>Branch Rank</div>
-                                </div>
-                              </div>
-                              {project.supervisor&&(
-                                <div className={styles.contextMeta}>
-                                  <span>Supervisor: {project.supervisor}</span>
-                                  <span>{project.institution} / {project.period}</span>
-                                </div>
-                              )}
-                            </div>
-                          )}
-
-                          {/* ── APPROACH ── */}
-                          {currentTab==='approach'&&(
-                            <div className={styles.panelContent}>
-                              {project.researchQuestion&&(
+                            )}
+                            {currentTab==='approach'&&(
+                              <div className={styles.panelContent}>
                                 <div className={styles.problemBox}>
                                   <div className={styles.problemLabel}>Research Question</div>
                                   <div className={styles.problemText}>{project.researchQuestion}</div>
                                 </div>
-                              )}
-                              <div className={styles.approachGrid}>
-                                {[
-                                  {icon:'01', label:'Classify', desc:'Binary classification — Fraud (1) vs Legitimate (0)'},
-                                  {icon:'02', label:'Handle Imbalance', desc:'SMOTE oversampling to balance 0.17% minority class'},
-                                  {icon:'03', label:'Compare Models', desc:'Logistic Regression, Decision Tree, Random Forest'},
-                                  {icon:'04', label:'Optimize Recall', desc:'Maximize fraud detection, minimize false positives'},
-                                ].map((a,i)=>(
-                                  <div key={i} className={styles.approachCard}>
-                                    <div className={styles.approachIcon}>{a.icon}</div>
-                                    <div className={styles.approachLabel}>{a.label}</div>
-                                    <div className={styles.approachDesc}>{a.desc}</div>
-                                  </div>
-                                ))}
-                              </div>
-                              <div className={styles.toolsRow}>
-                                <span className={styles.panelLabel}>Tools</span>
-                                <div className={styles.toolsList} style={{marginTop:8}}>
-                                  {project.tools?.map((t,i)=><span key={i} className={styles.tool} style={{fontSize:13,padding:'5px 12px'}}>{t}</span>)}
+                                <div className={styles.approachGrid}>
+                                  {[{icon:'01',label:'Classify',desc:'Binary classification — Fraud (1) vs Legitimate (0)'},{icon:'02',label:'Handle Imbalance',desc:'SMOTE oversampling to balance 0.17% minority class'},{icon:'03',label:'Compare Models',desc:'Logistic Regression, Decision Tree, Random Forest'},{icon:'04',label:'Optimize Recall',desc:'Maximize fraud detection, minimize false positives'}].map((a,i)=>(
+                                    <div key={i} className={styles.approachCard}><div className={styles.approachIcon}>{a.icon}</div><div className={styles.approachLabel}>{a.label}</div><div className={styles.approachDesc}>{a.desc}</div></div>
+                                  ))}
                                 </div>
+                                <div className={styles.toolsRow}><span className={styles.panelLabel}>Tools</span><div className={styles.toolsList} style={{marginTop:8}}>{project.tools?.map((t,i)=><span key={i} className={styles.tool} style={{fontSize:13,padding:'5px 12px'}}>{t}</span>)}</div></div>
                               </div>
-                            </div>
-                          )}
-
-                          {/* ── ANALYSIS ── */}
-                          {currentTab==='analysis'&&(
-                            <div className={styles.panelContent}>
-                              {project.dataset&&(
+                            )}
+                            {currentTab==='analysis'&&(
+                              <div className={styles.panelContent}>
                                 <div className={styles.statRow}>
-                                  <div className={styles.statBox}>
-                                    <div className={styles.statNum}>284,807</div>
-                                    <div className={styles.statLabel}>Transactions</div>
-                                  </div>
-                                  <div className={styles.statBox}>
-                                    <div className={styles.statNum}>31</div>
-                                    <div className={styles.statLabel}>Variables</div>
-                                  </div>
-                                  <div className={styles.statBox}>
-                                    <div className={styles.statNum} style={{color:'#e8729a'}}>0.17%</div>
-                                    <div className={styles.statLabel}>Fraud Rate</div>
-                                  </div>
-                                  <div className={styles.statBox}>
-                                    <div className={styles.statNum}>2 days</div>
-                                    <div className={styles.statLabel}>Window</div>
-                                  </div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>284,807</div><div className={styles.statLabel}>Transactions</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>31</div><div className={styles.statLabel}>Variables</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#e8729a'}}>0.17%</div><div className={styles.statLabel}>Fraud Rate</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>2 days</div><div className={styles.statLabel}>Window</div></div>
                                 </div>
-                              )}
-                              {hasCharts&&<PieChart/>}
-                              <EdaCards/>
-                            </div>
-                          )}
-
-                          {/* ── METHODOLOGY ── */}
-                          {currentTab==='methodology'&&(
-                            <div className={styles.panelContent}>
-                              {project.methodology&&<PipelineSteps steps={project.methodology} hasCharts={hasCharts}/>}
-                              {hasCharts&&project.models&&(
+                                <PieChart/>
+                                <EdaCards/>
+                              </div>
+                            )}
+                            {currentTab==='methodology'&&(
+                              <div className={styles.panelContent}>
+                                {project.methodology&&<PipelineSteps steps={project.methodology} hasCharts={hasCharts}/>}
+                                {project.models&&<div className={styles.panelBlock}><span className={styles.panelLabel}>Models</span><div className={styles.modelsCompact}>{project.models.map((m,i)=>(<div key={i} className={`${styles.modelCompact} ${m.name&&m.name.includes('Best')?styles.modelCompactBest:''}`}><div className={styles.modelCompactName}>{m.name}</div><div className={styles.modelCompactStats}><span className={styles.mStat}><span className={styles.mVal}>{m.accuracy}</span><span className={styles.mKey}>Acc</span></span><span className={styles.mStat}><span className={styles.mVal} style={{color:'#e8729a'}}>{m.recall_fraud}</span><span className={styles.mKey}>Recall</span></span><span className={styles.mStat}><span className={styles.mVal}>{m.fp}</span><span className={styles.mKey}>FP</span></span></div><div className={styles.modelCompactNote}>{m.note}</div></div>))}</div></div>}
+                              </div>
+                            )}
+                            {currentTab==='results'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.heroStats}>
+                                  <div className={styles.heroStat}><div className={styles.heroNum}>99.95%</div><div className={styles.heroLabel}>Accuracy</div><div className={styles.heroSub}>Random Forest</div></div>
+                                  <div className={styles.heroStat} style={{borderColor:'#e8729a'}}><div className={styles.heroNum} style={{color:'#e8729a'}}>84.16%</div><div className={styles.heroLabel}>Recall on Fraud</div><div className={styles.heroSub}>85 of 101 caught</div></div>
+                                  <div className={styles.heroStat} style={{borderColor:'#5a9e82'}}><div className={styles.heroNum} style={{color:'#5a9e82'}}>10</div><div className={styles.heroLabel}>False Positives</div><div className={styles.heroSub}>vs 1,393 (LR+SMOTE)</div></div>
+                                </div>
+                                <ModelCompareChart/>
+                                <ConfusionMatrix/>
+                              </div>
+                            )}
+                            {currentTab==='outcome'&&(
+                              <div className={styles.panelContent}>
                                 <div className={styles.panelBlock}>
-                                  <span className={styles.panelLabel}>Models</span>
-                                  <div className={styles.modelsCompact}>
-                                    {project.models.map((m,i)=>(
-                                      <div key={i} className={`${styles.modelCompact} ${m.name&&m.name.includes('Best')?styles.modelCompactBest:''}`}>
-                                        <div className={styles.modelCompactName}>{m.name}</div>
-                                        <div className={styles.modelCompactStats}>
-                                          <span className={styles.mStat}><span className={styles.mVal}>{m.accuracy}</span><span className={styles.mKey}>Acc</span></span>
-                                          <span className={styles.mStat}><span className={styles.mVal} style={{color:'#e8729a'}}>{m.recall_fraud}</span><span className={styles.mKey}>Recall</span></span>
-                                          <span className={styles.mStat}><span className={styles.mVal}>{m.fp}</span><span className={styles.mKey}>FP</span></span>
-                                        </div>
-                                        <div className={styles.modelCompactNote}>{m.note}</div>
-                                      </div>
-                                    ))}
+                                  <span className={styles.panelLabel}>Impact</span>
+                                  <div className={styles.impactRow}>
+                                    <div className={styles.impactStat} style={{borderColor:'#5a9e82'}}><div className={styles.impactNum} style={{color:'#5a9e82'}}>99.98%</div><div className={styles.impactLabel}>Specificity</div><div className={styles.impactSub}>Zero customer disruption</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#e8729a'}}><div className={styles.impactNum} style={{color:'#e8729a'}}>84%</div><div className={styles.impactLabel}>Fraud Caught</div><div className={styles.impactSub}>Before financial loss</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#5b8db8'}}><div className={styles.impactNum} style={{color:'#5b8db8'}}>~99%</div><div className={styles.impactLabel}>Workload Cut</div><div className={styles.impactSub}>Manual review reduced</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#9060c0'}}><div className={styles.impactNum} style={{color:'#9060c0'}}>10</div><div className={styles.impactLabel}>False Positives</div><div className={styles.impactSub}>vs 1,393 from LR</div></div>
+                                  </div>
+                                  <div className={styles.tierGrid}>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#5a9e82'}}><div className={styles.tierLabel} style={{color:'#5a9e82'}}>Now: Deploy</div><div className={styles.tierDesc}>3-tier alert system replacing manual review.</div></div>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#f0a030'}}><div className={styles.tierLabel} style={{color:'#f0a030'}}>Next: Explain</div><div className={styles.tierDesc}>SHAP explainability for compliance.</div></div>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#5b8db8'}}><div className={styles.tierLabel} style={{color:'#5b8db8'}}>Future: Real-time</div><div className={styles.tierDesc}>Sub-second stream scoring.</div></div>
                                   </div>
                                 </div>
-                              )}
-                            </div>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Reflection</span>
+                                  <div className={styles.reflectGrid}>
+                                    <div className={styles.reflectCard} style={{borderTopColor:'#5a9e82'}}>
+                                      <div className={styles.reflectHeader} style={{color:'#5a9e82'}}><span>✓</span> What worked</div>
+                                      <ul className={styles.reflectList}>
+                                        <li><span className={styles.reflectHL}>SMOTE + Random Forest</span> solved class imbalance — recall 63% to 84%, false positives held at just 10</li>
+                                        <li><span className={styles.reflectHL}>Robust Scaler</span> resisted $25,691 outlier distortion where standard normalization would have failed</li>
+                                        <li>Framing results as <span className={styles.reflectHL}>operational cost (FP count)</span> rather than accuracy % resonated far more with bank leadership</li>
+                                      </ul>
+                                    </div>
+                                    <div className={styles.reflectCard} style={{borderTopColor:'#e8729a'}}>
+                                      <div className={styles.reflectHeader} style={{color:'#e8729a'}}><span>→</span> What I would do differently</div>
+                                      <ul className={styles.reflectList}>
+                                        <li>Add <span className={styles.reflectHL}>real-time scoring pipeline</span> — most fraud losses occur within 30 minutes of the transaction</li>
+                                        <li>Use <span className={styles.reflectHL}>cost-sensitive loss function</span> weighting missed fraud 10x higher than false positives</li>
+                                        <li>Build <span className={styles.reflectHL}>SHAP explainability</span> so analysts understand why each transaction was flagged</li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Real-world Parallels <span style={{fontWeight:400,color:'#bbb',fontSize:9,letterSpacing:0}}>click a case</span></span>
+                                  <ParallelCases/>
+                                </div>
+                              </div>
+                            )}
+                            </>
                           )}
 
-                          {/* ── RESULTS ── */}
-                          {currentTab==='results'&&(
-                            <div className={styles.panelContent}>
-                              <div className={styles.heroStats}>
-                                <div className={styles.heroStat}>
-                                  <div className={styles.heroNum}>99.95%</div>
-                                  <div className={styles.heroLabel}>Accuracy</div>
-                                  <div className={styles.heroSub}>Random Forest</div>
+                          {/* ══ PROJECT 2 TABS ══ */}
+                          {isP2&&(
+                            <>
+                            {currentTab==='context'&&(
+                              <div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}>
+                                <div className={styles.problemBox}>
+                                  <div className={styles.problemLabel}>The Problem</div>
+                                  <div className={styles.problemText}>E-commerce platforms generate massive behavioral data that remains underutilized without effective visualization. This project analyzed Walmart India customer data to extract actionable business insights — translating raw transaction records into strategic recommendations across demographics, products, payments, and geography.</div>
                                 </div>
-                                <div className={styles.heroStat} style={{borderColor:'#e8729a'}}>
-                                  <div className={styles.heroNum} style={{color:'#e8729a'}}>84.16%</div>
-                                  <div className={styles.heroLabel}>Recall on Fraud</div>
-                                  <div className={styles.heroSub}>85 of 101 caught</div>
+                                <div className={styles.statRow}>
+                                  <div className={styles.statBox}><div className={styles.statNum}>21K</div><div className={styles.statLabel}>Transactions</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>14</div><div className={styles.statLabel}>Variables</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#5b8db8'}}>6</div><div className={styles.statLabel}>Dimensions Analyzed</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>12</div><div className={styles.statLabel}>Cities</div></div>
                                 </div>
-                                <div className={styles.heroStat} style={{borderColor:'#5a9e82'}}>
-                                  <div className={styles.heroNum} style={{color:'#5a9e82'}}>10</div>
-                                  <div className={styles.heroLabel}>False Positives</div>
-                                  <div className={styles.heroSub}>vs 1,393 (LR+SMOTE)</div>
+                                <div className={styles.eda3col}>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>Dataset</div><div className={styles.edaDesc}>Kaggle open dataset — Walmart India. 14 fields: CID, TID, Gender, Age Group, Purchase Date, Product Category, Discount, Payment Method, Location, Net Amount.</div></div>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>Scope</div><div className={styles.edaDesc}>Full year of transactions across 12 Indian cities. Demographics, product, payment, seasonal, and geographic dimensions analyzed.</div></div>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>Storytelling</div><div className={styles.edaDesc}>3 buyer personas (Khari / Nayar / Sam) woven through analysis — making insights memorable and boardroom-ready.</div></div>
+                                </div>
+                                {project.supervisor&&(<div className={styles.contextMeta}><span>Supervisor: {project.supervisor}</span><span>{project.institution} / {project.period}</span></div>)}
+                              </div>
+                            )}
+                            {currentTab==='approach'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.problemBox}>
+                                  <div className={styles.problemLabel}>Research Question</div>
+                                  <div className={styles.problemText}>{project.researchQuestion}</div>
+                                </div>
+                                <div className={styles.approachGrid}>
+                                  {[{icon:'01',label:'Demographics',desc:'Gender, age group, revenue by cohort — who is buying?'},{icon:'02',label:'Products',desc:'Category revenue ranking, seasonal trends, discount utilization'},{icon:'03',label:'Payments',desc:'Credit/Debit/UPI/COD breakdown — how are they paying?'},{icon:'04',label:'Geography',desc:'City-level revenue mapping — top vs emerging markets'},{icon:'05',label:'Seasonal',desc:'Monthly trends, peak periods, promotional timing'},{icon:'06',label:'Storytelling',desc:'3 buyer personas weaving data into a business narrative'}].map((a,i)=>(
+                                    <div key={i} className={styles.approachCard}><div className={styles.approachIcon}>{a.icon}</div><div className={styles.approachLabel}>{a.label}</div><div className={styles.approachDesc}>{a.desc}</div></div>
+                                  ))}
+                                </div>
+                                <div className={styles.toolsRow}><span className={styles.panelLabel}>Tools</span><div className={styles.toolsList} style={{marginTop:8}}>{project.tools?.map((t,i)=><span key={i} className={styles.tool} style={{fontSize:13,padding:'5px 12px'}}>{t}</span>)}</div></div>
+                              </div>
+                            )}
+                            {currentTab==='analysis'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.statRow}>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#5b8db8'}}>33/33/33</div><div className={styles.statLabel}>Gender Split (%)</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#e8729a'}}>25-45</div><div className={styles.statLabel}>Core Age Group</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#5a9e82'}}>Electronics</div><div className={styles.statLabel}>Top Category</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#9060c0'}}>Mumbai</div><div className={styles.statLabel}>Top City</div></div>
+                                </div>
+                                <RevenueBarChart models={project.models}/>
+                                <SeasonalChart/>
+                                <div className={styles.eda3col}>
+                                  <div className={styles.edaCard}>
+                                    <div className={styles.edaTitle}>Gender Distribution</div>
+                                    <div className={styles.edaStat} style={{color:'#5b8db8'}}>33/33/33</div>
+                                    <div className={styles.edaDesc}>Female 33.6%, Male 32.9%, Other 33.5% — near-perfect parity. Rare in e-commerce — signals genuinely inclusive platform design.</div>
+                                  </div>
+                                  <div className={styles.edaCard}>
+                                    <div className={styles.edaTitle}>Age Revenue</div>
+                                    <div className={styles.edaStat} style={{color:'#e8729a'}}>60M+</div>
+                                    <div className={styles.edaDesc}>Age 25-45 generates 60M+ INR — 3x the 45-60 group (20M). Classic Pareto: 33% of users driving 60% of revenue.</div>
+                                  </div>
+                                  <div className={styles.edaCard}>
+                                    <div className={styles.edaTitle}>Geographic Spread</div>
+                                    <div className={styles.edaStat} style={{color:'#5a9e82'}}>32M</div>
+                                    <div className={styles.edaDesc}>Mumbai leads at 32M INR, Delhi 31M. Dehradun and Srinagar under 2M — untapped Tier-2 growth markets.</div>
+                                  </div>
                                 </div>
                               </div>
-                              {hasCharts&&project.id===1&&<ModelCompareChart/>}
-                              {hasCharts&&<ConfusionMatrix/>}
-                              {isP2&&<PaymentChart/>}
-                            </div>
+                            )}
+                            {currentTab==='methodology'&&(
+                              <div className={styles.panelContent}>
+                                {project.methodology&&<PipelineSteps steps={project.methodology} hasCharts={false}/>}
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Visualization Stack</span>
+                                  <div className={styles.eda3col}>
+                                    <div className={styles.edaCard}><div className={styles.edaTitle}>Pandas</div><div className={styles.edaDesc}>Data cleaning, type conversion, date parsing, aggregation by category/city/age group.</div></div>
+                                    <div className={styles.edaCard}><div className={styles.edaTitle}>Matplotlib + Seaborn</div><div className={styles.edaDesc}>Static charts — bar, pie, box plots for distribution analysis and category comparison.</div></div>
+                                    <div className={styles.edaCard}><div className={styles.edaTitle}>Plotly</div><div className={styles.edaDesc}>Interactive charts for the Streamlit dashboard — hover, zoom, filter by dimension.</div></div>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                            {currentTab==='results'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.heroStats}>
+                                  <div className={styles.heroStat} style={{borderColor:'#5b8db8'}}><div className={styles.heroNum} style={{color:'#5b8db8'}}>441K</div><div className={styles.heroLabel}>Electronics Revenue</div><div className={styles.heroSub}>INR — top category by 30%</div></div>
+                                  <div className={styles.heroStat} style={{borderColor:'#e8729a'}}><div className={styles.heroNum} style={{color:'#e8729a'}}>60M+</div><div className={styles.heroLabel}>Core Segment Revenue</div><div className={styles.heroSub}>Age 25-45 — 3x next cohort</div></div>
+                                  <div className={styles.heroStat} style={{borderColor:'#5a9e82'}}><div className={styles.heroNum} style={{color:'#5a9e82'}}>80%</div><div className={styles.heroLabel}>Seasonal Swing</div><div className={styles.heroSub}>Dec 18M vs Feb 10M</div></div>
+                                </div>
+                                <PaymentChart/>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Key Results</span>
+                                  <ul className={styles.resultsList}>{project.results?.map((r,i)=><li key={i}>{r}</li>)}</ul>
+                                </div>
+                              </div>
+                            )}
+                            {currentTab==='outcome'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Impact</span>
+                                  <div className={styles.impactRow}>
+                                    <div className={styles.impactStat} style={{borderColor:'#5b8db8'}}><div className={styles.impactNum} style={{color:'#5b8db8'}}>441K</div><div className={styles.impactLabel}>Top Category</div><div className={styles.impactSub}>Electronics INR</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#e8729a'}}><div className={styles.impactNum} style={{color:'#e8729a'}}>60M+</div><div className={styles.impactLabel}>Core Segment</div><div className={styles.impactSub}>Age 25-45 revenue</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#5a9e82'}}><div className={styles.impactNum} style={{color:'#5a9e82'}}>80%</div><div className={styles.impactLabel}>Seasonal Gap</div><div className={styles.impactSub}>Feb low to Dec peak</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#9060c0'}}><div className={styles.impactNum} style={{color:'#9060c0'}}>14.6%</div><div className={styles.impactLabel}>UPI Growth</div><div className={styles.impactSub}>Fastest payment segment</div></div>
+                                  </div>
+                                  <div className={styles.tierGrid}>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#5b8db8'}}><div className={styles.tierLabel} style={{color:'#5b8db8'}}>Priority: Electronics</div><div className={styles.tierDesc}>Front-load inventory before Q4. SEASONALOFFER21 drove 15K purchases — replicate at scale.</div></div>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#e8729a'}}><div className={styles.tierLabel} style={{color:'#e8729a'}}>Target: Age 25-45</div><div className={styles.tierDesc}>Loyalty program for core cohort. 60% of revenue from 33% of users — protect CLV.</div></div>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#9060c0'}}><div className={styles.tierLabel} style={{color:'#9060c0'}}>Expand: Tier-2 Cities</div><div className={styles.tierDesc}>Dehradun, Srinagar under 2M INR — localized campaigns to unlock growth ceiling.</div></div>
+                                  </div>
+                                </div>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Reflection</span>
+                                  <div className={styles.reflectGrid}>
+                                    <div className={styles.reflectCard} style={{borderTopColor:'#5a9e82'}}>
+                                      <div className={styles.reflectHeader} style={{color:'#5a9e82'}}><span>✓</span> What worked</div>
+                                      <ul className={styles.reflectList}>
+                                        <li><span className={styles.reflectHL}>Data storytelling via personas</span> (Khari/Nayar/Sam) made the analysis memorable — not just charts but a narrative</li>
+                                        <li><span className={styles.reflectHL}>Plotly interactive charts</span> let stakeholders self-explore instead of passively receiving slides</li>
+                                        <li>Identifying <span className={styles.reflectHL}>Tier-2 cities as untapped markets</span> gave actionable strategic insight beyond what was asked</li>
+                                      </ul>
+                                    </div>
+                                    <div className={styles.reflectCard} style={{borderTopColor:'#e8729a'}}>
+                                      <div className={styles.reflectHeader} style={{color:'#e8729a'}}><span>→</span> What I would do differently</div>
+                                      <ul className={styles.reflectList}>
+                                        <li>Build a <span className={styles.reflectHL}>predictive layer</span> — forecast next quarter revenue by category using time series models</li>
+                                        <li>Add <span className={styles.reflectHL}>customer lifetime value (CLV)</span> segmentation within the 25-45 cohort to identify highest-value sub-segments</li>
+                                        <li>Use <span className={styles.reflectHL}>A/B testing framework</span> to measure SEASONALOFFER21 ROI against discount cost</li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Real-world Parallels <span style={{fontWeight:400,color:'#bbb',fontSize:9,letterSpacing:0}}>click a case</span></span>
+                                  <P2ParallelCases/>
+                                </div>
+                              </div>
+                            )}
+                            </>
                           )}
 
-                          {/* ── OUTCOME ── */}
-                          {currentTab==='outcome'&&(
-                            <div className={styles.panelContent}>
-
-                              {/* 1. Impact first */}
-                              <div className={styles.panelBlock}>
-                                <span className={styles.panelLabel}>Impact</span>
-                                {hasCharts&&(<div className={styles.impactRow}>
-                                  <div className={styles.impactStat} style={{borderColor:'#5a9e82'}}>
-                                    <div className={styles.impactNum} style={{color:'#5a9e82'}}>99.98%</div>
-                                    <div className={styles.impactLabel}>Specificity</div>
-                                    <div className={styles.impactSub}>Legitimate customers — zero disruption</div>
-                                  </div>
-                                  <div className={styles.impactStat} style={{borderColor:'#e8729a'}}>
-                                    <div className={styles.impactNum} style={{color:'#e8729a'}}>84%</div>
-                                    <div className={styles.impactLabel}>Fraud Caught</div>
-                                    <div className={styles.impactSub}>Before financial loss occurs</div>
-                                  </div>
-                                  <div className={styles.impactStat} style={{borderColor:'#5b8db8'}}>
-                                    <div className={styles.impactNum} style={{color:'#5b8db8'}}>~99%</div>
-                                    <div className={styles.impactLabel}>Workload Cut</div>
-                                    <div className={styles.impactSub}>Manual review reduced</div>
-                                  </div>
-                                  <div className={styles.impactStat} style={{borderColor:'#9060c0'}}>
-                                    <div className={styles.impactNum} style={{color:'#9060c0'}}>10</div>
-                                    <div className={styles.impactLabel}>False Positives</div>
-                                    <div className={styles.impactSub}>vs 1,393 from Logistic Regression</div>
-                                  </div>
-                                </div>)}
-                                {isP2&&(<div className={styles.impactRow}>
-                                  <div className={styles.impactStat} style={{borderColor:'#5b8db8'}}><div className={styles.impactNum} style={{color:'#5b8db8'}}>441K</div><div className={styles.impactLabel}>Top Category</div><div className={styles.impactSub}>Electronics INR</div></div>
-                                  <div className={styles.impactStat} style={{borderColor:'#e8729a'}}><div className={styles.impactNum} style={{color:'#e8729a'}}>60M+</div><div className={styles.impactLabel}>Core Segment</div><div className={styles.impactSub}>Age 25-45 revenue</div></div>
-                                  <div className={styles.impactStat} style={{borderColor:'#5a9e82'}}><div className={styles.impactNum} style={{color:'#5a9e82'}}>80%</div><div className={styles.impactLabel}>Seasonal Gap</div><div className={styles.impactSub}>Feb low to Dec peak</div></div>
-                                  <div className={styles.impactStat} style={{borderColor:'#9060c0'}}><div className={styles.impactNum} style={{color:'#9060c0'}}>14.6%</div><div className={styles.impactLabel}>UPI Growth</div><div className={styles.impactSub}>Fastest payment segment</div></div>
-                                </div>)}
-                                <div className={styles.tierGrid}>
-                                  <div className={styles.tierCard} style={{borderTopColor:'#5a9e82'}}>
-                                    <div className={styles.tierLabel} style={{color:'#5a9e82'}}>Now: Deploy</div>
-                                    <div className={styles.tierDesc}>3-tier alert system. Auto-approve / Flag / Block replacing manual review.</div>
-                                  </div>
-                                  <div className={styles.tierCard} style={{borderTopColor:'#f0a030'}}>
-                                    <div className={styles.tierLabel} style={{color:'#f0a030'}}>Next: Explain</div>
-                                    <div className={styles.tierDesc}>SHAP explainability for regulatory compliance and analyst trust.</div>
-                                  </div>
-                                  <div className={styles.tierCard} style={{borderTopColor:'#5b8db8'}}>
-                                    <div className={styles.tierLabel} style={{color:'#5b8db8'}}>Future: Real-time</div>
-                                    <div className={styles.tierDesc}>Sub-second stream scoring pipeline as transactions happen.</div>
-                                  </div>
-                                </div>
+                          {/* ══ OTHER PROJECTS ══ */}
+                          {!hasCharts&&!isP2&&(
+                            <>
+                            {currentTab==='context'&&(
+                              <div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}>
+                                <div className={styles.problemBox}><div className={styles.problemLabel}>Context</div><div className={styles.problemText}>{project.context}</div></div>
+                                {project.researchQuestion&&(<div className={styles.panelBlock}><span className={styles.panelLabel}>Research Question</span><p className={styles.panelText}>{project.researchQuestion}</p></div>)}
+                                {project.supervisor&&(<div className={styles.contextMeta}><span>Supervisor: {project.supervisor}</span><span>{project.institution} / {project.period}</span></div>)}
                               </div>
-
-                              {/* 2. Reflection */}
-                              <div className={styles.panelBlock}>
-                                <span className={styles.panelLabel}>Reflection</span>
-                                <div className={styles.reflectGrid}>
-                                  {(hasCharts||(!hasCharts&&!isP2))&&(<>
-                                  <div className={styles.reflectCard} style={{borderTopColor:'#5a9e82'}}>
-                                    <div className={styles.reflectHeader} style={{color:'#5a9e82'}}><span>✓</span> What worked</div>
-                                    <ul className={styles.reflectList}>
-                                      <li><span className={styles.reflectHL}>SMOTE + Random Forest</span> solved class imbalance elegantly — recall jumped from 63% to 84% while keeping false positives at just 10</li>
-                                      <li><span className={styles.reflectHL}>Robust Scaler</span> was the right call — standard normalization would have been distorted by $25,691 outliers</li>
-                                      <li>Framing results around <span className={styles.reflectHL}>operational cost (FP count)</span> rather than accuracy % was far more persuasive to bank leadership</li>
-                                    </ul>
-                                  </div>
-                                  <div className={styles.reflectCard} style={{borderTopColor:'#e8729a'}}>
-                                    <div className={styles.reflectHeader} style={{color:'#e8729a'}}><span>→</span> What I would do differently</div>
-                                    <ul className={styles.reflectList}>
-                                      <li>Add <span className={styles.reflectHL}>real-time scoring pipeline</span> — fraud detection value degrades with delay; most losses occur within 30 minutes</li>
-                                      <li>Use <span className={styles.reflectHL}>cost-sensitive loss function</span> weighting missed fraud 10× higher than false positives, reflecting actual financial stakes</li>
-                                      <li>Build <span className={styles.reflectHL}>SHAP explainability layer</span> so analysts can understand why a transaction was flagged — critical for regulatory compliance</li>
-                                    </ul>
-                                  </div>
-                                  </>)}
-                                  {isP2&&(<>
-                                  <div className={styles.reflectCard} style={{borderTopColor:'#5a9e82'}}>
-                                    <div className={styles.reflectHeader} style={{color:'#5a9e82'}}><span>✓</span> What worked</div>
-                                    <ul className={styles.reflectList}>
-                                      <li><span className={styles.reflectHL}>Data storytelling via personas</span> (Khari/Nayar/Sam) made the analysis memorable and boardroom-ready — not just charts but a narrative</li>
-                                      <li><span className={styles.reflectHL}>Plotly interactive charts</span> let stakeholders self-explore instead of passively receiving slides — far higher engagement</li>
-                                      <li>Identifying <span className={styles.reflectHL}>Tier-2 cities as untapped markets</span> (Dehradun, Srinagar under 2M INR) gave actionable strategic insight beyond what was asked</li>
-                                    </ul>
-                                  </div>
-                                  <div className={styles.reflectCard} style={{borderTopColor:'#e8729a'}}>
-                                    <div className={styles.reflectHeader} style={{color:'#e8729a'}}><span>→</span> What I would do differently</div>
-                                    <ul className={styles.reflectList}>
-                                      <li>Build a <span className={styles.reflectHL}>predictive layer</span> — not just describing what happened but forecasting next quarter revenue by category using time series models</li>
-                                      <li>Add <span className={styles.reflectHL}>customer lifetime value (CLV)</span> segmentation — the 25-45 cohort drives 60% of revenue but CLV analysis would reveal which specific sub-segments to protect</li>
-                                      <li>Use <span className={styles.reflectHL}>A/B testing framework</span> to validate discount strategies — SEASONALOFFER21 drove 15K purchases but we never measured its ROI against discount cost</li>
-                                    </ul>
-                                  </div>
-                                  </>)}
-                                </div>
+                            )}
+                            {currentTab==='approach'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.toolsRow}><span className={styles.panelLabel}>Tools</span><div className={styles.toolsList} style={{marginTop:8}}>{project.tools?.map((t,i)=><span key={i} className={styles.tool} style={{fontSize:13,padding:'5px 12px'}}>{t}</span>)}</div></div>
                               </div>
-
-                              {/* 3. Real-world parallels */}
-                              <div className={styles.panelBlock}>
-                                <span className={styles.panelLabel}>Real-world Parallels <span style={{fontWeight:400,color:'#bbb',fontSize:9,letterSpacing:0}}>click a case</span></span>
-                                {!isP2&&<ParallelCases/>}
-                                {isP2&&<P2ParallelCases/>}
-                              </div>
-
-                            </div>
+                            )}
+                            {currentTab==='analysis'&&(<div className={styles.panelContent}><div className={styles.panelBlock}><span className={styles.panelLabel}>Dataset</span>{project.dataset&&<p className={styles.panelSubtext}>{typeof project.dataset==='string'?project.dataset:project.dataset.source}</p>}</div></div>)}
+                            {currentTab==='methodology'&&(<div className={styles.panelContent}>{project.methodology&&<PipelineSteps steps={project.methodology} hasCharts={false}/>}</div>)}
+                            {currentTab==='results'&&(<div className={styles.panelContent}><div className={styles.panelBlock}><span className={styles.panelLabel}>Results</span><ul className={styles.resultsList}>{project.results?.map((r,i)=><li key={i}>{r}</li>)}</ul></div>{project.keyFindings&&<div className={styles.panelBlock}><span className={styles.panelLabel}>Key Findings</span><div className={styles.findingPills}>{project.keyFindings.map((f,i)=>(<div key={i} className={`${styles.findingPill} ${i<2?styles.findingHighlight:''}`}><span className={styles.findingIcon}>◆</span><span>{f}</span></div>))}</div></div>}</div>)}
+                            {currentTab==='outcome'&&(<div className={styles.panelContent}><div className={styles.problemBox}><div className={styles.problemLabel}>Outcome</div><div className={styles.problemText}>{project.context}</div></div></div>)}
+                            </>
                           )}
+
                           <div className={styles.panelTagRow}>
                             {project.tags?.map(tag=>(
                               <button key={tag} className={`${styles.tag} ${activeFilter===tag?styles.tagActive:''}`} onClick={()=>setActiveFilter(tag===activeFilter?'all':tag)}>{tag}</button>
@@ -1203,4 +1219,3 @@ function Divider({label}) {
     </div>
   );
 }
-
