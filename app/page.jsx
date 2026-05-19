@@ -443,7 +443,7 @@ function ParallelCases() {
       desc:'40M+ transactions/day, fraud rate under 0.32%, 95%+ detected in real-time.',
       ref:'PayPal Technology Blog · medium.com/paypal-tech',
       refUrl:'https://medium.com/paypal-tech',
-      analysis:'PayPal uses ensemble models almost identical to this study's approach — Random Forest as base with XGBoost boosting. Critical insight: they weight false negatives 15× heavier than false positives in their loss function, directly reflecting the asymmetric cost of missed fraud. This is the cost-sensitive approach this project should adopt in v2.',
+      analysis:"PayPal uses ensemble models almost identical to this study's approach — Random Forest as base with XGBoost boosting. Critical insight: they weight false negatives 15× heavier than false positives in their loss function, directly reflecting the asymmetric cost of missed fraud. This is the cost-sensitive approach this project should adopt in v2.",
       approach:'Random Forest + XGBoost + graph anomaly detection',
       relevance:'Direct benchmark — same model family, production-validated',
     },
