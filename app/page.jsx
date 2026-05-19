@@ -1,551 +1,790 @@
-/* ===== BASE ===== */
-.container { max-width: 1000px; margin: 0 auto; padding: 0 32px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; opacity: 0; transform: translateY(12px); transition: opacity 0.4s ease, transform 0.4s ease; }
-.mounted { opacity: 1; transform: translateY(0); }
+'use client';
 
-/* ===== HEADER ===== */
-.header { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 72px 0 56px; border-bottom: 1px solid #ebebeb; gap: 16px; }
-.avatarWrapper { width: 140px; height: 140px; border-radius: 50%; overflow: hidden; border: 3px solid #ebebeb; margin-bottom: 8px; transition: border-color 0.3s; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-.avatarWrapper:hover { border-color: #e8729a; }
-.avatar { width: 100%; height: 100%; object-fit: cover; }
-.name { font-size: 62px; font-weight: 800; color: #1a1a1a; letter-spacing: -2px; line-height: 1.0; margin: 0; }
-.title { font-size: 12px; color: #1a1a1a; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase; margin: 0; }
-.tagline { font-size: 17px; color: #444; font-style: italic; max-width: 800px; line-height: 1.75; margin: 4px 0 0; text-align: center; }
-.contact { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 4px; }
-.contactLink { color: #5b8db8; text-decoration: none; font-size: 14px; font-weight: 600; letter-spacing: 0.5px; transition: color 0.2s; border-bottom: 1px solid transparent; }
-.contactLink:hover { color: #1a1a1a; border-bottom-color: #e8729a; }
-.contactDot { color: #ddd; font-size: 12px; }
-.contactInfo { color: #888; font-size: 14px; }
+import React, { useState, useMemo, useEffect } from 'react';
+import data from '../data.json';
+import styles from './page.module.css';
 
-/* ===== TABS ===== */
-.tabs { display: flex; border-bottom: 1px solid #ebebeb; margin-bottom: 56px; }
-.tab { padding: 18px 28px; border: none; background: none; font-size: 12px; font-weight: 600; cursor: pointer; color: #bbb; transition: color 0.2s; border-bottom: 2px solid transparent; white-space: nowrap; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; letter-spacing: 1.5px; text-transform: uppercase; }
-.tab:hover { color: #555; }
-.tabActive { color: #1a1a1a; border-bottom-color: #e8729a; }
+/* ── Interactive charts ── */
 
-/* ===== CONTENT ===== */
-.content { min-height: 500px; padding-bottom: 80px; }
-.section { max-width: 900px; }
-
-/* ===== ABOUT ===== */
-.aboutBio { font-size: 17px; color: #3a3a3a; line-height: 1.85; font-weight: 400; max-width: 100%; border-left: 3px solid #e8729a; padding-left: 24px; margin: 0 0 48px; text-align: justify; }
-.aboutGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #ebebeb; border: 1px solid #ebebeb; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
-.aboutCard { background: #ffffff; padding: 28px; transition: background 0.2s; }
-.aboutCard:hover { background: #f7f7f7; }
-.cardLabel { display: block; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: #5a9e82; margin-bottom: 14px; font-weight: 700; }
-.aboutCard p { font-size: 15px; color: #3a3a3a; line-height: 1.7; margin: 0; }
-.strengthsList { list-style: none; padding: 0; margin: 0; }
-.strengthsList li { font-size: 15px; color: #3a3a3a; padding: 7px 0; border-bottom: 1px solid #f2f2f2; line-height: 1.5; }
-.strengthsList li:last-child { border-bottom: none; }
-
-/* ===== EDUCATION ===== */
-.eduBlock { display: grid; grid-template-columns: 160px 1fr; gap: 28px; padding: 28px 0; border-bottom: 1px solid #f2f2f2; align-items: start; }
-.eduBlock:last-of-type { border-bottom: none; }
-.eduLeft { display: flex; flex-direction: column; gap: 6px; padding-top: 3px; }
-.eduPeriod { font-size: 13px; color: #888; display: block; line-height: 1.5; }
-.eduStatus { font-size: 11px; color: #bbb; display: block; text-transform: uppercase; }
-.eduRight { display: flex; flex-direction: column; gap: 7px; }
-.eduDegree { font-size: 17px; font-weight: 700; color: #1a1a1a; display: block; line-height: 1.3; }
-.eduInst { font-size: 15px; color: #5b8db8; display: block; line-height: 1.4; font-weight: 500; }
-.eduField { font-size: 14px; color: #888; display: block; line-height: 1.5; }
-
-/* ===== AWARDS ===== */
-.awardsList { display: flex; flex-direction: column; }
-.awardItem { display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px solid #f2f2f2; align-items: start; }
-.awardItem:last-child { border-bottom: none; }
-.awardYear { font-size: 13px; color: #1a1a1a; font-weight: 700; padding-top: 3px; display: block; }
-.awardBody { display: flex; flex-direction: column; gap: 5px; }
-.awardTitle { font-size: 16px; font-weight: 600; color: #1a1a1a; display: block; line-height: 1.4; }
-.awardOrg { font-size: 13px; color: #888; display: block; line-height: 1.5; }
-
-/* ===== TRAINING ===== */
-.trainingList { display: flex; flex-direction: column; }
-.trainingItem { padding: 24px 0; border-bottom: 1px solid #f2f2f2; display: flex; flex-direction: column; gap: 6px; }
-.trainingItem:last-child { border-bottom: none; }
-.trainingTitle { font-size: 16px; font-weight: 700; color: #1a1a1a; display: block; }
-.trainingOrg { font-size: 14px; color: #888; display: block; line-height: 1.5; }
-.trainingTopics { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-direction: column; gap: 6px; }
-.trainingTopics li { font-size: 14px; color: #555; padding-left: 16px; position: relative; line-height: 1.55; }
-.trainingTopics li:before { content: "–"; position: absolute; left: 0; color: #5a9e82; }
-
-/* ===== CERTS ===== */
-.certList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
-.certList li { font-size: 15px; color: #3a3a3a; padding: 16px 0 16px 20px; position: relative; border-bottom: 1px solid #f2f2f2; line-height: 1.5; }
-.certList li:last-child { border-bottom: none; }
-.certList li:before { content: "✦"; position: absolute; left: 0; color: #e8729a; font-size: 9px; top: 20px; }
-
-/* ===== EXPERTISE ===== */
-.expertiseList { display: flex; flex-wrap: wrap; gap: 8px; }
-.expertiseBadge { padding: 7px 14px; border: 1px solid #ebebeb; color: #3a3a3a; border-radius: 4px; font-size: 13px; background: #f7f7f7; transition: all 0.2s; cursor: default; }
-.expertiseBadge:hover { border-color: #5b8db8; color: #1a1a1a; background: #fff; }
-
-/* ===== PROJECTS ===== */
-.controls { margin-bottom: 24px; }
-.searchInput { width: 100%; padding: 13px 18px; font-size: 15px; border: 1px solid #ebebeb; border-radius: 4px; background: #fff; color: #1a1a1a; transition: border-color 0.2s; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin-bottom: 14px; }
-.searchInput::placeholder { color: #ccc; }
-.searchInput:focus { outline: none; border-color: #e8729a; }
-.filterButtons { display: flex; gap: 6px; flex-wrap: wrap; }
-.filterBtn { padding: 6px 14px; border: 1px solid #ebebeb; background: #fff; color: #888; border-radius: 4px; cursor: pointer; font-size: 12px; transition: all 0.2s; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 500; }
-.filterBtn:hover { border-color: #888; color: #333; }
-.filterBtn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; font-weight: 600; }
-.resultsCount { font-size: 12px; color: #bbb; letter-spacing: 0.5px; margin-bottom: 20px; }
-.projectsList { display: flex; flex-direction: column; }
-.noResults { color: #ccc; padding: 40px 0; text-align: center; font-size: 15px; }
-
-/* ===== PROJECT CARD ===== */
-.projectCard { background: #fff; border: 1px solid #ebebeb; border-radius: 8px; overflow: hidden; transition: box-shadow 0.2s; margin-bottom: 12px; }
-.projectCard:hover { box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
-.projectExpanded { box-shadow: 0 4px 24px rgba(0,0,0,0.08) !important; border-color: #e8729a; }
-.projectHeader { padding: 28px; }
-.projectMeta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.projectCategory { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #5a9e82; font-weight: 700; }
-.projectYear { font-size: 12px; color: #bbb; }
-.projectTitle { font-size: 18px; font-weight: 700; color: #1a1a1a; line-height: 1.35; margin: 0 0 6px; }
-.projectType { font-size: 13px; color: #999; margin: 0 0 12px; font-style: italic; }
-.projectContext { font-size: 15px; color: #555; line-height: 1.65; margin: 0 0 16px; }
-.projectQuickResults { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; padding: 14px 16px; background: #fdf5f8; border-left: 2px solid #e8729a; border-radius: 0 4px 4px 0; }
-.quickResult { display: flex; gap: 10px; align-items: flex-start; }
-.quickResultDot { color: #e8729a; font-weight: 700; flex-shrink: 0; }
-.quickResult span:last-child { font-size: 14px; color: #3a3a3a; line-height: 1.5; }
-.projectCardFooter { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid #f2f2f2; }
-.toolsList { display: flex; flex-wrap: wrap; gap: 5px; }
-.tool { padding: 3px 9px; background: #f7f7f7; color: #666; border-radius: 3px; font-size: 11px; border: 1px solid #ebebeb; }
-.expandBtn { background: none; border: 1px solid #1a1a1a; color: #1a1a1a; font-size: 12px; cursor: pointer; padding: 6px 14px; border-radius: 4px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; letter-spacing: 0.5px; transition: all 0.2s; font-weight: 600; }
-.expandBtn:hover { background: #1a1a1a; color: #fff; }
-
-/* ===== PANEL ===== */
-.projectPanel { border-top: 1px solid #ebebeb; background: #fafafa; }
-.panelTabs { display: flex; border-bottom: 1px solid #ebebeb; background: #fff; padding: 0 28px; }
-.panelTab { padding: 14px 20px; border: none; background: none; font-size: 12px; font-weight: 600; cursor: pointer; color: #bbb; border-bottom: 2px solid transparent; transition: color 0.2s; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; letter-spacing: 1px; text-transform: uppercase; }
-.panelTab:hover { color: #555; }
-.panelTabActive { color: #1a1a1a; border-bottom-color: #e8729a; }
-.panelContent { padding: 28px; display: flex; flex-direction: column; gap: 24px; }
-.panelBlock { display: flex; flex-direction: column; gap: 12px; }
-.panelLabel { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: #1a1a1a; font-weight: 700; }
-.panelText { font-size: 15px; color: #3a3a3a; line-height: 1.75; padding: 16px 20px; background: #fff; border-left: 3px solid #5b8db8; border-radius: 0 4px 4px 0; font-style: italic; }
-.panelSubtext { font-size: 13px; color: #888; line-height: 1.5; }
-.panelMeta { display: flex; flex-direction: column; gap: 6px; padding: 16px; background: #f7f7f7; border-radius: 6px; border: 1px solid #ebebeb; }
-.panelMeta span { font-size: 13px; color: #666; }
-.panelTagRow { display: flex; flex-wrap: wrap; gap: 6px; padding: 16px 28px; border-top: 1px solid #ebebeb; background: #fff; }
-.tag { padding: 3px 10px; color: #5b8db8; border: 1px solid #d4e4f0; border-radius: 3px; font-size: 11px; background: #f0f6fb; cursor: pointer; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; transition: all 0.2s; }
-.tag:hover { border-color: #5b8db8; color: #1a1a1a; background: #fff; }
-.tagActive { background: #ddeef8; border-color: #5b8db8; color: #1a1a1a; }
-
-/* ===== OVERVIEW TAB ===== */
-.problemBox {
-  background: #1a1a1a;
-  color: #fff;
-  border-radius: 8px;
-  padding: 24px 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.problemLabel {
-  font-size: 10px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: #e8729a;
-  font-weight: 700;
-}
-.problemText {
-  font-size: 15px;
-  line-height: 1.8;
-  color: #f0f0f0;
-  font-style: normal;
-  font-weight: 400;
-}
-.statRow {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: #ebebeb;
-  border: 1px solid #ebebeb;
-  border-radius: 8px;
-  overflow: hidden;
-}
-.statBox {
-  background: #fff;
-  padding: 20px 16px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.statNum {
-  font-size: 24px;
-  font-weight: 800;
-  color: #1a1a1a;
-  letter-spacing: -1px;
-  line-height: 1;
-}
-.statLabel {
-  font-size: 10px;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-.contextMeta {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 14px 16px;
-  background: #f7f7f7;
-  border-radius: 6px;
-  border: 1px solid #ebebeb;
-}
-.contextMeta span { font-size: 12px; color: #888; }
-
-/* ===== METHODOLOGY TAB ===== */
-.pipelineSteps {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.pipelineStep {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 12px 16px;
-  background: #fff;
-  border: 1px solid #ebebeb;
-  border-radius: 6px;
-  transition: border-color 0.2s;
-}
-.pipelineStep:hover { border-color: #1a1a1a; }
-.pipelineNum {
-  width: 22px;
-  height: 22px;
-  background: #1a1a1a;
-  color: #fff;
-  border-radius: 50%;
-  font-size: 10px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-.pipelineText {
-  font-size: 13px;
-  color: #3a3a3a;
-  line-height: 1.55;
+function PieChart() {
+  const [active, setActive] = useState(null);
+  const cx = 70, cy = 70, r = 60;
+  const angle = 0.00172 * 2 * Math.PI;
+  const x1 = cx + r * Math.sin(0), y1 = cy - r * Math.cos(0);
+  const x2 = cx + r * Math.sin(angle), y2 = cy - r * Math.cos(angle);
+  const explains = {
+    legit: { title: 'Legitimate — 284,315 (99.83%)', color: '#5b8db8', note: 'A model predicting "Legitimate" 100% of the time still achieves 99.83% accuracy — while catching zero fraud. Standard accuracy is meaningless here.' },
+    fraud: { title: 'Fraud — 492 (0.17%)', color: '#e8729a', note: 'Missing one fraud case = direct financial loss. Recall on the fraud class, not overall accuracy, is the true success metric.' },
+  };
+  const info = active ? explains[active] : null;
+  return (
+    <div className={styles.chartWrap}>
+      <div className={styles.chartTitle}>Class Distribution <span className={styles.chartHint}>click to explore</span></div>
+      <div className={styles.chartRow}>
+        <svg width="140" height="140" viewBox="0 0 140 140" style={{cursor:'pointer',flexShrink:0}}>
+          <circle cx={cx} cy={cy} r={r} fill={active==='legit'?'#3a7db8':'#d0d0d0'} onClick={()=>setActive(active==='legit'?null:'legit')} style={{transition:'fill 0.2s'}}/>
+          <path d={`M${cx},${cy} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z`} fill={active==='fraud'?'#c04070':'#e8729a'} onClick={()=>setActive(active==='fraud'?null:'fraud')} style={{transition:'fill 0.2s'}}/>
+          <circle cx={cx} cy={cy} r={r*0.5} fill="white"/>
+          <text x={cx} y={cy-4} textAnchor="middle" fontSize="13" fontWeight="800" fill="#1a1a1a">0.17%</text>
+          <text x={cx} y={cy+11} textAnchor="middle" fontSize="9" fill="#888">fraud</text>
+        </svg>
+        <div className={styles.chartLegend}>
+          <div className={styles.legendItem} style={{cursor:'pointer',fontWeight:active==='legit'?700:400}} onClick={()=>setActive(active==='legit'?null:'legit')}>
+            <span className={styles.legendDot} style={{background:'#d0d0d0'}}></span><span>Legitimate 99.83%</span>
+          </div>
+          <div className={styles.legendItem} style={{cursor:'pointer',fontWeight:active==='fraud'?700:400}} onClick={()=>setActive(active==='fraud'?null:'fraud')}>
+            <span className={styles.legendDot} style={{background:'#e8729a'}}></span><span>Fraud 0.17%</span>
+          </div>
+          {!info && <div className={styles.legendNote}>Extreme imbalance — core challenge of this study.</div>}
+          {info && (
+            <div className={styles.chartExplain} style={{borderLeftColor:info.color}}>
+              <div className={styles.chartExplainTitle} style={{color:info.color}}>{info.title}</div>
+              <div className={styles.chartExplainNote}>{info.note}</div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
-/* Models compact */
-.modelsCompact { display: flex; flex-direction: column; gap: 8px; }
-.modelCompact {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 16px;
-  align-items: center;
-  padding: 14px 16px;
-  background: #fff;
-  border: 1px solid #ebebeb;
-  border-radius: 6px;
-  transition: border-color 0.2s;
-}
-.modelCompact:hover { border-color: #ccc; }
-.modelCompactBest { border-color: #e8729a !important; background: #fdf5f8; }
-.modelCompactName { font-size: 13px; font-weight: 700; color: #1a1a1a; }
-.modelCompactStats { display: flex; gap: 16px; }
-.mStat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-.mVal { font-size: 15px; font-weight: 800; color: #1a1a1a; line-height: 1; }
-.mKey { font-size: 9px; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
-.modelCompactNote { display: none; }
-@media (min-width: 600px) {
-  .modelCompact { grid-template-columns: 160px auto 1fr; }
-  .modelCompactNote { display: block; font-size: 12px; color: #888; font-style: italic; line-height: 1.4; }
-}
-
-/* ===== RESULTS TAB ===== */
-.heroStats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-.heroStat {
-  background: #fff;
-  border: 2px solid #ebebeb;
-  border-radius: 8px;
-  padding: 20px 16px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.heroNum {
-  font-size: 32px;
-  font-weight: 800;
-  color: #1a1a1a;
-  letter-spacing: -1.5px;
-  line-height: 1;
-}
-.heroLabel {
-  font-size: 12px;
-  font-weight: 600;
-  color: #1a1a1a;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-top: 4px;
-}
-.heroSub {
-  font-size: 11px;
-  color: #aaa;
+function SmoteChart() {
+  const [active, setActive] = useState(null);
+  const max = 227454;
+  const H = 90, padL = 32, bW = 12, gap = 3, W = 380;
+  const groups = [
+    { key:'before', label:'Before SMOTE', legit:227454, fraud:391, explain:'391 fraud vs 227,454 legitimate — model learns to always predict "Legitimate". Gets 99.8% accuracy while catching zero fraud.' },
+    { key:'after',  label:'After SMOTE',  legit:227454, fraud:227454, explain:'227,063 synthetic fraud samples generated via k-nearest neighbors. Training set balanced 50/50 — model now learns genuine fraud patterns.' },
+  ];
+  const groupW = 2*(bW+gap)-gap;
+  const mGap = ((W-padL)-groupW*groups.length)/(groups.length+1);
+  return (
+    <div className={styles.chartWrap}>
+      <div className={styles.chartTitle}>SMOTE Balancing <span className={styles.chartHint}>click a group</span></div>
+      <svg width="100%" viewBox={`0 0 ${W} ${H+52}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
+        {[0,50,100].map(v=>{
+          const y=H-(v/100)*H+10;
+          return(<g key={v}><line x1={padL} y1={y} x2={W} y2={y} stroke="#f0f0f0" strokeWidth="1"/><text x={padL-4} y={y+4} textAnchor="end" fontSize="7" fill="#bbb">{v}</text></g>);
+        })}
+        {groups.map((g,gi)=>{
+          const gX=padL+mGap*(gi+1)+groupW*gi;
+          const isActive=active===g.key;
+          const lH=(g.legit/max)*H;
+          const fH=Math.max((g.fraud/max)*H,2);
+          return(
+            <g key={gi} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:g.key)}>
+              <rect x={gX-3} y={5} width={groupW+6} height={H+8} fill={isActive?'#f0f6fb':'transparent'} rx="2"/>
+              <rect x={gX} y={H-lH+10} width={bW} height={lH} fill={isActive?'#3a7db8':'#5b8db8'} rx="2"/>
+              {isActive&&<text x={gX+bW/2} y={H-lH+6} textAnchor="middle" fontSize="6" fill="#5b8db8" fontWeight="700">100%</text>}
+              <rect x={gX+bW+gap} y={H-fH+10} width={bW} height={fH} fill={isActive?'#c04070':'#e8729a'} rx="2"/>
+              {isActive&&<text x={gX+bW+gap+bW/2} y={H-fH+6} textAnchor="middle" fontSize="6" fill="#e8729a" fontWeight="700">{gi===0?'0.17%':'100%'}</text>}
+              <text x={gX+groupW/2} y={H+22} textAnchor="middle" fontSize="8" fontWeight={isActive?700:500} fill={isActive?'#1a1a1a':'#666'}>{g.label}</text>
+            </g>
+          );
+        })}
+        <g transform={`translate(${padL},${H+34})`}>
+          <rect width="7" height="7" fill="#5b8db8" rx="1"/><text x="10" y="6" fontSize="8" fill="#888">Legitimate</text>
+          <rect x="76" width="7" height="7" fill="#e8729a" rx="1"/><text x="86" y="6" fontSize="8" fill="#888">Fraud</text>
+        </g>
+      </svg>
+      {active&&<div className={styles.chartExplain} style={{borderLeftColor:'#5b8db8'}}><div className={styles.chartExplainTitle} style={{color:'#1a1a1a'}}>{groups.find(g=>g.key===active)?.label}</div><div className={styles.chartExplainNote}>{groups.find(g=>g.key===active)?.explain}</div></div>}
+      {!active&&<div className={styles.legendNote}>Click Before/After to understand why balancing matters.</div>}
+    </div>
+  );
 }
 
-/* Finding pills */
-.findingPills { display: flex; flex-direction: column; gap: 8px; }
-.findingPill {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  padding: 12px 16px;
-  background: #fff;
-  border: 1px solid #ebebeb;
-  border-radius: 6px;
-  font-size: 13px;
-  color: #3a3a3a;
-  line-height: 1.55;
-}
-.findingIcon { color: #5b8db8; font-size: 8px; margin-top: 4px; flex-shrink: 0; }
-
-/* ===== CONFUSION MATRIX ===== */
-.cmGrid {
-  display: grid;
-  grid-template-columns: auto 1fr 1fr;
-  grid-template-rows: auto 1fr 1fr;
-  gap: 2px;
-  max-width: 340px;
-  margin: 0 auto;
-}
-.cmAxisLabel { text-align: center; font-size: 10px; color: #888; font-weight: 600; padding: 4px 0; text-transform: uppercase; letter-spacing: 0.5px; }
-.cmRowLabel { font-size: 10px; color: #888; font-weight: 600; display: flex; align-items: center; padding-right: 8px; text-transform: uppercase; letter-spacing: 0.5px; writing-mode: vertical-rl; transform: rotate(180deg); justify-content: center; }
-.cmCell {
-  border: 2px solid #ebebeb;
-  border-radius: 6px;
-  padding: 16px 12px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.cmCell:hover { transform: scale(1.02); }
-.cmVal { font-size: 24px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
-.cmLabel { font-size: 11px; font-weight: 700; margin-top: 4px; }
-
-/* ===== CHARTS ===== */
-.chartWrap { background: #fff; border: 1px solid #ebebeb; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
-.chartTitle { font-size: 11px; font-weight: 700; color: #1a1a1a; text-transform: uppercase; letter-spacing: 1.5px; }
-.chartRow { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-.chartLegend { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 140px; }
-.legendItem { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #444; }
-.legendDot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.legendNote { font-size: 12px; color: #888; font-style: italic; line-height: 1.5; }
-.chartHint { font-size: 10px; color: #bbb; font-weight: 400; letter-spacing: 0.5px; margin-left: 8px; font-style: italic; text-transform: none; }
-.chartExplain { border-left: 3px solid #e8729a; padding: 14px 16px; background: #fafafa; border-radius: 0 6px 6px 0; display: flex; flex-direction: column; gap: 8px; animation: fadeIn 0.2s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-.chartExplainTitle { font-size: 13px; font-weight: 700; line-height: 1.4; }
-.chartExplainStats { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 12px; color: #666; }
-.chartExplainStats strong { color: #1a1a1a; font-weight: 700; }
-.chartExplainNote { font-size: 13px; color: #555; line-height: 1.65; }
-
-/* ===== EXPERIENCE ===== */
-.timeline { display: flex; flex-direction: column; }
-.timelineItem { display: grid; grid-template-columns: 150px 32px 1fr; padding: 36px 0; border-bottom: 1px solid #f2f2f2; }
-.timelineItem:last-child { border-bottom: none; }
-.timelineLeft { padding-top: 3px; }
-.jobPeriod { font-size: 13px; color: #888; line-height: 1.6; display: block; }
-.timelineLine { display: flex; flex-direction: column; align-items: center; }
-.timelineDot { width: 8px; height: 8px; border-radius: 50%; background: #e8729a; flex-shrink: 0; margin-top: 5px; }
-.timelineTrack { width: 1px; flex: 1; background: #ebebeb; margin-top: 8px; }
-.timelineRight { padding-left: 20px; }
-.jobTitle { font-size: 19px; font-weight: 700; color: #1a1a1a; margin: 0 0 5px; line-height: 1.25; }
-.jobCompany { font-size: 14px; color: #5b8db8; display: block; margin-bottom: 18px; font-weight: 500; }
-.highlightsList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
-.highlightsList li { font-size: 15px; color: #3a3a3a; padding-left: 20px; position: relative; line-height: 1.65; }
-.highlightsList li:before { content: "→"; position: absolute; left: 0; color: #e8729a; font-size: 12px; top: 3px; }
-.viewProjectBtn { margin-top: 16px; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border: 1px solid #1a1a1a; background: transparent; color: #1a1a1a; font-size: 12px; font-weight: 600; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; border-radius: 4px; cursor: pointer; transition: all 0.2s; }
-.viewProjectBtn:hover { background: #1a1a1a; color: #fff; }
-
-/* ===== SKILLS ===== */
-.skillGroup { display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: start; padding: 28px 0; border-bottom: 1px solid #f2f2f2; }
-.skillGroup:last-child { border-bottom: none; }
-.skillGroupLabel { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #555; font-weight: 700; padding-top: 8px; display: block; }
-.skillBadges { display: flex; flex-wrap: wrap; gap: 8px; }
-.skillBadge { padding: 7px 14px; background: #f7f7f7; border: 1px solid #ebebeb; color: #3a3a3a; border-radius: 4px; font-size: 14px; transition: all 0.2s; cursor: default; }
-.skillBadge:hover, .skillHovered { border-color: #1a1a1a; color: #1a1a1a; background: #fff; }
-
-/* ===== FOOTER ===== */
-.footer { text-align: center; padding: 32px 0; border-top: 1px solid #f2f2f2; color: #ccc; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; }
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .container { padding: 0 20px; }
-  .name { font-size: 40px; letter-spacing: -1px; }
-  .avatarWrapper { width: 110px; height: 110px; }
-  .aboutGrid { grid-template-columns: 1fr; }
-  .timelineItem { grid-template-columns: 1fr; gap: 8px; }
-  .timelineLine { display: none; }
-  .skillGroup { grid-template-columns: 1fr; gap: 12px; }
-  .eduBlock { grid-template-columns: 1fr; gap: 12px; }
-  .awardItem { grid-template-columns: 1fr; gap: 6px; }
-  .tabs { overflow-x: auto; }
-  .tab { padding: 14px 16px; font-size: 11px; }
-  .statRow { grid-template-columns: repeat(2, 1fr); }
-  .heroStats { grid-template-columns: 1fr; }
-  .panelTabs { padding: 0 16px; }
-  .panelContent { padding: 16px; }
-  .projectHeader { padding: 20px; }
-  .modelCompact { grid-template-columns: 1fr; }
+function ModelCompareChart() {
+  const [active, setActive] = useState(null);
+  const models = [
+    { name:'LR Baseline', acc:99.92, recall:63.37, prec:87.67, fp:9, fn:37, best:false, note:'63% recall — 37% of all fraud missed. High accuracy hides the failure.' },
+    { name:'LR + SMOTE',  acc:97.54, recall:94.06, prec:6.38,  fp:1393, fn:6, best:false, note:'94% recall but 1,393 false positives — massive operational cost.' },
+    { name:'Dec. Tree',   acc:99.36, recall:83.17, prec:19.49, fp:347,  fn:17, best:false, note:'Better balance. Still 17% fraud missed, low precision.' },
+    { name:'Rand. Forest',acc:99.95, recall:84.16, prec:89.47, fp:10,   fn:16, best:true,  note:'Best: 84% recall, 89% precision, only 10 false positives.' },
+  ];
+  const metrics = [
+    {key:'acc',    label:'Accuracy',  color:'#5b8db8'},
+    {key:'recall', label:'Recall',    color:'#e8729a'},
+    {key:'prec',   label:'Precision', color:'#5a9e82'},
+  ];
+  const W=380, H=120, padL=32, padB=52, bW=12, bGap=3;
+  const groupW=models.length*(bW+bGap)-bGap;
+  const mGap=((W-padL)-groupW*metrics.length)/(metrics.length+1);
+  const info = active!==null ? models[active] : null;
+  return (
+    <div className={styles.chartWrap}>
+      <div className={styles.chartTitle}>Model Comparison <span className={styles.chartHint}>click a bar</span></div>
+      <svg width="100%" viewBox={`0 0 ${W} ${H+padB}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
+        {[0,50,100].map(v=>{
+          const y=H-(v/100)*H+10;
+          return(<g key={v}><line x1={padL} y1={y} x2={W} y2={y} stroke="#f0f0f0" strokeWidth="1"/><text x={padL-4} y={y+4} textAnchor="end" fontSize="7" fill="#bbb">{v}</text></g>);
+        })}
+        {metrics.map((m,mi)=>{
+          const gX=padL+mGap*(mi+1)+groupW*mi;
+          return(
+            <g key={m.key}>
+              {models.map((mod,bi)=>{
+                const val=mod[m.key];
+                const bH=(val/100)*H;
+                const x=gX+bi*(bW+bGap);
+                const y=H-bH+10;
+                const isActive=active===bi;
+                const fill=isActive?m.color:mod.best?m.color+'cc':m.color+'33';
+                return(
+                  <g key={bi} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:bi)}>
+                    <rect x={x} y={y} width={bW} height={bH} fill={fill} rx="2" style={{transition:'fill 0.15s'}}/>
+                    {(mod.best||isActive)&&<text x={x+bW/2} y={y-3} textAnchor="middle" fontSize="6" fontWeight="700" fill={m.color}>{val}%</text>}
+                  </g>
+                );
+              })}
+              <text x={gX+groupW/2} y={H+20} textAnchor="middle" fontSize="8" fontWeight="600" fill="#555">{m.label}</text>
+            </g>
+          );
+        })}
+        {models.map((m,i)=>{
+          const lx=padL+(i%2)*160; const ly=H+32+(Math.floor(i/2)*13);
+          return(
+            <g key={i} transform={`translate(${lx},${ly})`} style={{cursor:'pointer'}} onClick={()=>setActive(active===i?null:i)}>
+              <rect width="8" height="8" fill={m.best?'#1a1a1a':'#ccc'} rx="1"/>
+              <text x="11" y="7" fontSize="8" fontWeight={m.best||active===i?700:400} fill={m.best?'#1a1a1a':active===i?'#333':'#888'}>{m.name}{m.best?' ★':''}</text>
+            </g>
+          );
+        })}
+      </svg>
+      {info && (
+        <div className={styles.chartExplain} style={{borderLeftColor:info.best?'#1a1a1a':'#5b8db8'}}>
+          <div className={styles.chartExplainTitle} style={{color:info.best?'#1a1a1a':'#333'}}>{info.name}{info.best?' — Best Model':''}</div>
+          <div className={styles.chartExplainStats}>
+            <span>Accuracy <strong>{info.acc}%</strong></span>
+            <span>Recall <strong>{info.recall}%</strong></span>
+            <span>Precision <strong>{info.prec}%</strong></span>
+            <span>False Positives <strong>{info.fp}</strong></span>
+            <span>Missed Fraud <strong>{info.fn}</strong></span>
+          </div>
+          <div className={styles.chartExplainNote}>{info.note}</div>
+        </div>
+      )}
+      {!info && <div className={styles.legendNote}>Random Forest (darkest) = best Recall–Precision trade-off. Click any bar to compare.</div>}
+    </div>
+  );
 }
 
-/* ===== 6-TAB PANEL ===== */
-.panelTabs { overflow-x: auto; }
-.panelTab { padding: 12px 16px; font-size: 11px; letter-spacing: 1px; }
-
-/* Approach grid */
-.approachGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-.approachCard { background: #fff; border: 1px solid #ebebeb; border-radius: 6px; padding: 16px; display: flex; flex-direction: column; gap: 6px; transition: border-color 0.2s; }
-.approachCard:hover { border-color: #1a1a1a; }
-.approachIcon { font-size: 20px; font-weight: 800; color: #ebebeb; letter-spacing: -1px; }
-.approachLabel { font-size: 13px; font-weight: 700; color: #1a1a1a; }
-.approachDesc { font-size: 12px; color: #888; line-height: 1.5; }
-.toolsRow { display: flex; flex-direction: column; gap: 8px; }
-
-/* EDA 3 col */
-.eda3col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.edaCard { background: #fff; border: 1px solid #ebebeb; border-radius: 6px; padding: 16px; }
-.edaTitle { font-size: 12px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
-.edaDesc { font-size: 12px; color: #888; line-height: 1.5; }
-
-/* Decision tier */
-.decisionBox { background: #1a1a1a; color: #fff; border-radius: 8px; padding: 20px 24px; display: flex; flex-direction: column; gap: 8px; }
-.tierGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.tierCard { background: #fff; border: 1px solid #ebebeb; border-top: 3px solid #ccc; border-radius: 6px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
-.tierLabel { font-size: 12px; font-weight: 700; }
-.tierDesc { font-size: 12px; color: #888; line-height: 1.5; }
-
-@media (max-width: 768px) {
-  .approachGrid { grid-template-columns: 1fr; }
-  .eda3col { grid-template-columns: 1fr; }
-  .tierGrid { grid-template-columns: 1fr; }
+function ConfusionMatrix() {
+  const [active, setActive] = useState(null);
+  const cells = [
+    { key:'tn', label:'TN', val:56851, color:'#5b8db8', light:'#f0f6fb', title:'56,851 correctly passed', note:'Legitimate customers experience zero disruption. 99.98% specificity.' },
+    { key:'fp', label:'FP', val:10,    color:'#5a9e82', light:'#f4faf7', title:'10 false alarms',         note:'Only 10 innocent customers flagged — exceptionally low operational cost.' },
+    { key:'fn', label:'FN', val:16,    color:'#e8729a', light:'#fdf5f8', title:'16 fraud missed',         note:'Each missed fraud = direct financial loss. This is the most costly error type.' },
+    { key:'tp', label:'TP', val:85,    color:'#1a1a1a', light:'#f7f7f7', title:'85 fraud caught',         note:'85 of 101 fraud cases stopped — 84.16% recall rate.' },
+  ];
+  const info = active ? cells.find(c=>c.key===active) : null;
+  return (
+    <div className={styles.chartWrap}>
+      <div className={styles.chartTitle}>Confusion Matrix — Random Forest <span className={styles.chartHint}>click a cell</span></div>
+      <div className={styles.cmGrid}>
+        <div></div>
+        <div className={styles.cmAxisLabel}>Pred: Legit</div>
+        <div className={styles.cmAxisLabel}>Pred: Fraud</div>
+        <div className={styles.cmRowLabel}>Actual: Legit</div>
+        {cells.slice(0,2).map(c=>(
+          <div key={c.key} onClick={()=>setActive(active===c.key?null:c.key)}
+            className={styles.cmCell} style={{background:active===c.key?c.light:'#fff',borderColor:active===c.key?c.color:c.color+'33'}}>
+            <div className={styles.cmVal} style={{color:c.color}}>{c.val.toLocaleString()}</div>
+            <div className={styles.cmLabel} style={{color:c.color}}>{c.label}</div>
+          </div>
+        ))}
+        <div className={styles.cmRowLabel}>Actual: Fraud</div>
+        {cells.slice(2,4).map(c=>(
+          <div key={c.key} onClick={()=>setActive(active===c.key?null:c.key)}
+            className={styles.cmCell} style={{background:active===c.key?c.light:'#fff',borderColor:active===c.key?c.color:c.color+'33'}}>
+            <div className={styles.cmVal} style={{color:c.color}}>{c.val.toLocaleString()}</div>
+            <div className={styles.cmLabel} style={{color:c.color}}>{c.label}</div>
+          </div>
+        ))}
+      </div>
+      {info && <div className={styles.chartExplain} style={{borderLeftColor:info.color}}><div className={styles.chartExplainTitle} style={{color:info.color}}>{info.title}</div><div className={styles.chartExplainNote}>{info.note}</div></div>}
+      {!info && <div className={styles.legendNote} style={{textAlign:'center'}}>Click any cell to understand its real-world impact.</div>}
+    </div>
+  );
 }
 
-/* ===== INTERACTIVE EDA CARDS ===== */
-.edaInteractive { display: flex; flex-direction: column; gap: 10px; }
-.edaCard { background: #fff; border: 1px solid #ebebeb; border-radius: 6px; padding: 14px; display: flex; flex-direction: column; gap: 6px; transition: all 0.2s; }
-.edaCard:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-.edaCardActive { background: #fafafa; }
-.edaCardHeader { display: flex; align-items: center; gap: 8px; }
-.edaIcon { font-size: 14px; }
-.edaTitle { font-size: 12px; font-weight: 700; color: #1a1a1a; flex: 1; }
-.edaArrow { font-size: 8px; color: #bbb; }
-.edaStat { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; line-height: 1; }
-.edaStatLabel { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
-.edaDesc { font-size: 12px; color: #888; line-height: 1.5; }
-.edaDetail {
-  border-left: 3px solid #5b8db8;
-  background: #fafafa;
-  border-radius: 0 6px 6px 0;
-  padding: 16px;
-  animation: fadeIn 0.2s ease;
+/* ── Interactive EDA Cards ── */
+function EdaCards() {
+  const [active, setActive] = useState(null);
+  const cards = [
+    {
+      key:'outlier', title:'Outliers', icon:'◈',
+      summary:'Transactions > $10,000 flagged via IQR method.',
+      detail:'The Interquartile Range (IQR = Q3 − Q1) defines normal bounds: Lower = Q1 − 1.5×IQR, Upper = Q3 + 1.5×IQR. Points outside are outliers. Mean transaction = $88.35 but max = $25,691 — extreme right skew. Robust Scaler (median-centered, IQR-scaled) was applied to prevent these outliers from distorting model training.',
+      stat:'$25,691', statLabel:'Max transaction',
+      color:'#5b8db8',
+      viz: () => {
+        const pts = [[5,120],[8,200],[12,800],[18,1200],[22,5000],[28,800],[35,9800],[40,200],[42,25691],[48,400]];
+        const maxY = 25691;
+        return (
+          <svg width="100%" viewBox="0 0 280 100" style={{display:'block'}}>
+            <line x1="14" y1="6" x2="14" y2="82" stroke="#eee" strokeWidth="1"/>
+            <line x1="14" y1="82" x2="275" y2="82" stroke="#eee" strokeWidth="1"/>
+            <line x1="14" y1="24" x2="275" y2="24" stroke="#e8729a55" strokeWidth="1" strokeDasharray="4,3"/>
+            <text x="16" y="22" fontSize="7" fill="#e8729a">Upper bound (IQR)</text>
+            {pts.map(([x,y],i)=>{
+              const cy = 82 - (y/maxY)*72;
+              const isOut = y > 5000;
+              return <circle key={i} cx={x*5.2} cy={cy} r={isOut?4:2} fill={isOut?'#e8729a':'#5b8db8'} opacity={0.8}/>;
+            })}
+            <text x="14" y="96" fontSize="6" fill="#bbb">Time (hours)</text>
+            <text x="0" y="50" fontSize="6" fill="#bbb" transform="rotate(-90,6,50)">Amount</text>
+          </svg>
+        );
+      }
+    },
+    {
+      key:'correlation', title:'Correlation', icon:'◉',
+      summary:'31-feature heatmap. Payment history & collateral = top predictors.',
+      detail:'Pearson correlation heatmap across all 31 features revealed that V14 and V17 (PCA components) have the strongest negative correlation with the fraud class (Class). "Payment history" and "collateral assets" — derived from Agribank internal data — showed correlation > 0.8 with credit risk. PCA reduced 15 raw features to 8 principal components retaining 95% of variance.',
+      stat:'r > 0.8', statLabel:'Top predictors',
+      color:'#5a9e82',
+      viz: () => {
+        const size = 6, n = 8, gap = 1;
+        const colors = ['#5b8db8','#e8729a','#5a9e82','#f0a030','#9060c0','#e8729a','#5b8db8','#5a9e82'];
+        return (
+          <svg width="100%" viewBox="0 0 280 100" style={{display:'block'}}>
+            {Array.from({length:n}).map((_,i)=>
+              Array.from({length:n}).map((_,j)=>{
+                const cellSize=10, cellGap=1;
+                const v = Math.abs(Math.cos((i+1)*(j+1)*0.5));
+                const highlight = (i===0&&j===6)||(i===6&&j===0)||(i===1&&j===6)||(i===6&&j===1);
+                return <rect key={`${i}-${j}`} x={j*(cellSize+cellGap)+8} y={i*(cellSize+cellGap)+8} width={cellSize} height={cellSize} fill={highlight?'#e8729a':i===j?'#1a1a1a':'#5b8db8'} opacity={highlight?0.95:i===j?1:v*0.65+0.1} rx="1"/>;
+              })
+            )}
+            <text x="8" y="100" fontSize="7" fill="#888">V1...V28, Amount, Time, Class</text>
+            <text x="200" y="55" fontSize="6" fill="#e8729a">high</text>
+            <text x="200" y="65" fontSize="6" fill="#e8729a">correlation</text>
+          </svg>
+        );
+      }
+    },
+    {
+      key:'time', title:'Time Pattern', icon:'◷',
+      summary:'Bimodal distribution — peaks at business hours, dip at night.',
+      detail:'Transaction time (seconds from epoch) was analyzed via density plot. Two clear peaks emerge: morning (9–12h) and afternoon (14–17h) aligning with business hours. Overnight transactions (0–6h) are sparse but have a disproportionately higher fraud rate — a key feature for real-time monitoring. This temporal signal was encoded as scaled_time in the feature set.',
+      stat:'2× higher', statLabel:'Overnight fraud rate',
+      color:'#9060c0',
+      viz: () => {
+        const pts = [2,3,5,8,14,20,28,35,40,38,30,28,24,20,28,35,38,32,20,12,7,4,3,2];
+        const max = Math.max(...pts);
+        const W = 180, H = 50, n = pts.length;
+        const path = pts.map((v,i)=>`${i===0?'M':'L'}${(i/(n-1))*(W-20)+10},${H-5-(v/max)*(H-10)}`).join(' ');
+        return (
+          <svg width="100%" viewBox="0 0 280 100" style={{display:'block'}}>
+            {(()=>{
+              const W2=280,H2=78,n2=pts.length;
+              const path2=pts.map((v,i)=>`${i===0?'M':'L'}${(i/(n2-1))*(W2-24)+12},${H2-(v/Math.max(...pts))*(H2-16)+4}`).join(' ');
+              return(<>
+                <path d={path2} fill="none" stroke="#9060c0" strokeWidth="2"/>
+                <path d={`${path2} L${W2-12},${H2+4} L12,${H2+4} Z`} fill="#9060c0" opacity="0.12"/>
+                <line x1="12" y1={H2+4} x2={W2-12} y2={H2+4} stroke="#eee" strokeWidth="1"/>
+                <text x="12" y="94" fontSize="7" fill="#bbb">0h</text>
+                <text x={W2/2-8} y="94" fontSize="7" fill="#bbb">12h</text>
+                <text x={W2-22} y="94" fontSize="7" fill="#bbb">24h</text>
+                <text x="80" y="20" fontSize="7" fill="#9060c0" fontWeight="600">Morning peak</text>
+                <text x="178" y="20" fontSize="7" fill="#9060c0" fontWeight="600">Afternoon peak</text>
+              </>);
+            })()}
+          </svg>
+        );
+      }
+    },
+  ];
+  const activeCard = active ? cards.find(c=>c.key===active) : null;
+  return (
+    <div className={styles.edaInteractive}>
+      <div className={styles.eda3col}>
+        {cards.map(c=>(
+          <div key={c.key} className={`${styles.edaCard} ${active===c.key?styles.edaCardActive:''}`}
+            style={{borderColor:active===c.key?c.color:'#ebebeb',cursor:'pointer'}}
+            onClick={()=>setActive(active===c.key?null:c.key)}>
+            <div className={styles.edaCardHeader}>
+              <span className={styles.edaIcon} style={{color:c.color}}>{c.icon}</span>
+              <span className={styles.edaTitle}>{c.title}</span>
+              <span className={styles.edaArrow}>{active===c.key?'▲':'▼'}</span>
+            </div>
+            <div className={styles.edaStat} style={{color:c.color}}>{c.stat}</div>
+            <div className={styles.edaStatLabel}>{c.statLabel}</div>
+            <div className={styles.edaDesc}>{c.summary}</div>
+          </div>
+        ))}
+      </div>
+      {activeCard&&(
+        <div className={styles.edaDetail} style={{borderLeftColor:activeCard.color}}>
+          <div className={styles.edaDetailRow}>
+            <div className={styles.edaDetailViz}>{activeCard.viz()}</div>
+            <div className={styles.edaDetailText}>
+              <div className={styles.edaDetailTitle} style={{color:activeCard.color}}>{activeCard.title}</div>
+              <div className={styles.edaDetailBody}>{activeCard.detail}</div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
-.edaDetailRow { display: flex; gap: 16px; align-items: flex-start; }
-.edaDetailViz { flex-shrink: 0; width: 280px; max-width: 100%; }
-.edaDetailText { flex: 1; display: flex; flex-direction: column; gap: 8px; }
-.edaDetailTitle { font-size: 12px; font-weight: 700; }
-.edaDetailBody { font-size: 12px; color: #555; line-height: 1.65; }
 
-/* ===== INTERACTIVE PIPELINE ===== */
-.pipelineGrid { display: flex; flex-direction: column; gap: 6px; }
-.pipelineRow {
-  border-left: 3px solid #ebebeb;
-  border-radius: 0 6px 6px 0;
-  background: #fff;
-  cursor: pointer;
-  transition: all 0.2s;
-  overflow: hidden;
-}
-.pipelineRow:hover { background: #f7f7f7; }
-.pipelineRowActive { background: #fafafa; }
-.pipelineRowLeft {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-}
-.pipelineStepName { font-size: 13px; font-weight: 700; flex: 1; }
-.pipelineArrow { font-size: 8px; color: #bbb; }
-.pipelineDetail {
-  padding: 0 16px 14px 44px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  animation: fadeIn 0.2s ease;
-}
-.pipelineDetailText { font-size: 13px; color: #555; line-height: 1.6; }
-
-@media (max-width: 768px) {
-  .edaDetailRow { flex-direction: column; }
-  .edaDetailViz { width: 100%; }
-}
-
-/* ===== KEY FINDINGS HIGHLIGHT ===== */
-.findingPill {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  padding: 12px 16px;
-  background: #fff;
-  border: 1px solid #ebebeb;
-  border-radius: 6px;
-  font-size: 13px;
-  color: #3a3a3a;
-  line-height: 1.55;
-}
-.findingHighlight {
-  background: #fdf5f8;
-  border-color: #e8729a;
-  font-weight: 600;
-  color: #1a1a1a;
-}
-.findingHighlight .findingIcon {
-  color: #e8729a;
+/* ── Interactive Pipeline Steps ── */
+function PipelineSteps({steps, hasCharts}) {
+  const [active, setActive] = useState(null);
+  const stepNames = ['EDA','Data Preprocessing','Correlation Analysis','Train/Test Split','Imbalance Handling','Model Training','Evaluation'];
+  const stepColors = ['#5b8db8','#5a9e82','#9060c0','#f0a030','#e8729a','#1a1a1a','#5b8db8'];
+  return (
+    <div className={styles.panelBlock}>
+      <span className={styles.panelLabel}>Pipeline</span>
+      <div className={styles.pipelineGrid}>
+        {steps.map((step,i)=>{
+          const isActive = active===i;
+          const color = stepColors[i] || '#888';
+          const name = stepNames[i] || `Step ${i+1}`;
+          return(
+            <div key={i} className={`${styles.pipelineRow} ${isActive?styles.pipelineRowActive:''}`}
+              style={{borderLeftColor:isActive?color:'#ebebeb'}}
+              onClick={()=>setActive(isActive?null:i)}>
+              <div className={styles.pipelineRowLeft}>
+                <div className={styles.pipelineNum} style={{background:isActive?color:'#ebebeb',color:isActive?'#fff':'#888'}}>{i+1}</div>
+                <div className={styles.pipelineStepName} style={{color:isActive?color:'#1a1a1a'}}>{name}</div>
+                <div className={styles.pipelineArrow}>{isActive?'▲':'▼'}</div>
+              </div>
+              {isActive&&(
+                <div className={styles.pipelineDetail}>
+                  <div className={styles.pipelineDetailText}>{step.includes(':')?step.split(':').slice(1).join(':').trim():step}</div>
+                  {i===4&&hasCharts&&<SmoteChart/>}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
-/* ===== CONTEXT TAB HIGHLIGHT ON OPEN ===== */
-@keyframes contextPulse {
-  0% { background: #fdf5f8; }
-  50% { background: #fce8f0; }
-  100% { background: #fafafa; }
-}
-.panelContentHighlight {
-  animation: contextPulse 1.2s ease;
+/* ── Main ── */
+export default function Portfolio() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [activeTab, setActiveTab] = useState('about');
+  const [expandedProject, setExpandedProject] = useState(null);
+  const [activeProjectTab, setActiveProjectTab] = useState({});
+  const [contextHighlight, setContextHighlight] = useState(null);
+  const [hoveredSkill, setHoveredSkill] = useState(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(()=>{setMounted(true);},[]);
+
+  const allTags = useMemo(()=>{
+    const tags=new Set();
+    data.projects.forEach(p=>p.tags?.forEach(t=>tags.add(t)));
+    return Array.from(tags).sort();
+  },[]);
+
+  const filteredProjects = useMemo(()=>data.projects.filter(project=>{
+    const matchesSearch=project.title.toLowerCase().includes(searchTerm.toLowerCase())||project.context.toLowerCase().includes(searchTerm.toLowerCase())||project.category.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter=activeFilter==='all'||project.tags?.includes(activeFilter);
+    return matchesSearch&&matchesFilter;
+  }),[searchTerm,activeFilter]);
+
+  const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+  const getProjectTab=id=>activeProjectTab[id]||'context';
+  const setProjectTab=(id,tab)=>setActiveProjectTab(prev=>({...prev,[id]:tab}));
+
+  const openProject=projectId=>{
+    setActiveTab('projects');
+    setExpandedProject(projectId);
+    setTimeout(()=>{
+      const el=document.getElementById(`project-${projectId}`);
+      if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+    },100);
+  };
+
+  return (
+    <div className={`${styles.container} ${mounted?styles.mounted:''}`}>
+
+      <header className={styles.header}>
+        <div className={styles.avatarWrapper}>
+          <img src="/avatar.png" alt="Thảo Nguyên Trần" className={styles.avatar}/>
+        </div>
+        <h1 className={styles.name}>{data.profile.name}</h1>
+        <p className={styles.title}>{data.profile.title}</p>
+        <p className={styles.tagline}>"{data.profile.tagline}"</p>
+        <div className={styles.contact}>
+          <a href={`mailto:${data.profile.email}`} className={styles.contactLink}>Email</a>
+          <span className={styles.contactDot}>·</span>
+          <a href={data.profile.linkedin} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>LinkedIn</a>
+          <span className={styles.contactDot}>·</span>
+          <span className={styles.contactInfo}>{data.profile.location}</span>
+        </div>
+      </header>
+
+      <nav className={styles.tabs}>
+        {['about','projects','experience','skills'].map(tab=>(
+          <button key={tab} className={`${styles.tab} ${activeTab===tab?styles.tabActive:''}`} onClick={()=>setActiveTab(tab)}>
+            {tab==='projects'?`Projects (${data.projects.length})`:cap(tab)}
+          </button>
+        ))}
+      </nav>
+
+      <main className={styles.content}>
+
+        {activeTab==='about'&&(
+          <section className={styles.section}>
+            <p className={styles.aboutBio}>{data.profile.bio}</p>
+            <div className={styles.aboutGrid}>
+              <div className={styles.aboutCard}><span className={styles.cardLabel}>Background</span><p>{data.about.background}</p></div>
+              <div className={styles.aboutCard}><span className={styles.cardLabel}>Focus</span><p>{data.about.professional_focus}</p></div>
+              <div className={styles.aboutCard}><span className={styles.cardLabel}>Strengths</span><ul className={styles.strengthsList}>{data.about.strengths.map((s,i)=><li key={i}>{s}</li>)}</ul></div>
+            </div>
+            <Divider label="Education"/>
+            {data.education.map((edu,i)=>(
+              <div key={i} className={styles.eduBlock}>
+                <div className={styles.eduLeft}><span className={styles.eduPeriod}>{edu.period}</span><span className={styles.eduStatus}>{edu.status}</span></div>
+                <div className={styles.eduRight}><span className={styles.eduDegree}>{edu.degree}</span><span className={styles.eduInst}>{edu.institution}</span><span className={styles.eduField}>{edu.field}</span></div>
+              </div>
+            ))}
+            <Divider label="Scholarships & Awards"/>
+            <div className={styles.awardsList}>
+              {data.scholarships.map((s,i)=>(
+                <div key={i} className={styles.awardItem}>
+                  <span className={styles.awardYear}>{s.year}</span>
+                  <div className={styles.awardBody}><span className={styles.awardTitle}>{s.title}</span><span className={styles.awardOrg}>{s.org}</span></div>
+                </div>
+              ))}
+            </div>
+            <Divider label="Training & Courses"/>
+            <div className={styles.trainingList}>
+              {data.training.map((t,i)=>(
+                <div key={i} className={styles.trainingItem}>
+                  <span className={styles.trainingTitle}>{t.title}</span>
+                  <span className={styles.trainingOrg}>{t.org}</span>
+                  <ul className={styles.trainingTopics}>{t.topics.map((topic,j)=><li key={j}>{topic}</li>)}</ul>
+                </div>
+              ))}
+            </div>
+            <Divider label="Certifications"/>
+            <ul className={styles.certList}>{data.coursework.map((c,i)=><li key={i}>{c}</li>)}</ul>
+            <Divider label="Domain Expertise"/>
+            <div className={styles.expertiseList}>{data.skills.domain_expertise.map((e,i)=><span key={i} className={styles.expertiseBadge}>{e}</span>)}</div>
+          </section>
+        )}
+
+        {activeTab==='projects'&&(
+          <>
+            <div className={styles.controls}>
+              <input type="text" placeholder="Search projects..." value={searchTerm} onChange={e=>setSearchTerm(e.target.value)} className={styles.searchInput}/>
+              <div className={styles.filterButtons}>
+                <button className={`${styles.filterBtn} ${activeFilter==='all'?styles.active:''}`} onClick={()=>setActiveFilter('all')}>All</button>
+                {allTags.map(tag=><button key={tag} className={`${styles.filterBtn} ${activeFilter===tag?styles.active:''}`} onClick={()=>setActiveFilter(tag)}>{tag}</button>)}
+              </div>
+            </div>
+            <p className={styles.resultsCount}>{filteredProjects.length} project{filteredProjects.length!==1?'s':''}{activeFilter!=='all'&&` tagged "${activeFilter}"`}{searchTerm&&` matching "${searchTerm}"`}</p>
+            {expandedProject!==null&&(
+              <button className={styles.showAllBtn} onClick={()=>setExpandedProject(null)}>← Show all projects</button>
+            )}
+            {filteredProjects.length===0?<p className={styles.noResults}>No projects found.</p>:(
+              <div className={styles.projectsList}>
+                {filteredProjects.filter(p=>expandedProject===null||p.id===expandedProject).map(project=>{
+                  const isExpanded=expandedProject===project.id;
+                  const currentTab=getProjectTab(project.id);
+                  const hasCharts=project.id===1;
+                  return(
+                    <article key={project.id} id={`project-${project.id}`} className={`${styles.projectCard} ${isExpanded?styles.projectExpanded:''}`}>
+                      <div className={styles.projectHeader}>
+                        <div className={styles.projectMeta}>
+                          <span className={styles.projectCategory}>{project.category}</span>
+                          <span className={styles.projectYear}>{project.year}</span>
+                        </div>
+                        <h3 className={styles.projectTitle}>{project.title}</h3>
+                        <p className={styles.projectType}>{project.type}</p>
+                        <p className={styles.projectContext}>{project.context}</p>
+                        {!isExpanded&&project.results?.length>0&&(
+                          <div className={styles.projectQuickResults}>
+                            {project.results.slice(0,2).map((r,i)=><div key={i} className={styles.quickResult}><span className={styles.quickResultDot}>→</span><span>{r}</span></div>)}
+                          </div>
+                        )}
+                        <div className={styles.projectCardFooter}>
+                          <div className={styles.toolsList}>{project.tools?.map((t,i)=><span key={i} className={styles.tool}>{t}</span>)}</div>
+                          <button className={styles.expandBtn} onClick={()=>{setExpandedProject(isExpanded?null:project.id);if(!isExpanded){setProjectTab(project.id,'context');setContextHighlight(project.id);setTimeout(()=>setContextHighlight(null),1500);}}}>
+                            {isExpanded?'↑ Close':'Explore Project'}
+                          </button>
+                        </div>
+                      </div>
+
+                      {isExpanded&&(
+                        <div className={styles.projectPanel}>
+                          <div className={styles.panelTabs}>
+                            {['context','approach','analysis','methodology','results','decision'].map(t=>(
+                              <button key={t} className={`${styles.panelTab} ${currentTab===t?styles.panelTabActive:''}`} onClick={()=>setProjectTab(project.id,t)}>
+                                {t.charAt(0).toUpperCase()+t.slice(1)}
+                              </button>
+                            ))}
+                          </div>
+
+                          {/* ── CONTEXT ── */}
+                          {currentTab==='context'&&(
+                            <div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}>
+                              <div className={styles.problemBox}>
+                                <div className={styles.problemLabel}>The Problem</div>
+                                <div className={styles.problemText}>
+                                  {hasCharts
+                                    ? "Vietnam's rapid credit expansion has intensified fraud risk in personal credit portfolios. This study addresses a critical gap: Agribank Saigon Branch lacked an automated, data-driven early-warning system for credit card fraud detection, relying instead on manual review processes vulnerable to human error."
+                                    : project.context}
+                                </div>
+                              </div>
+                              <div className={styles.statRow}>
+                                <div className={styles.statBox}>
+                                  <div className={styles.statNum} style={{color:'#e8729a'}}>0.17%</div>
+                                  <div className={styles.statLabel}>Fraud Rate</div>
+                                </div>
+                                <div className={styles.statBox}>
+                                  <div className={styles.statNum}>Manual</div>
+                                  <div className={styles.statLabel}>Detection Method</div>
+                                </div>
+                                <div className={styles.statBox}>
+                                  <div className={styles.statNum}>NPL</div>
+                                  <div className={styles.statLabel}>1.5% (below avg)</div>
+                                </div>
+                                <div className={styles.statBox}>
+                                  <div className={styles.statNum}>Tier 1</div>
+                                  <div className={styles.statLabel}>Branch Rank</div>
+                                </div>
+                              </div>
+                              {project.supervisor&&(
+                                <div className={styles.contextMeta}>
+                                  <span>Supervisor: {project.supervisor}</span>
+                                  <span>{project.institution} / {project.period}</span>
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {/* ── APPROACH ── */}
+                          {currentTab==='approach'&&(
+                            <div className={styles.panelContent}>
+                              {project.researchQuestion&&(
+                                <div className={styles.problemBox}>
+                                  <div className={styles.problemLabel}>Research Question</div>
+                                  <div className={styles.problemText}>{project.researchQuestion}</div>
+                                </div>
+                              )}
+                              <div className={styles.approachGrid}>
+                                {[
+                                  {icon:'01', label:'Classify', desc:'Binary classification — Fraud (1) vs Legitimate (0)'},
+                                  {icon:'02', label:'Handle Imbalance', desc:'SMOTE oversampling to balance 0.17% minority class'},
+                                  {icon:'03', label:'Compare Models', desc:'Logistic Regression, Decision Tree, Random Forest'},
+                                  {icon:'04', label:'Optimize Recall', desc:'Maximize fraud detection, minimize false positives'},
+                                ].map((a,i)=>(
+                                  <div key={i} className={styles.approachCard}>
+                                    <div className={styles.approachIcon}>{a.icon}</div>
+                                    <div className={styles.approachLabel}>{a.label}</div>
+                                    <div className={styles.approachDesc}>{a.desc}</div>
+                                  </div>
+                                ))}
+                              </div>
+                              <div className={styles.toolsRow}>
+                                <span className={styles.panelLabel}>Tools</span>
+                                <div className={styles.toolsList} style={{marginTop:8}}>
+                                  {project.tools?.map((t,i)=><span key={i} className={styles.tool} style={{fontSize:13,padding:'5px 12px'}}>{t}</span>)}
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* ── ANALYSIS ── */}
+                          {currentTab==='analysis'&&(
+                            <div className={styles.panelContent}>
+                              {project.dataset&&(
+                                <div className={styles.statRow}>
+                                  <div className={styles.statBox}>
+                                    <div className={styles.statNum}>284,807</div>
+                                    <div className={styles.statLabel}>Transactions</div>
+                                  </div>
+                                  <div className={styles.statBox}>
+                                    <div className={styles.statNum}>31</div>
+                                    <div className={styles.statLabel}>Variables</div>
+                                  </div>
+                                  <div className={styles.statBox}>
+                                    <div className={styles.statNum} style={{color:'#e8729a'}}>0.17%</div>
+                                    <div className={styles.statLabel}>Fraud Rate</div>
+                                  </div>
+                                  <div className={styles.statBox}>
+                                    <div className={styles.statNum}>2 days</div>
+                                    <div className={styles.statLabel}>Window</div>
+                                  </div>
+                                </div>
+                              )}
+                              {hasCharts&&<PieChart/>}
+                              <EdaCards/>
+                            </div>
+                          )}
+
+                          {/* ── METHODOLOGY ── */}
+                          {currentTab==='methodology'&&(
+                            <div className={styles.panelContent}>
+                              {project.methodology&&<PipelineSteps steps={project.methodology} hasCharts={hasCharts}/>}
+                              {project.models&&(
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Models</span>
+                                  <div className={styles.modelsCompact}>
+                                    {project.models.map((m,i)=>(
+                                      <div key={i} className={`${styles.modelCompact} ${m.name.includes('Best')?styles.modelCompactBest:''}`}>
+                                        <div className={styles.modelCompactName}>{m.name}</div>
+                                        <div className={styles.modelCompactStats}>
+                                          <span className={styles.mStat}><span className={styles.mVal}>{m.accuracy}</span><span className={styles.mKey}>Acc</span></span>
+                                          <span className={styles.mStat}><span className={styles.mVal} style={{color:'#e8729a'}}>{m.recall_fraud}</span><span className={styles.mKey}>Recall</span></span>
+                                          <span className={styles.mStat}><span className={styles.mVal}>{m.fp}</span><span className={styles.mKey}>FP</span></span>
+                                        </div>
+                                        <div className={styles.modelCompactNote}>{m.note}</div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {/* ── RESULTS ── */}
+                          {currentTab==='results'&&(
+                            <div className={styles.panelContent}>
+                              <div className={styles.heroStats}>
+                                <div className={styles.heroStat}>
+                                  <div className={styles.heroNum}>99.95%</div>
+                                  <div className={styles.heroLabel}>Accuracy</div>
+                                  <div className={styles.heroSub}>Random Forest</div>
+                                </div>
+                                <div className={styles.heroStat} style={{borderColor:'#e8729a'}}>
+                                  <div className={styles.heroNum} style={{color:'#e8729a'}}>84.16%</div>
+                                  <div className={styles.heroLabel}>Recall on Fraud</div>
+                                  <div className={styles.heroSub}>85 of 101 caught</div>
+                                </div>
+                                <div className={styles.heroStat} style={{borderColor:'#5a9e82'}}>
+                                  <div className={styles.heroNum} style={{color:'#5a9e82'}}>10</div>
+                                  <div className={styles.heroLabel}>False Positives</div>
+                                  <div className={styles.heroSub}>vs 1,393 (LR+SMOTE)</div>
+                                </div>
+                              </div>
+                              {hasCharts&&<ModelCompareChart/>}
+                              {hasCharts&&<ConfusionMatrix/>}
+                            </div>
+                          )}
+
+                          {/* ── DECISION ── */}
+                          {currentTab==='decision'&&(
+                            <div className={styles.panelContent}>
+                              <div className={styles.decisionBox}>
+                                <div className={styles.problemLabel}>Recommendation</div>
+                                <div className={styles.problemText}>Deploy Random Forest as the primary fraud detection engine. Implement a 3-tier alert system replacing manual review.</div>
+                              </div>
+                              <div className={styles.tierGrid}>
+                                <div className={styles.tierCard} style={{borderTopColor:'#5a9e82'}}>
+                                  <div className={styles.tierLabel} style={{color:'#5a9e82'}}>Tier 1: Auto Approve</div>
+                                  <div className={styles.tierDesc}>High confidence legitimate. No human review needed. Reduces workload by ~99%.</div>
+                                </div>
+                                <div className={styles.tierCard} style={{borderTopColor:'#f0a030'}}>
+                                  <div className={styles.tierLabel} style={{color:'#f0a030'}}>Tier 2: Flag for Review</div>
+                                  <div className={styles.tierDesc}>Borderline cases. Analyst reviews within 24h. Estimated 10–20 cases/day.</div>
+                                </div>
+                                <div className={styles.tierCard} style={{borderTopColor:'#e8729a'}}>
+                                  <div className={styles.tierLabel} style={{color:'#e8729a'}}>Tier 3: Auto Block</div>
+                                  <div className={styles.tierDesc}>High confidence fraud. Immediate card freeze. Prevents direct financial loss.</div>
+                                </div>
+                              </div>
+                              {project.keyFindings&&(
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Key Findings</span>
+                                  <div className={styles.findingPills}>
+                                    {project.keyFindings.map((f,i)=>(
+                                      <div key={i} className={`${styles.findingPill} ${i<2?styles.findingHighlight:''}`}>
+                                        <span className={styles.findingIcon}>◆</span>
+                                        <span>{f}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          <div className={styles.panelTagRow}>
+                            {project.tags?.map(tag=>(
+                              <button key={tag} className={`${styles.tag} ${activeFilter===tag?styles.tagActive:''}`} onClick={()=>setActiveFilter(tag===activeFilter?'all':tag)}>{tag}</button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </article>
+                  );
+                })}
+              </div>
+            )}
+          </>
+        )}
+
+        {activeTab==='experience'&&(
+          <section className={styles.section}>
+            <div className={styles.timeline}>
+              {data.experience.map(job=>(
+                <div key={job.id} className={styles.timelineItem}>
+                  <div className={styles.timelineLeft}><span className={styles.jobPeriod}>{job.period}</span></div>
+                  <div className={styles.timelineLine}><div className={styles.timelineDot}></div><div className={styles.timelineTrack}></div></div>
+                  <div className={styles.timelineRight}>
+                    <h3 className={styles.jobTitle}>{job.title}</h3>
+                    <span className={styles.jobCompany}>{job.company}</span>
+                    <ul className={styles.highlightsList}>{job.highlights.map((h,i)=><li key={i}>{h}</li>)}</ul>
+                    {job.projectId&&<button className={styles.viewProjectBtn} onClick={()=>openProject(job.projectId)}>View related project →</button>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeTab==='skills'&&(
+          <section className={styles.section}>
+            {[
+              {label:'Programming & Platforms',items:[...data.skills.technical_tools.programming,...data.skills.technical_tools.platforms]},
+              {label:'Visualization & BI',items:data.skills.technical_tools.data_visualization},
+              {label:'Statistical Software',items:data.skills.technical_tools.statistical_software},
+              {label:'Machine Learning',items:data.skills.methodologies.machine_learning},
+              {label:'Econometrics & Time Series',items:data.skills.methodologies.econometrics},
+              {label:'Statistical Analysis',items:data.skills.methodologies.statistical_analysis},
+              {label:'Structural Modeling',items:data.skills.methodologies.structural_modeling},
+              {label:'Risk Management',items:data.skills.methodologies.risk_analysis},
+            ].map((group,i)=>(
+              <div key={i} className={styles.skillGroup}>
+                <span className={styles.skillGroupLabel}>{group.label}</span>
+                <div className={styles.skillBadges}>
+                  {group.items.map((skill,j)=>(
+                    <span key={j} className={`${styles.skillBadge} ${hoveredSkill===skill?styles.skillHovered:''}`} onMouseEnter={()=>setHoveredSkill(skill)} onMouseLeave={()=>setHoveredSkill(null)}>{skill}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </section>
+        )}
+
+      </main>
+
+      <footer className={styles.footer}>
+        <p>{data.profile.name} · {new Date().getFullYear()}</p>
+      </footer>
+    </div>
+  );
 }
 
-/* ===== COLLAPSED PROJECTS ===== */
-.projectsCollapsed .projectCard:not(.projectExpanded) {
-  display: none;
+function Divider({label}) {
+  return(
+    <div style={{display:'flex',alignItems:'center',gap:'16px',margin:'48px 0 28px'}}>
+      <span style={{fontSize:'11px',letterSpacing:'2.5px',textTransform:'uppercase',color:'#1a1a1a',fontWeight:700,whiteSpace:'nowrap',fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif"}}>{label}</span>
+      <div style={{flex:1,height:'1px',background:'#ebebeb'}}></div>
+    </div>
+  );
 }
 
-/* ===== SHOW ALL BUTTON ===== */
-.showAllBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  margin-bottom: 16px;
-  border: 1px solid #ebebeb;
-  background: #fff;
-  color: #555;
-  font-size: 12px;
-  font-weight: 600;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s;
-  letter-spacing: 0.3px;
-}
-.showAllBtn:hover { border-color: #1a1a1a; color: #1a1a1a; }
 
 
