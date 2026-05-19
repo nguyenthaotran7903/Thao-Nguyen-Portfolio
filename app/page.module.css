@@ -429,3 +429,62 @@
   .eda3col { grid-template-columns: 1fr; }
   .tierGrid { grid-template-columns: 1fr; }
 }
+
+/* ===== INTERACTIVE EDA CARDS ===== */
+.edaInteractive { display: flex; flex-direction: column; gap: 10px; }
+.edaCard { background: #fff; border: 1px solid #ebebeb; border-radius: 6px; padding: 14px; display: flex; flex-direction: column; gap: 6px; transition: all 0.2s; }
+.edaCard:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.edaCardActive { background: #fafafa; }
+.edaCardHeader { display: flex; align-items: center; gap: 8px; }
+.edaIcon { font-size: 14px; }
+.edaTitle { font-size: 12px; font-weight: 700; color: #1a1a1a; flex: 1; }
+.edaArrow { font-size: 8px; color: #bbb; }
+.edaStat { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; line-height: 1; }
+.edaStatLabel { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+.edaDesc { font-size: 12px; color: #888; line-height: 1.5; }
+.edaDetail {
+  border-left: 3px solid #5b8db8;
+  background: #fafafa;
+  border-radius: 0 6px 6px 0;
+  padding: 16px;
+  animation: fadeIn 0.2s ease;
+}
+.edaDetailRow { display: flex; gap: 16px; align-items: flex-start; }
+.edaDetailViz { flex-shrink: 0; width: 160px; }
+.edaDetailText { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.edaDetailTitle { font-size: 12px; font-weight: 700; }
+.edaDetailBody { font-size: 12px; color: #555; line-height: 1.65; }
+
+/* ===== INTERACTIVE PIPELINE ===== */
+.pipelineGrid { display: flex; flex-direction: column; gap: 6px; }
+.pipelineRow {
+  border-left: 3px solid #ebebeb;
+  border-radius: 0 6px 6px 0;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  overflow: hidden;
+}
+.pipelineRow:hover { background: #f7f7f7; }
+.pipelineRowActive { background: #fafafa; }
+.pipelineRowLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+}
+.pipelineStepName { font-size: 13px; font-weight: 700; flex: 1; }
+.pipelineArrow { font-size: 8px; color: #bbb; }
+.pipelineDetail {
+  padding: 0 16px 14px 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fadeIn 0.2s ease;
+}
+.pipelineDetailText { font-size: 13px; color: #555; line-height: 1.6; }
+
+@media (max-width: 768px) {
+  .edaDetailRow { flex-direction: column; }
+  .edaDetailViz { width: 100%; }
+}
