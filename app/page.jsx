@@ -304,7 +304,7 @@ function EdaCards() {
           <div className={styles.edaDetailRow}>
             <div className={styles.edaDetailViz}>{activeCard.viz()}</div>
             <div className={styles.edaDetailText}>
-              <div className={styles.edaDetailTitle} style={{color:activeCard.color}}>{activeCard.title} — Deep Dive</div>
+              <div className={styles.edaDetailTitle} style={{color:activeCard.color}}>{activeCard.title}</div>
               <div className={styles.edaDetailBody}>{activeCard.detail}</div>
             </div>
           </div>
@@ -357,6 +357,7 @@ export default function Portfolio() {
   const [activeTab, setActiveTab] = useState('about');
   const [expandedProject, setExpandedProject] = useState(null);
   const [activeProjectTab, setActiveProjectTab] = useState({});
+  const [contextHighlight, setContextHighlight] = useState(null);
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [mounted, setMounted] = useState(false);
 
@@ -375,7 +376,7 @@ export default function Portfolio() {
   }),[searchTerm,activeFilter]);
 
   const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
-  const getProjectTab=id=>activeProjectTab[id]||'overview';
+  const getProjectTab=id=>activeProjectTab[id]||'context';
   const setProjectTab=(id,tab)=>setActiveProjectTab(prev=>({...prev,[id]:tab}));
 
   const openProject=projectId=>{
@@ -468,8 +469,11 @@ export default function Portfolio() {
             </div>
             <p className={styles.resultsCount}>{filteredProjects.length} project{filteredProjects.length!==1?'s':''}{activeFilter!=='all'&&` tagged "${activeFilter}"`}{searchTerm&&` matching "${searchTerm}"`}</p>
             {filteredProjects.length===0?<p className={styles.noResults}>No projects found.</p>:(
+              {expandedProject!==null&&(
+                <button className={styles.showAllBtn} onClick={()=>setExpandedProject(null)}>← Show all projects</button>
+              )}
               <div className={styles.projectsList}>
-                {filteredProjects.map(project=>{
+                {filteredProjects.filter(p=>expandedProject===null||p.id===expandedProject).map(project=>{
                   const isExpanded=expandedProject===project.id;
                   const currentTab=getProjectTab(project.id);
                   const hasCharts=project.id===1;
@@ -490,7 +494,7 @@ export default function Portfolio() {
                         )}
                         <div className={styles.projectCardFooter}>
                           <div className={styles.toolsList}>{project.tools?.map((t,i)=><span key={i} className={styles.tool}>{t}</span>)}</div>
-                          <button className={styles.expandBtn} onClick={()=>{setExpandedProject(isExpanded?null:project.id);if(!isExpanded)setProjectTab(project.id,'overview');}}>
+                          <button className={styles.expandBtn} onClick={()=>{setExpandedProject(isExpanded?null:project.id);if(!isExpanded){setProjectTab(project.id,'context');setContextHighlight(project.id);setTimeout(()=>setContextHighlight(null),1500);}}}>
                             {isExpanded?'↑ Close':'Explore Project'}
                           </button>
                         </div>
@@ -508,12 +512,12 @@ export default function Portfolio() {
 
                           {/* ── CONTEXT ── */}
                           {currentTab==='context'&&(
-                            <div className={styles.panelContent}>
+                            <div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}>
                               <div className={styles.problemBox}>
                                 <div className={styles.problemLabel}>The Problem</div>
                                 <div className={styles.problemText}>
                                   {hasCharts
-                                    ? "Vietnam's rapid credit expansion has intensified fraud risk. Agribank Saigon Branch lacked an automated early-warning system — relying on manual review processes vulnerable to human error and scale limitations."
+                                    ? "Vietnam's rapid credit expansion has intensified fraud risk in personal credit portfolios. This study addresses a critical gap: Agribank Saigon Branch lacked an automated, data-driven early-warning system for credit card fraud detection, relying instead on manual review processes vulnerable to human error."
                                     : project.context}
                                 </div>
                               </div>
@@ -537,8 +541,8 @@ export default function Portfolio() {
                               </div>
                               {project.supervisor&&(
                                 <div className={styles.contextMeta}>
-                                  <span>Supervisor · {project.supervisor}</span>
-                                  <span>{project.institution} · {project.period}</span>
+                                  <span>Supervisor: {project.supervisor}</span>
+                                  <span>{project.institution} / {project.period}</span>
                                 </div>
                               )}
                             </div>
@@ -659,19 +663,19 @@ export default function Portfolio() {
                             <div className={styles.panelContent}>
                               <div className={styles.decisionBox}>
                                 <div className={styles.problemLabel}>Recommendation</div>
-                                <div className={styles.problemText} style={{fontSize:14}}>Deploy Random Forest as the primary fraud detection engine. Implement a 3-tier alert system replacing manual review.</div>
+                                <div className={styles.problemText}>Deploy Random Forest as the primary fraud detection engine. Implement a 3-tier alert system replacing manual review.</div>
                               </div>
                               <div className={styles.tierGrid}>
                                 <div className={styles.tierCard} style={{borderTopColor:'#5a9e82'}}>
-                                  <div className={styles.tierLabel} style={{color:'#5a9e82'}}>Tier 1 — Auto Approve</div>
+                                  <div className={styles.tierLabel} style={{color:'#5a9e82'}}>Tier 1: Auto Approve</div>
                                   <div className={styles.tierDesc}>High confidence legitimate. No human review needed. Reduces workload by ~99%.</div>
                                 </div>
                                 <div className={styles.tierCard} style={{borderTopColor:'#f0a030'}}>
-                                  <div className={styles.tierLabel} style={{color:'#f0a030'}}>Tier 2 — Flag for Review</div>
+                                  <div className={styles.tierLabel} style={{color:'#f0a030'}}>Tier 2: Flag for Review</div>
                                   <div className={styles.tierDesc}>Borderline cases. Analyst reviews within 24h. Estimated 10–20 cases/day.</div>
                                 </div>
                                 <div className={styles.tierCard} style={{borderTopColor:'#e8729a'}}>
-                                  <div className={styles.tierLabel} style={{color:'#e8729a'}}>Tier 3 — Auto Block</div>
+                                  <div className={styles.tierLabel} style={{color:'#e8729a'}}>Tier 3: Auto Block</div>
                                   <div className={styles.tierDesc}>High confidence fraud. Immediate card freeze. Prevents direct financial loss.</div>
                                 </div>
                               </div>
@@ -680,7 +684,7 @@ export default function Portfolio() {
                                   <span className={styles.panelLabel}>Key Findings</span>
                                   <div className={styles.findingPills}>
                                     {project.keyFindings.map((f,i)=>(
-                                      <div key={i} className={styles.findingPill}>
+                                      <div key={i} className={`${styles.findingPill} ${i<2?styles.findingHighlight:''}`}>
                                         <span className={styles.findingIcon}>◆</span>
                                         <span>{f}</span>
                                       </div>
@@ -766,3 +770,4 @@ function Divider({label}) {
     </div>
   );
 }
+
