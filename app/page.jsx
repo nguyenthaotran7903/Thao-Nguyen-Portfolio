@@ -37,96 +37,130 @@ function PieChart() {
 }
 
 function SmoteChart() {
-  const bars = [
-    { label: 'Before SMOTE', legit: 227454, fraud: 391, maxH: 120 },
-    { label: 'After SMOTE', legit: 227454, fraud: 227454, maxH: 120 },
-  ];
   const max = 227454;
+  const H = 160, pad = 40, bW = 36, gap = 14;
+  const groups = [
+    { label: 'Before SMOTE', legit: 227454, fraud: 391 },
+    { label: 'After SMOTE',  legit: 227454, fraud: 227454 },
+  ];
+  const W = 340;
+  const groupW = bW * 2 + gap;
+  const groupGap = (W - pad - groupW * 2) / 3;
+
   return (
     <div className={styles.chartWrap}>
       <div className={styles.chartTitle}>Class Distribution Before vs After SMOTE</div>
-      <div className={styles.chartRow} style={{gap: 32}}>
-        {bars.map((b, i) => {
-          const lH = (b.legit / max) * b.maxH;
-          const fH = Math.max((b.fraud / max) * b.maxH, 2);
+      <svg width="100%" viewBox={`0 0 ${W} ${H + 60}`} style={{maxWidth: 400, fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif"}}>
+        {[0, 25, 50, 75, 100].map(v => {
+          const y = H - (v / 100) * H + 10;
           return (
-            <div key={i} style={{textAlign:'center'}}>
-              <svg width="80" height="140" viewBox="0 0 80 140">
-                <rect x="8" y={140 - lH - 20} width="24" height={lH} fill="#5b8db8" rx="2"/>
-                <rect x="48" y={140 - fH - 20} width="24" height={fH} fill="#e8729a" rx="2"/>
-                <text x="20" y="138" textAnchor="middle" fontSize="8" fill="#888">Legit</text>
-                <text x="60" y="138" textAnchor="middle" fontSize="8" fill="#888">Fraud</text>
-              </svg>
-              <div style={{fontSize:11, color:'#555', marginTop:4}}>{b.label}</div>
-            </div>
+            <g key={v}>
+              <line x1={pad} y1={y} x2={W - 10} y2={y} stroke="#f0f0f0" strokeWidth="1"/>
+              <text x={pad - 6} y={y + 4} textAnchor="end" fontSize="9" fill="#bbb">{v}%</text>
+            </g>
           );
         })}
-        <div className={styles.chartLegend}>
-          <div className={styles.legendItem}><span className={styles.legendDot} style={{background:'#5b8db8'}}></span><span>Legitimate: 227,454</span></div>
-          <div className={styles.legendItem}><span className={styles.legendDot} style={{background:'#e8729a'}}></span><span>Fraud: 391 → 227,454</span></div>
-          <div className={styles.legendNote}>SMOTE generates synthetic minority samples — training set balanced without losing data</div>
-        </div>
-      </div>
+        {groups.map((g, gi) => {
+          const gX = pad + groupGap * (gi + 1) + groupW * gi;
+          const lH = (g.legit / max) * H;
+          const fH = Math.max((g.fraud / max) * H, 3);
+          return (
+            <g key={gi}>
+              <rect x={gX} y={H - lH + 10} width={bW} height={lH} fill="#5b8db8" rx="3"/>
+              <rect x={gX + bW + gap} y={H - fH + 10} width={bW} height={fH} fill="#e8729a" rx="3"/>
+              <text x={gX + bW} y={H + 28} textAnchor="middle" fontSize="10" fontWeight="600" fill="#555">{g.label}</text>
+              <text x={gX + bW / 2} y={H - lH + 5} textAnchor="middle" fontSize="8" fill="#5b8db8">100%</text>
+              {gi === 0 && <text x={gX + bW + gap + bW / 2} y={H - fH + 5} textAnchor="middle" fontSize="8" fill="#e8729a">0.17%</text>}
+              {gi === 1 && <text x={gX + bW + gap + bW / 2} y={H - fH + 5} textAnchor="middle" fontSize="8" fontWeight="700" fill="#e8729a">100%</text>}
+            </g>
+          );
+        })}
+        <g transform={`translate(${pad}, ${H + 44})`}>
+          <rect width="10" height="10" fill="#5b8db8" rx="2"/>
+          <text x="14" y="9" fontSize="10" fill="#555">Legitimate (227,454)</text>
+          <rect x="130" width="10" height="10" fill="#e8729a" rx="2"/>
+          <text x="144" y="9" fontSize="10" fill="#555">Fraud (391 → 227,454)</text>
+        </g>
+      </svg>
+      <div className={styles.legendNote}>SMOTE generates synthetic minority samples — training set balanced without losing data</div>
     </div>
   );
 }
 
 function ModelCompareChart() {
   const models = [
-    { name: 'LR Baseline', short: 'LR\nBaseline', acc: 99.92, recall: 63.37, prec: 87.67, fp: 9 },
-    { name: 'LR + SMOTE', short: 'LR\n+SMOTE', acc: 97.54, recall: 94.06, prec: 6.38, fp: 1393 },
-    { name: 'Decision Tree', short: 'Dec.\nTree', acc: 99.36, recall: 83.17, prec: 19.49, fp: 347 },
-    { name: 'Random Forest', short: 'Rand.\nForest', acc: 99.95, recall: 84.16, prec: 89.47, fp: 10 },
+    { name: 'LR Baseline',   acc: 99.92, recall: 63.37, prec: 87.67, best: false },
+    { name: 'LR + SMOTE',    acc: 97.54, recall: 94.06, prec: 6.38,  best: false },
+    { name: 'Decision Tree', acc: 99.36, recall: 83.17, prec: 19.49, best: false },
+    { name: 'Random Forest', acc: 99.95, recall: 84.16, prec: 89.47, best: true  },
   ];
   const metrics = [
-    { key: 'acc', label: 'Accuracy (%)', color: '#5b8db8' },
-    { key: 'recall', label: 'Recall — Fraud (%)', color: '#e8729a' },
-    { key: 'prec', label: 'Precision — Fraud (%)', color: '#5a9e82' },
+    { key: 'acc',    label: 'Accuracy (%)',         color: '#5b8db8' },
+    { key: 'recall', label: 'Recall — Fraud (%)',   color: '#e8729a' },
+    { key: 'prec',   label: 'Precision — Fraud (%)', color: '#5a9e82' },
   ];
-  const W = 320, H = 140, pad = 40, barW = 14, gap = 6;
-  const groupW = models.length * (barW + gap) - gap;
-  const groupGap = (W - pad - groupW * metrics.length) / (metrics.length + 1);
+  const W = 500, H = 180, padL = 36, padB = 80;
+  const bW = 18, bGap = 4;
+  const groupW = models.length * (bW + bGap) - bGap;
+  const totalW = W - padL;
+  const mGap = (totalW - groupW * metrics.length) / (metrics.length + 1);
 
   return (
     <div className={styles.chartWrap}>
       <div className={styles.chartTitle}>Model Performance Comparison</div>
-      <svg width="100%" viewBox={`0 0 ${W} ${H + 40}`} style={{maxWidth: 480}}>
-        {/* Y axis lines */}
-        {[0,25,50,75,100].map(v => (
-          <g key={v}>
-            <line x1={pad} y1={H - (v/100)*H + 10} x2={W} y2={H - (v/100)*H + 10} stroke="#f0f0f0" strokeWidth="1"/>
-            <text x={pad - 4} y={H - (v/100)*H + 14} textAnchor="end" fontSize="8" fill="#bbb">{v}</text>
-          </g>
-        ))}
+      <svg width="100%" viewBox={`0 0 ${W} ${H + padB + 20}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif"}}>
+        {/* Y gridlines */}
+        {[0, 25, 50, 75, 100].map(v => {
+          const y = H - (v / 100) * H + 10;
+          return (
+            <g key={v}>
+              <line x1={padL} y1={y} x2={W} y2={y} stroke="#f0f0f0" strokeWidth="1"/>
+              <text x={padL - 5} y={y + 4} textAnchor="end" fontSize="9" fill="#bbb">{v}</text>
+            </g>
+          );
+        })}
+
+        {/* Bars */}
         {metrics.map((m, mi) => {
-          const groupX = pad + groupGap * (mi + 1) + groupW * mi;
+          const gX = padL + mGap * (mi + 1) + groupW * mi;
           return (
             <g key={m.key}>
               {models.map((mod, bi) => {
                 const val = mod[m.key];
                 const bH = (val / 100) * H;
-                const x = groupX + bi * (barW + gap);
+                const x = gX + bi * (bW + bGap);
                 const y = H - bH + 10;
+                const fill = mod.best ? m.color : m.color + '55';
                 return (
                   <g key={bi}>
-                    <rect x={x} y={y} width={barW} height={bH} fill={bi === 3 ? m.color : m.color + '66'} rx="2"/>
-                    {bi === 3 && <text x={x + barW/2} y={y - 3} textAnchor="middle" fontSize="7" fontWeight="700" fill={m.color}>{val}%</text>}
+                    <rect x={x} y={y} width={bW} height={bH} fill={fill} rx="3"/>
+                    {mod.best && (
+                      <text x={x + bW / 2} y={y - 5} textAnchor="middle" fontSize="9" fontWeight="700" fill={m.color}>{val}%</text>
+                    )}
                   </g>
                 );
               })}
-              <text x={groupX + groupW/2} y={H + 22} textAnchor="middle" fontSize="8" fill="#555">{m.label}</text>
+              {/* Metric label */}
+              <text x={gX + groupW / 2} y={H + 24} textAnchor="middle" fontSize="10" fontWeight="600" fill="#444">{m.label}</text>
             </g>
           );
         })}
-        {/* Model legend at bottom */}
-        {models.map((m, i) => (
-          <g key={i} transform={`translate(${pad + i * 72}, ${H + 34})`}>
-            <rect width="10" height="10" fill={i === 3 ? '#1a1a1a' : '#ccc'} rx="1"/>
-            <text x="13" y="9" fontSize="7" fill={i === 3 ? '#1a1a1a' : '#888'}>{m.name}</text>
-          </g>
-        ))}
+
+        {/* Model legend — bottom, 2 rows */}
+        {models.map((m, i) => {
+          const col = i % 2;
+          const row = Math.floor(i / 2);
+          const lx = padL + col * 200;
+          const ly = H + 44 + row * 18;
+          return (
+            <g key={i} transform={`translate(${lx}, ${ly})`}>
+              <rect width="12" height="12" fill={m.best ? '#1a1a1a' : '#cccccc'} rx="2"/>
+              <text x="17" y="10" fontSize="10" fontWeight={m.best ? '700' : '400'} fill={m.best ? '#1a1a1a' : '#888'}>{m.name}{m.best ? ' ✦ Best' : ''}</text>
+            </g>
+          );
+        })}
       </svg>
-      <div className={styles.legendNote} style={{marginTop: 8}}>Darker bars = Random Forest (best model). Highlighted values shown on top.</div>
+      <div className={styles.legendNote}>Random Forest (darker bars) achieves the best Recall–Precision balance — only 10 false positives.</div>
     </div>
   );
 }
