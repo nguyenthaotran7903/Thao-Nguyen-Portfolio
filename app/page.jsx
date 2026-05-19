@@ -4,41 +4,41 @@ import React, { useState, useMemo, useEffect } from 'react';
 import data from '../data.json';
 import styles from './page.module.css';
 
-/* ── Interactive charts for Project 1 ── */
+/* ── Interactive charts ── */
 
 function PieChart() {
   const [active, setActive] = useState(null);
-  const cx = 80, cy = 80, r = 68;
+  const cx = 70, cy = 70, r = 60;
   const angle = 0.00172 * 2 * Math.PI;
   const x1 = cx + r * Math.sin(0), y1 = cy - r * Math.cos(0);
   const x2 = cx + r * Math.sin(angle), y2 = cy - r * Math.cos(angle);
   const explains = {
-    legit: { title: 'Legitimate Transactions', val: '284,315', pct: '99.83%', color: '#5b8db8', note: 'Normal cardholder activity. A model must correctly pass these without flagging — false alarms frustrate customers and waste analyst time. A naive model predicting "Legitimate" 100% of the time achieves 99.83% accuracy while catching zero fraud.' },
-    fraud: { title: 'Fraudulent Transactions', val: '492', pct: '0.17%', color: '#e8729a', note: 'The minority class the model must catch. Missing even one fraud case can cost hundreds or thousands of dollars. This extreme imbalance makes standard accuracy a misleading metric — Recall on the fraud class is the true measure of success.' },
+    legit: { title: 'Legitimate — 284,315 (99.83%)', color: '#5b8db8', note: 'A model predicting "Legitimate" 100% of the time still achieves 99.83% accuracy — while catching zero fraud. Standard accuracy is meaningless here.' },
+    fraud: { title: 'Fraud — 492 (0.17%)', color: '#e8729a', note: 'Missing one fraud case = direct financial loss. Recall on the fraud class, not overall accuracy, is the true success metric.' },
   };
   const info = active ? explains[active] : null;
   return (
     <div className={styles.chartWrap}>
-      <div className={styles.chartTitle}>Transaction Class Distribution <span className={styles.chartHint}>click a segment</span></div>
+      <div className={styles.chartTitle}>Class Distribution <span className={styles.chartHint}>click to explore</span></div>
       <div className={styles.chartRow}>
-        <svg width="160" height="160" viewBox="0 0 160 160" style={{cursor:'pointer',flexShrink:0}}>
+        <svg width="140" height="140" viewBox="0 0 140 140" style={{cursor:'pointer',flexShrink:0}}>
           <circle cx={cx} cy={cy} r={r} fill={active==='legit'?'#3a7db8':'#d0d0d0'} onClick={()=>setActive(active==='legit'?null:'legit')} style={{transition:'fill 0.2s'}}/>
           <path d={`M${cx},${cy} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z`} fill={active==='fraud'?'#c04070':'#e8729a'} onClick={()=>setActive(active==='fraud'?null:'fraud')} style={{transition:'fill 0.2s'}}/>
-          <circle cx={cx} cy={cy} r={r*0.52} fill="white"/>
-          <text x={cx} y={cy-5} textAnchor="middle" fontSize="11" fontWeight="700" fill="#1a1a1a">0.17%</text>
-          <text x={cx} y={cy+9} textAnchor="middle" fontSize="9" fill="#888">Fraud</text>
+          <circle cx={cx} cy={cy} r={r*0.5} fill="white"/>
+          <text x={cx} y={cy-4} textAnchor="middle" fontSize="13" fontWeight="800" fill="#1a1a1a">0.17%</text>
+          <text x={cx} y={cy+11} textAnchor="middle" fontSize="9" fill="#888">fraud</text>
         </svg>
         <div className={styles.chartLegend}>
           <div className={styles.legendItem} style={{cursor:'pointer',fontWeight:active==='legit'?700:400}} onClick={()=>setActive(active==='legit'?null:'legit')}>
-            <span className={styles.legendDot} style={{background:'#d0d0d0'}}></span><span>Legitimate — 284,315 (99.83%)</span>
+            <span className={styles.legendDot} style={{background:'#d0d0d0'}}></span><span>Legitimate 99.83%</span>
           </div>
           <div className={styles.legendItem} style={{cursor:'pointer',fontWeight:active==='fraud'?700:400}} onClick={()=>setActive(active==='fraud'?null:'fraud')}>
-            <span className={styles.legendDot} style={{background:'#e8729a'}}></span><span>Fraud — 492 (0.17%)</span>
+            <span className={styles.legendDot} style={{background:'#e8729a'}}></span><span>Fraud 0.17%</span>
           </div>
-          {!active && <div className={styles.legendNote}>Extreme class imbalance is the core methodological challenge. Click each segment to learn more.</div>}
+          {!info && <div className={styles.legendNote}>Extreme imbalance — core challenge of this study.</div>}
           {info && (
             <div className={styles.chartExplain} style={{borderLeftColor:info.color}}>
-              <div className={styles.chartExplainTitle} style={{color:info.color}}>{info.title} — {info.val} ({info.pct})</div>
+              <div className={styles.chartExplainTitle} style={{color:info.color}}>{info.title}</div>
               <div className={styles.chartExplainNote}>{info.note}</div>
             </div>
           )}
@@ -51,26 +51,20 @@ function PieChart() {
 function SmoteChart() {
   const [active, setActive] = useState(null);
   const max = 227454;
-  const H = 120, padL = 44, bW = 28, gap = 10, W = 320;
+  const H = 110, padL = 40, bW = 26, gap = 8, W = 300;
   const groups = [
-    { key:'before', label:'Before SMOTE', legit:227454, fraud:391,
-      explain:'Without SMOTE, the model sees 391 fraud vs 227,454 legitimate samples during training. It learns to always predict "Legitimate" — achieving 99.8% accuracy while completely ignoring fraud detection.' },
-    { key:'after',  label:'After SMOTE',  legit:227454, fraud:227454,
-      explain:'SMOTE generates 227,063 synthetic fraud samples by interpolating between real fraud cases using k-nearest neighbors. The training set is now balanced 50/50 — forcing the model to genuinely learn what fraud looks like.' },
+    { key:'before', label:'Before SMOTE', legit:227454, fraud:391, explain:'391 fraud vs 227,454 legitimate — the model learns to always predict "Legitimate" and gets 99.8% accuracy while catching zero fraud.' },
+    { key:'after',  label:'After SMOTE',  legit:227454, fraud:227454, explain:'227,063 synthetic fraud samples generated via k-nearest neighbors interpolation. Training set balanced 50/50 — model now learns genuine fraud patterns.' },
   ];
   const groupW = bW*2+gap;
   const groupGap = (W-padL-groupW*2)/3;
-  const barExplains = {
-    legit_before:'227,454 legitimate transactions', fraud_before:'391 real fraud cases (0.17%)',
-    legit_after:'227,454 legitimate transactions', fraud_after:'227,454 samples (391 real + 227,063 synthetic)',
-  };
   return (
     <div className={styles.chartWrap}>
-      <div className={styles.chartTitle}>Class Distribution Before vs After SMOTE <span className={styles.chartHint}>click a bar group</span></div>
-      <svg width="100%" viewBox={`0 0 ${W} ${H+72}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
+      <div className={styles.chartTitle}>SMOTE Balancing <span className={styles.chartHint}>click a group</span></div>
+      <svg width="100%" viewBox={`0 0 ${W} ${H+68}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
         {[0,50,100].map(v=>{
           const y=H-(v/100)*H+10;
-          return(<g key={v}><line x1={padL} y1={y} x2={W-8} y2={y} stroke="#f0f0f0" strokeWidth="1"/><text x={padL-5} y={y+4} textAnchor="end" fontSize="9" fill="#bbb">{v}%</text></g>);
+          return(<g key={v}><line x1={padL} y1={y} x2={W-8} y2={y} stroke="#f0f0f0" strokeWidth="1"/><text x={padL-5} y={y+4} textAnchor="end" fontSize="8" fill="#bbb">{v}%</text></g>);
         })}
         {groups.map((g,gi)=>{
           const gX=padL+groupGap*(gi+1)+groupW*gi;
@@ -79,27 +73,22 @@ function SmoteChart() {
           const isActive=active===g.key;
           return(
             <g key={gi} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:g.key)}>
-              <rect x={gX-4} y={5} width={groupW+8} height={H+8} fill={isActive?'#f0f6fb':'transparent'} rx="4"/>
+              <rect x={gX-3} y={6} width={groupW+6} height={H+6} fill={isActive?'#f0f6fb':'transparent'} rx="3"/>
               <rect x={gX} y={H-lH+10} width={bW} height={lH} fill={isActive?'#3a7db8':'#5b8db8'} rx="2"/>
-              <text x={gX+bW/2} y={H-lH+6} textAnchor="middle" fontSize="8" fill="#5b8db8" fontWeight="600">100%</text>
+              <text x={gX+bW/2} y={H-lH+6} textAnchor="middle" fontSize="7" fill="#5b8db8" fontWeight="600">100%</text>
               <rect x={gX+bW+gap} y={H-fH+10} width={bW} height={fH} fill={isActive?'#c04070':'#e8729a'} rx="2"/>
-              <text x={gX+bW+gap+bW/2} y={H-fH+6} textAnchor="middle" fontSize="8" fill="#e8729a" fontWeight="600">{gi===0?'0.17%':'100%'}</text>
-              <text x={gX+groupW/2} y={H+24} textAnchor="middle" fontSize="9" fontWeight={isActive?'700':'500'} fill={isActive?'#1a1a1a':'#555'}>{g.label}</text>
+              <text x={gX+bW+gap+bW/2} y={H-fH+6} textAnchor="middle" fontSize="7" fill="#e8729a" fontWeight="600">{gi===0?'0.17%':'100%'}</text>
+              <text x={gX+groupW/2} y={H+24} textAnchor="middle" fontSize="9" fontWeight={isActive?700:500} fill={isActive?'#1a1a1a':'#555'}>{g.label}</text>
             </g>
           );
         })}
-        <g transform={`translate(${padL},${H+38})`}>
-          <rect width="9" height="9" fill="#5b8db8" rx="1"/><text x="13" y="8" fontSize="9" fill="#666">Legitimate</text>
-          <rect x="90" width="9" height="9" fill="#e8729a" rx="1"/><text x="103" y="8" fontSize="9" fill="#666">Fraud</text>
+        <g transform={`translate(${padL},${H+36})`}>
+          <rect width="8" height="8" fill="#5b8db8" rx="1"/><text x="11" y="7" fontSize="8" fill="#666">Legitimate</text>
+          <rect x="82" width="8" height="8" fill="#e8729a" rx="1"/><text x="93" y="7" fontSize="8" fill="#666">Fraud</text>
         </g>
       </svg>
-      {active && (
-        <div className={styles.chartExplain} style={{borderLeftColor:'#5b8db8'}}>
-          <div className={styles.chartExplainTitle} style={{color:'#1a1a1a'}}>{groups.find(g=>g.key===active)?.label}</div>
-          <div className={styles.chartExplainNote}>{groups.find(g=>g.key===active)?.explain}</div>
-        </div>
-      )}
-      {!active && <div className={styles.legendNote}>Click "Before SMOTE" or "After SMOTE" to understand the balancing technique.</div>}
+      {active && <div className={styles.chartExplain} style={{borderLeftColor:'#5b8db8'}}><div className={styles.chartExplainTitle} style={{color:'#1a1a1a'}}>{groups.find(g=>g.key===active)?.label}</div><div className={styles.chartExplainNote}>{groups.find(g=>g.key===active)?.explain}</div></div>}
+      {!active && <div className={styles.legendNote}>Click each group to understand why balancing matters.</div>}
     </div>
   );
 }
@@ -107,31 +96,27 @@ function SmoteChart() {
 function ModelCompareChart() {
   const [active, setActive] = useState(null);
   const models = [
-    { name:'LR Baseline', acc:99.92, recall:63.37, prec:87.67, fp:9, fn:37, best:false,
-      note:'Without SMOTE, the model is biased toward predicting "Legitimate". 63% recall means 37% of all fraud cases are completely missed — unacceptable in a real banking system.' },
-    { name:'LR + SMOTE', acc:97.54, recall:94.06, prec:6.38, fp:1393, fn:6, best:false,
-      note:'SMOTE dramatically improves recall to 94% — nearly all fraud is caught. However, 1,393 false positives means flagging 1,393 innocent customers per test window, creating massive operational cost.' },
-    { name:'Decision Tree', acc:99.36, recall:83.17, prec:19.49, fp:347, fn:17, best:false,
-      note:'Better balance than LR+SMOTE. 83% recall with only 347 false positives. Still, 17% of fraud is missed and precision remains low — 1 in 5 flagged transactions is actually fraud.' },
-    { name:'Random Forest', acc:99.95, recall:84.16, prec:89.47, fp:10, fn:16, best:true,
-      note:'Best overall model. 84% recall with only 10 false positives — 89% of all flagged transactions are genuinely fraudulent. The ensemble approach (100 decision trees, majority voting) handles class imbalance better than any single model.' },
+    { name:'LR Baseline', acc:99.92, recall:63.37, prec:87.67, fp:9, fn:37, best:false, note:'63% recall — 37% of all fraud missed. High accuracy hides the failure.' },
+    { name:'LR + SMOTE',  acc:97.54, recall:94.06, prec:6.38,  fp:1393, fn:6, best:false, note:'94% recall but 1,393 false positives — massive operational cost.' },
+    { name:'Dec. Tree',   acc:99.36, recall:83.17, prec:19.49, fp:347,  fn:17, best:false, note:'Better balance. Still 17% fraud missed, low precision.' },
+    { name:'Rand. Forest',acc:99.95, recall:84.16, prec:89.47, fp:10,   fn:16, best:true,  note:'Best: 84% recall, 89% precision, only 10 false positives.' },
   ];
   const metrics = [
-    {key:'acc',    label:'Accuracy (%)',          color:'#5b8db8'},
-    {key:'recall', label:'Recall — Fraud (%)',    color:'#e8729a'},
-    {key:'prec',   label:'Precision — Fraud (%)', color:'#5a9e82'},
+    {key:'acc',    label:'Accuracy',  color:'#5b8db8'},
+    {key:'recall', label:'Recall',    color:'#e8729a'},
+    {key:'prec',   label:'Precision', color:'#5a9e82'},
   ];
-  const W=420, H=140, padL=36, padB=60, bW=14, bGap=3;
+  const W=380, H=120, padL=32, padB=52, bW=12, bGap=3;
   const groupW=models.length*(bW+bGap)-bGap;
   const mGap=((W-padL)-groupW*metrics.length)/(metrics.length+1);
   const info = active!==null ? models[active] : null;
   return (
     <div className={styles.chartWrap}>
-      <div className={styles.chartTitle}>Model Performance Comparison <span className={styles.chartHint}>click a bar to compare</span></div>
-      <svg width="100%" viewBox={`0 0 ${W} ${H+padB+10}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
-        {[0,25,50,75,100].map(v=>{
+      <div className={styles.chartTitle}>Model Comparison <span className={styles.chartHint}>click a bar</span></div>
+      <svg width="100%" viewBox={`0 0 ${W} ${H+padB}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
+        {[0,50,100].map(v=>{
           const y=H-(v/100)*H+10;
-          return(<g key={v}><line x1={padL} y1={y} x2={W} y2={y} stroke="#f0f0f0" strokeWidth="1"/><text x={padL-5} y={y+4} textAnchor="end" fontSize="8" fill="#bbb">{v}</text></g>);
+          return(<g key={v}><line x1={padL} y1={y} x2={W} y2={y} stroke="#f0f0f0" strokeWidth="1"/><text x={padL-4} y={y+4} textAnchor="end" fontSize="7" fill="#bbb">{v}</text></g>);
         })}
         {metrics.map((m,mi)=>{
           const gX=padL+mGap*(mi+1)+groupW*mi;
@@ -143,26 +128,24 @@ function ModelCompareChart() {
                 const x=gX+bi*(bW+bGap);
                 const y=H-bH+10;
                 const isActive=active===bi;
-                const fill=isActive?m.color:mod.best?m.color:m.color+'44';
+                const fill=isActive?m.color:mod.best?m.color+'cc':m.color+'33';
                 return(
                   <g key={bi} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:bi)}>
                     <rect x={x} y={y} width={bW} height={bH} fill={fill} rx="2" style={{transition:'fill 0.15s'}}/>
-                    {(mod.best||isActive)&&<text x={x+bW/2} y={y-4} textAnchor="middle" fontSize="7" fontWeight="700" fill={m.color}>{val}%</text>}
+                    {(mod.best||isActive)&&<text x={x+bW/2} y={y-3} textAnchor="middle" fontSize="6" fontWeight="700" fill={m.color}>{val}%</text>}
                   </g>
                 );
               })}
-              <text x={gX+groupW/2} y={H+22} textAnchor="middle" fontSize="9" fontWeight="600" fill="#444">{m.label}</text>
+              <text x={gX+groupW/2} y={H+20} textAnchor="middle" fontSize="8" fontWeight="600" fill="#555">{m.label}</text>
             </g>
           );
         })}
         {models.map((m,i)=>{
-          const col=i%2; const row=Math.floor(i/2);
-          const lx=padL+col*180; const ly=H+36+row*16;
-          const isActive=active===i;
+          const lx=padL+(i%2)*160; const ly=H+32+(Math.floor(i/2)*13);
           return(
-            <g key={i} transform={`translate(${lx},${ly})`} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:i)}>
-              <rect width="10" height="10" fill={m.best?'#1a1a1a':'#cccccc'} rx="1"/>
-              <text x="14" y="9" fontSize="9" fontWeight={m.best||isActive?'700':'400'} fill={m.best?'#1a1a1a':isActive?'#333':'#888'}>{m.name}{m.best?' — Best':''}</text>
+            <g key={i} transform={`translate(${lx},${ly})`} style={{cursor:'pointer'}} onClick={()=>setActive(active===i?null:i)}>
+              <rect width="8" height="8" fill={m.best?'#1a1a1a':'#ccc'} rx="1"/>
+              <text x="11" y="7" fontSize="8" fontWeight={m.best||active===i?700:400} fill={m.best?'#1a1a1a':active===i?'#333':'#888'}>{m.name}{m.best?' ★':''}</text>
             </g>
           );
         })}
@@ -171,16 +154,16 @@ function ModelCompareChart() {
         <div className={styles.chartExplain} style={{borderLeftColor:info.best?'#1a1a1a':'#5b8db8'}}>
           <div className={styles.chartExplainTitle} style={{color:info.best?'#1a1a1a':'#333'}}>{info.name}{info.best?' — Best Model':''}</div>
           <div className={styles.chartExplainStats}>
-            <span>Accuracy: <strong>{info.acc}%</strong></span>
-            <span>Recall: <strong>{info.recall}%</strong></span>
-            <span>Precision: <strong>{info.prec}%</strong></span>
-            <span>False Positives: <strong>{info.fp}</strong></span>
-            <span>False Negatives: <strong>{info.fn}</strong></span>
+            <span>Accuracy <strong>{info.acc}%</strong></span>
+            <span>Recall <strong>{info.recall}%</strong></span>
+            <span>Precision <strong>{info.prec}%</strong></span>
+            <span>False Positives <strong>{info.fp}</strong></span>
+            <span>Missed Fraud <strong>{info.fn}</strong></span>
           </div>
           <div className={styles.chartExplainNote}>{info.note}</div>
         </div>
       )}
-      {!info && <div className={styles.legendNote}>Random Forest (darkest bars) achieves the best Recall–Precision balance. Click any bar or model name to compare.</div>}
+      {!info && <div className={styles.legendNote}>Random Forest (darkest) = best Recall–Precision trade-off. Click any bar to compare.</div>}
     </div>
   );
 }
@@ -188,51 +171,43 @@ function ModelCompareChart() {
 function ConfusionMatrix() {
   const [active, setActive] = useState(null);
   const cells = [
-    { key:'tn', label:'TN', val:56851, color:'#5b8db8', light:'#f0f6fb',
-      title:'True Negatives — 56,851',
-      note:'Legitimate transactions correctly identified as legitimate. These customers experience no disruption. The model successfully processes 99.98% of all legitimate transactions without any false alarm.' },
-    { key:'fp', label:'FP', val:10, color:'#5a9e82', light:'#f4faf7',
-      title:'False Positives — 10',
-      note:'Legitimate transactions wrongly flagged as fraud. Only 10 innocent customers were inconvenienced out of 56,861. This is exceptionally low — most fraud detection systems produce hundreds of false alarms per day.' },
-    { key:'fn', label:'FN', val:16, color:'#e8729a', light:'#fdf5f8',
-      title:'False Negatives — 16',
-      note:'Fraudulent transactions missed by the model — the most costly error. 16 fraud cases slipped through undetected. Each missed fraud can result in financial loss ranging from small amounts to thousands of dollars for Agribank customers.' },
-    { key:'tp', label:'TP', val:85, color:'#1a1a1a', light:'#f7f7f7',
-      title:'True Positives — 85',
-      note:'Fraudulent transactions correctly caught by the model. 85 out of 101 fraud cases were identified — an 84.16% recall rate. These detections prevent direct financial losses and protect customer accounts from unauthorized charges.' },
+    { key:'tn', label:'TN', val:56851, color:'#5b8db8', light:'#f0f6fb', title:'56,851 correctly passed', note:'Legitimate customers experience zero disruption. 99.98% specificity.' },
+    { key:'fp', label:'FP', val:10,    color:'#5a9e82', light:'#f4faf7', title:'10 false alarms',         note:'Only 10 innocent customers flagged — exceptionally low operational cost.' },
+    { key:'fn', label:'FN', val:16,    color:'#e8729a', light:'#fdf5f8', title:'16 fraud missed',         note:'Each missed fraud = direct financial loss. This is the most costly error type.' },
+    { key:'tp', label:'TP', val:85,    color:'#1a1a1a', light:'#f7f7f7', title:'85 fraud caught',         note:'85 of 101 fraud cases stopped — 84.16% recall rate.' },
   ];
   const info = active ? cells.find(c=>c.key===active) : null;
   return (
     <div className={styles.chartWrap}>
       <div className={styles.chartTitle}>Confusion Matrix — Random Forest <span className={styles.chartHint}>click a cell</span></div>
-      <div style={{display:'grid',gridTemplateColumns:'auto 1fr 1fr',gap:2,maxWidth:340,margin:'0 auto'}}>
-        <div style={{display:'contents'}}>
-          <div style={{gridColumn:'1',gridRow:'1'}}></div>
-          <div style={{gridColumn:'2',textAlign:'center',fontSize:10,color:'#888',padding:'4px 0',fontWeight:600}}>Pred: Legit</div>
-          <div style={{gridColumn:'3',textAlign:'center',fontSize:10,color:'#888',padding:'4px 0',fontWeight:600}}>Pred: Fraud</div>
-        </div>
-        <div style={{gridColumn:'1',gridRow:'2',writingMode:'vertical-rl',transform:'rotate(180deg)',fontSize:10,color:'#888',padding:'0 4px',fontWeight:600,display:'flex',alignItems:'center'}}>Actual: Legit</div>
-        <div style={{gridColumn:'1',gridRow:'3',writingMode:'vertical-rl',transform:'rotate(180deg)',fontSize:10,color:'#888',padding:'0 4px',fontWeight:600,display:'flex',alignItems:'center'}}>Actual: Fraud</div>
-        {cells.map((c,i)=>(
+      <div className={styles.cmGrid}>
+        <div></div>
+        <div className={styles.cmAxisLabel}>Pred: Legit</div>
+        <div className={styles.cmAxisLabel}>Pred: Fraud</div>
+        <div className={styles.cmRowLabel}>Actual: Legit</div>
+        {cells.slice(0,2).map(c=>(
           <div key={c.key} onClick={()=>setActive(active===c.key?null:c.key)}
-            style={{gridColumn:i%2===0?'2':'3',gridRow:i<2?'2':'3',background:active===c.key?c.light:'#fff',border:`2px solid ${active===c.key?c.color:c.color+'33'}`,borderRadius:6,padding:'14px 10px',textAlign:'center',cursor:'pointer',transition:'all 0.15s'}}>
-            <div style={{fontSize:22,fontWeight:800,color:c.color,letterSpacing:'-1px'}}>{c.val.toLocaleString()}</div>
-            <div style={{fontSize:11,fontWeight:700,color:c.color,marginTop:2}}>{c.label}</div>
+            className={styles.cmCell} style={{background:active===c.key?c.light:'#fff',borderColor:active===c.key?c.color:c.color+'33'}}>
+            <div className={styles.cmVal} style={{color:c.color}}>{c.val.toLocaleString()}</div>
+            <div className={styles.cmLabel} style={{color:c.color}}>{c.label}</div>
+          </div>
+        ))}
+        <div className={styles.cmRowLabel}>Actual: Fraud</div>
+        {cells.slice(2,4).map(c=>(
+          <div key={c.key} onClick={()=>setActive(active===c.key?null:c.key)}
+            className={styles.cmCell} style={{background:active===c.key?c.light:'#fff',borderColor:active===c.key?c.color:c.color+'33'}}>
+            <div className={styles.cmVal} style={{color:c.color}}>{c.val.toLocaleString()}</div>
+            <div className={styles.cmLabel} style={{color:c.color}}>{c.label}</div>
           </div>
         ))}
       </div>
-      {info && (
-        <div className={styles.chartExplain} style={{borderLeftColor:info.color}}>
-          <div className={styles.chartExplainTitle} style={{color:info.color}}>{info.title}</div>
-          <div className={styles.chartExplainNote}>{info.note}</div>
-        </div>
-      )}
-      {!info && <div className={styles.legendNote} style={{textAlign:'center'}}>Only 10 false positives out of 56,861 legitimate transactions — 99.98% specificity. Click any cell for interpretation.</div>}
+      {info && <div className={styles.chartExplain} style={{borderLeftColor:info.color}}><div className={styles.chartExplainTitle} style={{color:info.color}}>{info.title}</div><div className={styles.chartExplainNote}>{info.note}</div></div>}
+      {!info && <div className={styles.legendNote} style={{textAlign:'center'}}>Click any cell to understand its real-world impact.</div>}
     </div>
   );
 }
 
-/* ── Main Portfolio component ── */
+/* ── Main ── */
 export default function Portfolio() {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
@@ -242,44 +217,39 @@ export default function Portfolio() {
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(()=>{setMounted(true);},[]);
 
-  const allTags = useMemo(() => {
-    const tags = new Set();
-    data.projects.forEach(p => p.tags?.forEach(t => tags.add(t)));
+  const allTags = useMemo(()=>{
+    const tags=new Set();
+    data.projects.forEach(p=>p.tags?.forEach(t=>tags.add(t)));
     return Array.from(tags).sort();
-  }, []);
+  },[]);
 
-  const filteredProjects = useMemo(() => {
-    return data.projects.filter(project => {
-      const matchesSearch =
-        project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.context.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.category.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesFilter = activeFilter === 'all' || project.tags?.includes(activeFilter);
-      return matchesSearch && matchesFilter;
-    });
-  }, [searchTerm, activeFilter]);
+  const filteredProjects = useMemo(()=>data.projects.filter(project=>{
+    const matchesSearch=project.title.toLowerCase().includes(searchTerm.toLowerCase())||project.context.toLowerCase().includes(searchTerm.toLowerCase())||project.category.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter=activeFilter==='all'||project.tags?.includes(activeFilter);
+    return matchesSearch&&matchesFilter;
+  }),[searchTerm,activeFilter]);
 
-  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-  const getProjectTab = (id) => activeProjectTab[id] || 'overview';
-  const setProjectTab = (id, tab) => setActiveProjectTab(prev => ({ ...prev, [id]: tab }));
+  const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+  const getProjectTab=id=>activeProjectTab[id]||'overview';
+  const setProjectTab=(id,tab)=>setActiveProjectTab(prev=>({...prev,[id]:tab}));
 
-  const openProject = (projectId) => {
+  const openProject=projectId=>{
     setActiveTab('projects');
     setExpandedProject(projectId);
-    setTimeout(() => {
-      const el = document.getElementById(`project-${projectId}`);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
+    setTimeout(()=>{
+      const el=document.getElementById(`project-${projectId}`);
+      if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+    },100);
   };
 
   return (
-    <div className={`${styles.container} ${mounted ? styles.mounted : ''}`}>
+    <div className={`${styles.container} ${mounted?styles.mounted:''}`}>
 
       <header className={styles.header}>
         <div className={styles.avatarWrapper}>
-          <img src="/avatar.png" alt="Thảo Nguyên Trần" className={styles.avatar} />
+          <img src="/avatar.png" alt="Thảo Nguyên Trần" className={styles.avatar}/>
         </div>
         <h1 className={styles.name}>{data.profile.name}</h1>
         <p className={styles.title}>{data.profile.title}</p>
@@ -294,16 +264,16 @@ export default function Portfolio() {
       </header>
 
       <nav className={styles.tabs}>
-        {['about', 'projects', 'experience', 'skills'].map(tab => (
-          <button key={tab} className={`${styles.tab} ${activeTab === tab ? styles.tabActive : ''}`} onClick={() => setActiveTab(tab)}>
-            {tab === 'projects' ? `Projects (${data.projects.length})` : cap(tab)}
+        {['about','projects','experience','skills'].map(tab=>(
+          <button key={tab} className={`${styles.tab} ${activeTab===tab?styles.tabActive:''}`} onClick={()=>setActiveTab(tab)}>
+            {tab==='projects'?`Projects (${data.projects.length})`:cap(tab)}
           </button>
         ))}
       </nav>
 
       <main className={styles.content}>
 
-        {activeTab === 'about' && (
+        {activeTab==='about'&&(
           <section className={styles.section}>
             <p className={styles.aboutBio}>{data.profile.bio}</p>
             <div className={styles.aboutGrid}>
@@ -311,14 +281,14 @@ export default function Portfolio() {
               <div className={styles.aboutCard}><span className={styles.cardLabel}>Focus</span><p>{data.about.professional_focus}</p></div>
               <div className={styles.aboutCard}><span className={styles.cardLabel}>Strengths</span><ul className={styles.strengthsList}>{data.about.strengths.map((s,i)=><li key={i}>{s}</li>)}</ul></div>
             </div>
-            <Divider label="Education" />
+            <Divider label="Education"/>
             {data.education.map((edu,i)=>(
               <div key={i} className={styles.eduBlock}>
                 <div className={styles.eduLeft}><span className={styles.eduPeriod}>{edu.period}</span><span className={styles.eduStatus}>{edu.status}</span></div>
                 <div className={styles.eduRight}><span className={styles.eduDegree}>{edu.degree}</span><span className={styles.eduInst}>{edu.institution}</span><span className={styles.eduField}>{edu.field}</span></div>
               </div>
             ))}
-            <Divider label="Scholarships & Awards" />
+            <Divider label="Scholarships & Awards"/>
             <div className={styles.awardsList}>
               {data.scholarships.map((s,i)=>(
                 <div key={i} className={styles.awardItem}>
@@ -327,7 +297,7 @@ export default function Portfolio() {
                 </div>
               ))}
             </div>
-            <Divider label="Training & Courses" />
+            <Divider label="Training & Courses"/>
             <div className={styles.trainingList}>
               {data.training.map((t,i)=>(
                 <div key={i} className={styles.trainingItem}>
@@ -337,28 +307,24 @@ export default function Portfolio() {
                 </div>
               ))}
             </div>
-            <Divider label="Certifications" />
+            <Divider label="Certifications"/>
             <ul className={styles.certList}>{data.coursework.map((c,i)=><li key={i}>{c}</li>)}</ul>
-            <Divider label="Domain Expertise" />
-            <div className={styles.expertiseList}>
-              {data.skills.domain_expertise.map((e,i)=><span key={i} className={styles.expertiseBadge}>{e}</span>)}
-            </div>
+            <Divider label="Domain Expertise"/>
+            <div className={styles.expertiseList}>{data.skills.domain_expertise.map((e,i)=><span key={i} className={styles.expertiseBadge}>{e}</span>)}</div>
           </section>
         )}
 
-        {activeTab === 'projects' && (
+        {activeTab==='projects'&&(
           <>
             <div className={styles.controls}>
               <input type="text" placeholder="Search projects..." value={searchTerm} onChange={e=>setSearchTerm(e.target.value)} className={styles.searchInput}/>
               <div className={styles.filterButtons}>
                 <button className={`${styles.filterBtn} ${activeFilter==='all'?styles.active:''}`} onClick={()=>setActiveFilter('all')}>All</button>
-                {allTags.map(tag=>(
-                  <button key={tag} className={`${styles.filterBtn} ${activeFilter===tag?styles.active:''}`} onClick={()=>setActiveFilter(tag)}>{tag}</button>
-                ))}
+                {allTags.map(tag=><button key={tag} className={`${styles.filterBtn} ${activeFilter===tag?styles.active:''}`} onClick={()=>setActiveFilter(tag)}>{tag}</button>)}
               </div>
             </div>
             <p className={styles.resultsCount}>{filteredProjects.length} project{filteredProjects.length!==1?'s':''}{activeFilter!=='all'&&` tagged "${activeFilter}"`}{searchTerm&&` matching "${searchTerm}"`}</p>
-            {filteredProjects.length===0 ? <p className={styles.noResults}>No projects found.</p> : (
+            {filteredProjects.length===0?<p className={styles.noResults}>No projects found.</p>:(
               <div className={styles.projectsList}>
                 {filteredProjects.map(project=>{
                   const isExpanded=expandedProject===project.id;
@@ -374,11 +340,9 @@ export default function Portfolio() {
                         <h3 className={styles.projectTitle}>{project.title}</h3>
                         <p className={styles.projectType}>{project.type}</p>
                         <p className={styles.projectContext}>{project.context}</p>
-                        {project.results?.length>0&&!isExpanded&&(
+                        {!isExpanded&&project.results?.length>0&&(
                           <div className={styles.projectQuickResults}>
-                            {project.results.slice(0,2).map((r,i)=>(
-                              <div key={i} className={styles.quickResult}><span className={styles.quickResultDot}>→</span><span>{r}</span></div>
-                            ))}
+                            {project.results.slice(0,2).map((r,i)=><div key={i} className={styles.quickResult}><span className={styles.quickResultDot}>→</span><span>{r}</span></div>)}
                           </div>
                         )}
                         <div className={styles.projectCardFooter}>
@@ -394,63 +358,94 @@ export default function Portfolio() {
                           <div className={styles.panelTabs}>
                             {['overview','methodology','results'].map(t=>(
                               <button key={t} className={`${styles.panelTab} ${currentTab===t?styles.panelTabActive:''}`} onClick={()=>setProjectTab(project.id,t)}>
-                                {t==='overview'?'Overview':t==='methodology'?'Model & Method':'Results'}
+                                {t==='overview'?'Overview':t==='methodology'?'Method':'Results'}
                               </button>
                             ))}
                           </div>
 
+                          {/* ── OVERVIEW ── */}
                           {currentTab==='overview'&&(
                             <div className={styles.panelContent}>
+
+                              {/* Problem statement */}
                               {project.researchQuestion&&(
-                                <div className={styles.panelBlock}>
-                                  <span className={styles.panelLabel}>Research Question</span>
-                                  <p className={styles.panelText}>{project.researchQuestion}</p>
+                                <div className={styles.problemBox}>
+                                  <div className={styles.problemLabel}>The Problem</div>
+                                  <div className={styles.problemText}>{project.researchQuestion}</div>
                                 </div>
                               )}
+
+                              {/* Dataset stat row */}
                               {project.dataset&&(
-                                <div className={styles.panelBlock}>
-                                  <span className={styles.panelLabel}>Dataset</span>
-                                  <div className={styles.datasetGrid}>
-                                    <div className={styles.datasetItem}><span className={styles.datasetNum}>{project.dataset.observations?.toLocaleString()}</span><span className={styles.datasetDesc}>transactions</span></div>
-                                    <div className={styles.datasetItem}><span className={styles.datasetNum}>{project.dataset.variables}</span><span className={styles.datasetDesc}>variables</span></div>
-                                    <div className={styles.datasetItem}><span className={styles.datasetNum}>0.172%</span><span className={styles.datasetDesc}>fraud rate</span></div>
-                                    <div className={styles.datasetItem}><span className={styles.datasetNum}>2 days</span><span className={styles.datasetDesc}>collection window</span></div>
+                                <div className={styles.statRow}>
+                                  <div className={styles.statBox}>
+                                    <div className={styles.statNum}>284,807</div>
+                                    <div className={styles.statLabel}>Transactions</div>
                                   </div>
-                                  <p className={styles.panelSubtext}>{project.dataset.source} · {project.dataset.period}</p>
+                                  <div className={styles.statBox}>
+                                    <div className={styles.statNum}>31</div>
+                                    <div className={styles.statLabel}>Variables</div>
+                                  </div>
+                                  <div className={styles.statBox}>
+                                    <div className={styles.statNum} style={{color:'#e8729a'}}>0.17%</div>
+                                    <div className={styles.statLabel}>Fraud Rate</div>
+                                  </div>
+                                  <div className={styles.statBox}>
+                                    <div className={styles.statNum}>2 days</div>
+                                    <div className={styles.statLabel}>Collection Period</div>
+                                  </div>
                                 </div>
                               )}
+
+                              {/* Pie chart */}
                               {hasCharts&&<PieChart/>}
+
+                              {/* Context footer */}
                               {project.supervisor&&(
-                                <div className={styles.panelMeta}>
-                                  <span>Supervisor: {project.supervisor}</span>
-                                  <span>Institution: {project.institution}</span>
-                                  <span>Period: {project.period}</span>
+                                <div className={styles.contextMeta}>
+                                  <span>Supervisor · {project.supervisor}</span>
+                                  <span>{project.institution} · {project.period}</span>
                                 </div>
                               )}
                             </div>
                           )}
 
+                          {/* ── METHODOLOGY ── */}
                           {currentTab==='methodology'&&(
                             <div className={styles.panelContent}>
-                              <div className={styles.panelBlock}>
-                                <span className={styles.panelLabel}>Pipeline</span>
-                                <ol className={styles.methodologyList}>{project.methodology?.map((m,i)=><li key={i}>{m}</li>)}</ol>
-                              </div>
+
+                              {/* Pipeline steps — horizontal chips */}
+                              {project.methodology&&(
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Pipeline</span>
+                                  <div className={styles.pipelineSteps}>
+                                    {project.methodology.map((step,i)=>(
+                                      <div key={i} className={styles.pipelineStep}>
+                                        <div className={styles.pipelineNum}>{i+1}</div>
+                                        <div className={styles.pipelineText}>{step}</div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+
+                              {/* SMOTE chart */}
                               {hasCharts&&<SmoteChart/>}
+
+                              {/* Model cards — compact */}
                               {project.models&&(
                                 <div className={styles.panelBlock}>
-                                  <span className={styles.panelLabel}>Models Compared</span>
-                                  <div className={styles.modelsGrid}>
+                                  <span className={styles.panelLabel}>Models</span>
+                                  <div className={styles.modelsCompact}>
                                     {project.models.map((m,i)=>(
-                                      <div key={i} className={`${styles.modelCard} ${m.name.includes('Best')?styles.modelCardBest:''}`}>
-                                        <div className={styles.modelName}>{m.name}</div>
-                                        <div className={styles.modelMetrics}>
-                                          <div className={styles.modelMetric}><span className={styles.metricVal}>{m.accuracy}</span><span className={styles.metricLabel}>Accuracy</span></div>
-                                          <div className={styles.modelMetric}><span className={styles.metricVal}>{m.recall_fraud}</span><span className={styles.metricLabel}>Recall (fraud)</span></div>
-                                          <div className={styles.modelMetric}><span className={styles.metricVal}>{m.precision_fraud}</span><span className={styles.metricLabel}>Precision (fraud)</span></div>
-                                          <div className={styles.modelMetric}><span className={styles.metricVal}>{m.fp}</span><span className={styles.metricLabel}>False Positives</span></div>
+                                      <div key={i} className={`${styles.modelCompact} ${m.name.includes('Best')?styles.modelCompactBest:''}`}>
+                                        <div className={styles.modelCompactName}>{m.name}</div>
+                                        <div className={styles.modelCompactStats}>
+                                          <span className={styles.mStat}><span className={styles.mVal}>{m.accuracy}</span><span className={styles.mKey}>Acc</span></span>
+                                          <span className={styles.mStat}><span className={styles.mVal} style={{color:'#e8729a'}}>{m.recall_fraud}</span><span className={styles.mKey}>Recall</span></span>
+                                          <span className={styles.mStat}><span className={styles.mVal}>{m.fp}</span><span className={styles.mKey}>FP</span></span>
                                         </div>
-                                        <p className={styles.modelNote}>{m.note}</p>
+                                        <div className={styles.modelCompactNote}>{m.note}</div>
                                       </div>
                                     ))}
                                   </div>
@@ -459,18 +454,47 @@ export default function Portfolio() {
                             </div>
                           )}
 
+                          {/* ── RESULTS ── */}
                           {currentTab==='results'&&(
                             <div className={styles.panelContent}>
-                              {hasCharts&&<ModelCompareChart/>}
-                              <div className={styles.panelBlock}>
-                                <span className={styles.panelLabel}>Key Results</span>
-                                <ul className={styles.resultsList}>{project.results?.map((r,i)=><li key={i}>{r}</li>)}</ul>
+
+                              {/* 3 hero numbers */}
+                              <div className={styles.heroStats}>
+                                <div className={styles.heroStat}>
+                                  <div className={styles.heroNum}>99.95%</div>
+                                  <div className={styles.heroLabel}>Accuracy</div>
+                                  <div className={styles.heroSub}>Random Forest</div>
+                                </div>
+                                <div className={styles.heroStat} style={{borderColor:'#e8729a'}}>
+                                  <div className={styles.heroNum} style={{color:'#e8729a'}}>84.16%</div>
+                                  <div className={styles.heroLabel}>Recall on Fraud</div>
+                                  <div className={styles.heroSub}>85 of 101 caught</div>
+                                </div>
+                                <div className={styles.heroStat} style={{borderColor:'#5a9e82'}}>
+                                  <div className={styles.heroNum} style={{color:'#5a9e82'}}>10</div>
+                                  <div className={styles.heroLabel}>False Positives</div>
+                                  <div className={styles.heroSub}>vs 1,393 (LR)</div>
+                                </div>
                               </div>
+
+                              {/* Model comparison chart */}
+                              {hasCharts&&<ModelCompareChart/>}
+
+                              {/* Confusion matrix */}
                               {hasCharts&&<ConfusionMatrix/>}
+
+                              {/* Key findings — compact pills */}
                               {project.keyFindings&&(
                                 <div className={styles.panelBlock}>
-                                  <span className={styles.panelLabel}>Key Findings & Implications</span>
-                                  <ul className={styles.findingsList}>{project.keyFindings.map((f,i)=><li key={i}>{f}</li>)}</ul>
+                                  <span className={styles.panelLabel}>Key Findings</span>
+                                  <div className={styles.findingPills}>
+                                    {project.keyFindings.map((f,i)=>(
+                                      <div key={i} className={styles.findingPill}>
+                                        <span className={styles.findingIcon}>◆</span>
+                                        <span>{f}</span>
+                                      </div>
+                                    ))}
+                                  </div>
                                 </div>
                               )}
                             </div>
