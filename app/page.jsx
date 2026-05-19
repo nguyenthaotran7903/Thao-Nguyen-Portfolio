@@ -21,7 +21,7 @@ function PieChart() {
     <div className={styles.chartWrap}>
       <div className={styles.chartTitle}>Class Distribution <span className={styles.chartHint}>click to explore</span></div>
       <div className={styles.chartRow}>
-        <svg width="140" height="140" viewBox="0 0 140 140" style={{cursor:'pointer',flexShrink:0}}>
+        <svg width="140" height="140" viewBox="0 0 140 140" style={{cursor:'pointer',flexShrink:0,display:'block'}}>
           <circle cx={cx} cy={cy} r={r} fill={active==='legit'?'#3a7db8':'#d0d0d0'} onClick={()=>setActive(active==='legit'?null:'legit')} style={{transition:'fill 0.2s'}}/>
           <path d={`M${cx},${cy} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z`} fill={active==='fraud'?'#c04070':'#e8729a'} onClick={()=>setActive(active==='fraud'?null:'fraud')} style={{transition:'fill 0.2s'}}/>
           <circle cx={cx} cy={cy} r={r*0.5} fill="white"/>
@@ -51,7 +51,7 @@ function PieChart() {
 function SmoteChart() {
   const [active, setActive] = useState(null);
   const max = 227454;
-  const H = 90, padL = 32, bW = 12, gap = 3, W = 380;
+  const H = 120, padL = 32, bW = 12, gap = 3, W = 380;
   const groups = [
     { key:'before', label:'Before SMOTE', legit:227454, fraud:391, explain:'391 fraud vs 227,454 legitimate — model learns to always predict "Legitimate". Gets 99.8% accuracy while catching zero fraud.' },
     { key:'after',  label:'After SMOTE',  legit:227454, fraud:227454, explain:'227,063 synthetic fraud samples generated via k-nearest neighbors. Training set balanced 50/50 — model now learns genuine fraud patterns.' },
@@ -221,18 +221,18 @@ function EdaCards() {
         const pts = [[5,120],[8,200],[12,800],[18,1200],[22,5000],[28,800],[35,9800],[40,200],[42,25691],[48,400]];
         const maxY = 25691;
         return (
-          <svg width="100%" viewBox="0 0 280 100" style={{display:'block'}}>
-            <line x1="14" y1="6" x2="14" y2="82" stroke="#eee" strokeWidth="1"/>
-            <line x1="14" y1="82" x2="275" y2="82" stroke="#eee" strokeWidth="1"/>
-            <line x1="14" y1="24" x2="275" y2="24" stroke="#e8729a55" strokeWidth="1" strokeDasharray="4,3"/>
-            <text x="16" y="22" fontSize="7" fill="#e8729a">Upper bound (IQR)</text>
+          <svg width="100%" viewBox="0 0 380 172" style={{display:'block'}}>
+            <line x1="20" y1="10" x2="20" y2="140" stroke="#eee" strokeWidth="1"/>
+            <line x1="20" y1="140" x2="370" y2="140" stroke="#eee" strokeWidth="1"/>
+            <line x1="20" y1="40" x2="370" y2="40" stroke="#e8729a55" strokeWidth="1" strokeDasharray="5,3"/>
+            <text x="22" y="37" fontSize="9" fill="#e8729a">Upper bound (IQR)</text>
             {pts.map(([x,y],i)=>{
-              const cy = 82 - (y/maxY)*72;
+              const cy = 140 - (y/maxY)*125;
               const isOut = y > 5000;
-              return <circle key={i} cx={x*5.2} cy={cy} r={isOut?4:2} fill={isOut?'#e8729a':'#5b8db8'} opacity={0.8}/>;
+              return <circle key={i} cx={x*6.8} cy={cy} r={isOut?5:2.5} fill={isOut?'#e8729a':'#5b8db8'} opacity={0.8}/>;
             })}
-            <text x="14" y="96" fontSize="6" fill="#bbb">Time (hours)</text>
-            <text x="0" y="50" fontSize="6" fill="#bbb" transform="rotate(-90,6,50)">Amount</text>
+            <text x="20" y="158" fontSize="8" fill="#bbb">Time (hours) →</text>
+            <text x="22" y="162" fontSize="8" fill="#888">Outliers in pink — transactions above $10,000</text>
           </svg>
         );
       }
@@ -247,18 +247,16 @@ function EdaCards() {
         const size = 6, n = 8, gap = 1;
         const colors = ['#5b8db8','#e8729a','#5a9e82','#f0a030','#9060c0','#e8729a','#5b8db8','#5a9e82'];
         return (
-          <svg width="100%" viewBox="0 0 280 100" style={{display:'block'}}>
+          <svg width="100%" viewBox="0 0 380 172" style={{display:'block'}}>
             {Array.from({length:n}).map((_,i)=>
               Array.from({length:n}).map((_,j)=>{
-                const cellSize=10, cellGap=1;
+                const cellSize=16, cellGap=2;
                 const v = Math.abs(Math.cos((i+1)*(j+1)*0.5));
                 const highlight = (i===0&&j===6)||(i===6&&j===0)||(i===1&&j===6)||(i===6&&j===1);
-                return <rect key={`${i}-${j}`} x={j*(cellSize+cellGap)+8} y={i*(cellSize+cellGap)+8} width={cellSize} height={cellSize} fill={highlight?'#e8729a':i===j?'#1a1a1a':'#5b8db8'} opacity={highlight?0.95:i===j?1:v*0.65+0.1} rx="1"/>;
+                return <rect key={`${i}-${j}`} x={j*(cellSize+cellGap)+12} y={i*(cellSize+cellGap)+12} width={cellSize} height={cellSize} fill={highlight?'#e8729a':i===j?'#1a1a1a':'#5b8db8'} opacity={highlight?0.95:i===j?1:v*0.65+0.1} rx="2"/>;
               })
             )}
-            <text x="8" y="100" fontSize="7" fill="#888">V1...V28, Amount, Time, Class</text>
-            <text x="200" y="55" fontSize="6" fill="#e8729a">high</text>
-            <text x="200" y="65" fontSize="6" fill="#e8729a">correlation</text>
+            <text x="12" y="162" fontSize="9" fill="#888">Features: V1–V28, Amount, Time, Class · Pink = high fraud correlation</text>
           </svg>
         );
       }
@@ -275,19 +273,20 @@ function EdaCards() {
         const W = 180, H = 50, n = pts.length;
         const path = pts.map((v,i)=>`${i===0?'M':'L'}${(i/(n-1))*(W-20)+10},${H-5-(v/max)*(H-10)}`).join(' ');
         return (
-          <svg width="100%" viewBox="0 0 280 100" style={{display:'block'}}>
+          <svg width="100%" viewBox="0 0 380 172" style={{display:'block'}}>
             {(()=>{
-              const W2=280,H2=78,n2=pts.length;
-              const path2=pts.map((v,i)=>`${i===0?'M':'L'}${(i/(n2-1))*(W2-24)+12},${H2-(v/Math.max(...pts))*(H2-16)+4}`).join(' ');
+              const W2=380,H2=130,n2=pts.length;
+              const path2=pts.map((v,i)=>`${i===0?'M':'L'}${(i/(n2-1))*(W2-32)+16},${H2-(v/Math.max(...pts))*(H2-24)+10}`).join(' ');
               return(<>
-                <path d={path2} fill="none" stroke="#9060c0" strokeWidth="2"/>
-                <path d={`${path2} L${W2-12},${H2+4} L12,${H2+4} Z`} fill="#9060c0" opacity="0.12"/>
-                <line x1="12" y1={H2+4} x2={W2-12} y2={H2+4} stroke="#eee" strokeWidth="1"/>
-                <text x="12" y="94" fontSize="7" fill="#bbb">0h</text>
-                <text x={W2/2-8} y="94" fontSize="7" fill="#bbb">12h</text>
-                <text x={W2-22} y="94" fontSize="7" fill="#bbb">24h</text>
-                <text x="80" y="20" fontSize="7" fill="#9060c0" fontWeight="600">Morning peak</text>
-                <text x="178" y="20" fontSize="7" fill="#9060c0" fontWeight="600">Afternoon peak</text>
+                <path d={path2} fill="none" stroke="#9060c0" strokeWidth="2.5"/>
+                <path d={`${path2} L${W2-16},${H2+10} L16,${H2+10} Z`} fill="#9060c0" opacity="0.1"/>
+                <line x1="16" y1={H2+10} x2={W2-16} y2={H2+10} stroke="#eee" strokeWidth="1"/>
+                <text x="16" y={H2+24} fontSize="9" fill="#bbb">0h</text>
+                <text x={W2/2-8} y={H2+24} fontSize="9" fill="#bbb">12h</text>
+                <text x={W2-28} y={H2+24} fontSize="9" fill="#bbb">24h</text>
+                <text x="90" y="28" fontSize="9" fill="#9060c0" fontWeight="700">Morning peak</text>
+                <text x="230" y="28" fontSize="9" fill="#9060c0" fontWeight="700">Afternoon peak</text>
+                <text x="16" y={H2+38} fontSize="8" fill="#888">Bimodal distribution — most activity at business hours</text>
               </>);
             })()}
           </svg>
