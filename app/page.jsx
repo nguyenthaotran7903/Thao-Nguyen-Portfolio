@@ -9,6 +9,7 @@ export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('all');
   const [activeTab, setActiveTab] = useState('about');
   const [expandedProject, setExpandedProject] = useState(null);
+  const [activeProjectTab, setActiveProjectTab] = useState({});
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [mounted, setMounted] = useState(false);
 
@@ -33,6 +34,18 @@ export default function Portfolio() {
 
   const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
+  const getProjectTab = (id) => activeProjectTab[id] || 'overview';
+  const setProjectTab = (id, tab) => setActiveProjectTab(prev => ({ ...prev, [id]: tab }));
+
+  const openProject = (projectId) => {
+    setActiveTab('projects');
+    setExpandedProject(projectId);
+    setTimeout(() => {
+      const el = document.getElementById(`project-${projectId}`);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  };
+
   return (
     <div className={`${styles.container} ${mounted ? styles.mounted : ''}`}>
 
@@ -50,8 +63,6 @@ export default function Portfolio() {
           <a href={data.profile.linkedin} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>LinkedIn</a>
           <span className={styles.contactDot}>·</span>
           <span className={styles.contactInfo}>{data.profile.location}</span>
-          <span className={styles.contactDot}>·</span>
-          <span className={styles.contactInfo}>IELTS {data.profile.english_level}</span>
         </div>
       </header>
 
@@ -92,7 +103,6 @@ export default function Portfolio() {
               </div>
             </div>
 
-            {/* EDUCATION */}
             <Divider label="Education" />
             {data.education.map((edu, i) => (
               <div key={i} className={styles.eduBlock}>
@@ -108,7 +118,6 @@ export default function Portfolio() {
               </div>
             ))}
 
-            {/* SCHOLARSHIPS */}
             <Divider label="Scholarships & Awards" />
             <div className={styles.awardsList}>
               {data.scholarships.map((s, i) => (
@@ -122,7 +131,6 @@ export default function Portfolio() {
               ))}
             </div>
 
-            {/* TRAINING */}
             <Divider label="Training & Courses" />
             <div className={styles.trainingList}>
               {data.training.map((t, i) => (
@@ -136,13 +144,11 @@ export default function Portfolio() {
               ))}
             </div>
 
-            {/* CERTIFICATIONS */}
             <Divider label="Certifications" />
             <ul className={styles.certList}>
               {data.coursework.map((c, i) => <li key={i}>{c}</li>)}
             </ul>
 
-            {/* DOMAIN EXPERTISE */}
             <Divider label="Domain Expertise" />
             <div className={styles.expertiseList}>
               {data.skills.domain_expertise.map((e, i) => (
@@ -187,61 +193,200 @@ export default function Portfolio() {
             {filteredProjects.length === 0 ? (
               <p className={styles.noResults}>No projects found.</p>
             ) : (
-              <div className={styles.projectsGrid}>
+              <div className={styles.projectsList}>
                 {filteredProjects.map(project => {
                   const isExpanded = expandedProject === project.id;
+                  const currentTab = getProjectTab(project.id);
+
                   return (
                     <article
                       key={project.id}
+                      id={`project-${project.id}`}
                       className={`${styles.projectCard} ${isExpanded ? styles.projectExpanded : ''}`}
                     >
-                      <div className={styles.projectMeta}>
-                        <span className={styles.projectCategory}>{project.category}</span>
-                        <span className={styles.projectYear}>{project.year}</span>
-                      </div>
-                      <h3 className={styles.projectTitle}>{project.title}</h3>
-                      <p className={styles.projectType}>{project.type}</p>
-                      <p className={styles.projectContext}>{project.context}</p>
-
-                      {project.results?.length > 0 && (
-                        <div className={styles.projectResults}>
-                          <span className={styles.resultLabel}>Key Results</span>
-                          <ul>
-                            {project.results.map((r, i) => <li key={i}>{r}</li>)}
-                          </ul>
+                      {/* Card header — always visible */}
+                      <div className={styles.projectHeader}>
+                        <div className={styles.projectMeta}>
+                          <span className={styles.projectCategory}>{project.category}</span>
+                          <span className={styles.projectYear}>{project.year}</span>
                         </div>
-                      )}
+                        <h3 className={styles.projectTitle}>{project.title}</h3>
+                        <p className={styles.projectType}>{project.type}</p>
+                        <p className={styles.projectContext}>{project.context}</p>
 
-                      {isExpanded && project.methodology?.length > 0 && (
-                        <div className={styles.projectMethodology}>
-                          <span className={styles.resultLabel}>Methodology</span>
-                          <ul>
-                            {project.methodology.map((m, i) => <li key={i}>{m}</li>)}
-                          </ul>
-                        </div>
-                      )}
+                        {/* Quick results — always visible */}
+                        {project.results?.length > 0 && !isExpanded && (
+                          <div className={styles.projectQuickResults}>
+                            {project.results.slice(0, 2).map((r, i) => (
+                              <div key={i} className={styles.quickResult}>
+                                <span className={styles.quickResultDot}>→</span>
+                                <span>{r}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
 
-                      <button
-                        className={styles.expandBtn}
-                        onClick={() => setExpandedProject(isExpanded ? null : project.id)}
-                      >
-                        {isExpanded ? '↑ Show less' : '↓ Show methodology'}
-                      </button>
-
-                      <div className={styles.projectFooter}>
-                        <div className={styles.toolsList}>
-                          {project.tools?.map((t, i) => <span key={i} className={styles.tool}>{t}</span>)}
-                        </div>
-                        <div className={styles.tags}>
-                          {project.tags?.map(tag => (
-                            <button
-                              key={tag}
-                              className={`${styles.tag} ${activeFilter === tag ? styles.tagActive : ''}`}
-                              onClick={() => { setActiveFilter(tag === activeFilter ? 'all' : tag); }}
-                            >{tag}</button>
-                          ))}
+                        <div className={styles.projectCardFooter}>
+                          <div className={styles.toolsList}>
+                            {project.tools?.map((t, i) => <span key={i} className={styles.tool}>{t}</span>)}
+                          </div>
+                          <button
+                            className={styles.expandBtn}
+                            onClick={() => {
+                              setExpandedProject(isExpanded ? null : project.id);
+                              if (!isExpanded) setProjectTab(project.id, 'overview');
+                            }}
+                          >
+                            {isExpanded ? '↑ Close' : '↓ Read full study'}
+                          </button>
                         </div>
                       </div>
+
+                      {/* Expanded panel */}
+                      {isExpanded && (
+                        <div className={styles.projectPanel}>
+
+                          {/* Panel tabs */}
+                          <div className={styles.panelTabs}>
+                            {['overview', 'methodology', 'results'].map(t => (
+                              <button
+                                key={t}
+                                className={`${styles.panelTab} ${currentTab === t ? styles.panelTabActive : ''}`}
+                                onClick={() => setProjectTab(project.id, t)}
+                              >
+                                {t === 'overview' ? 'Overview' : t === 'methodology' ? 'Model & Method' : 'Results'}
+                              </button>
+                            ))}
+                          </div>
+
+                          {/* OVERVIEW tab */}
+                          {currentTab === 'overview' && (
+                            <div className={styles.panelContent}>
+                              {project.researchQuestion && (
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Research Question</span>
+                                  <p className={styles.panelText}>{project.researchQuestion}</p>
+                                </div>
+                              )}
+                              {project.dataset && (
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Dataset</span>
+                                  <div className={styles.datasetGrid}>
+                                    <div className={styles.datasetItem}>
+                                      <span className={styles.datasetNum}>{project.dataset.observations?.toLocaleString()}</span>
+                                      <span className={styles.datasetDesc}>transactions</span>
+                                    </div>
+                                    <div className={styles.datasetItem}>
+                                      <span className={styles.datasetNum}>{project.dataset.variables}</span>
+                                      <span className={styles.datasetDesc}>variables</span>
+                                    </div>
+                                    <div className={styles.datasetItem}>
+                                      <span className={styles.datasetNum}>0.172%</span>
+                                      <span className={styles.datasetDesc}>fraud rate</span>
+                                    </div>
+                                    <div className={styles.datasetItem}>
+                                      <span className={styles.datasetNum}>2 days</span>
+                                      <span className={styles.datasetDesc}>collection window</span>
+                                    </div>
+                                  </div>
+                                  <p className={styles.panelSubtext}>{project.dataset.source} · {project.dataset.period}</p>
+                                  <p className={styles.panelSubtext}>Class imbalance: {project.dataset.imbalance}</p>
+                                </div>
+                              )}
+                              {project.figures && (
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Key Figures in Study</span>
+                                  <ul className={styles.figuresList}>
+                                    {project.figures.map((f, i) => <li key={i}>{f}</li>)}
+                                  </ul>
+                                </div>
+                              )}
+                              {project.supervisor && (
+                                <div className={styles.panelMeta}>
+                                  <span>Supervisor: {project.supervisor}</span>
+                                  <span>Institution: {project.institution}</span>
+                                  <span>Period: {project.period}</span>
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {/* METHODOLOGY tab */}
+                          {currentTab === 'methodology' && (
+                            <div className={styles.panelContent}>
+                              <div className={styles.panelBlock}>
+                                <span className={styles.panelLabel}>Pipeline</span>
+                                <ol className={styles.methodologyList}>
+                                  {project.methodology?.map((m, i) => <li key={i}>{m}</li>)}
+                                </ol>
+                              </div>
+
+                              {project.models && (
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Models Compared</span>
+                                  <div className={styles.modelsGrid}>
+                                    {project.models.map((m, i) => (
+                                      <div key={i} className={`${styles.modelCard} ${m.name.includes('Best') ? styles.modelCardBest : ''}`}>
+                                        <div className={styles.modelName}>{m.name}</div>
+                                        <div className={styles.modelMetrics}>
+                                          <div className={styles.modelMetric}>
+                                            <span className={styles.metricVal}>{m.accuracy}</span>
+                                            <span className={styles.metricLabel}>Accuracy</span>
+                                          </div>
+                                          <div className={styles.modelMetric}>
+                                            <span className={styles.metricVal}>{m.recall_fraud}</span>
+                                            <span className={styles.metricLabel}>Recall (fraud)</span>
+                                          </div>
+                                          <div className={styles.modelMetric}>
+                                            <span className={styles.metricVal}>{m.precision_fraud}</span>
+                                            <span className={styles.metricLabel}>Precision (fraud)</span>
+                                          </div>
+                                          <div className={styles.modelMetric}>
+                                            <span className={styles.metricVal}>{m.fp}</span>
+                                            <span className={styles.metricLabel}>False Positives</span>
+                                          </div>
+                                        </div>
+                                        <p className={styles.modelNote}>{m.note}</p>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {/* RESULTS tab */}
+                          {currentTab === 'results' && (
+                            <div className={styles.panelContent}>
+                              <div className={styles.panelBlock}>
+                                <span className={styles.panelLabel}>Key Results</span>
+                                <ul className={styles.resultsList}>
+                                  {project.results?.map((r, i) => <li key={i}>{r}</li>)}
+                                </ul>
+                              </div>
+                              {project.keyFindings && (
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Key Findings & Implications</span>
+                                  <ul className={styles.findingsList}>
+                                    {project.keyFindings.map((f, i) => <li key={i}>{f}</li>)}
+                                  </ul>
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {/* Tags */}
+                          <div className={styles.panelTagRow}>
+                            {project.tags?.map(tag => (
+                              <button
+                                key={tag}
+                                className={`${styles.tag} ${activeFilter === tag ? styles.tagActive : ''}`}
+                                onClick={() => setActiveFilter(tag === activeFilter ? 'all' : tag)}
+                              >{tag}</button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </article>
                   );
                 })}
@@ -269,6 +414,14 @@ export default function Portfolio() {
                     <ul className={styles.highlightsList}>
                       {job.highlights.map((h, i) => <li key={i}>{h}</li>)}
                     </ul>
+                    {job.projectId && (
+                      <button
+                        className={styles.viewProjectBtn}
+                        onClick={() => openProject(job.projectId)}
+                      >
+                        View related project →
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
@@ -318,8 +471,8 @@ export default function Portfolio() {
 function Divider({ label }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '16px', margin: '48px 0 28px' }}>
-      <span style={{ fontSize: '10px', letterSpacing: '3px', textTransform: 'uppercase', color: '#e8c4d4', fontWeight: 600, whiteSpace: 'nowrap' }}>{label}</span>
-      <div style={{ flex: 1, height: '1px', background: '#1f1f1f' }}></div>
+      <span style={{ fontSize: '11px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#1a1a1a', fontWeight: 700, whiteSpace: 'nowrap', fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}>{label}</span>
+      <div style={{ flex: 1, height: '1px', background: '#ebebeb' }}></div>
     </div>
   );
 }
