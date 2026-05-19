@@ -356,26 +356,86 @@ export default function Portfolio() {
                       {isExpanded&&(
                         <div className={styles.projectPanel}>
                           <div className={styles.panelTabs}>
-                            {['overview','methodology','results'].map(t=>(
+                            {['context','approach','analysis','methodology','results','decision'].map(t=>(
                               <button key={t} className={`${styles.panelTab} ${currentTab===t?styles.panelTabActive:''}`} onClick={()=>setProjectTab(project.id,t)}>
-                                {t==='overview'?'Overview':t==='methodology'?'Method':'Results'}
+                                {t.charAt(0).toUpperCase()+t.slice(1)}
                               </button>
                             ))}
                           </div>
 
-                          {/* ── OVERVIEW ── */}
-                          {currentTab==='overview'&&(
+                          {/* ── CONTEXT ── */}
+                          {currentTab==='context'&&(
                             <div className={styles.panelContent}>
+                              <div className={styles.problemBox}>
+                                <div className={styles.problemLabel}>The Problem</div>
+                                <div className={styles.problemText}>
+                                  {hasCharts
+                                    ? "Vietnam's rapid credit expansion has intensified fraud risk. Agribank Saigon Branch lacked an automated early-warning system — relying on manual review processes vulnerable to human error and scale limitations."
+                                    : project.context}
+                                </div>
+                              </div>
+                              <div className={styles.statRow}>
+                                <div className={styles.statBox}>
+                                  <div className={styles.statNum} style={{color:'#e8729a'}}>0.17%</div>
+                                  <div className={styles.statLabel}>Fraud Rate</div>
+                                </div>
+                                <div className={styles.statBox}>
+                                  <div className={styles.statNum}>Manual</div>
+                                  <div className={styles.statLabel}>Detection Method</div>
+                                </div>
+                                <div className={styles.statBox}>
+                                  <div className={styles.statNum}>NPL</div>
+                                  <div className={styles.statLabel}>1.5% (below avg)</div>
+                                </div>
+                                <div className={styles.statBox}>
+                                  <div className={styles.statNum}>Tier 1</div>
+                                  <div className={styles.statLabel}>Branch Rank</div>
+                                </div>
+                              </div>
+                              {project.supervisor&&(
+                                <div className={styles.contextMeta}>
+                                  <span>Supervisor · {project.supervisor}</span>
+                                  <span>{project.institution} · {project.period}</span>
+                                </div>
+                              )}
+                            </div>
+                          )}
 
-                              {/* Problem statement */}
+                          {/* ── APPROACH ── */}
+                          {currentTab==='approach'&&(
+                            <div className={styles.panelContent}>
                               {project.researchQuestion&&(
                                 <div className={styles.problemBox}>
-                                  <div className={styles.problemLabel}>The Problem</div>
+                                  <div className={styles.problemLabel}>Research Question</div>
                                   <div className={styles.problemText}>{project.researchQuestion}</div>
                                 </div>
                               )}
+                              <div className={styles.approachGrid}>
+                                {[
+                                  {icon:'01', label:'Classify', desc:'Binary classification — Fraud (1) vs Legitimate (0)'},
+                                  {icon:'02', label:'Handle Imbalance', desc:'SMOTE oversampling to balance 0.17% minority class'},
+                                  {icon:'03', label:'Compare Models', desc:'Logistic Regression, Decision Tree, Random Forest'},
+                                  {icon:'04', label:'Optimize Recall', desc:'Maximize fraud detection, minimize false positives'},
+                                ].map((a,i)=>(
+                                  <div key={i} className={styles.approachCard}>
+                                    <div className={styles.approachIcon}>{a.icon}</div>
+                                    <div className={styles.approachLabel}>{a.label}</div>
+                                    <div className={styles.approachDesc}>{a.desc}</div>
+                                  </div>
+                                ))}
+                              </div>
+                              <div className={styles.toolsRow}>
+                                <span className={styles.panelLabel}>Tools</span>
+                                <div className={styles.toolsList} style={{marginTop:8}}>
+                                  {project.tools?.map((t,i)=><span key={i} className={styles.tool} style={{fontSize:13,padding:'5px 12px'}}>{t}</span>)}
+                                </div>
+                              </div>
+                            </div>
+                          )}
 
-                              {/* Dataset stat row */}
+                          {/* ── ANALYSIS ── */}
+                          {currentTab==='analysis'&&(
+                            <div className={styles.panelContent}>
                               {project.dataset&&(
                                 <div className={styles.statRow}>
                                   <div className={styles.statBox}>
@@ -392,29 +452,31 @@ export default function Portfolio() {
                                   </div>
                                   <div className={styles.statBox}>
                                     <div className={styles.statNum}>2 days</div>
-                                    <div className={styles.statLabel}>Collection Period</div>
+                                    <div className={styles.statLabel}>Window</div>
                                   </div>
                                 </div>
                               )}
-
-                              {/* Pie chart */}
                               {hasCharts&&<PieChart/>}
-
-                              {/* Context footer */}
-                              {project.supervisor&&(
-                                <div className={styles.contextMeta}>
-                                  <span>Supervisor · {project.supervisor}</span>
-                                  <span>{project.institution} · {project.period}</span>
+                              <div className={styles.eda3col}>
+                                <div className={styles.edaCard}>
+                                  <div className={styles.edaTitle}>Outliers</div>
+                                  <div className={styles.edaDesc}>Transactions above $10,000 detected via IQR scatter plot. Robust Scaler applied.</div>
                                 </div>
-                              )}
+                                <div className={styles.edaCard}>
+                                  <div className={styles.edaTitle}>Correlation</div>
+                                  <div className={styles.edaDesc}>Heatmap of 31 features. Payment history & collateral = top predictors.</div>
+                                </div>
+                                <div className={styles.edaCard}>
+                                  <div className={styles.edaTitle}>Time Pattern</div>
+                                  <div className={styles.edaDesc}>Most transactions occur during daytime — bimodal distribution across 24h.</div>
+                                </div>
+                              </div>
                             </div>
                           )}
 
                           {/* ── METHODOLOGY ── */}
                           {currentTab==='methodology'&&(
                             <div className={styles.panelContent}>
-
-                              {/* Pipeline steps — horizontal chips */}
                               {project.methodology&&(
                                 <div className={styles.panelBlock}>
                                   <span className={styles.panelLabel}>Pipeline</span>
@@ -428,11 +490,7 @@ export default function Portfolio() {
                                   </div>
                                 </div>
                               )}
-
-                              {/* SMOTE chart */}
                               {hasCharts&&<SmoteChart/>}
-
-                              {/* Model cards — compact */}
                               {project.models&&(
                                 <div className={styles.panelBlock}>
                                   <span className={styles.panelLabel}>Models</span>
@@ -457,8 +515,6 @@ export default function Portfolio() {
                           {/* ── RESULTS ── */}
                           {currentTab==='results'&&(
                             <div className={styles.panelContent}>
-
-                              {/* 3 hero numbers */}
                               <div className={styles.heroStats}>
                                 <div className={styles.heroStat}>
                                   <div className={styles.heroNum}>99.95%</div>
@@ -473,17 +529,35 @@ export default function Portfolio() {
                                 <div className={styles.heroStat} style={{borderColor:'#5a9e82'}}>
                                   <div className={styles.heroNum} style={{color:'#5a9e82'}}>10</div>
                                   <div className={styles.heroLabel}>False Positives</div>
-                                  <div className={styles.heroSub}>vs 1,393 (LR)</div>
+                                  <div className={styles.heroSub}>vs 1,393 (LR+SMOTE)</div>
                                 </div>
                               </div>
-
-                              {/* Model comparison chart */}
                               {hasCharts&&<ModelCompareChart/>}
-
-                              {/* Confusion matrix */}
                               {hasCharts&&<ConfusionMatrix/>}
+                            </div>
+                          )}
 
-                              {/* Key findings — compact pills */}
+                          {/* ── DECISION ── */}
+                          {currentTab==='decision'&&(
+                            <div className={styles.panelContent}>
+                              <div className={styles.decisionBox}>
+                                <div className={styles.problemLabel}>Recommendation</div>
+                                <div className={styles.problemText} style={{fontSize:14}}>Deploy Random Forest as the primary fraud detection engine. Implement a 3-tier alert system replacing manual review.</div>
+                              </div>
+                              <div className={styles.tierGrid}>
+                                <div className={styles.tierCard} style={{borderTopColor:'#5a9e82'}}>
+                                  <div className={styles.tierLabel} style={{color:'#5a9e82'}}>Tier 1 — Auto Approve</div>
+                                  <div className={styles.tierDesc}>High confidence legitimate. No human review needed. Reduces workload by ~99%.</div>
+                                </div>
+                                <div className={styles.tierCard} style={{borderTopColor:'#f0a030'}}>
+                                  <div className={styles.tierLabel} style={{color:'#f0a030'}}>Tier 2 — Flag for Review</div>
+                                  <div className={styles.tierDesc}>Borderline cases. Analyst reviews within 24h. Estimated 10–20 cases/day.</div>
+                                </div>
+                                <div className={styles.tierCard} style={{borderTopColor:'#e8729a'}}>
+                                  <div className={styles.tierLabel} style={{color:'#e8729a'}}>Tier 3 — Auto Block</div>
+                                  <div className={styles.tierDesc}>High confidence fraud. Immediate card freeze. Prevents direct financial loss.</div>
+                                </div>
+                              </div>
                               {project.keyFindings&&(
                                 <div className={styles.panelBlock}>
                                   <span className={styles.panelLabel}>Key Findings</span>
@@ -575,4 +649,3 @@ function Divider({label}) {
     </div>
   );
 }
-
