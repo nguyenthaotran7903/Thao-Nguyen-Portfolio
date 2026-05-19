@@ -51,44 +51,44 @@ function PieChart() {
 function SmoteChart() {
   const [active, setActive] = useState(null);
   const max = 227454;
-  const H = 110, padL = 40, bW = 26, gap = 8, W = 300;
+  const H = 90, padL = 32, bW = 12, gap = 3, W = 380;
   const groups = [
-    { key:'before', label:'Before SMOTE', legit:227454, fraud:391, explain:'391 fraud vs 227,454 legitimate — the model learns to always predict "Legitimate" and gets 99.8% accuracy while catching zero fraud.' },
-    { key:'after',  label:'After SMOTE',  legit:227454, fraud:227454, explain:'227,063 synthetic fraud samples generated via k-nearest neighbors interpolation. Training set balanced 50/50 — model now learns genuine fraud patterns.' },
+    { key:'before', label:'Before SMOTE', legit:227454, fraud:391, explain:'391 fraud vs 227,454 legitimate — model learns to always predict "Legitimate". Gets 99.8% accuracy while catching zero fraud.' },
+    { key:'after',  label:'After SMOTE',  legit:227454, fraud:227454, explain:'227,063 synthetic fraud samples generated via k-nearest neighbors. Training set balanced 50/50 — model now learns genuine fraud patterns.' },
   ];
-  const groupW = bW*2+gap;
-  const groupGap = (W-padL-groupW*2)/3;
+  const groupW = 2*(bW+gap)-gap;
+  const mGap = ((W-padL)-groupW*groups.length)/(groups.length+1);
   return (
     <div className={styles.chartWrap}>
       <div className={styles.chartTitle}>SMOTE Balancing <span className={styles.chartHint}>click a group</span></div>
-      <svg width="100%" viewBox={`0 0 ${W} ${H+68}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
+      <svg width="100%" viewBox={`0 0 ${W} ${H+52}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
         {[0,50,100].map(v=>{
           const y=H-(v/100)*H+10;
-          return(<g key={v}><line x1={padL} y1={y} x2={W-8} y2={y} stroke="#f0f0f0" strokeWidth="1"/><text x={padL-5} y={y+4} textAnchor="end" fontSize="8" fill="#bbb">{v}%</text></g>);
+          return(<g key={v}><line x1={padL} y1={y} x2={W} y2={y} stroke="#f0f0f0" strokeWidth="1"/><text x={padL-4} y={y+4} textAnchor="end" fontSize="7" fill="#bbb">{v}</text></g>);
         })}
         {groups.map((g,gi)=>{
-          const gX=padL+groupGap*(gi+1)+groupW*gi;
-          const lH=(g.legit/max)*H;
-          const fH=Math.max((g.fraud/max)*H,3);
+          const gX=padL+mGap*(gi+1)+groupW*gi;
           const isActive=active===g.key;
+          const lH=(g.legit/max)*H;
+          const fH=Math.max((g.fraud/max)*H,2);
           return(
             <g key={gi} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:g.key)}>
-              <rect x={gX-3} y={6} width={groupW+6} height={H+6} fill={isActive?'#f0f6fb':'transparent'} rx="3"/>
+              <rect x={gX-3} y={5} width={groupW+6} height={H+8} fill={isActive?'#f0f6fb':'transparent'} rx="2"/>
               <rect x={gX} y={H-lH+10} width={bW} height={lH} fill={isActive?'#3a7db8':'#5b8db8'} rx="2"/>
-              <text x={gX+bW/2} y={H-lH+6} textAnchor="middle" fontSize="7" fill="#5b8db8" fontWeight="600">100%</text>
+              {isActive&&<text x={gX+bW/2} y={H-lH+6} textAnchor="middle" fontSize="6" fill="#5b8db8" fontWeight="700">100%</text>}
               <rect x={gX+bW+gap} y={H-fH+10} width={bW} height={fH} fill={isActive?'#c04070':'#e8729a'} rx="2"/>
-              <text x={gX+bW+gap+bW/2} y={H-fH+6} textAnchor="middle" fontSize="7" fill="#e8729a" fontWeight="600">{gi===0?'0.17%':'100%'}</text>
-              <text x={gX+groupW/2} y={H+24} textAnchor="middle" fontSize="9" fontWeight={isActive?700:500} fill={isActive?'#1a1a1a':'#555'}>{g.label}</text>
+              {isActive&&<text x={gX+bW+gap+bW/2} y={H-fH+6} textAnchor="middle" fontSize="6" fill="#e8729a" fontWeight="700">{gi===0?'0.17%':'100%'}</text>}
+              <text x={gX+groupW/2} y={H+22} textAnchor="middle" fontSize="8" fontWeight={isActive?700:500} fill={isActive?'#1a1a1a':'#666'}>{g.label}</text>
             </g>
           );
         })}
-        <g transform={`translate(${padL},${H+36})`}>
-          <rect width="8" height="8" fill="#5b8db8" rx="1"/><text x="11" y="7" fontSize="8" fill="#666">Legitimate</text>
-          <rect x="82" width="8" height="8" fill="#e8729a" rx="1"/><text x="93" y="7" fontSize="8" fill="#666">Fraud</text>
+        <g transform={`translate(${padL},${H+34})`}>
+          <rect width="7" height="7" fill="#5b8db8" rx="1"/><text x="10" y="6" fontSize="8" fill="#888">Legitimate</text>
+          <rect x="76" width="7" height="7" fill="#e8729a" rx="1"/><text x="86" y="6" fontSize="8" fill="#888">Fraud</text>
         </g>
       </svg>
-      {active && <div className={styles.chartExplain} style={{borderLeftColor:'#5b8db8'}}><div className={styles.chartExplainTitle} style={{color:'#1a1a1a'}}>{groups.find(g=>g.key===active)?.label}</div><div className={styles.chartExplainNote}>{groups.find(g=>g.key===active)?.explain}</div></div>}
-      {!active && <div className={styles.legendNote}>Click each group to understand why balancing matters.</div>}
+      {active&&<div className={styles.chartExplain} style={{borderLeftColor:'#5b8db8'}}><div className={styles.chartExplainTitle} style={{color:'#1a1a1a'}}>{groups.find(g=>g.key===active)?.label}</div><div className={styles.chartExplainNote}>{groups.find(g=>g.key===active)?.explain}</div></div>}
+      {!active&&<div className={styles.legendNote}>Click Before/After to understand why balancing matters.</div>}
     </div>
   );
 }
@@ -203,6 +203,149 @@ function ConfusionMatrix() {
       </div>
       {info && <div className={styles.chartExplain} style={{borderLeftColor:info.color}}><div className={styles.chartExplainTitle} style={{color:info.color}}>{info.title}</div><div className={styles.chartExplainNote}>{info.note}</div></div>}
       {!info && <div className={styles.legendNote} style={{textAlign:'center'}}>Click any cell to understand its real-world impact.</div>}
+    </div>
+  );
+}
+
+/* ── Interactive EDA Cards ── */
+function EdaCards() {
+  const [active, setActive] = useState(null);
+  const cards = [
+    {
+      key:'outlier', title:'Outliers', icon:'◈',
+      summary:'Transactions > $10,000 flagged via IQR method.',
+      detail:'The Interquartile Range (IQR = Q3 − Q1) defines normal bounds: Lower = Q1 − 1.5×IQR, Upper = Q3 + 1.5×IQR. Points outside are outliers. Mean transaction = $88.35 but max = $25,691 — extreme right skew. Robust Scaler (median-centered, IQR-scaled) was applied to prevent these outliers from distorting model training.',
+      stat:'$25,691', statLabel:'Max transaction',
+      color:'#5b8db8',
+      viz: () => {
+        const pts = [[5,120],[8,200],[12,800],[18,1200],[22,5000],[28,800],[35,9800],[40,200],[42,25691],[48,400]];
+        const maxY = 25691;
+        return (
+          <svg width="100%" viewBox="0 0 200 80" style={{display:'block'}}>
+            <line x1="10" y1="5" x2="10" y2="65" stroke="#eee" strokeWidth="1"/>
+            <line x1="10" y1="65" x2="195" y2="65" stroke="#eee" strokeWidth="1"/>
+            <line x1="10" y1="20" x2="195" y2="20" stroke="#e8729a44" strokeWidth="1" strokeDasharray="3,2"/>
+            <text x="12" y="18" fontSize="5" fill="#e8729a">Upper bound</text>
+            {pts.map(([x,y],i)=>{
+              const cy = 65 - (y/maxY)*58;
+              const isOut = y > 5000;
+              return <circle key={i} cx={x*4} cy={cy} r={isOut?3:1.5} fill={isOut?'#e8729a':'#5b8db8'} opacity={0.8}/>;
+            })}
+          </svg>
+        );
+      }
+    },
+    {
+      key:'correlation', title:'Correlation', icon:'◉',
+      summary:'31-feature heatmap. Payment history & collateral = top predictors.',
+      detail:'Pearson correlation heatmap across all 31 features revealed that V14 and V17 (PCA components) have the strongest negative correlation with the fraud class (Class). "Payment history" and "collateral assets" — derived from Agribank internal data — showed correlation > 0.8 with credit risk. PCA reduced 15 raw features to 8 principal components retaining 95% of variance.',
+      stat:'r > 0.8', statLabel:'Top predictors',
+      color:'#5a9e82',
+      viz: () => {
+        const size = 6, n = 8, gap = 1;
+        const colors = ['#5b8db8','#e8729a','#5a9e82','#f0a030','#9060c0','#e8729a','#5b8db8','#5a9e82'];
+        return (
+          <svg width="100%" viewBox="0 0 80 80" style={{display:'block',maxWidth:80}}>
+            {Array.from({length:n}).map((_,i)=>
+              Array.from({length:n}).map((_,j)=>{
+                const v = Math.abs(Math.cos((i+1)*(j+1)*0.5));
+                const highlight = (i===0&&j===6)||(i===6&&j===0)||(i===1&&j===6)||(i===6&&j===1);
+                return <rect key={`${i}-${j}`} x={j*(size+gap)+2} y={i*(size+gap)+2} width={size} height={size} fill={highlight?'#e8729a':i===j?'#1a1a1a':'#5b8db8'} opacity={highlight?0.9:i===j?1:v*0.6+0.1} rx="0.5"/>;
+              })
+            )}
+          </svg>
+        );
+      }
+    },
+    {
+      key:'time', title:'Time Pattern', icon:'◷',
+      summary:'Bimodal distribution — peaks at business hours, dip at night.',
+      detail:'Transaction time (seconds from epoch) was analyzed via density plot. Two clear peaks emerge: morning (9–12h) and afternoon (14–17h) aligning with business hours. Overnight transactions (0–6h) are sparse but have a disproportionately higher fraud rate — a key feature for real-time monitoring. This temporal signal was encoded as scaled_time in the feature set.',
+      stat:'2× higher', statLabel:'Overnight fraud rate',
+      color:'#9060c0',
+      viz: () => {
+        const pts = [2,3,5,8,14,20,28,35,40,38,30,28,24,20,28,35,38,32,20,12,7,4,3,2];
+        const max = Math.max(...pts);
+        const W = 180, H = 50, n = pts.length;
+        const path = pts.map((v,i)=>`${i===0?'M':'L'}${(i/(n-1))*(W-20)+10},${H-5-(v/max)*(H-10)}`).join(' ');
+        return (
+          <svg width="100%" viewBox={`0 0 ${W} ${H+10}`} style={{display:'block'}}>
+            <path d={path} fill="none" stroke="#9060c0" strokeWidth="1.5"/>
+            <path d={`${path} L${W-10},${H-5} L10,${H-5} Z`} fill="#9060c0" opacity="0.1"/>
+            <text x="10" y={H+8} fontSize="6" fill="#bbb">0h</text>
+            <text x={W/2-6} y={H+8} fontSize="6" fill="#bbb">12h</text>
+            <text x={W-16} y={H+8} fontSize="6" fill="#bbb">24h</text>
+          </svg>
+        );
+      }
+    },
+  ];
+  const activeCard = active ? cards.find(c=>c.key===active) : null;
+  return (
+    <div className={styles.edaInteractive}>
+      <div className={styles.eda3col}>
+        {cards.map(c=>(
+          <div key={c.key} className={`${styles.edaCard} ${active===c.key?styles.edaCardActive:''}`}
+            style={{borderColor:active===c.key?c.color:'#ebebeb',cursor:'pointer'}}
+            onClick={()=>setActive(active===c.key?null:c.key)}>
+            <div className={styles.edaCardHeader}>
+              <span className={styles.edaIcon} style={{color:c.color}}>{c.icon}</span>
+              <span className={styles.edaTitle}>{c.title}</span>
+              <span className={styles.edaArrow}>{active===c.key?'▲':'▼'}</span>
+            </div>
+            <div className={styles.edaStat} style={{color:c.color}}>{c.stat}</div>
+            <div className={styles.edaStatLabel}>{c.statLabel}</div>
+            <div className={styles.edaDesc}>{c.summary}</div>
+          </div>
+        ))}
+      </div>
+      {activeCard&&(
+        <div className={styles.edaDetail} style={{borderLeftColor:activeCard.color}}>
+          <div className={styles.edaDetailRow}>
+            <div className={styles.edaDetailViz}>{activeCard.viz()}</div>
+            <div className={styles.edaDetailText}>
+              <div className={styles.edaDetailTitle} style={{color:activeCard.color}}>{activeCard.title} — Deep Dive</div>
+              <div className={styles.edaDetailBody}>{activeCard.detail}</div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── Interactive Pipeline Steps ── */
+function PipelineSteps({steps, hasCharts}) {
+  const [active, setActive] = useState(null);
+  const stepNames = ['EDA','Data Preprocessing','Correlation Analysis','Train/Test Split','Imbalance Handling','Model Training','Evaluation'];
+  const stepColors = ['#5b8db8','#5a9e82','#9060c0','#f0a030','#e8729a','#1a1a1a','#5b8db8'];
+  return (
+    <div className={styles.panelBlock}>
+      <span className={styles.panelLabel}>Pipeline</span>
+      <div className={styles.pipelineGrid}>
+        {steps.map((step,i)=>{
+          const isActive = active===i;
+          const color = stepColors[i] || '#888';
+          const name = stepNames[i] || `Step ${i+1}`;
+          return(
+            <div key={i} className={`${styles.pipelineRow} ${isActive?styles.pipelineRowActive:''}`}
+              style={{borderLeftColor:isActive?color:'#ebebeb'}}
+              onClick={()=>setActive(isActive?null:i)}>
+              <div className={styles.pipelineRowLeft}>
+                <div className={styles.pipelineNum} style={{background:isActive?color:'#ebebeb',color:isActive?'#fff':'#888'}}>{i+1}</div>
+                <div className={styles.pipelineStepName} style={{color:isActive?color:'#1a1a1a'}}>{name}</div>
+                <div className={styles.pipelineArrow}>{isActive?'▲':'▼'}</div>
+              </div>
+              {isActive&&(
+                <div className={styles.pipelineDetail}>
+                  <div className={styles.pipelineDetailText}>{step}</div>
+                  {i===4&&hasCharts&&<SmoteChart/>}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -457,40 +600,14 @@ export default function Portfolio() {
                                 </div>
                               )}
                               {hasCharts&&<PieChart/>}
-                              <div className={styles.eda3col}>
-                                <div className={styles.edaCard}>
-                                  <div className={styles.edaTitle}>Outliers</div>
-                                  <div className={styles.edaDesc}>Transactions above $10,000 detected via IQR scatter plot. Robust Scaler applied.</div>
-                                </div>
-                                <div className={styles.edaCard}>
-                                  <div className={styles.edaTitle}>Correlation</div>
-                                  <div className={styles.edaDesc}>Heatmap of 31 features. Payment history & collateral = top predictors.</div>
-                                </div>
-                                <div className={styles.edaCard}>
-                                  <div className={styles.edaTitle}>Time Pattern</div>
-                                  <div className={styles.edaDesc}>Most transactions occur during daytime — bimodal distribution across 24h.</div>
-                                </div>
-                              </div>
+                              <EdaCards/>
                             </div>
                           )}
 
                           {/* ── METHODOLOGY ── */}
                           {currentTab==='methodology'&&(
                             <div className={styles.panelContent}>
-                              {project.methodology&&(
-                                <div className={styles.panelBlock}>
-                                  <span className={styles.panelLabel}>Pipeline</span>
-                                  <div className={styles.pipelineSteps}>
-                                    {project.methodology.map((step,i)=>(
-                                      <div key={i} className={styles.pipelineStep}>
-                                        <div className={styles.pipelineNum}>{i+1}</div>
-                                        <div className={styles.pipelineText}>{step}</div>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-                              {hasCharts&&<SmoteChart/>}
+                              {project.methodology&&<PipelineSteps steps={project.methodology} hasCharts={hasCharts}/>}
                               {project.models&&(
                                 <div className={styles.panelBlock}>
                                   <span className={styles.panelLabel}>Models</span>
