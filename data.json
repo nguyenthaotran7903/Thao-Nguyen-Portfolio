@@ -189,8 +189,18 @@
         "Random Forest ensemble structure (100 trees, bootstrap sampling, Gini impurity splitting) provides superior generalization",
         "Proposed 3-tier alert system for Agribank: auto-approve (high confidence legitimate), flag for review (borderline), auto-block (high confidence fraud)"
       ],
-      "tools": ["R (ggplot2, randomForest, DMwR, caret, rpart)", "Python (SMOTE)", "RStudio"],
-      "tags": ["fraud-detection", "classification", "risk-analysis", "machine-learning", "banking"],
+      "tools": [
+        "R (ggplot2, randomForest, DMwR, caret, rpart)",
+        "Python (SMOTE)",
+        "RStudio"
+      ],
+      "tags": [
+        "fraud-detection",
+        "classification",
+        "risk-analysis",
+        "machine-learning",
+        "banking"
+      ],
       "figures": [
         "Fig 4.1: Scatter plot — Amount vs Time showing outlier transactions above $10,000",
         "Fig 4.2: Pie chart — 99.83% legitimate vs 0.17% fraudulent transactions",
@@ -211,26 +221,129 @@
     },
     {
       "id": 2,
-      "title": "Walmart India E-commerce Platform: Data Visualization & Storytelling",
+      "title": "Walmart India E-commerce: Data Visualization & Storytelling",
       "category": "Data Analytics",
-      "type": "Team Project (7 members, UEL)",
+      "type": "Team Project (7 members) · UEL · Data Visualization Course · 2024",
       "year": 2024,
-      "context": "Analyzed customer behavior on Walmart India's platform to extract business insights using data visualization and storytelling techniques.",
+      "context": "E-commerce platforms generate massive behavioral data that remains underutilized without effective visualization. This project analyzed Walmart India customer data to extract actionable business insights — translating raw transaction records into strategic recommendations across demographics, products, payments, and geography.",
+      "researchQuestion": "What does Walmart India's customer data reveal about purchasing behavior across demographics, product categories, payment methods, and geography — and how can these insights drive strategic business decisions?",
+      "dataset": {
+        "source": "Kaggle open dataset — Walmart India customer transactions",
+        "observations": 21000,
+        "period": "Full year (January to December)",
+        "variables": 14,
+        "target": "Customer purchasing behavior and revenue patterns",
+        "features": "CID, TID, Gender, Age Group, Purchase Date, Product Category, Discount, Payment Method, Location, Net Amount"
+      },
       "methodology": [
-        "Kaggle dataset: 14 variables",
-        "Multi-dimensional analysis: demographic, product, payment, location",
-        "Python visualization (Pandas, Matplotlib, Seaborn, Plotly)",
-        "Data storytelling with buyer personas"
+        "Data Collection: Kaggle dataset — 14 fields, ~21,000 transactions across India",
+        "Data Preprocessing: Pandas for cleaning, type conversion, null handling, date parsing",
+        "Demographic Analysis: Gender distribution, age group segmentation, revenue by cohort",
+        "Product Analysis: Category revenue ranking, seasonal trends, discount utilization by category",
+        "Payment Analysis: Transaction method distribution, UPI vs card vs COD breakdown",
+        "Geographic Analysis: City-level revenue mapping, top vs emerging markets identification",
+        "Storytelling: 3 buyer personas (Khari/Nayar/Sam) woven through data narrative"
+      ],
+      "keyInsights": [
+        {
+          "dim": "Gender",
+          "finding": "Nearly equal split: Female 33.6%, Male 32.9%, Other 33.5%",
+          "implication": "Platform has broad inclusive appeal — gender-neutral marketing opportunity"
+        },
+        {
+          "dim": "Age",
+          "finding": "25-45 age group: 60M+ INR revenue — 3x the 45-60 group",
+          "implication": "Core segment; targeted loyalty programs would yield highest ROI"
+        },
+        {
+          "dim": "Product",
+          "finding": "Electronics 45M INR (top), Clothing 30M, Beauty 25M",
+          "implication": "Stock and promotion priority: Electronics first, then Clothing"
+        },
+        {
+          "dim": "Payment",
+          "finding": "Credit Card 40%+, UPI (PhonePe/Paytm/GPay) growing at 14.6%",
+          "implication": "Invest in UPI incentives — fastest-growing segment"
+        },
+        {
+          "dim": "Location",
+          "finding": "Mumbai 32M INR, Delhi 31M INR. Dehradun, Srinagar under 2M",
+          "implication": "Tier-2 cities: untapped growth markets for localized campaigns"
+        },
+        {
+          "dim": "Seasonal",
+          "finding": "December peak: 18M INR. February lowest: 10M INR",
+          "implication": "Front-load inventory in Q4; use Feb for clearance promotions"
+        }
       ],
       "results": [
-        "Electronics: 45M INR revenue (highest), Clothing 30M INR, Beauty & Health 25M INR",
-        "Age group 25–45 contributed over 60M INR — 3x the 45–60 group",
-        "Credit Card: over 40% of payments; UPI/digital wallet growing at 14.6%",
-        "Mumbai & Delhi lead revenue; Dehradun & Srinagar identified as untapped growth markets",
-        "December peak: ~18M INR — strong seasonal promotion opportunity"
+        "Electronics dominates with 441K INR net sales — 30% ahead of Clothing (339K INR)",
+        "Age 25-45 generates 60M+ INR revenue — 3x the next cohort (45-60 at 20M INR)",
+        "December peak at 18M INR vs February low at 10M — 80% seasonal swing",
+        "Credit Card leads at 40%+ of transactions; UPI wallets collectively at 14.6% and growing",
+        "Mumbai (32M) and Delhi (31M) account for 40%+ of total platform revenue",
+        "SEASONALOFFER21 drove 15,000 purchases in Electronics alone — highest discount engagement"
       ],
-      "tools": ["Python (Pandas, Matplotlib, Seaborn, Plotly)", "Kaggle dataset"],
-      "tags": ["data-visualization", "business-analytics", "e-commerce", "storytelling"]
+      "models": [
+        {
+          "dim": "Electronics",
+          "rev": 441,
+          "pct": 30,
+          "color": "#5b8db8"
+        },
+        {
+          "dim": "Clothing",
+          "rev": 339,
+          "pct": 23,
+          "color": "#9060c0"
+        },
+        {
+          "dim": "Beauty",
+          "rev": 276,
+          "pct": 19,
+          "color": "#e8729a"
+        },
+        {
+          "dim": "Home",
+          "rev": 179,
+          "pct": 12,
+          "color": "#5a9e82"
+        },
+        {
+          "dim": "Sports",
+          "rev": 166,
+          "pct": 11,
+          "color": "#f0a030"
+        },
+        {
+          "dim": "Other",
+          "rev": 75,
+          "pct": 5,
+          "color": "#bbb"
+        }
+      ],
+      "keyFindings": [
+        "Gender parity (33/33/33) is rare in e-commerce — signals genuinely inclusive platform design",
+        "25-45 cohort drives 60% of revenue despite being 33% of users — classic Pareto pattern",
+        "December 80% above February baseline — seasonal strategy is the highest-leverage lever",
+        "UPI growing at 14.6% — digital wallet adoption will overtake debit cards within 2 years",
+        "Tier-2 cities (Dehradun, Srinagar) under 2M INR — untapped with high growth ceiling"
+      ],
+      "tools": [
+        "Python (Pandas, Matplotlib, Seaborn, Plotly)",
+        "Kaggle dataset",
+        "Data Storytelling"
+      ],
+      "tags": [
+        "data-visualization",
+        "business-analytics",
+        "e-commerce",
+        "storytelling",
+        "python"
+      ],
+      "supervisor": "PhD. Nguyen Phuc Son, University of Economics and Law VNU-HCM",
+      "institution": "UEL — Data Visualization Course (241EMA400301)",
+      "period": "November 2024"
     },
     {
       "id": 3,
@@ -251,8 +364,17 @@
         "E-payment increased credit risk (beta = +0.206) — critical policy finding",
         "Basic IT Application had highest feature importance (0.837)"
       ],
-      "tools": ["R (Ridge Regression)", "Panel data analysis"],
-      "tags": ["research", "machine-learning", "credit-risk", "banking", "published"]
+      "tools": [
+        "R (Ridge Regression)",
+        "Panel data analysis"
+      ],
+      "tags": [
+        "research",
+        "machine-learning",
+        "credit-risk",
+        "banking",
+        "published"
+      ]
     },
     {
       "id": 4,
@@ -273,8 +395,19 @@
         "All paths statistically significant at 95% confidence",
         "Schedule optimization (0.727) & device sharing (0.748) showed highest AI value"
       ],
-      "tools": ["GSCA", "EFA", "McDonald's Omega", "SPSS/R"],
-      "tags": ["research", "structural-analysis", "sem", "ai-impact", "published"]
+      "tools": [
+        "GSCA",
+        "EFA",
+        "McDonald's Omega",
+        "SPSS/R"
+      ],
+      "tags": [
+        "research",
+        "structural-analysis",
+        "sem",
+        "ai-impact",
+        "published"
+      ]
     },
     {
       "id": 5,
@@ -295,8 +428,17 @@
         "Bank size beta = -0.0014 (larger banks lower risk)",
         "Policy solutions proposed based on Basel II & III frameworks"
       ],
-      "tools": ["STATA 17", "Panel Data Regression (OLS/FEM/REM/GLS)"],
-      "tags": ["panel-data", "econometrics", "risk-analysis", "banking", "stata"]
+      "tools": [
+        "STATA 17",
+        "Panel Data Regression (OLS/FEM/REM/GLS)"
+      ],
+      "tags": [
+        "panel-data",
+        "econometrics",
+        "risk-analysis",
+        "banking",
+        "stata"
+      ]
     },
     {
       "id": 6,
@@ -318,23 +460,81 @@
         "Maximum drawdown reduced: 47% to 18%",
         "Proposed 3-tier alert framework for State Securities Commission: Yellow / Orange / Red"
       ],
-      "tools": ["Python (MF-DFA, Random Forest, XGBoost, SHAP)", "Google Trends API"],
-      "tags": ["bubble-detection", "time-series", "machine-learning", "financial-risk", "python"]
+      "tools": [
+        "Python (MF-DFA, Random Forest, XGBoost, SHAP)",
+        "Google Trends API"
+      ],
+      "tags": [
+        "bubble-detection",
+        "time-series",
+        "machine-learning",
+        "financial-risk",
+        "python"
+      ]
     }
   ],
   "skills": {
     "technical_tools": {
-      "programming": ["Python", "R", "SQL", "Excel"],
-      "data_visualization": ["Power BI", "Tableau", "Plotly", "Matplotlib", "Seaborn"],
-      "statistical_software": ["STATA 17", "SPSS", "RStudio"],
-      "platforms": ["Git", "Kaggle", "Google Trends API", "GitHub"]
+      "programming": [
+        "Python",
+        "R",
+        "SQL",
+        "Excel"
+      ],
+      "data_visualization": [
+        "Power BI",
+        "Tableau",
+        "Plotly",
+        "Matplotlib",
+        "Seaborn"
+      ],
+      "statistical_software": [
+        "STATA 17",
+        "SPSS",
+        "RStudio"
+      ],
+      "platforms": [
+        "Git",
+        "Kaggle",
+        "Google Trends API",
+        "GitHub"
+      ]
     },
     "methodologies": {
-      "machine_learning": ["Classification", "Random Forest", "XGBoost", "Neural Networks", "SMOTE", "SVM", "Ridge Regression"],
-      "econometrics": ["Panel Data Regression", "Time Series Analysis", "MFDFA", "GLS", "Fixed & Random Effects"],
-      "statistical_analysis": ["Hypothesis Testing", "EFA", "Correlation Analysis", "Feature Importance (SHAP)"],
-      "structural_modeling": ["GSCA", "SEM", "PLS-SEM"],
-      "risk_analysis": ["Credit Risk Assessment", "Fraud Detection", "Basel II/III", "Early-Warning Systems", "Portfolio Risk"]
+      "machine_learning": [
+        "Classification",
+        "Random Forest",
+        "XGBoost",
+        "Neural Networks",
+        "SMOTE",
+        "SVM",
+        "Ridge Regression"
+      ],
+      "econometrics": [
+        "Panel Data Regression",
+        "Time Series Analysis",
+        "MFDFA",
+        "GLS",
+        "Fixed & Random Effects"
+      ],
+      "statistical_analysis": [
+        "Hypothesis Testing",
+        "EFA",
+        "Correlation Analysis",
+        "Feature Importance (SHAP)"
+      ],
+      "structural_modeling": [
+        "GSCA",
+        "SEM",
+        "PLS-SEM"
+      ],
+      "risk_analysis": [
+        "Credit Risk Assessment",
+        "Fraud Detection",
+        "Basel II/III",
+        "Early-Warning Systems",
+        "Portfolio Risk"
+      ]
     },
     "domain_expertise": [
       "Banking & Financial Risk",
