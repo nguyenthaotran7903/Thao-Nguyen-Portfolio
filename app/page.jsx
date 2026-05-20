@@ -621,7 +621,7 @@ function RevenueBarChart({models}) {
             <g key={i} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:i)}>
               <rect x={x} y={H-bH} width={bW} height={bH} fill={isActive?m.color:m.color+'99'} rx="2" style={{transition:'fill 0.15s'}}/>
               {isActive&&<text x={x+bW/2} y={H-bH-4} textAnchor="middle" fontSize="8" fontWeight="700" fill={m.color}>{m.rev}K</text>}
-              <text x={x+bW/2} y={H+14} textAnchor="middle" fontSize="7" fill={isActive?'#1a1a1a':'#888'}>{m.dim}</text>
+              <text x={x+bW/2} y={H+14} textAnchor="middle" fontSize="7} fill={isActive?'#1a1a1a':'#888'}>{m.dim}</text>
             </g>
           );
         })}
@@ -1044,9 +1044,25 @@ export default function Portfolio() {
 
             <Divider label="Certifications" />
             <ul className={styles.certList}>
-              {data.coursework.map((c, i) => (
-                <li key={i}>{c}</li>
-              ))}
+              {data.coursework.map((c, i) => {
+                const isSpringSchool = c.includes('Spring School on Statistical & Machine Learning 2025');
+                return (
+                  <li key={i} style={{ marginBottom: '12px' }}>
+                    <div>{c}</div>
+                    {isSpringSchool && (
+                      <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
+                        <a
+                          href="/CamScanner 14-1-26 20.58.pdf"
+                          download
+                          style={{ textDecoration: 'none', color: '#555' }}
+                        >
+                          ⬇ Download certificate (PDF)
+                        </a>
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
 
             <Divider label="Domain Expertise" />
