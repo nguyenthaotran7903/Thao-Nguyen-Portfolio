@@ -207,7 +207,7 @@ function ConfusionMatrix() {
   );
 }
 
-/* ── EDA Viz Components (proper React components with hooks) ── */
+/* ── EDA Viz Components ── */
 function OutlierViz() {
   const [hov, setHov] = useState(null);
   const pts = [[5,120],[8,200],[12,800],[18,1200],[22,5000],[28,800],[35,9800],[40,200],[42,25691],[48,400]];
@@ -621,7 +621,7 @@ function RevenueBarChart({models}) {
             <g key={i} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:i)}>
               <rect x={x} y={H-bH} width={bW} height={bH} fill={isActive?m.color:m.color+'99'} rx="2" style={{transition:'fill 0.15s'}}/>
               {isActive&&<text x={x+bW/2} y={H-bH-4} textAnchor="middle" fontSize="8" fontWeight="700" fill={m.color}>{m.rev}K</text>}
-              <text x={x+bW/2} y={H+14} textAnchor="middle" fontSize="7} fill={isActive?'#1a1a1a':'#888'}>{m.dim}</text>
+              <text x={x+bW/2} y={H+14} textAnchor="middle" fontSize="7" fill={isActive?'#1a1a1a':'#888'}>{m.dim}</text>
             </g>
           );
         })}
