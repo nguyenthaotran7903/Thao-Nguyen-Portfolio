@@ -939,7 +939,7 @@ export default function Portfolio() {
 
       <header className={styles.header}>
         <div className={styles.avatarWrapper}>
-          <img src="/avatar.png" alt="Thảo Nguyên Trần" className={styles.avatar}/>
+          <img src="/avatar.png" alt="Thao Nguyen Tran" className={styles.avatar}/>
         </div>
         <h1 className={styles.name}>{data.profile.name}</h1>
         <p className={styles.title}>{data.profile.title}</p>
@@ -963,48 +963,91 @@ export default function Portfolio() {
 
       <main className={styles.content}>
 
-        {activeTab==='about'&&(
+        {activeTab === 'about' && (
           <section className={styles.section}>
             <p className={styles.aboutBio}>{data.profile.bio}</p>
             <div className={styles.aboutGrid}>
-              <div className={styles.aboutCard}><span className={styles.cardLabel}>Background</span><p>{data.about.background}</p></div>
-              <div className={styles.aboutCard}><span className={styles.cardLabel}>Focus</span><p>{data.about.professional_focus}</p></div>
-              <div className={styles.aboutCard}><span className={styles.cardLabel}>Strengths</span><ul className={styles.strengthsList}>{data.about.strengths.map((s,i)=><li key={i}>{s}</li>)}</ul></div>
+              <div className={styles.aboutCard}>
+                <span className={styles.cardLabel}>Background</span>
+                <div style={{ textAlign: 'justify' }}>
+                  <p>{data.about.background}</p>
+                  {data.about.exchange && <p style={{ marginTop: '8px' }}>{data.about.exchange}</p>}
+                </div>
+              </div>
+              <div className={styles.aboutCard}>
+                <span className={styles.cardLabel}>Focus</span>
+                <p style={{ textAlign: 'justify' }}>{data.about.professional_focus}</p>
+              </div>
+              <div className={styles.aboutCard}>
+                <span className={styles.cardLabel}>Strengths</span>
+                <ul className={styles.strengthsList}>
+                  {data.about.strengths.map((s, i) => (
+                    <li key={i}>{s}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <Divider label="Education"/>
-            {data.education.map((edu,i)=>(
+
+            <Divider label="Education" />
+            {data.education.map((edu, i) => (
               <div key={i} className={styles.eduBlock}>
-                <div className={styles.eduLeft}><span className={styles.eduPeriod}>{edu.period}</span><span className={styles.eduStatus}>{edu.status}</span></div>
-                <div className={styles.eduRight}><span className={styles.eduDegree}>{edu.degree}</span><span className={styles.eduInst}>{edu.institution}</span><span className={styles.eduField}>{edu.field}</span></div>
+                <div className={styles.eduLeft}>
+                  <span className={styles.eduPeriod}>{edu.period}</span>
+                  <span className={styles.eduStatus}>{edu.status}</span>
+                </div>
+                <div className={styles.eduRight}>
+                  <span className={styles.eduDegree}>{edu.degree}</span>
+                  <span className={styles.eduInst}>{edu.institution}</span>
+                  <span className={styles.eduField}>{edu.field}</span>
+                </div>
               </div>
             ))}
-            <Divider label="Scholarships & Awards"/>
+
+            <Divider label="Scholarships & Awards" />
             <div className={styles.awardsList}>
-              {data.scholarships.map((s,i)=>(
+              {data.scholarships.map((s, i) => (
                 <div key={i} className={styles.awardItem}>
                   <span className={styles.awardYear}>{s.year}</span>
-                  <div className={styles.awardBody}><span className={styles.awardTitle}>{s.title}</span><span className={styles.awardOrg}>{s.org}</span></div>
+                  <div className={styles.awardBody}>
+                    <span className={styles.awardTitle}>{s.title}</span>
+                    <span className={styles.awardOrg}>{s.org}</span>
+                  </div>
                 </div>
               ))}
             </div>
-            <Divider label="Training & Courses"/>
+
+            <Divider label="Training & Courses" />
             <div className={styles.trainingList}>
-              {data.training.map((t,i)=>(
+              {data.training.map((t, i) => (
                 <div key={i} className={styles.trainingItem}>
                   <span className={styles.trainingTitle}>{t.title}</span>
                   <span className={styles.trainingOrg}>{t.org}</span>
-                  <ul className={styles.trainingTopics}>{t.topics.map((topic,j)=><li key={j}>{topic}</li>)}</ul>
+                  <ul className={styles.trainingTopics}>
+                    {t.topics.map((topic, j) => (
+                      <li key={j}>{topic}</li>
+                    ))}
+                  </ul>
                 </div>
               ))}
             </div>
-            <Divider label="Certifications"/>
-            <ul className={styles.certList}>{data.coursework.map((c,i)=><li key={i}>{c}</li>)}</ul>
-            <Divider label="Domain Expertise"/>
-            <div className={styles.expertiseList}>{data.skills.domain_expertise.map((e,i)=><span key={i} className={styles.expertiseBadge}>{e}</span>)}</div>
+
+            <Divider label="Certifications" />
+            <ul className={styles.certList}>
+              {data.coursework.map((c, i) => (
+                <li key={i}>{c}</li>
+              ))}
+            </ul>
+
+            <Divider label="Domain Expertise" />
+            <div className={styles.expertiseList}>
+              {data.skills.domain_expertise.map((e, i) => (
+                <span key={i} className={styles.expertiseBadge}>{e}</span>
+              ))}
+            </div>
           </section>
         )}
 
-        {activeTab==='projects'&&(
+        {activeTab === 'projects' && (
           <>
             <div className={styles.controls}>
               <input type="text" placeholder="Search projects..." value={searchTerm} onChange={e=>setSearchTerm(e.target.value)} className={styles.searchInput}/>
@@ -1470,7 +1513,7 @@ export default function Portfolio() {
           </>
         )}
 
-        {activeTab==='experience'&&(
+        {activeTab === 'experience' && (
           <section className={styles.section}>
             <div className={styles.timeline}>
               {data.experience.map(job=>(
@@ -1489,7 +1532,7 @@ export default function Portfolio() {
           </section>
         )}
 
-        {activeTab==='skills'&&(
+        {activeTab === 'skills' && (
           <section className={styles.section}>
             {[
               {label:'Programming & Platforms',items:[...data.skills.technical_tools.programming,...data.skills.technical_tools.platforms]},
