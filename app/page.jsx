@@ -207,7 +207,7 @@ function ConfusionMatrix() {
   );
 }
 
-/* ── EDA Viz Components ── */
+/* ── EDA Viz Components (proper React components with hooks) ── */
 function OutlierViz() {
   const [hov, setHov] = useState(null);
   const pts = [[5,120],[8,200],[12,800],[18,1200],[22,5000],[28,800],[35,9800],[40,200],[42,25691],[48,400]];
@@ -934,6 +934,9 @@ export default function Portfolio() {
     },100);
   };
 
+  // Helper for safe download links
+  const downloadLink = (filename) => `/${encodeURIComponent(filename)}`;
+
   return (
     <div className={`${styles.container} ${mounted?styles.mounted:''}`}>
 
@@ -1062,7 +1065,7 @@ export default function Portfolio() {
                   </a>
                 </div>
               </li>
-              {/* 3. Machine Learning for Data Science */}
+              {/* 3. ML for Data Science */}
               <li style={{ marginBottom: '12px' }}>
                 <div>Machine Learning for Data Science | University of Science – VNUHCM</div>
                 <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
@@ -1072,36 +1075,6 @@ export default function Portfolio() {
                 </div>
               </li>
             </ul>
-
-            <Divider label="Domain Expertise" />
-            <div className={styles.expertiseList}>
-              {data.skills.domain_expertise.map((e, i) => (
-                <span key={i} className={styles.expertiseBadge}>{e}</span>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Phần Experience, Projects, Skills giữ nguyên như bản trước, tôi không lặp lại để tránh quá dài. 
-            Bạn hãy giữ nguyên code cũ của các phần này. Trong file đầy đủ, bạn cần bao gồm toàn bộ. 
-            Vì vậy, tôi khuyên bạn nên chỉ thay thế phần Certifications như trên trong file hiện tại (đã hoạt động).
-        */}
-      </main>
-      <footer className={styles.footer}>
-        <p>{data.profile.name} · {new Date().getFullYear()}</p>
-      </footer>
-    </div>
-  );
-}
-
-function Divider({label}) {
-  return(
-    <div style={{display:'flex',alignItems:'center',gap:'16px',margin:'56px 0 32px'}}>
-      <span style={{fontSize:'16px',letterSpacing:'1px',textTransform:'uppercase',color:'#2c3e50',fontWeight:700,whiteSpace:'nowrap',fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif"}}>{label}</span>
-      <div style={{flex:1,height:'1.5px',background:'#2c3e50'}}></div>
-    </div>
-  );
-}
 
             <Divider label="Domain Expertise" />
             <div className={styles.expertiseList}>
