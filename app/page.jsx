@@ -1045,49 +1045,34 @@ export default function Portfolio() {
               ))}
             </div>
 
-'use client';
-
-import React, { useState, useMemo, useEffect } from 'react';
-import data from '../data.json';
-import styles from './page.module.css';
-
-/* ── Interactive charts (giữ nguyên từ bản trước, không thay đổi) ── */
-// Để đảm bảo file chạy, tôi đã giữ nguyên toàn bộ các hàm PieChart, SmoteChart, ...
-// Tuy nhiên do giới hạn độ dài, tôi sẽ chỉ hiển thị phần thay đổi chính (Certifications) và các phần khác chỉ là placeholder.
-// Bạn hãy lấy file gốc đã hoạt động của mình (bản trước khi sửa Certifications) và chỉ thay đúng đoạn Certifications dưới đây.
-
-// === THAY THẾ ĐOẠN CERTIFICATIONS ===
-// Trong file page.jsx của bạn, tìm dòng <Divider label="Certifications" /> và thay thế từ dòng đó đến dòng đóng </ul> bằng:
-
-/*
 <Divider label="Certifications" />
-<ul className={styles.certList}>
-  <li style={{ marginBottom: '12px' }}>
-    <div>Certified Risk Management FMEA – ISO 31000 Expert | Six Sigma Academy Amsterdam (SSAA)</div>
-    <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
-      <a href="/Cert1_ISO31000.pdf" download style={{ textDecoration: 'none', color: '#555' }}>
-        ⬇ Download certificate (PDF)
-      </a>
-    </div>
-  </li>
-  <li style={{ marginBottom: '12px' }}>
-    <div>Spring School on Statistical & Machine Learning 2025 | VIASM & Toulouse Institute of Mathematics, ENS Paris-Saclay</div>
-    <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
-      <a href="/Cert2_SpringSchool2025.pdf" download style={{ textDecoration: 'none', color: '#555' }}>
-        ⬇ Download certificate (PDF)
-      </a>
-    </div>
-  </li>
-  <li style={{ marginBottom: '12px' }}>
-    <div>Machine Learning for Data Science | University of Science – VNUHCM</div>
-    <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
-      <a href="/Cert3_MLDataScience.pdf" download style={{ textDecoration: 'none', color: '#555' }}>
-        ⬇ Download certificate (PDF)
-      </a>
-    </div>
-  </li>
-</ul>
-*/
+            <ul className={styles.certList}>
+              <li style={{ marginBottom: '12px' }}>
+                <div>Certified Risk Management FMEA – ISO 31000 Expert | Six Sigma Academy Amsterdam (SSAA)</div>
+                <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
+                  <a href="/Cert1_ISO31000.pdf" download style={{ textDecoration: 'none', color: '#555' }}>
+                    ⬇ Download certificate (PDF)
+                  </a>
+                </div>
+              </li>
+              <li style={{ marginBottom: '12px' }}>
+                <div>Spring School on Statistical & Machine Learning 2025 | VIASM & Toulouse Institute of Mathematics, ENS Paris-Saclay</div>
+                <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
+                  <a href="/Cert2_SpringSchool2025.pdf" download style={{ textDecoration: 'none', color: '#555' }}>
+                    ⬇ Download certificate (PDF)
+                  </a>
+                </div>
+              </li>
+              <li style={{ marginBottom: '12px' }}>
+                <div>Machine Learning for Data Science | University of Science – VNUHCM</div>
+                <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
+                  <a href="/Cert3_MLDataScience.pdf" download style={{ textDecoration: 'none', color: '#555' }}>
+                    ⬇ Download certificate (PDF)
+                  </a>
+                </div>
+              </li>
+            </ul>
+            
             <Divider label="Domain Expertise" />
             <div className={styles.expertiseList}>
               {data.skills.domain_expertise.map((e, i) => (
