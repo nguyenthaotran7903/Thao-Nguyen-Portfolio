@@ -969,14 +969,14 @@ export default function Portfolio() {
             <div className={styles.aboutGrid}>
               <div className={styles.aboutCard}>
                 <span className={styles.cardLabel}>Background</span>
-                <div style={{ textAlign: 'justify' }}>
+                <div>
                   <p>{data.about.background}</p>
-                  {data.about.exchange && <p style={{ marginTop: '8px' }}>{data.about.exchange}</p>}
+                  {data.about.exchange && <p>{data.about.exchange}</p>}
                 </div>
               </div>
               <div className={styles.aboutCard}>
                 <span className={styles.cardLabel}>Focus</span>
-                <p style={{ textAlign: 'justify' }}>{data.about.professional_focus}</p>
+                <p>{data.about.professional_focus}</p>
               </div>
               <div className={styles.aboutCard}>
                 <span className={styles.cardLabel}>Strengths</span>
