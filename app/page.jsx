@@ -954,7 +954,7 @@ export default function Portfolio() {
       </header>
 
       <nav className={styles.tabs}>
-        {['about','projects','experience','skills'].map(tab=>(
+        {['about','experience','projects','skills'].map(tab=>(
           <button key={tab} className={`${styles.tab} ${activeTab===tab?styles.tabActive:''}`} onClick={()=>setActiveTab(tab)}>
             {tab==='projects'?`Projects (${data.projects.length})`:cap(tab)}
           </button>
@@ -1053,6 +1053,36 @@ export default function Portfolio() {
             <div className={styles.expertiseList}>
               {data.skills.domain_expertise.map((e, i) => (
                 <span key={i} className={styles.expertiseBadge}>{e}</span>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeTab === 'experience' && (
+          <section className={styles.section}>
+            <div className={styles.timeline}>
+              {data.experience.map(job=>(
+                <div key={job.id} className={styles.timelineItem}>
+                  <div className={styles.timelineLeft}><span className={styles.jobPeriod}>{job.period}</span></div>
+                  <div className={styles.timelineLine}><div className={styles.timelineDot}></div><div className={styles.timelineTrack}></div></div>
+                  <div className={styles.timelineRight}>
+                    <h3 className={styles.jobTitle}>{job.title}</h3>
+                    {(() => {
+                      let link = null;
+                      if (job.company.includes('Hung Vuong University')) link = 'https://dhv.edu.vn/';
+                      if (job.company.includes('Agribank')) link = 'https://www.agribank.com.vn/';
+                      return link ? (
+                        <a href={link} target="_blank" rel="noopener noreferrer" className={styles.jobCompany}>
+                          {job.company}
+                        </a>
+                      ) : (
+                        <span className={styles.jobCompany}>{job.company}</span>
+                      );
+                    })()}
+                    <ul className={styles.highlightsList}>{job.highlights.map((h,i)=><li key={i}>{h}</li>)}</ul>
+                    {job.projectId&&<button className={styles.viewProjectBtn} onClick={()=>openProject(job.projectId)}>View related project →</button>}
+                  </div>
+                </div>
               ))}
             </div>
           </section>
@@ -1522,25 +1552,6 @@ export default function Portfolio() {
               </div>
             )}
           </>
-        )}
-
-        {activeTab === 'experience' && (
-          <section className={styles.section}>
-            <div className={styles.timeline}>
-              {data.experience.map(job=>(
-                <div key={job.id} className={styles.timelineItem}>
-                  <div className={styles.timelineLeft}><span className={styles.jobPeriod}>{job.period}</span></div>
-                  <div className={styles.timelineLine}><div className={styles.timelineDot}></div><div className={styles.timelineTrack}></div></div>
-                  <div className={styles.timelineRight}>
-                    <h3 className={styles.jobTitle}>{job.title}</h3>
-                    <span className={styles.jobCompany}>{job.company}</span>
-                    <ul className={styles.highlightsList}>{job.highlights.map((h,i)=><li key={i}>{h}</li>)}</ul>
-                    {job.projectId&&<button className={styles.viewProjectBtn} onClick={()=>openProject(job.projectId)}>View related project →</button>}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
         )}
 
         {activeTab === 'skills' && (
