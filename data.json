@@ -1,7 +1,7 @@
 {
   "profile": {
-    "name": "Thảo Nguyên Trần",
-    "title": "Data Analyst · Risk Management · Quantitative Research",
+    "name": "Thao Nguyen Tran",
+    "title": "Data Analyst \u00b7 Risk Management \u00b7 Quantitative Research",
     "tagline": "Mathematical Economics graduate bridging quantitative analysis and high-stakes financial decision-making. Specialized in credit risk modeling, fraud detection, and statistical early-warning systems. Turning complex data into defensible risk judgments for banking and financial institutions.",
     "email": "nguyentrnthao@gmail.com",
     "linkedin": "https://www.linkedin.com/in/thao-nguyen-tran-309351300/",
@@ -10,8 +10,8 @@
     "location": "Ho Chi Minh City, Vietnam"
   },
   "about": {
-    "background": "Bachelor of Mathematical Economics — University of Economics and Law, VNU-HCM (Nov 2021 – July 2025) · Exchange Student — HSB Hochschule Bremen, Germany (Oct 2023 – Feb 2024)",
-    "professional_focus": "Risk Analysis, Data Analytics, and Business Intelligence — with emphasis on statistical modeling, machine learning, and quantitative research.",
+    "background": "Bachelor of Mathematical Economics \u2014 University of Economics and Law, VNU-HCM (Nov 2021 \u2013 July 2025) \u00b7 Exchange Student \u2014 HSB Hochschule Bremen, Germany (Oct 2023 \u2013 Feb 2024)",
+    "professional_focus": "Risk Analysis, Data Analytics, and Business Intelligence \u2014 with emphasis on statistical modeling, machine learning, and quantitative research.",
     "strengths": [
       "Strong analytical thinking and problem-solving",
       "Independent research capability",
@@ -24,14 +24,14 @@
       "degree": "Bachelor of Mathematical Economics",
       "field": "Mathematic Applications in Economics, Administration & Finance",
       "institution": "University of Economics and Law, VNU-HCM",
-      "period": "Nov 2021 – July 2025",
+      "period": "Nov 2021 \u2013 July 2025",
       "status": "Graduated"
     },
     {
-      "degree": "Exchange Student – School of International Business",
+      "degree": "Exchange Student \u2013 School of International Business",
       "field": "International Business & Finance",
-      "institution": "HSB Hochschule Bremen – City University of Applied Sciences, Germany",
-      "period": "Oct 2023 – Feb 2024",
+      "institution": "HSB Hochschule Bremen \u2013 City University of Applied Sciences, Germany",
+      "period": "Oct 2023 \u2013 Feb 2024",
       "status": "Completed"
     }
   ],
@@ -42,20 +42,20 @@
       "year": "2024"
     },
     {
-      "title": "National Student Science Competition – Olympic in Econometrics and Applications",
+      "title": "National Student Science Competition \u2013 Olympic in Econometrics and Applications",
       "org": "Central Committee of the Youth Union, Academy of Finance & Institute of Mathematics, Vietnam",
       "year": "2024"
     },
     {
       "title": "DAAD STIBET Scholarship",
-      "org": "German Academic Exchange Service (DAAD) – Exchange program at Hochschule Bremen, Germany",
+      "org": "German Academic Exchange Service (DAAD) \u2013 Exchange program at Hochschule Bremen, Germany",
       "year": "2023"
     }
   ],
   "training": [
     {
       "title": "Advanced Specialized Course in Data Science",
-      "org": "University of Science (HCMUS) – Vietnam National University (VNU-HCM)",
+      "org": "University of Science (HCMUS) \u2013 Vietnam National University (VNU-HCM)",
       "topics": [
         "Mathematical Foundation for Data Science: Linear Algebra, Calculus, Probability & Statistics, Regression",
         "Machine Learning for Data Science: Linear Regression, Logistic Regression, Naive Bayes, Clustering, Decision Trees, Random Forest, SVM, Churn Prediction, Customer Segmentation"
@@ -75,19 +75,19 @@
     }
   ],
   "coursework": [
-    "Certified Risk Management FMEA – ISO 31000 Expert | Six Sigma Academy Amsterdam (SSAA)",
+    "Certified Risk Management FMEA \u2013 ISO 31000 Expert | Six Sigma Academy Amsterdam (SSAA)",
     "Spring School on Statistical & Machine Learning 2025 | VIASM & Toulouse Institute of Mathematics, ENS Paris-Saclay",
-    "Machine Learning for Data Science | University of Science – VNUHCM"
+    "Machine Learning for Data Science | University of Science \u2013 VNUHCM"
   ],
   "experience": [
     {
       "id": 1,
       "title": "Quantitative Research Specialist",
       "company": "Hung Vuong University, Ho Chi Minh City",
-      "period": "July 2025 – Jan 2026",
+      "period": "July 2025 \u2013 Jan 2026",
       "highlights": [
         "Collected, stored, and queried market data using SQL for internal analytics platform with 100% data integrity",
-        "Built early-warning system for VN-Index and sectoral indices — generated sell signals 2–4 weeks before major corrections",
+        "Built early-warning system for VN-Index and sectoral indices \u2014 generated sell signals 2\u20134 weeks before major corrections",
         "Reduced maximum drawdown from 47% to 18% in backtests through improved portfolio risk management",
         "Standardized financial and regulatory data into auditable, reproducible formats for AI research project"
       ]
@@ -95,14 +95,14 @@
     {
       "id": 2,
       "title": "Risk Management & Planning Intern",
-      "company": "Vietnam Bank for Agriculture and Rural Development (Agribank) – Saigon Branch",
-      "period": "Dec 2024 – Mar 2025",
+      "company": "Vietnam Bank for Agriculture and Rural Development (Agribank) \u2013 Saigon Branch",
+      "period": "Dec 2024 \u2013 Mar 2025",
       "projectId": 1,
       "highlights": [
         "Built fraud detection models (Random Forest, SMOTE) on 284,807 real credit card transactions from Agribank's internal system",
-        "Achieved 99.95% accuracy and 84.16% recall with only 10 false positives using Random Forest — best model across 3 classifiers",
+        "Achieved 99.95% accuracy and 84.16% recall with only 10 false positives using Random Forest \u2014 best model across 3 classifiers",
         "Applied SMOTE to handle severe class imbalance (fraud = 0.172%) and Robust Scaler for outlier-resistant normalization",
-        "Proposed AI/ML-integrated 3-tier early warning system — well-received by Planning & Risk Management Department leadership"
+        "Proposed AI/ML-integrated 3-tier early warning system \u2014 well-received by Planning & Risk Management Department leadership"
       ]
     }
   ],
@@ -111,10 +111,10 @@
       "id": 1,
       "title": "Credit Risk Analysis at Agribank: Classification Techniques for Fraud Detection",
       "category": "Risk Analysis",
-      "type": "Graduation Internship Report · Agribank Saigon Branch · 2025",
+      "type": "Graduation Internship Report \u00b7 Agribank Saigon Branch \u00b7 2025",
       "year": 2025,
       "context": "Vietnam's rapid credit expansion has intensified fraud risk in personal credit portfolios. This study addresses a critical gap: Agribank Saigon Branch lacked an automated, data-driven early-warning system for credit card fraud detection, relying instead on manual review processes vulnerable to human error.",
-      "researchQuestion": "Which classification technique — Logistic Regression, Decision Tree, or Random Forest — best detects credit card fraud in a highly imbalanced banking dataset, and how can class imbalance be mitigated without sacrificing recall on the minority (fraud) class?",
+      "researchQuestion": "Which classification technique \u2014 Logistic Regression, Decision Tree, or Random Forest \u2014 best detects credit card fraud in a highly imbalanced banking dataset, and how can class imbalance be mitigated without sacrificing recall on the minority (fraud) class?",
       "dataset": {
         "source": "Agribank Saigon Branch internal transaction system",
         "observations": 284807,
@@ -122,14 +122,14 @@
         "variables": 31,
         "target": "Class (1 = fraud, 0 = legitimate)",
         "imbalance": "Fraud = 0.172% (492 cases) vs Legitimate = 99.83% (284,315 cases)",
-        "features": "Time, V1–V28 (PCA-anonymized), Amount, Class"
+        "features": "Time, V1\u2013V28 (PCA-anonymized), Amount, Class"
       },
       "methodology": [
         "Exploratory Data Analysis: outlier detection via scatter plots, transaction time distribution, class imbalance visualization",
         "Data Preprocessing: IQR-based outlier handling, Robust Scaler normalization (median-centered, IQR-scaled) to resist outlier influence",
         "Correlation analysis: heatmap of 30 features to identify multicollinearity and key fraud predictors",
-        "Train/Test Split: 80/20 stratified split — 227,845 training / 56,962 testing transactions",
-        "Class Imbalance Handling: SMOTE applied to training set only — balanced to 227,454 samples per class",
+        "Train/Test Split: 80/20 stratified split \u2014 227,845 training / 56,962 testing transactions",
+        "Class Imbalance Handling: SMOTE applied to training set only \u2014 balanced to 227,454 samples per class",
         "Models trained: Logistic Regression (baseline), Decision Tree (max depth = 16), Random Forest (100 trees, majority voting)",
         "Evaluation metrics: Accuracy, Precision, Recall (primary), F1-Score, Confusion Matrix"
       ],
@@ -142,7 +142,7 @@
           "f1_fraud": "73.56%",
           "fp": 9,
           "fn": 37,
-          "note": "High accuracy but 37% of fraudulent transactions missed — unacceptable for fraud detection"
+          "note": "High accuracy but 37% of fraudulent transactions missed \u2014 unacceptable for fraud detection"
         },
         {
           "name": "Logistic Regression (with SMOTE)",
@@ -152,7 +152,7 @@
           "f1_fraud": "11.96%",
           "fp": 1393,
           "fn": 6,
-          "note": "High recall but 1,393 false positives — operationally costly"
+          "note": "High recall but 1,393 false positives \u2014 operationally costly"
         },
         {
           "name": "Decision Tree (with SMOTE)",
@@ -162,28 +162,28 @@
           "f1_fraud": "31.58%",
           "fp": 347,
           "fn": 17,
-          "note": "Improved balance — fewer false positives than LR with SMOTE"
+          "note": "Improved balance \u2014 fewer false positives than LR with SMOTE"
         },
         {
-          "name": "Random Forest (with SMOTE) — Best Model",
+          "name": "Random Forest (with SMOTE) \u2014 Best Model",
           "accuracy": "99.95%",
           "recall_fraud": "84.16%",
           "precision_fraud": "89.47%",
           "f1_fraud": "86.73%",
           "fp": 10,
           "fn": 16,
-          "note": "Best overall — only 10 false positives, highest precision-recall balance"
+          "note": "Best overall \u2014 only 10 false positives, highest precision-recall balance"
         }
       ],
       "results": [
-        "Random Forest achieved 99.95% accuracy with 84.16% recall and 89.47% precision on fraud class — best balance across all models",
+        "Random Forest achieved 99.95% accuracy with 84.16% recall and 89.47% precision on fraud class \u2014 best balance across all models",
         "SMOTE oversampling raised fraud recall from 63% (baseline) to 94% in Logistic Regression, but at the cost of 1,393 false positives",
-        "Random Forest produced only 10 false positives vs 1,393 for Logistic Regression — critical for operational efficiency",
+        "Random Forest produced only 10 false positives vs 1,393 for Logistic Regression \u2014 critical for operational efficiency",
         "Payment history and collateral assets identified as the top 2 predictors of credit risk via feature correlation analysis",
         "PCA dimension reduction (15 to 8 features) retained 95% of original information while improving model efficiency"
       ],
       "keyFindings": [
-        "Class imbalance (fraud = 0.172%) is the central challenge — accuracy alone is a misleading metric in fraud detection",
+        "Class imbalance (fraud = 0.172%) is the central challenge \u2014 accuracy alone is a misleading metric in fraud detection",
         "SMOTE effectively addresses recall at the cost of precision; Random Forest naturally handles imbalance better than linear models",
         "Robust Scaler outperforms Standard Scaler for financial transaction data due to outlier resistance",
         "Random Forest ensemble structure (100 trees, bootstrap sampling, Gini impurity splitting) provides superior generalization",
@@ -202,33 +202,33 @@
         "banking"
       ],
       "figures": [
-        "Fig 4.1: Scatter plot — Amount vs Time showing outlier transactions above $10,000",
-        "Fig 4.2: Pie chart — 99.83% legitimate vs 0.17% fraudulent transactions",
-        "Fig 4.3: Heatmap — full 31x31 feature correlation matrix",
-        "Fig 4.4: Density plot — transaction time distribution showing daytime peak activity",
-        "Fig 4.5: Heatmap — post-scaling correlation matrix with scaled_amount and scaled_time",
-        "Fig 4.6: Confusion matrix — baseline Logistic Regression (no SMOTE)",
-        "Fig 4.7: Diagram — undersampling vs oversampling illustration",
-        "Fig 4.8/4.9: Bar charts — class distribution before and after SMOTE",
+        "Fig 4.1: Scatter plot \u2014 Amount vs Time showing outlier transactions above $10,000",
+        "Fig 4.2: Pie chart \u2014 99.83% legitimate vs 0.17% fraudulent transactions",
+        "Fig 4.3: Heatmap \u2014 full 31x31 feature correlation matrix",
+        "Fig 4.4: Density plot \u2014 transaction time distribution showing daytime peak activity",
+        "Fig 4.5: Heatmap \u2014 post-scaling correlation matrix with scaled_amount and scaled_time",
+        "Fig 4.6: Confusion matrix \u2014 baseline Logistic Regression (no SMOTE)",
+        "Fig 4.7: Diagram \u2014 undersampling vs oversampling illustration",
+        "Fig 4.8/4.9: Bar charts \u2014 class distribution before and after SMOTE",
         "Fig 4.10: Confusion matrix structure (TP/FP/FN/TN)",
-        "Fig 4.11: Confusion matrix — Logistic Regression with SMOTE",
-        "Fig 4.12: Confusion matrix — Decision Tree with SMOTE",
-        "Fig 4.13: Confusion matrix — Random Forest with SMOTE (best result)"
+        "Fig 4.11: Confusion matrix \u2014 Logistic Regression with SMOTE",
+        "Fig 4.12: Confusion matrix \u2014 Decision Tree with SMOTE",
+        "Fig 4.13: Confusion matrix \u2014 Random Forest with SMOTE (best result)"
       ],
       "supervisor": "Assoc. Prof. Pham Hoang Uyen, University of Economics and Law VNU-HCM",
-      "institution": "Agribank – Saigon Branch (Tier 1, Rank 1)",
-      "period": "Dec 2024 – Mar 2025"
+      "institution": "Agribank \u2013 Saigon Branch (Tier 1, Rank 1)",
+      "period": "Dec 2024 \u2013 Mar 2025"
     },
     {
       "id": 2,
       "title": "Walmart India E-commerce: Data Visualization & Storytelling",
       "category": "Data Analytics",
-      "type": "Team Project (7 members) · UEL · Data Visualization Course · 2024",
+      "type": "Team Project (7 members) \u00b7 UEL \u00b7 Data Visualization Course \u00b7 2024",
       "year": 2024,
-      "context": "E-commerce platforms generate massive behavioral data that remains underutilized without effective visualization. This project analyzed Walmart India customer data to extract actionable business insights — translating raw transaction records into strategic recommendations across demographics, products, payments, and geography.",
-      "researchQuestion": "What does Walmart India's customer data reveal about purchasing behavior across demographics, product categories, payment methods, and geography — and how can these insights drive strategic business decisions?",
+      "context": "E-commerce platforms generate massive behavioral data that remains underutilized without effective visualization. This project analyzed Walmart India customer data to extract actionable business insights \u2014 translating raw transaction records into strategic recommendations across demographics, products, payments, and geography.",
+      "researchQuestion": "What does Walmart India's customer data reveal about purchasing behavior across demographics, product categories, payment methods, and geography \u2014 and how can these insights drive strategic business decisions?",
       "dataset": {
-        "source": "Kaggle open dataset — Walmart India customer transactions",
+        "source": "Kaggle open dataset \u2014 Walmart India customer transactions",
         "observations": 21000,
         "period": "Full year (January to December)",
         "variables": 14,
@@ -236,7 +236,7 @@
         "features": "CID, TID, Gender, Age Group, Purchase Date, Product Category, Discount, Payment Method, Location, Net Amount"
       },
       "methodology": [
-        "Data Collection: Kaggle dataset — 14 fields, ~21,000 transactions across India",
+        "Data Collection: Kaggle dataset \u2014 14 fields, ~21,000 transactions across India",
         "Data Preprocessing: Pandas for cleaning, type conversion, null handling, date parsing",
         "Demographic Analysis: Gender distribution, age group segmentation, revenue by cohort",
         "Product Analysis: Category revenue ranking, seasonal trends, discount utilization by category",
@@ -248,11 +248,11 @@
         {
           "dim": "Gender",
           "finding": "Nearly equal split: Female 33.6%, Male 32.9%, Other 33.5%",
-          "implication": "Platform has broad inclusive appeal — gender-neutral marketing opportunity"
+          "implication": "Platform has broad inclusive appeal \u2014 gender-neutral marketing opportunity"
         },
         {
           "dim": "Age",
-          "finding": "25-45 age group: 60M+ INR revenue — 3x the 45-60 group",
+          "finding": "25-45 age group: 60M+ INR revenue \u2014 3x the 45-60 group",
           "implication": "Core segment; targeted loyalty programs would yield highest ROI"
         },
         {
@@ -263,7 +263,7 @@
         {
           "dim": "Payment",
           "finding": "Credit Card 40%+, UPI (PhonePe/Paytm/GPay) growing at 14.6%",
-          "implication": "Invest in UPI incentives — fastest-growing segment"
+          "implication": "Invest in UPI incentives \u2014 fastest-growing segment"
         },
         {
           "dim": "Location",
@@ -277,12 +277,12 @@
         }
       ],
       "results": [
-        "Electronics dominates with 441K INR net sales — 30% ahead of Clothing (339K INR)",
-        "Age 25-45 generates 60M+ INR revenue — 3x the next cohort (45-60 at 20M INR)",
-        "December peak at 18M INR vs February low at 10M — 80% seasonal swing",
+        "Electronics dominates with 441K INR net sales \u2014 30% ahead of Clothing (339K INR)",
+        "Age 25-45 generates 60M+ INR revenue \u2014 3x the next cohort (45-60 at 20M INR)",
+        "December peak at 18M INR vs February low at 10M \u2014 80% seasonal swing",
         "Credit Card leads at 40%+ of transactions; UPI wallets collectively at 14.6% and growing",
         "Mumbai (32M) and Delhi (31M) account for 40%+ of total platform revenue",
-        "SEASONALOFFER21 drove 15,000 purchases in Electronics alone — highest discount engagement"
+        "SEASONALOFFER21 drove 15,000 purchases in Electronics alone \u2014 highest discount engagement"
       ],
       "models": [
         {
@@ -323,11 +323,11 @@
         }
       ],
       "keyFindings": [
-        "Gender parity (33/33/33) is rare in e-commerce — signals genuinely inclusive platform design",
-        "25-45 cohort drives 60% of revenue despite being 33% of users — classic Pareto pattern",
-        "December 80% above February baseline — seasonal strategy is the highest-leverage lever",
-        "UPI growing at 14.6% — digital wallet adoption will overtake debit cards within 2 years",
-        "Tier-2 cities (Dehradun, Srinagar) under 2M INR — untapped with high growth ceiling"
+        "Gender parity (33/33/33) is rare in e-commerce \u2014 signals genuinely inclusive platform design",
+        "25-45 cohort drives 60% of revenue despite being 33% of users \u2014 classic Pareto pattern",
+        "December 80% above February baseline \u2014 seasonal strategy is the highest-leverage lever",
+        "UPI growing at 14.6% \u2014 digital wallet adoption will overtake debit cards within 2 years",
+        "Tier-2 cities (Dehradun, Srinagar) under 2M INR \u2014 untapped with high growth ceiling"
       ],
       "tools": [
         "Python (Pandas, Matplotlib, Seaborn, Plotly)",
@@ -342,28 +342,28 @@
         "python"
       ],
       "supervisor": "PhD. Nguyen Phuc Son, University of Economics and Law VNU-HCM",
-      "institution": "UEL — Data Visualization Course (241EMA400301)",
+      "institution": "UEL \u2014 Data Visualization Course (241EMA400301)",
       "period": "November 2024"
     },
     {
       "id": 3,
       "title": "Internal Banking IT Applications & Credit Risk: Ridge Regression Analysis",
       "category": "Research",
-      "type": "Published Paper (Co-author) · University of Economics and Law VNU-HCM · 2024",
+      "type": "Published Paper (Co-author) \u00b7 University of Economics and Law VNU-HCM \u00b7 2024",
       "year": 2024,
       "context": "While IT adoption in banking is well-studied, no prior research had examined the combined effect of core banking, basic IT, and e-payment systems on credit risk simultaneously. This study fills that gap using regularized regression on Vietnamese commercial bank data.",
-      "researchQuestion": "How do core banking implementation (COB), basic IT applications (BAD), and electronic payment deployment (DAP) individually and jointly affect credit risk (RIST) in Vietnamese commercial banks — and which component carries the greatest influence?",
+      "researchQuestion": "How do core banking implementation (COB), basic IT applications (BAD), and electronic payment deployment (DAP) individually and jointly affect credit risk (RIST) in Vietnamese commercial banks \u2014 and which component carries the greatest influence?",
       "dataset": {
         "source": "Vietnam ICT Index Reports (2017-2020, 2022) + Financial statements of listed Vietnamese commercial banks",
         "observations": 121,
-        "period": "2017-2022 (unbalanced panel — no 2021 report)",
+        "period": "2017-2022 (unbalanced panel \u2014 no 2021 report)",
         "variables": 4,
         "target": "RIST: Credit Risk Index (% bad debt with capital loss risk / total outstanding debt)",
         "features": "COB (Core Banking Index), BAD (Basic IT Application Index), DAP (Electronic Payment Index), RIST (Credit Risk)"
       },
       "methodology": [
         "Variable Construction: COB = SLMD + SLKN + PTKN + XLGD + XLDC (5 sub-components of core banking deployment)",
-        "Data Collection: Unbalanced panel from ICT Index reports — 121 observations across Vietnamese commercial banks",
+        "Data Collection: Unbalanced panel from ICT Index reports \u2014 121 observations across Vietnamese commercial banks",
         "Model Selection: Ridge Regression (L2 regularization, lambda = 0.156) chosen to handle multicollinearity among IT indices",
         "Train/Validation/Test Split: 77/20/24 observations",
         "Model Validation: MSE, RMSE, MAE/MAD, MAPE across validation and test sets",
@@ -393,19 +393,19 @@
           "var": "COB",
           "beta": -0.009,
           "direction": "negative",
-          "note": "Core banking reduces credit risk — more modules, better integration, lower RIST"
+          "note": "Core banking reduces credit risk \u2014 more modules, better integration, lower RIST"
         },
         {
           "var": "BAD",
           "beta": -0.02,
           "direction": "negative",
-          "note": "Basic IT reduces credit risk — strongest negative effect among IT components"
+          "note": "Basic IT reduces credit risk \u2014 strongest negative effect among IT components"
         },
         {
           "var": "DAP",
           "beta": 0.206,
           "direction": "positive",
-          "note": "E-payment INCREASES credit risk — largest coefficient, critical policy finding"
+          "note": "E-payment INCREASES credit risk \u2014 largest coefficient, critical policy finding"
         }
       ],
       "featureImportance": [
@@ -426,17 +426,17 @@
         }
       ],
       "results": [
-        "Ridge Regression (λ=0.156): Validation MSE=0.423, Test MSE=0.363 — model not overfit",
-        "MAE/MAD=0.457 < 0.5 — model explains most variation in credit risk data",
-        "BAD has highest feature importance (0.837) — basic IT is the primary credit risk driver",
-        "COB (β=-0.009) and BAD (β=-0.020) both reduce credit risk — digitization helps",
-        "DAP (β=+0.206) INCREASES credit risk — e-payment expansion requires strict risk controls",
-        "MAPE=55.55% — acknowledged limitation; model needs improvement for point prediction"
+        "Ridge Regression (\u03bb=0.156): Validation MSE=0.423, Test MSE=0.363 \u2014 model not overfit",
+        "MAE/MAD=0.457 < 0.5 \u2014 model explains most variation in credit risk data",
+        "BAD has highest feature importance (0.837) \u2014 basic IT is the primary credit risk driver",
+        "COB (\u03b2=-0.009) and BAD (\u03b2=-0.020) both reduce credit risk \u2014 digitization helps",
+        "DAP (\u03b2=+0.206) INCREASES credit risk \u2014 e-payment expansion requires strict risk controls",
+        "MAPE=55.55% \u2014 acknowledged limitation; model needs improvement for point prediction"
       ],
       "keyFindings": [
         "E-payment (DAP) is a double-edged sword: highest coefficient (+0.206) means rapid e-payment expansion without risk controls amplifies credit risk",
-        "Basic IT applications (BAD) matter more than core banking (COB) for credit risk reduction — infrastructure quality over system complexity",
-        "Ridge regularization was essential — multicollinearity between IT indices would have inflated OLS coefficients",
+        "Basic IT applications (BAD) matter more than core banking (COB) for credit risk reduction \u2014 infrastructure quality over system complexity",
+        "Ridge regularization was essential \u2014 multicollinearity between IT indices would have inflated OLS coefficients",
         "Vietnamese banking context: ICT Index data reveals large variance in IT adoption across banks, making this a high-signal dataset for policy"
       ],
       "tools": [
@@ -460,24 +460,24 @@
       "id": 4,
       "title": "AI Impact on the Sharing Economy: GSCA Structural Analysis",
       "category": "Research",
-      "type": "Published Paper (Co-author with faculty) · UEL & UEF · 2024",
+      "type": "Published Paper (Co-author with faculty) \u00b7 UEL & UEF \u00b7 2024",
       "year": 2024,
       "context": "AI is transforming sharing economy platforms (transportation, accommodation, other services), but no prior study compared AI's impact across all three sectors simultaneously using rigorous structural modeling. This research develops validated measurement scales for 12 AI applications and uses Generalized Structured Component Analysis (GSCA) on survey data from 250 students in Ho Chi Minh City to quantify which sector gains most from AI.",
-      "researchQuestion": "How do AI applications in shared transportation (scheduling, pricing, authentication, maintenance), accommodation (recommendations, security, demand forecasting, user experience), and other services (electronics, household, sports) affect overall sharing economy benefits — and which sector shows the strongest AI-driven impact?",
+      "researchQuestion": "How do AI applications in shared transportation (scheduling, pricing, authentication, maintenance), accommodation (recommendations, security, demand forecasting, user experience), and other services (electronics, household, sports) affect overall sharing economy benefits \u2014 and which sector shows the strongest AI-driven impact?",
       "dataset": {
-        "source": "Printed survey — university students in Ho Chi Minh City",
-        "observations": 250 (filtered from 300 distributed)",
-        "period": "December 2023 – January 2024",
-        "variables": "12 independent scales (4–5 items each) + 3 dependent benefit scales",
+        "source": "Printed survey \u2014 university students in Ho Chi Minh City",
+        "observations": 250,
+        "period": "December 2023 \u2013 January 2024",
+        "variables": "12 independent scales + 3 dependent benefit scales",
         "target": "Overall Benefits of AI (BAI)",
         "sampling": "Convenience sampling (students engaged in sharing activities)"
       },
       "methodology": [
-        "Scale development via group discussions & literature review — each construct measured by 4–5 observed variables",
+        "Scale development via group discussions & literature review \u2014 each construct measured by 4\u20135 observed variables",
         "Data collection: 300 printed questionnaires, 250 valid after cleaning",
-        "Reliability: McDonald's Omega coefficient (all scales >0.769, range 0.769–0.834)",
-        "Corrected item-total correlations all >0.3 (range 0.512–0.706)",
-        "Exploratory Factor Analysis (EFA): ULS extraction, Promax rotation. KMO = 0.825 (indep.) and 0.878 (dep.) — significant at 1%",
+        "Reliability: McDonald's Omega coefficient (all scales >0.769, range 0.769\u20130.834)",
+        "Corrected item-total correlations all >0.3 (range 0.512\u20130.706)",
+        "Exploratory Factor Analysis (EFA): ULS extraction, Promax rotation. KMO = 0.825 (indep.) and 0.878 (dep.) \u2014 significant at 1%",
         "Cumulative variance explained: 53.42% (12 factors) and 55.03% (3 factors)",
         "Generalized Structured Component Analysis (GSCA) for high-order linear model",
         "Model fit: FIT=0.579, AFIT=0.574, GFI=0.973 (>0.93), SRMR=0.046 (<0.08)",
@@ -485,21 +485,21 @@
       ],
       "models": [
         {
-          "path": "Shared Transportation (SC) → BAI",
+          "path": "Shared Transportation (SC) \u2192 BAI",
           "beta": 0.385,
           "se": 0.043,
           "ci": "[0.300, 0.477]",
           "sig": "Strongest impact"
         },
         {
-          "path": "Shared Accommodation (HS) → BAI",
+          "path": "Shared Accommodation (HS) \u2192 BAI",
           "beta": 0.295,
           "se": 0.042,
           "ci": "[0.208, 0.365]",
           "sig": "Second strongest"
         },
         {
-          "path": "Other Shared Services (SOS) → BAI",
+          "path": "Other Shared Services (SOS) \u2192 BAI",
           "beta": 0.265,
           "se": 0.038,
           "ci": "[0.201, 0.338]",
@@ -508,7 +508,7 @@
       ],
       "results": [
         "All 18 hypothesized paths statistically significant (95% CI excludes zero)",
-        "SC (transportation) has the largest impact on overall benefits (β=0.385), followed by HS (β=0.295) and SOS (β=0.265)",
+        "SC (transportation) has the largest impact on overall benefits (\u03b2=0.385), followed by HS (\u03b2=0.295) and SOS (\u03b2=0.265)",
         "Structural model explains 44.1% of variance in AI benefits (FITs=0.441); measurement model explains 62.2% (FITm=0.622)",
         "Highest loading on BAI: BSO (benefit in other services, 0.82), then BSH (accommodation, 0.816), then BSC (transportation, 0.797)",
         "Within transportation: demand forecasting & price optimization (PDP) loads highest (0.727)",
@@ -518,7 +518,7 @@
       "keyFindings": [
         "AI benefits all sharing economy sectors, but transportation gains most due to real-time optimization (dynamic pricing, routing)",
         "Demand forecasting & price optimization (PDP) is the single most impactful AI application (loading 0.727)",
-        "Household and electronics sharing have high AI loadings (0.75, 0.748) — untapped potential for peer-to-peer goods platforms",
+        "Household and electronics sharing have high AI loadings (0.75, 0.748) \u2014 untapped potential for peer-to-peer goods platforms",
         "Enhanced security & user authentication (AVE=0.674, VAS=0.681) are critical trust mechanisms across all models",
         "Model fit (GFI=0.973, SRMR=0.046) confirms robustness of the three-sector framework"
       ],
@@ -538,14 +538,14 @@
         "published"
       ],
       "figures": [
-        "Figure 1: Research model — SC, HS, SOS → BAI (path diagram)",
+        "Figure 1: Research model \u2014 SC, HS, SOS \u2192 BAI (path diagram)",
         "Table 3: Model fit values (FIT, AFIT, GFI, SRMR)",
         "Table 4: Path coefficients with 95% CI (18 paths)",
         "Figure (media/image1.png): GSCA results visualization"
       ],
-      "supervisor": "Co-authors: Tran Thao Nguyen (UEL) & Tran Quang Canh (UEF — corresponding author)",
+      "supervisor": "Co-authors: Tran Thao Nguyen (UEL) & Tran Quang Canh (UEF \u2014 corresponding author)",
       "institution": "University of Economics and Law VNU-HCM & Ho Chi Minh City University of Economics and Finance",
-      "period": "Dec 2023 – Jan 2024",
+      "period": "Dec 2023 \u2013 Jan 2024",
       "doi": "Under review (conference/journal)"
     },
     {
@@ -556,7 +556,7 @@
       "year": 2024,
       "context": "Analyzed factors influencing credit risk across 27 Vietnamese commercial banks. Credit risk represents ~54% of total banking system risk.",
       "methodology": [
-        "272 observations from 27 banks (2012–2022)",
+        "272 observations from 27 banks (2012\u20132022)",
         "11 variables: past credit risk, bank size, capital, GDP, inflation, unemployment",
         "OLS, FEM, REM comparison + GLS correction",
         "Hausman Test, VIF checks"
@@ -587,8 +587,8 @@
       "year": 2024,
       "context": "VN-Index crashed 35% in 6 months in 2018 and 2022. Can we detect bubbles earlier by combining market complexity with behavioral signals?",
       "methodology": [
-        "VN-Index daily data (2015–2024)",
-        "MFDFA: 3 features — Delta-alpha, Hurst Exponent (H), Asymmetry (A)",
+        "VN-Index daily data (2015\u20132024)",
+        "MFDFA: 3 features \u2014 Delta-alpha, Hurst Exponent (H), Asymmetry (A)",
         "Google Trends: SVI & Search Momentum (Delta-SVI)",
         "Random Forest + XGBoost, SVM, Neural Networks + SHAP explainability"
       ],
