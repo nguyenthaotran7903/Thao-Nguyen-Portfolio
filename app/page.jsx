@@ -997,7 +997,6 @@ export default function Portfolio() {
                 </div>
                 <div className={styles.eduRight}>
                   <span className={styles.eduDegree}>{edu.degree}</span>
-                  {/* Link cho tên trường */}
                   {(() => {
                     let link = null;
                     if (edu.institution.includes('University of Economics and Law')) link = 'https://www.uel.edu.vn/';
@@ -1579,9 +1578,9 @@ export default function Portfolio() {
 
 function Divider({label}) {
   return(
-    <div style={{display:'flex',alignItems:'center',gap:'16px',margin:'48px 0 28px'}}>
-      <span style={{fontSize:'11px',letterSpacing:'2.5px',textTransform:'uppercase',color:'#1a1a1a',fontWeight:700,whiteSpace:'nowrap',fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif"}}>{label}</span>
-      <div style={{flex:1,height:'1px',background:'#ebebeb'}}></div>
+    <div style={{display:'flex',alignItems:'center',gap:'16px',margin:'56px 0 32px'}}>
+      <span style={{fontSize:'16px',letterSpacing:'1px',textTransform:'uppercase',color:'#2c3e50',fontWeight:700,whiteSpace:'nowrap',fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif"}}>{label}</span>
+      <div style={{flex:1,height:'1.5px',background:'#2c3e50'}}></div>
     </div>
   );
 }
