@@ -1046,35 +1046,33 @@ export default function Portfolio() {
             </div>
 
             <Divider label="Certifications" />
-            <ul className={styles.certList}>
-              {/* 1. ISO 31000 */}
-              <li style={{ marginBottom: '12px' }}>
-                <div>Certified Risk Management FMEA – ISO 31000 Expert | Six Sigma Academy Amsterdam (SSAA)</div>
-                <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
-                  <a href={downloadLink("Certified Risk Management FMEA – ISO 31000 Expert .pdf")} download style={{ textDecoration: 'none', color: '#555' }}>
-                    ⬇ Download certificate (PDF)
-                  </a>
-                </div>
-              </li>
-              {/* 2. Spring School 2025 */}
-              <li style={{ marginBottom: '12px' }}>
-                <div>Spring School on Statistical & Machine Learning 2025 | VIASM & Toulouse Institute of Mathematics, ENS Paris-Saclay</div>
-                <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
-                  <a href={downloadLink("Spring School on Statistical & Machine Learning 2025.pdf")} download style={{ textDecoration: 'none', color: '#555' }}>
-                    ⬇ Download certificate (PDF)
-                  </a>
-                </div>
-              </li>
-              {/* 3. ML for Data Science */}
-              <li style={{ marginBottom: '12px' }}>
-                <div>Machine Learning for Data Science | University of Science – VNUHCM</div>
-                <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
-                  <a href={downloadLink("Machine Learning for Data Science | University of Science – VNUHCM.pdf")} download style={{ textDecoration: 'none', color: '#555' }}>
-                    ⬇ Download certificate (PDF)
-                  </a>
-                </div>
-              </li>
-            </ul>
+<ul className={styles.certList}>
+  <li style={{ marginBottom: '12px' }}>
+    <div>Certified Risk Management FMEA – ISO 31000 Expert | Six Sigma Academy Amsterdam (SSAA)</div>
+    <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
+      <a href="/ISO31000_Certificate.pdf" download style={{ textDecoration: 'none', color: '#555' }}>
+        ⬇ Download certificate (PDF)
+      </a>
+    </div>
+  </li>
+  <li style={{ marginBottom: '12px' }}>
+    <div>Spring School on Statistical & Machine Learning 2025 | VIASM & Toulouse Institute of Mathematics, ENS Paris-Saclay</div>
+    <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
+      <a href="/SpringSchool2025.pdf" download style={{ textDecoration: 'none', color: '#555' }}>
+        ⬇ Download certificate (PDF)
+      </a>
+    </div>
+  </li>
+  <li style={{ marginBottom: '12px' }}>
+    <div>Machine Learning for Data Science | University of Science – VNUHCM</div>
+    <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
+      <a href="/ML_DataScience_Certificate.pdf" download style={{ textDecoration: 'none', color: '#555' }}>
+        ⬇ Download certificate (PDF)
+      </a>
+    </div>
+  </li>
+</ul>
+
 
             <Divider label="Domain Expertise" />
             <div className={styles.expertiseList}>
