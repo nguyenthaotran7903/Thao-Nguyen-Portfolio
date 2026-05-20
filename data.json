@@ -458,36 +458,98 @@
     },
     {
       "id": 4,
-      "title": "AI Impact on the Sharing Economy: GSCA Structural Analysis",
+      "title": "The Impact of AI on the Shared Economic Model: GSCA Structural Analysis",
       "category": "Research",
       "type": "Published Paper (Co-author with faculty)",
       "year": 2024,
-      "context": "Investigated how AI transforms sharing economy models (transportation, accommodation, services) and which sectors benefit most.",
+      "context": "Artificial intelligence (AI) is rapidly transforming the sharing economy across transportation, accommodation, and other peer-to-peer services. However, limited research has comprehensively examined AI's differential influence across these segments using rigorous quantitative methods. This study develops and validates measurement scales for AI applications in shared transportation (scheduling optimization, demand forecasting, user authentication, predictive maintenance), shared accommodation (recommendation systems, enhanced security, demand trend analysis, user experience), and other sharing services (electronics, household items, sports equipment). Using data from 250 university students in Ho Chi Minh City, the study employs McDonald's Omega reliability, exploratory factor analysis (EFA), and generalized structured component analysis (GSCA) to test how each sector's AI adoption drives overall benefits.",
+      "researchQuestion": "How do AI applications in shared transportation, shared accommodation, and other sharing services individually and jointly impact the overall benefits of the sharing economy — and which sector shows the strongest AI-driven benefit?",
+      "dataset": {
+        "source": "Survey of university students in Ho Chi Minh City, Vietnam",
+        "observations": 250,
+        "period": "December 2023 – January 2024",
+        "variables": "12 independent scales + 3 dependent benefit scales",
+        "target": "Overall Benefits of AI (BAI)",
+        "sampling": "Convenience sampling of students engaged in sharing economy activities"
+      },
       "methodology": [
-        "12 AI application variables x 3 benefit variables",
-        "300 students surveyed, 250 valid responses",
-        "McDonald's Omega reliability test",
-        "EFA with ULS & Promax rotation + GSCA modeling"
+        "Scale development via group discussions and literature review — 4–5 observed variables per construct",
+        "Data collection: 300 printed questionnaires, 250 valid responses after filtering",
+        "Reliability testing: McDonald's Omega coefficient (all scales > 0.7, range 0.769–0.834)",
+        "Corrected item-total correlations all > 0.3 (range 0.512–0.706)",
+        "Exploratory Factor Analysis: ULS extraction, Promax rotation; KMO = 0.825 (independents) and 0.878 (dependents) — both significant at 1%",
+        "Cumulative variance: 53.42% (12 independent factors), 55.03% (3 dependent factors)",
+        "Generalized Structured Component Analysis (GSCA) for high-order linear model",
+        "Model fit assessment: FIT = 0.579, AFIT = 0.574, GFI = 0.973, SRMR = 0.046",
+        "Path analysis with 95% confidence intervals (bootstrap)"
+      ],
+      "models": [
+        {
+          "name": "GSCA Structural Model",
+          "fit_FIT": 0.579,
+          "fit_AFIT": 0.574,
+          "fit_GFI": 0.973,
+          "fit_SRMR": 0.046,
+          "note": "All fit indices exceed thresholds (GFI>0.93, SRMR<0.08) — model fits data well"
+        },
+        {
+          "sector": "Shared Transportation (SC) → BAI",
+          "beta": 0.385,
+          "se": 0.043,
+          "ci_95": "[0.300, 0.477]",
+          "significance": "Strongest impact among all sectors"
+        },
+        {
+          "sector": "Shared Accommodation (HS) → BAI",
+          "beta": 0.295,
+          "se": 0.042,
+          "ci_95": "[0.208, 0.365]",
+          "significance": "Second strongest"
+        },
+        {
+          "sector": "Other Shared Services (SOS) → BAI",
+          "beta": 0.265,
+          "se": 0.038,
+          "ci_95": "[0.201, 0.338]",
+          "significance": "Positive but lower than transportation"
+        }
       ],
       "results": [
-        "Model fit: GFI = 0.973 (above 0.93), SRMR = 0.046 (below 0.08)",
-        "Shared transportation AI: beta = 0.385 (strongest impact)",
-        "All paths statistically significant at 95% confidence",
-        "Schedule optimization (0.727) & device sharing (0.748) showed highest AI value"
+        "All 18 hypothesized paths are statistically significant at 95% confidence (no zero in CI)",
+        "AI in shared transportation (SC) has the greatest impact on overall benefits (β=0.385), followed by accommodation (β=0.295) and other services (β=0.265)",
+        "Model explains 44.1% of variance in AI benefits (FITs=0.441); measurement model explains 62.2% (FITm=0.622)",
+        "Highest loading on BAI: BSO (benefit in other services, 0.82), then BSH (accommodation, 0.816), then BSC (transportation, 0.797)",
+        "Within shared transportation: demand forecasting & price optimization (PDP) loads highest at 0.727",
+        "Within shared accommodation: demand trend forecasting (FDT=0.704), recommendation systems (PS=0.687)",
+        "Within other shared services: household sharing (SH=0.750), electronics sharing (SE=0.748)"
+      ],
+      "keyFindings": [
+        "AI significantly enhances the sharing economy across all three sectors — transportation benefits most due to real-time optimization potential",
+        "Demand forecasting & price optimization (PDP) is the single most impactful AI application (loading 0.727) — critical for dynamic pricing models",
+        "Household and electronics sharing show very high AI loadings (0.75, 0.748) — suggesting strong potential for AI in peer-to-peer goods sharing",
+        "Enhanced security and user authentication (AVE=0.674, VAS=0.681) are essential trust-building mechanisms across all sharing models",
+        "Model fit (GFI=0.973, SRMR=0.046) confirms that AI's benefits are well-explained by these three sector-specific application bundles",
+        "Opportunities for further AI leverage: expanding demand analysis, tailoring recommendations, and integrating predictive maintenance"
       ],
       "tools": [
-        "GSCA",
-        "EFA",
-        "McDonald's Omega",
-        "SPSS/R"
+        "Generalized Structured Component Analysis (GSCA)",
+        "Exploratory Factor Analysis (EFA) with ULS & Promax rotation",
+        "McDonald's Omega coefficient",
+        "SPSS / R",
+        "Questionnaire survey (printed)"
       ],
       "tags": [
         "research",
-        "structural-analysis",
-        "sem",
         "ai-impact",
+        "sharing-economy",
+        "gsca",
+        "structural-equation-modeling",
         "published"
-      ]
+      ],
+      "supervisor": "Co-authors: Tran Thao Nguyen (UEL) & Tran Quang Canh (UEF — corresponding author)",
+      "institution": "University of Economics and Law VNU-HCM & Ho Chi Minh City University of Economics and Finance",
+      "period": "Dec 2023 – Jan 2024",
+      "doi": "Pending (conference/journal submission)"
     },
     {
       "id": 5,
