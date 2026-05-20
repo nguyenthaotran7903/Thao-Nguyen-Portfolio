@@ -1044,26 +1044,64 @@ export default function Portfolio() {
 
             <Divider label="Certifications" />
             <ul className={styles.certList}>
-              {data.coursework.map((c, i) => {
-                const isSpringSchool = c.includes('Spring School on Statistical & Machine Learning 2025');
-                return (
-                  <li key={i} style={{ marginBottom: '12px' }}>
-                    <div>{c}</div>
-                    {isSpringSchool && (
-                      <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
-                        <a
-                          href="/CamScanner 14-1-26 20.58.pdf"
-                          download
-                          style={{ textDecoration: 'none', color: '#555' }}
-                        >
-                          ⬇ Download certificate (PDF)
-                        </a>
-                      </div>
-                    )}
-                  </li>
-                );
-              })}
+              {/* 1. ISO 31000 */}
+              <li style={{ marginBottom: '12px' }}>
+                <div>Certified Risk Management FMEA – ISO 31000 Expert | Six Sigma Academy Amsterdam (SSAA)</div>
+                <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
+                  <a href={downloadLink("Certified Risk Management FMEA – ISO 31000 Expert .pdf")} download style={{ textDecoration: 'none', color: '#555' }}>
+                    ⬇ Download certificate (PDF)
+                  </a>
+                </div>
+              </li>
+              {/* 2. Spring School 2025 */}
+              <li style={{ marginBottom: '12px' }}>
+                <div>Spring School on Statistical & Machine Learning 2025 | VIASM & Toulouse Institute of Mathematics, ENS Paris-Saclay</div>
+                <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
+                  <a href={downloadLink("Spring School on Statistical & Machine Learning 2025.pdf")} download style={{ textDecoration: 'none', color: '#555' }}>
+                    ⬇ Download certificate (PDF)
+                  </a>
+                </div>
+              </li>
+              {/* 3. Machine Learning for Data Science */}
+              <li style={{ marginBottom: '12px' }}>
+                <div>Machine Learning for Data Science | University of Science – VNUHCM</div>
+                <div style={{ fontSize: '11px', marginTop: '4px', opacity: 0.6 }}>
+                  <a href={downloadLink("Machine Learning for Data Science | University of Science – VNUHCM.pdf")} download style={{ textDecoration: 'none', color: '#555' }}>
+                    ⬇ Download certificate (PDF)
+                  </a>
+                </div>
+              </li>
             </ul>
+
+            <Divider label="Domain Expertise" />
+            <div className={styles.expertiseList}>
+              {data.skills.domain_expertise.map((e, i) => (
+                <span key={i} className={styles.expertiseBadge}>{e}</span>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Phần Experience, Projects, Skills giữ nguyên như bản trước, tôi không lặp lại để tránh quá dài. 
+            Bạn hãy giữ nguyên code cũ của các phần này. Trong file đầy đủ, bạn cần bao gồm toàn bộ. 
+            Vì vậy, tôi khuyên bạn nên chỉ thay thế phần Certifications như trên trong file hiện tại (đã hoạt động).
+        */}
+      </main>
+      <footer className={styles.footer}>
+        <p>{data.profile.name} · {new Date().getFullYear()}</p>
+      </footer>
+    </div>
+  );
+}
+
+function Divider({label}) {
+  return(
+    <div style={{display:'flex',alignItems:'center',gap:'16px',margin:'56px 0 32px'}}>
+      <span style={{fontSize:'16px',letterSpacing:'1px',textTransform:'uppercase',color:'#2c3e50',fontWeight:700,whiteSpace:'nowrap',fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif"}}>{label}</span>
+      <div style={{flex:1,height:'1.5px',background:'#2c3e50'}}></div>
+    </div>
+  );
+}
 
             <Divider label="Domain Expertise" />
             <div className={styles.expertiseList}>
