@@ -997,7 +997,19 @@ export default function Portfolio() {
                 </div>
                 <div className={styles.eduRight}>
                   <span className={styles.eduDegree}>{edu.degree}</span>
-                  <span className={styles.eduInst}>{edu.institution}</span>
+                  {/* Link cho tên trường */}
+                  {(() => {
+                    let link = null;
+                    if (edu.institution.includes('University of Economics and Law')) link = 'https://www.uel.edu.vn/';
+                    if (edu.institution.includes('HSB Hochschule Bremen')) link = 'https://www.hs-bremen.de/en/';
+                    return link ? (
+                      <a href={link} target="_blank" rel="noopener noreferrer" className={styles.eduInst}>
+                        {edu.institution}
+                      </a>
+                    ) : (
+                      <span className={styles.eduInst}>{edu.institution}</span>
+                    );
+                  })()}
                   <span className={styles.eduField}>{edu.field}</span>
                 </div>
               </div>
