@@ -492,103 +492,188 @@ function P3ParallelCases() {
   );
 }
 
-                          {/* ══ PROJECT 4 — AI Impact on Sharing Economy ══ */}
-                          {isP4&&(
-                            <>
-                            {currentTab==='context'&&(
-                              <div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}>
-                                <div className={styles.problemBox}>
-                                  <div className={styles.problemLabel}>The Problem</div>
-                                  <div className={styles.problemText}>AI is transforming sharing economy platforms, but prior studies examined individual sectors in isolation. No research had simultaneously compared AI impact across transportation, accommodation, and other shared services using structural modeling. This study develops validated measurement scales for 12 AI applications and quantifies cross-sector impact using GSCA on 250 survey respondents in Ho Chi Minh City.</div>
-                                </div>
-                                <div className={styles.statRow}>
-                                  <div className={styles.statBox}><div className={styles.statNum}>250</div><div className={styles.statLabel}>Respondents</div></div>
-                                  <div className={styles.statBox}><div className={styles.statNum}>12</div><div className={styles.statLabel}>AI App Scales</div></div>
-                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#5b8db8'}}>3</div><div className={styles.statLabel}>Sharing Sectors</div></div>
-                                  <div className={styles.statBox}><div className={styles.statNum}>18</div><div className={styles.statLabel}>Significant Paths</div></div>
-                                </div>
-                                <div className={styles.eda3col}>
-                                  <div className={styles.edaCard}><div className={styles.edaTitle}>SC — Transportation</div><div className={styles.edaStat} style={{color:'#5b8db8'}}>β = 0.385</div><div className={styles.edaDesc}>5 AI constructs: schedule optimization, demand forecasting, user authentication, automated support, predictive maintenance.</div></div>
-                                  <div className={styles.edaCard}><div className={styles.edaTitle}>HS — Accommodation</div><div className={styles.edaStat} style={{color:'#5a9e82'}}>β = 0.295</div><div className={styles.edaDesc}>4 AI constructs: recommendation system, enhanced security, demand trend forecasting, enhanced user experience.</div></div>
-                                  <div className={styles.edaCard}><div className={styles.edaTitle}>SOS — Other Services</div><div className={styles.edaStat} style={{color:'#9060c0'}}>β = 0.265</div><div className={styles.edaDesc}>3 AI constructs: electronics sharing, household sharing, sports equipment sharing platforms.</div></div>
-                                </div>
-                                <div className={styles.contextMeta}><span>Co-authors: {project.supervisor}</span><span>{project.institution} · {project.period} · {project.doi}</span></div>
-                              </div>
-                            )}
-                            {currentTab==='approach'&&(
-                              <div className={styles.panelContent}>
-                                <div className={styles.problemBox}><div className={styles.problemLabel}>Research Question</div><div className={styles.problemText}>{project.researchQuestion}</div></div>
-                                <div className={styles.approachGrid}>
-                                  {[{icon:'01',label:'Scale Development',desc:'12 AI application constructs from group discussions — each measured by 4–5 Likert items'},{icon:'02',label:'Survey Collection',desc:'300 printed questionnaires → 250 valid. Convenience sampling: HCMC university students'},{icon:'03',label:'Reliability Testing',desc:"McDonald's Omega (all >0.769). Corrected item-total correlations all >0.3"},{icon:'04',label:'EFA Validation',desc:'ULS extraction, Promax rotation. KMO=0.825–0.878 significant at 1%'},{icon:'05',label:'GSCA Modeling',desc:'Generalized Structured Component Analysis — handles both formative & reflective variables in one model'},{icon:'06',label:'Path Analysis',desc:'Bootstrap 95% CI for all 18 paths. GFI=0.973 > 0.93, SRMR=0.046 < 0.08'}].map((a,i)=>(
-                                    <div key={i} className={styles.approachCard}><div className={styles.approachIcon}>{a.icon}</div><div className={styles.approachLabel}>{a.label}</div><div className={styles.approachDesc}>{a.desc}</div></div>
-                                  ))}
-                                </div>
-                                <div className={styles.toolsRow}><span className={styles.panelLabel}>Tools</span><div className={styles.toolsList} style={{marginTop:8}}>{project.tools?.map((t,i)=><span key={i} className={styles.tool} style={{fontSize:13,padding:'5px 12px'}}>{t}</span>)}</div></div>
-                              </div>
-                            )}
-                            {currentTab==='analysis'&&(
-                              <div className={styles.panelContent}>
-                                <div className={styles.statRow}>
-                                  <div className={styles.statBox}><div className={styles.statNum}>250</div><div className={styles.statLabel}>Valid Responses</div></div>
-                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#5b8db8'}}>0.825</div><div className={styles.statLabel}>KMO (Indep.)</div></div>
-                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#5a9e82'}}>53.4%</div><div className={styles.statLabel}>Cumul. Variance</div></div>
-                                  <div className={styles.statBox}><div className={styles.statNum}>0.769+</div><div className={styles.statLabel}>Min Omega</div></div>
-                                </div>
-                                <div className={styles.eda3col}>
-                                  <div className={styles.edaCard}><div className={styles.edaTitle}>Sampling & Data Quality</div><div className={styles.edaDesc}>300 printed questionnaires distributed Dec 2023–Jan 2024. 250 valid (83.3% rate). Convenience sample of HCMC students actively using sharing platforms.</div></div>
-                                  <div className={styles.edaCard}><div className={styles.edaTitle}>Reliability Analysis</div><div className={styles.edaDesc}>All 15 scales pass reliability threshold. McDonald's Omega range: 0.769–0.834. Corrected item-total r: 0.512–0.706. All well above 0.3 cutoff.</div></div>
-                                  <div className={styles.edaCard}><div className={styles.edaTitle}>EFA Results</div><div className={styles.edaDesc}>12 independent factors (53.42% variance). 3 dependent factors (55.03% variance). KMO=0.878 for dependent variables — excellent factor structure.</div></div>
-                                </div>
-                                <ModelFitCard/>
-                              </div>
-                            )}
-                            {currentTab==='methodology'&&(
-                              <div className={styles.panelContent}>
-                                {project.methodology&&<PipelineSteps steps={project.methodology} hasCharts={false}/>}
-                                <div className={styles.panelBlock}><span className={styles.panelLabel}>Why GSCA?</span><div className={styles.eda3col}><div className={styles.edaCard}><div className={styles.edaTitle}>Mixed Indicators</div><div className={styles.edaDesc}>GSCA handles both formative variables (sector AI applications) and reflective variables (benefit dimensions BAI) in the same model — unlike standard SEM.</div></div><div className={styles.edaCard}><div className={styles.edaTitle}>High-Order Model</div><div className={styles.edaDesc}>BAI is a second-order construct (3 benefit dimensions). GSCA directly models this hierarchy without losing information through aggregation.</div></div><div className={styles.edaCard}><div className={styles.edaTitle}>Small Sample Robust</div><div className={styles.edaDesc}>250 respondents is adequate for GSCA but may strain covariance-based SEM. GSCA is distribution-free and performs well with moderate sample sizes.</div></div></div></div>
-                              </div>
-                            )}
-                            {currentTab==='results'&&(
-                              <div className={styles.panelContent}>
-                                <div className={styles.heroStats}>
-                                  <div className={styles.heroStat} style={{borderColor:'#5b8db8'}}><div className={styles.heroNum} style={{color:'#5b8db8'}}>0.385</div><div className={styles.heroLabel}>Transportation β</div><div className={styles.heroSub}>Strongest AI impact sector</div></div>
-                                  <div className={styles.heroStat} style={{borderColor:'#9060c0'}}><div className={styles.heroNum} style={{color:'#9060c0'}}>0.820</div><div className={styles.heroLabel}>BSO Loading</div><div className={styles.heroSub}>Highest benefit dimension</div></div>
-                                  <div className={styles.heroStat} style={{borderColor:'#5a9e82'}}><div className={styles.heroNum} style={{color:'#5a9e82'}}>0.973</div><div className={styles.heroLabel}>GFI Model Fit</div><div className={styles.heroSub}>Excellent (threshold 0.93)</div></div>
-                                </div>
-                                <GSCAPathChart/>
-                                <SectorLoadingChart/>
-                                <BAILoadingChart/>
-                                <div className={styles.panelBlock}><span className={styles.panelLabel}>Key Results</span><ul className={styles.resultsList}>{project.results?.map((r,i)=><li key={i}>{r}</li>)}</ul></div>
-                              </div>
-                            )}
-                            {currentTab==='outcome'&&(
-                              <div className={styles.panelContent}>
-                                <div className={styles.panelBlock}>
-                                  <span className={styles.panelLabel}>Impact</span>
-                                  <div className={styles.impactRow}>
-                                    <div className={styles.impactStat} style={{borderColor:'#5b8db8'}}><div className={styles.impactNum} style={{color:'#5b8db8'}}>0.385</div><div className={styles.impactLabel}>Top Sector β</div><div className={styles.impactSub}>Transportation AI impact</div></div>
-                                    <div className={styles.impactStat} style={{borderColor:'#9060c0'}}><div className={styles.impactNum} style={{color:'#9060c0'}}>0.727</div><div className={styles.impactLabel}>Top Application</div><div className={styles.impactSub}>PDP (demand forecasting)</div></div>
-                                    <div className={styles.impactStat} style={{borderColor:'#5a9e82'}}><div className={styles.impactNum} style={{color:'#5a9e82'}}>44.1%</div><div className={styles.impactLabel}>Variance Explained</div><div className={styles.impactSub}>Structural model (FITs)</div></div>
-                                    <div className={styles.impactStat} style={{borderColor:'#e8729a'}}><div className={styles.impactNum} style={{color:'#e8729a'}}>18</div><div className={styles.impactLabel}>Significant Paths</div><div className={styles.impactSub}>All 18 paths p&lt;0.05</div></div>
-                                  </div>
-                                  <div className={styles.tierGrid}>
-                                    <div className={styles.tierCard} style={{borderTopColor:'#5b8db8'}}><div className={styles.tierLabel} style={{color:'#5b8db8'}}>Prioritize: Transportation AI</div><div className={styles.tierDesc}>Invest in dynamic pricing and route optimization — highest ROI sector (β=0.385). Deploy demand forecasting (PDP, loading 0.727) first.</div></div>
-                                    <div className={styles.tierCard} style={{borderTopColor:'#5a9e82'}}><div className={styles.tierLabel} style={{color:'#5a9e82'}}>Scale: Accommodation AI</div><div className={styles.tierDesc}>Recommendation systems and trust mechanisms (VAS) drive accommodation benefits. Personalization is the highest-leverage AI application.</div></div>
-                                    <div className={styles.tierCard} style={{borderTopColor:'#9060c0'}}><div className={styles.tierLabel} style={{color:'#9060c0'}}>Develop: Other Services</div><div className={styles.tierDesc}>Household (SH=0.750) and electronics (SE=0.748) show high AI potential despite lower adoption — largest untapped opportunity.</div></div>
-                                  </div>
-                                </div>
-                                <div className={styles.panelBlock}>
-                                  <span className={styles.panelLabel}>Reflection</span>
-                                  <div className={styles.reflectGrid}>
-                                    <div className={styles.reflectCard} style={{borderTopColor:'#5a9e82'}}><div className={styles.reflectHeader} style={{color:'#5a9e82'}}><span>✓</span> What worked</div><ul className={styles.reflectList}><li><span className={styles.reflectHL}>GSCA over PLS-SEM</span> — handles mixed formative/reflective constructs without covariance structure assumptions</li><li><span className={styles.reflectHL}>McDonald's Omega</span> over Cronbach's alpha — more reliable estimate, especially for small samples</li><li>The <span className={styles.reflectHL}>three-sector simultaneous comparison</span> is the main contribution — no prior study quantified cross-sector AI impact this way</li></ul></div>
-                                    <div className={styles.reflectCard} style={{borderTopColor:'#e8729a'}}><div className={styles.reflectHeader} style={{color:'#e8729a'}}><span>→</span> What I would do differently</div><ul className={styles.reflectList}><li>Expand beyond <span className={styles.reflectHL}>student sample</span> — platform operators and service providers would give less perception-biased data</li><li>Add <span className={styles.reflectHL}>longitudinal dimension</span> — measure respondents before/after AI adoption to establish causality, not just correlation</li><li>Include <span className={styles.reflectHL}>moderating variables</span> — digital literacy, income, and prior experience may moderate the AI-benefit relationship</li></ul></div>
-                                  </div>
-                                </div>
-                                <div className={styles.panelBlock}><span className={styles.panelLabel}>Real-world Parallels <span style={{fontWeight:400,color:'#bbb',fontSize:9,letterSpacing:0}}>click a case</span></span><P4ParallelCases/></div>
-                              </div>
-                            )}
-                            </>
-                          )}
+
+/* ══════════════════════════════════════════
+   PROJECT 4 — AI Impact on Sharing Economy
+   ══════════════════════════════════════════ */
+
+function GSCAPathChart() {
+  const [active, setActive] = useState(null);
+  const paths = [
+    { id:0, label:'SC → BAI', sector:'Shared Transportation', beta:0.385, color:'#5b8db8', note:'Strongest impact (β=0.385). Real-time AI optimization — dynamic pricing, route scheduling, predictive maintenance — yields the clearest measurable benefit in transportation.' },
+    { id:1, label:'HS → BAI', sector:'Shared Accommodation', beta:0.295, color:'#5a9e82', note:'Second strongest (β=0.295). Recommendation systems and demand forecasting drive trust and booking efficiency. Personalization is the key AI lever in accommodation.' },
+    { id:2, label:'SOS → BAI', sector:'Other Shared Services', beta:0.265, color:'#9060c0', note:'Positive but lower (β=0.265). Emerging sector — electronics, household, sports sharing. High AI potential (loadings 0.748–0.750) but market is still maturing.' },
+  ];
+  const W=380, H=130, barH=28, gap=14, padL=150, maxBeta=0.45;
+  const info = active!==null ? paths[active] : null;
+  return (
+    <div className={styles.chartWrap}>
+      <div className={styles.chartTitle}>GSCA Path Coefficients (β) <span className={styles.chartHint}>click a path</span></div>
+      <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
+        <line x1={padL} y1={8} x2={padL} y2={H-16} stroke="#eee" strokeWidth="1"/>
+        {[0,0.1,0.2,0.3,0.4].map(v=>{
+          const x=padL+(v/maxBeta)*(W-padL-16);
+          return(<g key={v}><line x1={x} y1={8} x2={x} y2={H-16} stroke="#f0f0f0" strokeWidth="1"/><text x={x} y={H-4} textAnchor="middle" fontSize="6" fill="#bbb">{v}</text></g>);
+        })}
+        {paths.map((p,i)=>{
+          const y=12+i*(barH+gap);
+          const bW=(p.beta/maxBeta)*(W-padL-16);
+          const isActive=active===i;
+          return(
+            <g key={i} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:i)}>
+              <text x={padL-8} y={y+barH/2+4} textAnchor="end" fontSize="8" fontWeight={isActive?700:500} fill={isActive?p.color:'#555'}>{p.label}</text>
+              <rect x={padL} y={y} width={bW} height={barH} fill={isActive?p.color:p.color+'88'} rx="3" style={{transition:'all 0.15s'}}/>
+              <text x={padL+bW+6} y={y+barH/2+4} fontSize="10" fontWeight="800" fill={p.color}>β={p.beta}</text>
+              {isActive&&<rect x={padL-2} y={y-2} width={bW+4+36} height={barH+4} fill="none" stroke={p.color} strokeWidth="1.5" rx="4" opacity="0.4"/>}
+            </g>
+          );
+        })}
+      </svg>
+      {info&&(<div className={styles.chartExplain} style={{borderLeftColor:info.color}}><div className={styles.chartExplainTitle} style={{color:info.color}}>{info.sector} — β = {info.beta}</div><div className={styles.chartExplainNote}>{info.note}</div></div>)}
+      {!info&&<div className={styles.legendNote}>Transportation AI has the strongest impact. Click each path to explore why.</div>}
+    </div>
+  );
+}
+
+function SectorLoadingChart() {
+  const [active, setActive] = useState(null);
+  const [activeSector, setActiveSector] = useState('sc');
+  const W=380, H=160, padL=44, padB=28;
+  const sectors = [
+    { key:'sc', label:'Transportation (SC)', color:'#5b8db8', items:[{name:'PDP',val:0.727,desc:'Demand forecasting & price optimization'},{name:'CS',val:0.690,desc:'Automated customer support'},{name:'AVE',val:0.674,desc:'User authentication & evaluation'},{name:'PMA',val:0.671,desc:'Predictive maintenance & repair'},{name:'SO',val:0.633,desc:'Schedule optimization'}] },
+    { key:'hs', label:'Accommodation (HS)', color:'#5a9e82', items:[{name:'FDT',val:0.704,desc:'Demand forecasting & trend analysis'},{name:'PS',val:0.687,desc:'Recommendation system'},{name:'VAS',val:0.681,desc:'Enhanced authentication & security'},{name:'EVE',val:0.632,desc:'Enhanced user experience (chatbot)'}] },
+    { key:'sos', label:'Other Services (SOS)', color:'#9060c0', items:[{name:'SH',val:0.750,desc:'Household item sharing platform'},{name:'SE',val:0.748,desc:'Electronics sharing platform'},{name:'SS',val:0.666,desc:'Sports equipment sharing'}] },
+  ];
+  const current = sectors.find(s=>s.key===activeSector);
+  const maxVal=0.80, minVal=0.60;
+  return (
+    <div className={styles.chartWrap}>
+      <div className={styles.chartTitle}>AI Application Loadings by Sector <span className={styles.chartHint}>select sector · click bar</span></div>
+      <div style={{display:'flex',gap:6,marginBottom:10}}>
+        {sectors.map(s=>(
+          <button key={s.key} onClick={()=>{setActiveSector(s.key);setActive(null);}} style={{flex:1,padding:'5px 4px',fontSize:9,fontWeight:activeSector===s.key?700:400,background:activeSector===s.key?s.color:'#f5f5f5',color:activeSector===s.key?'#fff':'#666',border:'none',borderRadius:4,cursor:'pointer',transition:'all 0.15s'}}>
+            {s.label.split(' ')[0]}
+          </button>
+        ))}
+      </div>
+      <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
+        {[0.60,0.65,0.70,0.75,0.80].map(v=>{
+          const y=H-padB-((v-minVal)/(maxVal-minVal))*(H-padB-10);
+          return(<g key={v}><line x1={padL} y1={y} x2={W-8} y2={y} stroke="#f0f0f0" strokeWidth="1"/><text x={padL-4} y={y+4} textAnchor="end" fontSize="6" fill="#bbb">{v}</text></g>);
+        })}
+        {current.items.map((item,i)=>{
+          const bW=Math.floor((W-padL-16)/current.items.length)-6;
+          const x=padL+8+i*(bW+6);
+          const bH=((item.val-minVal)/(maxVal-minVal))*(H-padB-10);
+          const y=H-padB-bH;
+          const isActive=active===i;
+          return(
+            <g key={i} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:i)}>
+              <rect x={x} y={y} width={bW} height={bH} fill={isActive?current.color:current.color+'77'} rx="2" style={{transition:'all 0.15s'}}/>
+              <text x={x+bW/2} y={y-4} textAnchor="middle" fontSize="8" fontWeight="700" fill={current.color}>{item.val}</text>
+              <text x={x+bW/2} y={H-padB+12} textAnchor="middle" fontSize="8" fontWeight={isActive?700:400} fill={isActive?'#1a1a1a':'#666'}>{item.name}</text>
+            </g>
+          );
+        })}
+      </svg>
+      {active!==null&&(<div className={styles.chartExplain} style={{borderLeftColor:current.color}}><div className={styles.chartExplainTitle} style={{color:current.color}}>{current.items[active].name} — Loading: {current.items[active].val}</div><div className={styles.chartExplainNote}>{current.items[active].desc}. Loading of {current.items[active].val} means this AI application is a strong, reliable indicator of overall sector benefit.</div></div>)}
+      {active===null&&<div className={styles.legendNote}>Higher loading = AI application more tightly linked to overall sector benefit. Switch sectors above to compare.</div>}
+    </div>
+  );
+}
+
+function BAILoadingChart() {
+  const [active, setActive] = useState(null);
+  const dims = [
+    {name:'BSO', label:'Other Services Benefit', val:0.820, color:'#9060c0', note:'Highest loading (0.820): AI benefit to other shared services is the most reliable indicator of overall AI benefit — suggesting untapped potential in this sector.'},
+    {name:'BSH', label:'Accommodation Benefit',  val:0.816, color:'#5a9e82', note:'Second highest (0.816): AI-driven benefits in accommodation strongly reflect overall AI impact.'},
+    {name:'BSC', label:'Transportation Benefit', val:0.797, color:'#5b8db8', note:'Third (0.797): Despite transportation having the strongest path coefficient (β=0.385), its benefit loading is slightly lower — impact is broad, not concentrated.'},
+  ];
+  const W=380, H=90, padL=60, maxVal=0.85, minVal=0.78;
+  return (
+    <div className={styles.chartWrap}>
+      <div className={styles.chartTitle}>BAI Benefit Dimension Loadings <span className={styles.chartHint}>click a bar</span></div>
+      <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
+        {dims.map((d,i)=>{
+          const bW=((d.val-minVal)/(maxVal-minVal))*(W-padL-20);
+          const y=10+i*26;
+          const isActive=active===i;
+          return(
+            <g key={i} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:i)}>
+              <text x={padL-6} y={y+11} textAnchor="end" fontSize="9" fontWeight={isActive?700:500} fill={isActive?d.color:'#555'}>{d.name}</text>
+              <rect x={padL} y={y} width={bW} height={18} fill={isActive?d.color:d.color+'88'} rx="2" style={{transition:'all 0.15s'}}/>
+              <text x={padL+bW+4} y={y+12} fontSize="8" fontWeight="700" fill={d.color}>{d.val}</text>
+            </g>
+          );
+        })}
+        <text x={padL} y={H-2} fontSize="6" fill="#bbb">Loadings 0.797–0.820 — all benefit dimensions tightly linked to overall AI impact</text>
+      </svg>
+      {active!==null&&(<div className={styles.chartExplain} style={{borderLeftColor:dims[active].color}}><div className={styles.chartExplainTitle} style={{color:dims[active].color}}>{dims[active].name} — {dims[active].label}: {dims[active].val}</div><div className={styles.chartExplainNote}>{dims[active].note}</div></div>)}
+      {active===null&&<div className={styles.legendNote}>Click each dimension to understand what it means for the overall model.</div>}
+    </div>
+  );
+}
+
+function ModelFitCard() {
+  const fits = [
+    {name:'GFI', val:0.973, threshold:'>0.93', pass:true, color:'#5a9e82', note:'Goodness of Fit Index = 0.973 — well above 0.93 threshold. Model fits observed data very well.'},
+    {name:'SRMR', val:0.046, threshold:'<0.08', pass:true, color:'#5b8db8', note:'Standardized Root Mean Square Residual = 0.046 — below 0.08. Small residuals confirm good fit.'},
+    {name:'FIT', val:0.579, threshold:'—', pass:true, color:'#9060c0', note:'Overall FIT = 0.579. Structural model (FITs=0.441) + measurement model (FITm=0.622) both acceptable.'},
+    {name:'AFIT', val:0.574, threshold:'—', pass:true, color:'#f0a030', note:'Adjusted FIT = 0.574. Penalizes model complexity — confirms the 3-sector framework is parsimonious.'},
+  ];
+  return (
+    <div className={styles.chartWrap}>
+      <div className={styles.chartTitle}>GSCA Model Fit Indices</div>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:8}}>
+        {fits.map((f,i)=>(
+          <div key={i} style={{background:'#fff',border:`1px solid ${f.color}44`,borderTop:`3px solid ${f.color}`,borderRadius:6,padding:'12px 10px'}}>
+            <div style={{display:'flex',alignItems:'baseline',gap:6}}><div style={{fontSize:22,fontWeight:800,color:f.color}}>{f.val}</div><div style={{fontSize:9,color:f.pass?'#5a9e82':'#e8729a',fontWeight:700}}>{f.threshold} {f.pass?'✓':''}</div></div>
+            <div style={{fontSize:10,fontWeight:700,color:'#1a1a1a',textTransform:'uppercase',letterSpacing:'0.5px',margin:'4px 0'}}>{f.name}</div>
+            <div style={{fontSize:10,color:'#888',lineHeight:1.4}}>{f.note}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function P4ParallelCases() {
+  const [active, setActive] = useState(null);
+  const cases = [
+    { id:0, industry:'Platform Economy · Global', color:'#5b8db8', title:'Uber & Grab — AI-Powered Dynamic Pricing', tag:'Transportation AI benchmark', desc:'Grab uses surge pricing algorithms that reduced driver idle time by 20% and cut average wait time under 4 minutes across Southeast Asia.', ref:'Grab Tech Blog · engineering.grab.com', refUrl:'https://engineering.grab.com', analysis:'This study found SC (transportation) has the strongest AI impact (β=0.385), with PDP (demand forecasting & pricing) as the highest-loading application (0.727). Grab and Uber prove this empirically at scale: their ML-based pricing and routing systems are precisely the "scheduling optimization" and "demand forecasting" constructs measured in this paper. The student respondents in HCMC — heavy Grab users — likely scored these constructs highly based on lived experience, which validates the survey instrument.', approach:'Real-time ML surge pricing + route optimization + driver-rider matching algorithms', relevance:'Direct real-world validation of the SC→BAI path and PDP loading finding' },
+    { id:1, industry:'Hospitality Tech · Global', color:'#5a9e82', title:'Airbnb — Recommendation Engine & Dynamic Trust', tag:'Accommodation AI validation', desc:'Airbnb AI recommendation system increased booking conversion by 10%+ and host acceptance rates rose 15% after AI-assisted identity verification.', ref:'Airbnb Engineering · medium.com/airbnb-engineering', refUrl:'https://medium.com/airbnb-engineering', analysis:'The study found HS (accommodation) ranks second (β=0.295), driven by recommendation systems (PS=0.687) and enhanced authentication (VAS=0.681). Airbnb confirms these exact mechanisms: their recommendation engine matches guests to listings using 100+ signals, while their AI trust system directly corresponds to the VAS construct. This study quantifies the Vietnamese student perception of what Airbnb has already deployed globally.', approach:'Collaborative filtering + deep learning; facial recognition + document verification for trust', relevance:'Validates HS sector framework — accommodation AI loadings mirror Airbnb deployed systems' },
+    { id:2, industry:'Peer-to-Peer Sharing · SE Asia', color:'#9060c0', title:'Shareitt & Circular Economy Platforms', tag:'Other services — untapped potential', desc:'Household and electronics sharing platforms using AI catalog recognition achieve 3x faster item discovery vs manual listing.', ref:'Ellen MacArthur Foundation — Circular Economy Report · ellenmacarthurfoundation.org', refUrl:'https://ellenmacarthurfoundation.org', analysis:'The study found SOS has the highest BAI loading (BSO=0.820) despite the lowest path coefficient (β=0.265) — suggesting students perceive strong AI potential but current adoption is low. This mirrors the global P2P goods sharing market: AI-powered item recognition and peer trust systems exist (Shareitt, Peerby) but are barely adopted in Vietnam. The gap between high loading and lower path coefficient is itself a key finding: AI potential exceeds current deployment in this sector.', approach:'Computer vision for item cataloging + availability prediction + peer reputation scoring', relevance:'Explains the BSO=0.820 loading despite lower SOS path coefficient — high potential, low current adoption' },
+  ];
+  const activeCase = active!==null ? cases[active] : null;
+  return (
+    <div style={{display:'flex',flexDirection:'column',gap:10}}>
+      <div className={styles.parallelGrid}>
+        {cases.map(c=>(
+          <div key={c.id} className={`${styles.parallelCard} ${active===c.id?styles.parallelCardActive:''}`} style={{borderTopColor:active===c.id?c.color:'#ebebeb',cursor:'pointer'}} onClick={()=>setActive(active===c.id?null:c.id)}>
+            <div className={styles.parallelIndustry} style={{color:c.color}}>{c.industry}</div>
+            <div className={styles.parallelTitle}>{c.title}</div>
+            <div className={styles.parallelTagBadge} style={{background:c.color+'18',color:c.color}}>{c.tag}</div>
+            <div className={styles.parallelDesc}>{c.desc}</div>
+            <div className={styles.parallelExpandHint}>{active===c.id?'▲ collapse':'▼ see analysis'}</div>
+          </div>
+        ))}
+      </div>
+      {activeCase&&(
+        <div className={styles.parallelDetail} style={{borderLeftColor:activeCase.color}}>
+          <div className={styles.parallelDetailInner}>
+            <div className={styles.parallelDetailAnalysis}>{activeCase.analysis}</div>
+            <div className={styles.parallelDetailMeta}>
+              <div className={styles.parallelApproachRow}><span className={styles.parallelApproach}>Approach:</span> {activeCase.approach}</div>
+              <div className={styles.parallelRelevanceRow}><span className={styles.parallelApproach} style={{color:activeCase.color}}>Why relevant:</span> {activeCase.relevance}</div>
+              <a href={activeCase.refUrl} target="_blank" rel="noopener noreferrer" className={styles.parallelRefLink}>↗ {activeCase.ref}</a>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ── Project 3 Charts ── */
 function CoefficientChart() {
   const [active, setActive] = useState(null);
@@ -1635,6 +1720,104 @@ export default function Portfolio() {
                                   <span className={styles.panelLabel}>Real-world Parallels <span style={{fontWeight:400,color:'#bbb',fontSize:9,letterSpacing:0}}>click a case</span></span>
                                   <P3ParallelCases/>
                                 </div>
+                              </div>
+                            )}
+                            </>
+                          )}
+
+                          {/* ══ PROJECT 4 — AI Impact on Sharing Economy ══ */}
+                          {isP4&&(
+                            <>
+                            {currentTab==='context'&&(
+                              <div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}>
+                                <div className={styles.problemBox}>
+                                  <div className={styles.problemLabel}>The Problem</div>
+                                  <div className={styles.problemText}>AI is transforming sharing economy platforms, but prior studies examined individual sectors in isolation. No research had simultaneously compared AI impact across transportation, accommodation, and other shared services using structural modeling. This study develops validated measurement scales for 12 AI applications and quantifies cross-sector impact using GSCA on 250 survey respondents in Ho Chi Minh City.</div>
+                                </div>
+                                <div className={styles.statRow}>
+                                  <div className={styles.statBox}><div className={styles.statNum}>250</div><div className={styles.statLabel}>Respondents</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>12</div><div className={styles.statLabel}>AI App Scales</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#5b8db8'}}>3</div><div className={styles.statLabel}>Sharing Sectors</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>18</div><div className={styles.statLabel}>Significant Paths</div></div>
+                                </div>
+                                <div className={styles.eda3col}>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>SC — Transportation</div><div className={styles.edaStat} style={{color:'#5b8db8'}}>β = 0.385</div><div className={styles.edaDesc}>5 AI constructs: schedule optimization, demand forecasting, user authentication, automated support, predictive maintenance.</div></div>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>HS — Accommodation</div><div className={styles.edaStat} style={{color:'#5a9e82'}}>β = 0.295</div><div className={styles.edaDesc}>4 AI constructs: recommendation system, enhanced security, demand trend forecasting, enhanced user experience.</div></div>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>SOS — Other Services</div><div className={styles.edaStat} style={{color:'#9060c0'}}>β = 0.265</div><div className={styles.edaDesc}>3 AI constructs: electronics sharing, household sharing, sports equipment sharing platforms.</div></div>
+                                </div>
+                                <div className={styles.contextMeta}><span>Co-authors: {project.supervisor}</span><span>{project.institution} · {project.period} · {project.doi}</span></div>
+                              </div>
+                            )}
+                            {currentTab==='approach'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.problemBox}><div className={styles.problemLabel}>Research Question</div><div className={styles.problemText}>{project.researchQuestion}</div></div>
+                                <div className={styles.approachGrid}>
+                                  {[{icon:'01',label:'Scale Development',desc:'12 AI application constructs from group discussions — each measured by 4–5 Likert items'},{icon:'02',label:'Survey Collection',desc:'300 printed questionnaires → 250 valid. Convenience sampling: HCMC university students'},{icon:'03',label:'Reliability Testing',desc:"McDonald's Omega (all >0.769). Corrected item-total correlations all >0.3"},{icon:'04',label:'EFA Validation',desc:'ULS extraction, Promax rotation. KMO=0.825–0.878 significant at 1%'},{icon:'05',label:'GSCA Modeling',desc:'Generalized Structured Component Analysis — handles both formative & reflective variables in one model'},{icon:'06',label:'Path Analysis',desc:'Bootstrap 95% CI for all 18 paths. GFI=0.973 > 0.93, SRMR=0.046 < 0.08'}].map((a,i)=>(
+                                    <div key={i} className={styles.approachCard}><div className={styles.approachIcon}>{a.icon}</div><div className={styles.approachLabel}>{a.label}</div><div className={styles.approachDesc}>{a.desc}</div></div>
+                                  ))}
+                                </div>
+                                <div className={styles.toolsRow}><span className={styles.panelLabel}>Tools</span><div className={styles.toolsList} style={{marginTop:8}}>{project.tools?.map((t,i)=><span key={i} className={styles.tool} style={{fontSize:13,padding:'5px 12px'}}>{t}</span>)}</div></div>
+                              </div>
+                            )}
+                            {currentTab==='analysis'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.statRow}>
+                                  <div className={styles.statBox}><div className={styles.statNum}>250</div><div className={styles.statLabel}>Valid Responses</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#5b8db8'}}>0.825</div><div className={styles.statLabel}>KMO (Indep.)</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#5a9e82'}}>53.4%</div><div className={styles.statLabel}>Cumul. Variance</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>0.769+</div><div className={styles.statLabel}>Min Omega</div></div>
+                                </div>
+                                <div className={styles.eda3col}>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>Sampling & Data Quality</div><div className={styles.edaDesc}>300 printed questionnaires distributed Dec 2023–Jan 2024. 250 valid (83.3% rate). Convenience sample of HCMC students actively using sharing platforms.</div></div>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>Reliability Analysis</div><div className={styles.edaDesc}>All 15 scales pass reliability threshold. McDonald's Omega range: 0.769–0.834. Corrected item-total r: 0.512–0.706. All well above 0.3 cutoff.</div></div>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>EFA Results</div><div className={styles.edaDesc}>12 independent factors (53.42% variance). 3 dependent factors (55.03% variance). KMO=0.878 for dependent variables — excellent factor structure.</div></div>
+                                </div>
+                                <ModelFitCard/>
+                              </div>
+                            )}
+                            {currentTab==='methodology'&&(
+                              <div className={styles.panelContent}>
+                                {project.methodology&&<PipelineSteps steps={project.methodology} hasCharts={false}/>}
+                                <div className={styles.panelBlock}><span className={styles.panelLabel}>Why GSCA?</span><div className={styles.eda3col}><div className={styles.edaCard}><div className={styles.edaTitle}>Mixed Indicators</div><div className={styles.edaDesc}>GSCA handles both formative variables (sector AI applications) and reflective variables (benefit dimensions BAI) in the same model — unlike standard SEM.</div></div><div className={styles.edaCard}><div className={styles.edaTitle}>High-Order Model</div><div className={styles.edaDesc}>BAI is a second-order construct (3 benefit dimensions). GSCA directly models this hierarchy without losing information through aggregation.</div></div><div className={styles.edaCard}><div className={styles.edaTitle}>Small Sample Robust</div><div className={styles.edaDesc}>250 respondents is adequate for GSCA but may strain covariance-based SEM. GSCA is distribution-free and performs well with moderate sample sizes.</div></div></div></div>
+                              </div>
+                            )}
+                            {currentTab==='results'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.heroStats}>
+                                  <div className={styles.heroStat} style={{borderColor:'#5b8db8'}}><div className={styles.heroNum} style={{color:'#5b8db8'}}>0.385</div><div className={styles.heroLabel}>Transportation β</div><div className={styles.heroSub}>Strongest AI impact sector</div></div>
+                                  <div className={styles.heroStat} style={{borderColor:'#9060c0'}}><div className={styles.heroNum} style={{color:'#9060c0'}}>0.820</div><div className={styles.heroLabel}>BSO Loading</div><div className={styles.heroSub}>Highest benefit dimension</div></div>
+                                  <div className={styles.heroStat} style={{borderColor:'#5a9e82'}}><div className={styles.heroNum} style={{color:'#5a9e82'}}>0.973</div><div className={styles.heroLabel}>GFI Model Fit</div><div className={styles.heroSub}>Excellent (threshold 0.93)</div></div>
+                                </div>
+                                <GSCAPathChart/>
+                                <SectorLoadingChart/>
+                                <BAILoadingChart/>
+                                <div className={styles.panelBlock}><span className={styles.panelLabel}>Key Results</span><ul className={styles.resultsList}>{project.results?.map((r,i)=><li key={i}>{r}</li>)}</ul></div>
+                              </div>
+                            )}
+                            {currentTab==='outcome'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Impact</span>
+                                  <div className={styles.impactRow}>
+                                    <div className={styles.impactStat} style={{borderColor:'#5b8db8'}}><div className={styles.impactNum} style={{color:'#5b8db8'}}>0.385</div><div className={styles.impactLabel}>Top Sector β</div><div className={styles.impactSub}>Transportation AI impact</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#9060c0'}}><div className={styles.impactNum} style={{color:'#9060c0'}}>0.727</div><div className={styles.impactLabel}>Top Application</div><div className={styles.impactSub}>PDP (demand forecasting)</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#5a9e82'}}><div className={styles.impactNum} style={{color:'#5a9e82'}}>44.1%</div><div className={styles.impactLabel}>Variance Explained</div><div className={styles.impactSub}>Structural model (FITs)</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#e8729a'}}><div className={styles.impactNum} style={{color:'#e8729a'}}>18</div><div className={styles.impactLabel}>Significant Paths</div><div className={styles.impactSub}>All 18 paths p&lt;0.05</div></div>
+                                  </div>
+                                  <div className={styles.tierGrid}>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#5b8db8'}}><div className={styles.tierLabel} style={{color:'#5b8db8'}}>Prioritize: Transportation AI</div><div className={styles.tierDesc}>Invest in dynamic pricing and route optimization — highest ROI sector (β=0.385). Deploy demand forecasting (PDP, loading 0.727) first.</div></div>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#5a9e82'}}><div className={styles.tierLabel} style={{color:'#5a9e82'}}>Scale: Accommodation AI</div><div className={styles.tierDesc}>Recommendation systems and trust mechanisms (VAS) drive accommodation benefits. Personalization is the highest-leverage AI application.</div></div>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#9060c0'}}><div className={styles.tierLabel} style={{color:'#9060c0'}}>Develop: Other Services</div><div className={styles.tierDesc}>Household (SH=0.750) and electronics (SE=0.748) show high AI potential despite lower adoption — largest untapped opportunity.</div></div>
+                                  </div>
+                                </div>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Reflection</span>
+                                  <div className={styles.reflectGrid}>
+                                    <div className={styles.reflectCard} style={{borderTopColor:'#5a9e82'}}><div className={styles.reflectHeader} style={{color:'#5a9e82'}}><span>✓</span> What worked</div><ul className={styles.reflectList}><li><span className={styles.reflectHL}>GSCA over PLS-SEM</span> — handles mixed formative/reflective constructs without covariance structure assumptions</li><li><span className={styles.reflectHL}>McDonald's Omega</span> over Cronbach's alpha — more reliable estimate, especially for small samples</li><li>The <span className={styles.reflectHL}>three-sector simultaneous comparison</span> is the main contribution — no prior study quantified cross-sector AI impact this way</li></ul></div>
+                                    <div className={styles.reflectCard} style={{borderTopColor:'#e8729a'}}><div className={styles.reflectHeader} style={{color:'#e8729a'}}><span>→</span> What I would do differently</div><ul className={styles.reflectList}><li>Expand beyond <span className={styles.reflectHL}>student sample</span> — platform operators and service providers would give less perception-biased data</li><li>Add <span className={styles.reflectHL}>longitudinal dimension</span> — measure respondents before/after AI adoption to establish causality, not just correlation</li><li>Include <span className={styles.reflectHL}>moderating variables</span> — digital literacy, income, and prior experience may moderate the AI-benefit relationship</li></ul></div>
+                                  </div>
+                                </div>
+                                <div className={styles.panelBlock}><span className={styles.panelLabel}>Real-world Parallels <span style={{fontWeight:400,color:'#bbb',fontSize:9,letterSpacing:0}}>click a case</span></span><P4ParallelCases/></div>
                               </div>
                             )}
                             </>
