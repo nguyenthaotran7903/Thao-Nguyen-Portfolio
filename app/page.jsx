@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import data from '../data.json';
 import styles from './page.module.css';
 
+
 /* ── Interactive charts ── */
 
 function PieChart() {
