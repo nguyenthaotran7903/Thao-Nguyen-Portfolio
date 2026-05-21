@@ -1157,7 +1157,6 @@ function P6ParallelCases() {
     </div>
   );
 }
-}
 /* ── Project 3 Charts ── */
 function CoefficientChart() {
   const [active, setActive] = useState(null);
