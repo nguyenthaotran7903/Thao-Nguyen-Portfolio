@@ -1289,8 +1289,8 @@ function PaymentChart() {
     {name:'Credit Card', pct:40.2, color:'#5b8db8', note:'Dominates due to cashback & loyalty rewards. Core segment to retain.'},
     {name:'Debit Card',  pct:25.1, color:'#5a9e82', note:'Direct bank transactions. Stable, lower-engagement segment.'},
     {name:'Net Banking', pct:9.97, color:'#9060c0', note:'Secure bank-mediated payments. Appeals to trust-conscious users.'},
-    {name:'UPI (Total)', pct:14.6, color:'#e8729a', note:'PhonePe 4.88% + Paytm 4.86% + GPay 4.85%. Fastest growing — will overtake Debit within 2 years.'},
-    {name:'Intl Card',   pct:5.12, color:'#f0a030', note:'Global shoppers. Niche but high-value segment.'},
+    {name:'UPI (Total)', pct:14.6, color:'#f0a030', note:'PhonePe 4.88% + Paytm 4.86% + GPay 4.85%. Fastest growing segment.'},
+    {name:'Intl Card',   pct:5.12, color:'#1a6b5c', note:'Global shoppers. Niche but high-value segment.'},
     {name:'Cash on Del', pct:5.03, color:'#bbb',    note:'Trust-based. Common in markets where online payment trust is developing.'},
   ];
   const W=380, cx=100, cy=85, r=70;
