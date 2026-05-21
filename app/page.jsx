@@ -1229,6 +1229,8 @@ export default function Portfolio() {
                   const currentTab=getProjectTab(project.id);
                   const hasCharts=project.id===1;
                   const isP2=project.id===2;
+                  const isP3=project.id===3;
+                  const isP4=project.id===4;
                   return(
                     <article key={project.id} id={`project-${project.id}`} className={`${styles.projectCard} ${isExpanded?styles.projectExpanded:''}`}>
                       <div className={styles.projectHeader}>
