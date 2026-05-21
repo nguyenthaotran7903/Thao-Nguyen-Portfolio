@@ -2430,3 +2430,72 @@ export default function Portfolio() {
                             )}
                             </>
                           )}
+
+                          {/* OTHER PROJECTS */}
+                          {!hasCharts&&!isP2&&!isP3&&!isP4&&project.id!==5&&project.id!==6&&(
+                            <>
+                            {currentTab==='context'&&(<div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}><div className={styles.problemBox}><div className={styles.problemLabel}>Context</div><div className={styles.problemText}>{project.context}</div></div>{project.researchQuestion&&(<div className={styles.panelBlock}><span className={styles.panelLabel}>Research Question</span><p className={styles.panelText}>{project.researchQuestion}</p></div>)}{project.supervisor&&(<div className={styles.contextMeta}><span>Supervisor: {project.supervisor}</span><span>{project.institution} / {project.period}</span></div>)}</div>)}
+                            {currentTab==='approach'&&(<div className={styles.panelContent}><div className={styles.toolsRow}><span className={styles.panelLabel}>Tools</span><div className={styles.toolsList} style={{marginTop:8}}>{project.tools?.map((t,i)=><span key={i} className={styles.tool} style={{fontSize:13,padding:'5px 12px'}}>{t}</span>)}</div></div></div>)}
+                            {currentTab==='analysis'&&(<div className={styles.panelContent}><div className={styles.panelBlock}><span className={styles.panelLabel}>Dataset</span>{project.dataset&&<p className={styles.panelSubtext}>{typeof project.dataset==='string'?project.dataset:project.dataset.source}</p>}</div></div>)}
+                            {currentTab==='methodology'&&(<div className={styles.panelContent}>{project.methodology&&<PipelineSteps steps={project.methodology} hasCharts={false}/>}</div>)}
+                            {currentTab==='results'&&(<div className={styles.panelContent}><div className={styles.panelBlock}><span className={styles.panelLabel}>Results</span><ul className={styles.resultsList}>{project.results?.map((r,i)=><li key={i}>{r}</li>)}</ul></div>{project.keyFindings&&<div className={styles.panelBlock}><span className={styles.panelLabel}>Key Findings</span><div className={styles.findingPills}>{project.keyFindings.map((f,i)=>(<div key={i} className={`${styles.findingPill} ${i<2?styles.findingHighlight:''}`}><span className={styles.findingIcon}>◆</span><span>{f}</span></div>))}</div></div>}</div>)}
+                            {currentTab==='outcome'&&(<div className={styles.panelContent}><div className={styles.problemBox}><div className={styles.problemLabel}>Outcome</div><div className={styles.problemText}>{project.context}</div></div></div>)}
+                            </>
+                          )}
+
+                          <div className={styles.panelTagRow}>
+                            {project.tags?.map(tag=>(
+                              <button key={tag} className={`${styles.tag} ${activeFilter===tag?styles.tagActive:''}`} onClick={()=>setActiveFilter(tag===activeFilter?'all':tag)}>{tag}</button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </article>
+                  );
+                })}
+              </div>
+            )}
+          </>
+        )}
+
+        {activeTab === 'skills' && (
+          <section className={styles.section}>
+            {[
+              {label:'Programming & Platforms',items:[...data.skills.technical_tools.programming,...data.skills.technical_tools.platforms]},
+              {label:'Visualization & BI',items:data.skills.technical_tools.data_visualization},
+              {label:'Statistical Software',items:data.skills.technical_tools.statistical_software},
+              {label:'Machine Learning',items:data.skills.methodologies.machine_learning},
+              {label:'Econometrics & Time Series',items:data.skills.methodologies.econometrics},
+              {label:'Statistical Analysis',items:data.skills.methodologies.statistical_analysis},
+              {label:'Structural Modeling',items:data.skills.methodologies.structural_modeling},
+              {label:'Risk Management',items:data.skills.methodologies.risk_analysis},
+            ].map((group,i)=>(
+              <div key={i} className={styles.skillGroup}>
+                <span className={styles.skillGroupLabel}>{group.label}</span>
+                <div className={styles.skillBadges}>
+                  {group.items.map((skill,j)=>(
+                    <span key={j} className={`${styles.skillBadge} ${hoveredSkill===skill?styles.skillHovered:''}`} onMouseEnter={()=>setHoveredSkill(skill)} onMouseLeave={()=>setHoveredSkill(null)}>{skill}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </section>
+        )}
+
+      </main>
+
+      <footer className={styles.footer}>
+        <p>{data.profile.name} · {new Date().getFullYear()}</p>
+      </footer>
+    </div>
+  );
+}
+
+function Divider({label}) {
+  return(
+    <div style={{display:'flex',alignItems:'center',gap:'16px',margin:'56px 0 32px'}}>
+      <span style={{fontSize:'16px',letterSpacing:'1px',textTransform:'uppercase',color:'#2c3e50',fontWeight:700,whiteSpace:'nowrap',fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif"}}>{label}</span>
+      <div style={{flex:1,height:'1.5px',background:'#2c3e50'}}></div>
+    </div>
+  );
+}
