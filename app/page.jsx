@@ -1641,7 +1641,7 @@ export default function Portfolio() {
                           )}
 
                           {/* ══ OTHER PROJECTS ══ */}
-                          {!hasCharts&&!isP2&&project.id!==3&&(
+                          {!hasCharts&&!isP2&&!isP3&&!isP4&&(
                             <>
                             {currentTab==='context'&&(
                               <div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}>
