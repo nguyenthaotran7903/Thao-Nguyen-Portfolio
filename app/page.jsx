@@ -1346,54 +1346,21 @@ function PaymentChart() {
 function ParallelCases() {
   const [active, setActive] = useState(null);
   const cases = [
-    {
-      id:0, industry:'Banking · Vietnam', color:'#e8729a',
-      title:'Vietcombank — Digital Fraud Surge 2023',
-      tag:'Same problem, scaled',
-      desc:'VCB reported 340% increase in card fraud attempts following digital banking expansion.',
-      ref:'State Bank of Vietnam Annual Report 2023 · sbv.gov.vn',
-      refUrl:'https://www.sbv.gov.vn',
-      analysis:'VCB deployed ML-based transaction scoring and reduced fraud losses by 60% within 6 months. They faced the same core challenge as this project: extreme class imbalance in a rapidly expanding credit portfolio. Key difference: VCB added behavioral biometrics (typing speed, device fingerprinting) as additional features — a natural next step for Agribank.',
-      approach:'Gradient Boosting + behavioral biometrics',
-      relevance:'Validates this approach for Vietnamese banking context',
-    },
-    {
-      id:1, industry:'Fintech · Global', color:'#5b8db8',
-      title:'PayPal — Fraud Detection at Scale',
-      tag:'Industry benchmark',
-      desc:'40M+ transactions/day, fraud rate under 0.32%, 95%+ detected in real-time.',
-      ref:'PayPal Technology Blog · medium.com/paypal-tech',
-      refUrl:'https://medium.com/paypal-tech',
-      analysis:"PayPal uses ensemble models almost identical to this study's approach — Random Forest as base with XGBoost boosting. Critical insight: they weight false negatives 15× heavier than false positives in their loss function, directly reflecting the asymmetric cost of missed fraud. This is the cost-sensitive approach this project should adopt in v2.",
-      approach:'Random Forest + XGBoost + graph anomaly detection',
-      relevance:'Direct benchmark — same model family, production-validated',
-    },
-    {
-      id:2, industry:'Banking · SE Asia', color:'#5a9e82',
-      title:'DBS Bank — AI Credit Risk for SMEs',
-      tag:'Closest business context',
-      desc:'Replaced manual credit review for SME loans. Accuracy: 91%. Review time: 3 days → 4 hours.',
-      ref:'DBS Group Research · dbs.com/research',
-      refUrl:'https://www.dbs.com/research',
-      analysis:"DBS used Logistic Regression + Decision Tree ensemble with SMOTE — exactly this project's methodology. Their NPL ratio dropped 1.2 percentage points after deployment. Most relevant finding: analyst trust was the biggest adoption barrier, not model performance. They solved this with SHAP explanations showing which features drove each decision — the exact next step recommended here.",
-      approach:'LR + Decision Tree + SMOTE (same as this project)',
-      relevance:'Identical methodology, proven in production banking environment',
-    },
+    { id:0, industry:'Banking · Vietnam', color:'#5b8db8', title:'Vietcombank — Digital Fraud Surge 2023', tag:'Same problem, scaled', desc:'VCB reported 340% increase in card fraud attempts following digital banking expansion.', ref:'State Bank of Vietnam Annual Report 2023 · sbv.gov.vn', refUrl:'https://www.sbv.gov.vn', analysis:'VCB deployed ML-based transaction scoring and reduced fraud losses by 60% within 6 months. They faced the same core challenge: extreme class imbalance in a rapidly expanding credit portfolio. Key difference: VCB added behavioral biometrics as additional features — a natural next step for Agribank.', approach:'Gradient Boosting + behavioral biometrics', relevance:'Validates this approach for Vietnamese banking context' },
+    { id:1, industry:'Fintech · Global', color:'#5a9e82', title:'PayPal — Fraud Detection at Scale', tag:'Industry benchmark', desc:'40M+ transactions/day, fraud rate under 0.32%, 95%+ detected in real-time.', ref:'PayPal Technology Blog · medium.com/paypal-tech', refUrl:'https://medium.com/paypal-tech', analysis:'PayPal uses ensemble models almost identical to this study\'s approach — Random Forest as base with XGBoost boosting. Critical insight: they weight false negatives 15x heavier than false positives in their loss function. This is the cost-sensitive approach this project should adopt in v2.', approach:'Random Forest + XGBoost + graph anomaly detection', relevance:'Direct benchmark — same model family, production-validated' },
+    { id:2, industry:'Banking · SE Asia', color:'#9060c0', title:'DBS Bank — AI Credit Risk for SMEs', tag:'Closest business context', desc:'Replaced manual credit review for SME loans. Accuracy: 91%. Review time: 3 days to 4 hours.', ref:'DBS Group Research · dbs.com/research', refUrl:'https://www.dbs.com/research', analysis:'DBS used Logistic Regression + Decision Tree ensemble with SMOTE — exactly this project\'s methodology. Their NPL ratio dropped 1.2 percentage points after deployment. Most relevant finding: analyst trust was the biggest adoption barrier, not model performance. They solved this with SHAP explanations.', approach:'LR + Decision Tree + SMOTE (same as this project)', relevance:'Identical methodology, proven in production banking environment' },
   ];
   const activeCase = active!==null ? cases[active] : null;
   return (
     <div style={{display:'flex',flexDirection:'column',gap:10}}>
       <div className={styles.parallelGrid}>
         {cases.map(c=>(
-          <div key={c.id}
-            className={`${styles.parallelCard} ${active===c.id?styles.parallelCardActive:''}`}
-            style={{borderTopColor:active===c.id?c.color:'#ebebeb', cursor:'pointer'}}
-            onClick={()=>setActive(active===c.id?null:c.id)}>
+          <div key={c.id} className={`${styles.parallelCard} ${active===c.id?styles.parallelCardActive:''}`} style={{borderTopColor:active===c.id?c.color:'#ebebeb',cursor:'pointer'}} onClick={()=>setActive(active===c.id?null:c.id)}>
             <div className={styles.parallelIndustry} style={{color:c.color}}>{c.industry}</div>
             <div className={styles.parallelTitle}>{c.title}</div>
             <div className={styles.parallelTagBadge} style={{background:c.color+'18',color:c.color}}>{c.tag}</div>
             <div className={styles.parallelDesc}>{c.desc}</div>
-            <div className={styles.parallelExpandHint}>{active===c.id?'▲ collapse':'▼ see analysis'}</div>
+            <div className={styles.parallelExpandHint}>{active===c.id?'collapse':'see analysis'}</div>
           </div>
         ))}
       </div>
@@ -1402,15 +1369,9 @@ function ParallelCases() {
           <div className={styles.parallelDetailInner}>
             <div className={styles.parallelDetailAnalysis}>{activeCase.analysis}</div>
             <div className={styles.parallelDetailMeta}>
-              <div className={styles.parallelApproachRow}>
-                <span className={styles.parallelApproach}>Approach:</span> {activeCase.approach}
-              </div>
-              <div className={styles.parallelRelevanceRow}>
-                <span className={styles.parallelApproach} style={{color:activeCase.color}}>Why relevant:</span> {activeCase.relevance}
-              </div>
-              <a href={activeCase.refUrl} target="_blank" rel="noopener noreferrer" className={styles.parallelRefLink}>
-                ↗ {activeCase.ref}
-              </a>
+              <div className={styles.parallelApproachRow}><span className={styles.parallelApproach}>Approach:</span> {activeCase.approach}</div>
+              <div className={styles.parallelRelevanceRow}><span className={styles.parallelApproach} style={{color:activeCase.color}}>Why relevant:</span> {activeCase.relevance}</div>
+              <a href={activeCase.refUrl} target="_blank" rel="noopener noreferrer" className={styles.parallelRefLink}>{activeCase.ref}</a>
             </div>
           </div>
         </div>
