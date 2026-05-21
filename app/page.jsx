@@ -1491,7 +1491,7 @@ function P2ParallelCases() {
 }
 
 /* ── Main ── */
-export default function Portfolio() 
+export default function Portfolio() {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
   const [activeTab, setActiveTab] = useState('about');
