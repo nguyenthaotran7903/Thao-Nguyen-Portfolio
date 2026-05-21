@@ -1489,7 +1489,7 @@ function P2ParallelCases() {
     </div>
   );
 }
-
+}
 /* ── Main ── */
 export default function Portfolio() {
   const [searchTerm, setSearchTerm] = useState('');
