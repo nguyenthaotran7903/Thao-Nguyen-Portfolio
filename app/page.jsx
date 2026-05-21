@@ -2269,6 +2269,201 @@ export default function Portfolio() {
                             </>
                           )}
 
+                          {/* ══ PROJECT 5 — Panel Data Credit Risk ══ */}
+                          {project.id===5&&(
+                            <>
+                            {currentTab==='context'&&(
+                              <div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}>
+                                <div className={styles.problemBox}>
+                                  <div className={styles.problemLabel}>The Question Everyone Should Be Asking</div>
+                                  <div className={styles.problemText}>When a bank starts accumulating bad loans, will it get better on its own — or keep getting worse? This study tracked 27 Vietnamese commercial banks for 10 years and found a clear answer: bad debt is sticky. Banks don't naturally recover; they need active intervention. And the economy outside the bank matters just as much as what's happening inside it.</div>
+                                </div>
+                                <div className={styles.statRow}>
+                                  <div className={styles.statBox}><div className={styles.statNum}>27</div><div className={styles.statLabel}>Banks tracked</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>10 yrs</div><div className={styles.statLabel}>2012 – 2022</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#e8729a'}}>272</div><div className={styles.statLabel}>Observations</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>54%</div><div className={styles.statLabel}>Of total banking risk</div></div>
+                                </div>
+                                <div className={styles.eda3col}>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>The Core Finding</div><div className={styles.edaStat} style={{color:'#e8729a'}}>β = 0.496</div><div className={styles.edaDesc}>Half of next year's bad debt is explained by this year's bad debt. Risk doesn't reset — it compounds unless banks act.</div></div>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>The Economy Matters</div><div className={styles.edaStat} style={{color:'#f0a030'}}>Macro drivers</div><div className={styles.edaDesc}>Unemployment and inflation both increase bad debt. When the economy struggles, banks struggle — no matter how well-run they are.</div></div>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>Size Is Protective</div><div className={styles.edaStat} style={{color:'#5a9e82'}}>β = -0.0014</div><div className={styles.edaDesc}>Bigger banks have better screening, more diversified portfolios, and lower bad debt rates. Scale provides a natural buffer.</div></div>
+                                </div>
+                                {project.supervisor&&<div className={styles.contextMeta}><span>Course: {project.institution} · {project.period}</span></div>}
+                              </div>
+                            )}
+                            {currentTab==='approach'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.problemBox}><div className={styles.problemLabel}>Research Question</div><div className={styles.problemText}>What factors explain differences in credit risk across Vietnamese commercial banks — and can we build a model that identifies which banks are heading toward trouble before it becomes visible?</div></div>
+                                <div className={styles.approachGrid}>
+                                  {[{icon:'01',label:'Collect Bank Data',desc:'11 variables per bank per year: past NPL, size, capital, GDP, inflation, unemployment across 27 banks 2012–2022'},{icon:'02',label:'Run 4 Models',desc:'OLS → Fixed Effects → Random Effects → GLS with error correction. Each answers a different question about which factors matter.'},{icon:'03',label:'Pick the Right One',desc:'Hausman Test selects Fixed Effects as the correct model. VIF checks confirm no multicollinearity problem.'},{icon:'04',label:'Translate to Policy',desc:'Convert statistical findings into Basel II/III aligned recommendations that risk managers can act on immediately.'}].map((a,i)=>(
+                                    <div key={i} className={styles.approachCard}><div className={styles.approachIcon}>{a.icon}</div><div className={styles.approachLabel}>{a.label}</div><div className={styles.approachDesc}>{a.desc}</div></div>
+                                  ))}
+                                </div>
+                                <div className={styles.toolsRow}><span className={styles.panelLabel}>Tools</span><div className={styles.toolsList} style={{marginTop:8}}>{project.tools?.map((t,i)=><span key={i} className={styles.tool} style={{fontSize:13,padding:'5px 12px'}}>{t}</span>)}</div></div>
+                              </div>
+                            )}
+                            {currentTab==='analysis'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.statRow}>
+                                  <div className={styles.statBox}><div className={styles.statNum}>272</div><div className={styles.statLabel}>Data points</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>11</div><div className={styles.statLabel}>Variables</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#e8729a'}}>2012–22</div><div className={styles.statLabel}>3 economic phases</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>Basel II</div><div className={styles.statLabel}>Framework aligned</div></div>
+                                </div>
+                                <P5MacroChart/>
+                                <P5BankSizeViz/>
+                              </div>
+                            )}
+                            {currentTab==='methodology'&&(
+                              <div className={styles.panelContent}>
+                                {project.methodology&&<PipelineSteps steps={project.methodology} hasCharts={false}/>}
+                                <div className={styles.panelBlock}><span className={styles.panelLabel}>Why 4 Different Models?</span>
+                                  <div className={styles.eda3col}>
+                                    <div className={styles.edaCard}><div className={styles.edaTitle}>OLS (Baseline)</div><div className={styles.edaDesc}>Simple regression. Quick to run but ignores that each bank is different. Used only to establish a starting point to improve on.</div></div>
+                                    <div className={styles.edaCard}><div className={styles.edaTitle}>Fixed Effects (Winner)</div><div className={styles.edaDesc}>Accounts for each bank's unique characteristics — management quality, loan mix, regional focus. Hausman test confirmed this is the correct model.</div></div>
+                                    <div className={styles.edaCard}><div className={styles.edaTitle}>GLS Correction</div><div className={styles.edaDesc}>Fixes heteroskedasticity (some banks have more volatile results than others). Ensures the standard errors we use for policy recommendations are reliable.</div></div>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                            {currentTab==='results'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.heroStats}>
+                                  <div className={styles.heroStat} style={{borderColor:'#e8729a'}}><div className={styles.heroNum} style={{color:'#e8729a'}}>0.496</div><div className={styles.heroLabel}>Bad Debt Persistence</div><div className={styles.heroSub}>50% carries forward year-over-year</div></div>
+                                  <div className={styles.heroStat} style={{borderColor:'#f0a030'}}><div className={styles.heroNum} style={{color:'#f0a030'}}>2 macro</div><div className={styles.heroLabel}>Economy Signals</div><div className={styles.heroSub}>Unemployment + Inflation</div></div>
+                                  <div className={styles.heroStat} style={{borderColor:'#5a9e82'}}><div className={styles.heroNum} style={{color:'#5a9e82'}}>−0.0014</div><div className={styles.heroLabel}>Size Effect</div><div className={styles.heroSub}>Bigger banks = safer banks</div></div>
+                                </div>
+                                <P5DriverChart/>
+                                <div className={styles.panelBlock}><span className={styles.panelLabel}>Key Results</span><ul className={styles.resultsList}>{project.results?.map((r,i)=><li key={i}>{r}</li>)}</ul></div>
+                              </div>
+                            )}
+                            {currentTab==='outcome'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>What This Means in Practice</span>
+                                  <div className={styles.impactRow}>
+                                    <div className={styles.impactStat} style={{borderColor:'#e8729a'}}><div className={styles.impactNum} style={{color:'#e8729a'}}>50%</div><div className={styles.impactLabel}>Risk carries forward</div><div className={styles.impactSub}>Banks need multi-year monitoring, not just annual snapshots</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#f0a030'}}><div className={styles.impactNum} style={{color:'#f0a030'}}>Macro</div><div className={styles.impactLabel}>Early warning possible</div><div className={styles.impactSub}>Unemployment rises → expect NPL to rise 1-2 quarters later</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#5a9e82'}}><div className={styles.impactNum} style={{color:'#5a9e82'}}>27</div><div className={styles.impactLabel}>Banks benchmarked</div><div className={styles.impactSub}>Identified which institutions need closer regulatory attention</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#5b8db8'}}><div className={styles.impactNum} style={{color:'#5b8db8'}}>Basel</div><div className={styles.impactLabel}>Policy aligned</div><div className={styles.impactSub}>All findings map to Basel II/III capital requirement framework</div></div>
+                                  </div>
+                                  <div className={styles.tierGrid}>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#e8729a'}}><div className={styles.tierLabel} style={{color:'#e8729a'}}>For regulators</div><div className={styles.tierDesc}>Use macro indicators (unemployment, inflation) as leading signals. Don't wait for NPL to spike — act when unemployment starts rising.</div></div>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#5b8db8'}}><div className={styles.tierLabel} style={{color:'#5b8db8'}}>For banks</div><div className={styles.tierDesc}>Don't assume bad debt will self-correct. The β=0.496 finding means active workout strategies are needed, not passive monitoring.</div></div>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#5a9e82'}}><div className={styles.tierLabel} style={{color:'#5a9e82'}}>For small banks</div><div className={styles.tierDesc}>Size disadvantage is real. Smaller banks need stricter internal credit standards to compensate for what scale provides automatically.</div></div>
+                                  </div>
+                                </div>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Reflection</span>
+                                  <div className={styles.reflectGrid}>
+                                    <div className={styles.reflectCard} style={{borderTopColor:'#5a9e82'}}><div className={styles.reflectHeader} style={{color:'#5a9e82'}}><span>✓</span> What worked</div><ul className={styles.reflectList}><li><span className={styles.reflectHL}>Comparing 4 models</span> and using Hausman Test to select the right one — shows methodological rigor, not just running one approach</li><li><span className={styles.reflectHL}>10-year window</span> across three economic regimes gives the model real predictive credibility</li><li>Framing β=0.496 as <span className={styles.reflectHL}>"risk doesn't reset"</span> made the finding immediately actionable for bank managers</li></ul></div>
+                                    <div className={styles.reflectCard} style={{borderTopColor:'#e8729a'}}><div className={styles.reflectHeader} style={{color:'#e8729a'}}><span>→</span> What I would do differently</div><ul className={styles.reflectList}><li>Add <span className={styles.reflectHL}>bank-specific loan type breakdown</span> — a bank heavy in real estate loans behaves differently from one focused on consumer credit</li><li>Build a <span className={styles.reflectHL}>real-time dashboard</span> that ingests SBV quarterly data and flags which banks are trending toward trouble</li><li>Test <span className={styles.reflectHL}>non-linear models</span> — bad debt persistence may accelerate past certain thresholds (a "tipping point" effect)</li></ul></div>
+                                  </div>
+                                </div>
+                                <div className={styles.panelBlock}><span className={styles.panelLabel}>Real-world Parallels <span style={{fontWeight:400,color:'#bbb',fontSize:9}}>click a case</span></span><P5ParallelCases/></div>
+                              </div>
+                            )}
+                            </>
+                          )}
+
+                          {/* ══ PROJECT 6 — Stock Bubble Detection ══ */}
+                          {project.id===6&&(
+                            <>
+                            {currentTab==='context'&&(
+                              <div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}>
+                                <div className={styles.problemBox}>
+                                  <div className={styles.problemLabel}>The Problem: Everyone Sees the Crash — After It Happens</div>
+                                  <div className={styles.problemText}>VN-Index crashed 35% in 2018 and again in 2022. Every time, retail investors only realized it was a bubble after losing money. This project asked: can we build a system that spots the warning signs 2–4 weeks before the crash, using only data that's publicly available in real time?</div>
+                                </div>
+                                <div className={styles.statRow}>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#e8729a'}}>35%</div><div className={styles.statLabel}>VN-Index crash 2018</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#e8729a'}}>38%</div><div className={styles.statLabel}>VN-Index crash 2022</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#5a9e82'}}>2–4 wks</div><div className={styles.statLabel}>Early warning lead time</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#5b8db8'}}>97.5%</div><div className={styles.statLabel}>Detection accuracy</div></div>
+                                </div>
+                                <div className={styles.eda3col}>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>Signal 1: Market Math</div><div className={styles.edaStat} style={{color:'#5b8db8'}}>MF-DFA</div><div className={styles.edaDesc}>Mathematical analysis of VN-Index price patterns. Detects when market behavior becomes abnormally predictable — the hallmark of a forming bubble.</div></div>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>Signal 2: Human Behavior</div><div className={styles.edaStat} style={{color:'#e8729a'}}>Google Trends</div><div className={styles.edaDesc}>When ordinary people suddenly start Googling "how to buy stocks" in large numbers, that's a classic bubble signal. This system measures it in real time.</div></div>
+                                  <div className={styles.edaCard}><div className={styles.edaTitle}>Combined Power</div><div className={styles.edaStat} style={{color:'#5a9e82'}}>F1 = 97.5%</div><div className={styles.edaDesc}>Neither signal alone is enough. Together they caught all three major market crashes with 2–4 week lead time and minimal false alarms.</div></div>
+                                </div>
+                              </div>
+                            )}
+                            {currentTab==='approach'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.problemBox}><div className={styles.problemLabel}>Research Question</div><div className={styles.problemText}>Can combining mathematical market signals (fractal complexity) with behavioral signals (retail search trends) detect stock market bubbles 2–4 weeks before they collapse — with accuracy high enough to be actionable?</div></div>
+                                <div className={styles.approachGrid}>
+                                  {[{icon:'01',label:'Collect market data',desc:'VN-Index daily prices 2015–2024. 3 mathematical features extracted: Hurst exponent (H), volatility spread (Δα), asymmetry (A).'},{icon:'02',label:'Measure human FOMO',desc:'Google Trends weekly search volume for stock-related keywords. Captures retail investor panic buying before crashes.'},{icon:'03',label:'Label bubble events',desc:'Identify historical bubble and crash periods manually using price + volume data. These become the training labels.'},{icon:'04',label:'Train 5 ML models',desc:'Random Forest, XGBoost, SVM, Neural Networks, SHAP explainability. Optimize for recall — missing a bubble is worse than a false alarm.'},{icon:'05',label:'Backtest trading strategy',desc:'Simulate selling on Orange Alert, re-entering on stabilization. Compare Sharpe ratio and max drawdown vs buy-and-hold.'},{icon:'06',label:'Design alert framework',desc:'Translate model outputs into a 3-tier system (Yellow/Orange/Red) with objective thresholds for each level.'}].map((a,i)=>(
+                                    <div key={i} className={styles.approachCard}><div className={styles.approachIcon}>{a.icon}</div><div className={styles.approachLabel}>{a.label}</div><div className={styles.approachDesc}>{a.desc}</div></div>
+                                  ))}
+                                </div>
+                                <div className={styles.toolsRow}><span className={styles.panelLabel}>Tools</span><div className={styles.toolsList} style={{marginTop:8}}>{project.tools?.map((t,i)=><span key={i} className={styles.tool} style={{fontSize:13,padding:'5px 12px'}}>{t}</span>)}</div></div>
+                              </div>
+                            )}
+                            {currentTab==='analysis'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.statRow}>
+                                  <div className={styles.statBox}><div className={styles.statNum}>2015–24</div><div className={styles.statLabel}>10 years of data</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>3</div><div className={styles.statLabel}>Bubble events captured</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#e8729a'}}>Daily</div><div className={styles.statLabel}>Data frequency</div></div>
+                                  <div className={styles.statBox}><div className={styles.statNum}>Public</div><div className={styles.statLabel}>All data sources</div></div>
+                                </div>
+                                <P6CrashTimeline/>
+                                <P6SignalChart/>
+                              </div>
+                            )}
+                            {currentTab==='methodology'&&(
+                              <div className={styles.panelContent}>
+                                {project.methodology&&<PipelineSteps steps={project.methodology} hasCharts={false}/>}
+                                <div className={styles.panelBlock}><span className={styles.panelLabel}>Why combine math + behavior?</span>
+                                  <div className={styles.eda3col}>
+                                    <div className={styles.edaCard}><div className={styles.edaTitle}>Math alone misses timing</div><div className={styles.edaDesc}>Fractal signals (Hurst, Asymmetry) detect structural change in the market but can be early by 6–8 weeks. Without a behavioral trigger, you'd sell too soon.</div></div>
+                                    <div className={styles.edaCard}><div className={styles.edaTitle}>Behavior alone is noisy</div><div className={styles.edaDesc}>Google Trends spikes happen for many reasons. A search surge for "stock" during New Year is not a bubble signal. Mathematical confirmation filters the noise.</div></div>
+                                    <div className={styles.edaCard}><div className={styles.edaTitle}>Together: 2–4 week lead</div><div className={styles.edaDesc}>When both signals fire simultaneously, it's historically been 2–4 weeks before the correction. Enough time to reduce exposure and protect capital.</div></div>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                            {currentTab==='results'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.heroStats}>
+                                  <div className={styles.heroStat} style={{borderColor:'#5a9e82'}}><div className={styles.heroNum} style={{color:'#5a9e82'}}>97.5%</div><div className={styles.heroLabel}>Detection Accuracy</div><div className={styles.heroSub}>F1 score — best in class</div></div>
+                                  <div className={styles.heroStat} style={{borderColor:'#5b8db8'}}><div className={styles.heroNum} style={{color:'#5b8db8'}}>1.87</div><div className={styles.heroLabel}>Sharpe Ratio</div><div className={styles.heroSub}>vs 0.94 buy-and-hold</div></div>
+                                  <div className={styles.heroStat} style={{borderColor:'#e8729a'}}><div className={styles.heroNum} style={{color:'#e8729a'}}>18%</div><div className={styles.heroLabel}>Max Drawdown</div><div className={styles.heroSub}>vs 47% without system</div></div>
+                                </div>
+                                <P6ModelCompare/>
+                                <P6AlertSystem/>
+                              </div>
+                            )}
+                            {currentTab==='outcome'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>What This System Actually Does</span>
+                                  <div className={styles.impactRow}>
+                                    <div className={styles.impactStat} style={{borderColor:'#5a9e82'}}><div className={styles.impactNum} style={{color:'#5a9e82'}}>2–4 wks</div><div className={styles.impactLabel}>Early warning</div><div className={styles.impactSub}>Before crash, not after</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#5b8db8'}}><div className={styles.impactNum} style={{color:'#5b8db8'}}>2×</div><div className={styles.impactLabel}>Better returns</div><div className={styles.impactSub}>Sharpe 1.87 vs 0.94</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#e8729a'}}><div className={styles.impactNum} style={{color:'#e8729a'}}>−61%</div><div className={styles.impactLabel}>Drawdown cut</div><div className={styles.impactSub}>From 47% to 18% max loss</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#9060c0'}}><div className={styles.impactNum} style={{color:'#9060c0'}}>Public</div><div className={styles.impactLabel}>Free to deploy</div><div className={styles.impactSub}>Only public data needed</div></div>
+                                  </div>
+                                  <div className={styles.tierGrid}>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#5a9e82'}}><div className={styles.tierLabel} style={{color:'#5a9e82'}}>For retail investors</div><div className={styles.tierDesc}>Subscribe to the alert system. Yellow = reduce positions. Red = protect capital. No technical knowledge required to act on the signal.</div></div>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#5b8db8'}}><div className={styles.tierLabel} style={{color:'#5b8db8'}}>For fund managers</div><div className={styles.tierDesc}>Use Orange Alert as a systematic trigger to shift to defensive allocation. Replaces gut-feeling market timing with data-driven discipline.</div></div>
+                                    <div className={styles.tierCard} style={{borderTopColor:'#9060c0'}}><div className={styles.tierLabel} style={{color:'#9060c0'}}>For the SSC</div><div className={styles.tierDesc}>Red Alert maps to existing intervention thresholds. Provides objective, real-time justification for margin restriction or circuit breaker activation.</div></div>
+                                  </div>
+                                </div>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Reflection</span>
+                                  <div className={styles.reflectGrid}>
+                                    <div className={styles.reflectCard} style={{borderTopColor:'#5a9e82'}}><div className={styles.reflectHeader} style={{color:'#5a9e82'}}><span>✓</span> What worked</div><ul className={styles.reflectList}><li>Combining <span className={styles.reflectHL}>math + human behavior</span> was the key insight — neither alone was sufficient, together they were powerful</li><li><span className={styles.reflectHL}>SHAP explainability</span> showed which features drove each prediction — critical for getting regulators to trust the system</li><li>Framing results as <span className={styles.reflectHL}>Sharpe ratio and max drawdown</span> (not just F1) made the business case immediately clear to non-technical readers</li></ul></div>
+                                    <div className={styles.reflectCard} style={{borderTopColor:'#e8729a'}}><div className={styles.reflectHeader} style={{color:'#e8729a'}}><span>→</span> What I would do differently</div><ul className={styles.reflectList}><li>Add <span className={styles.reflectHL}>options market signals</span> — implied volatility skew and put/call ratio often precede crashes even earlier than search trends</li><li>Build a <span className={styles.reflectHL}>live dashboard</span> pulling VN-Index API + Google Trends in real time — the model exists, deployment is the next step</li><li>Test on <span className={styles.reflectHL}>sector indices</span> — real estate, banking, tech may have different bubble dynamics than the broad VN-Index</li></ul></div>
+                                  </div>
+                                </div>
+                                <div className={styles.panelBlock}><span className={styles.panelLabel}>Real-world Parallels <span style={{fontWeight:400,color:'#bbb',fontSize:9}}>click a case</span></span><P6ParallelCases/></div>
+                              </div>
+                            )}
+                            </>
+                          )}
+
                           {/* ══ OTHER PROJECTS ══ */}
                           {!hasCharts&&!isP2&&!isP3&&!isP4&&(
                             <>
