@@ -338,7 +338,7 @@
 .reflectIcon { font-size: 14px; }
 .reflectList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
 .reflectList li { font-size: 12px; color: #444; line-height: 1.6; padding-left: 12px; position: relative; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-.reflectList li:before { content: "Â·"; position: absolute; left: 0; color: #bbb; font-weight: 700; }
+.reflectList li:before { content: "·"; position: absolute; left: 0; color: #bbb; font-weight: 700; }
 
 /* Real-world parallels */
 .parallelGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
