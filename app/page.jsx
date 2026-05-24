@@ -1998,7 +1998,7 @@ export default function Portfolio() {
                                       <ul className={styles.reflectList}>
                                         <li>Build a <span className={styles.reflectHL}>predictive layer</span> — forecast next quarter revenue by category using time series models</li>
                                         <li>Add <span className={styles.reflectHL}>customer lifetime value (CLV)</span> segmentation within the 25-45 cohort to identify highest-value sub-segments</li>
-                                        <li>Use <span className={styles.reflectHL}>A/B testing framework</span> to measure SEASONALOFFER21 ROI against discount cost</li>
+                                        <li>The analysis couldn't measure whether SEASONALOFFER21 actually drove profit or just volume.  In a follow-up study I'd track <span className={styles.reflectHL}>net margin per discount code</span>, not just transaction count
                                       </ul>
                                     </div>
                                   </div>
@@ -2128,8 +2128,7 @@ export default function Portfolio() {
                                       <ul className={styles.reflectList}>
                                         <li>Address <span className={styles.reflectHL}>MAPE=55.55%</span> — try XGBoost or Elastic Net; the high MAPE suggests non-linear relationships the linear model misses</li>
                                         <li>Expand dataset: <span className={styles.reflectHL}>include 2021 imputed data</span> and extend to non-listed banks for a balanced panel</li>
-                                        <li>Add <span className={styles.reflectHL}>interaction terms</span> (COB × DAP) to capture whether core banking modernization moderates e-payment risk</li>
-                                      </ul>
+                                        <li>DAP increases risk but the model can't tell whether mature core banking softens that effect. This is the open question I'd test next with a <span className={styles.reflectHL}>COB × DAP interaction term</span>
                                     </div>
                                   </div>
                                 </div>
