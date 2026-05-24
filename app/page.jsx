@@ -1837,11 +1837,9 @@ export default function Portfolio() {
                               <div className={styles.panelContent}>
                                 <div className={styles.panelBlock}>
                                   <span className={styles.panelLabel}>Impact</span>
-                                  <div className={styles.impactRow}>
-                                    <div className={styles.impactStat} style={{borderColor:'#5a9e82'}}><div className={styles.impactNum} style={{color:'#5a9e82'}}>99.98%</div><div className={styles.impactLabel}>Specificity</div><div className={styles.impactSub}>Zero customer disruption</div></div>
+                                  <div className={styles.impactRow} style={{gridTemplateColumns:'repeat(2,1fr)'}}>
                                     <div className={styles.impactStat} style={{borderColor:'#e8729a'}}><div className={styles.impactNum} style={{color:'#e8729a'}}>84%</div><div className={styles.impactLabel}>Fraud Caught</div><div className={styles.impactSub}>Before financial loss</div></div>
                                     <div className={styles.impactStat} style={{borderColor:'#5b8db8'}}><div className={styles.impactNum} style={{color:'#5b8db8'}}>~99%</div><div className={styles.impactLabel}>Workload Cut</div><div className={styles.impactSub}>Manual review reduced</div></div>
-                                    <div className={styles.impactStat} style={{borderColor:'#9060c0'}}><div className={styles.impactNum} style={{color:'#9060c0'}}>10</div><div className={styles.impactLabel}>False Positives</div><div className={styles.impactSub}>vs 1,393 from LR</div></div>
                                   </div>
                                   <div className={styles.tierGrid}>
                                     <div className={styles.tierCard} style={{borderTopColor:'#5a9e82'}}><div className={styles.tierLabel} style={{color:'#5a9e82'}}>Now: Deploy</div><div className={styles.tierDesc}>3-tier alert system replacing manual review.</div></div>
