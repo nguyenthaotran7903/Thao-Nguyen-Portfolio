@@ -80,13 +80,13 @@ function SmoteChart() {
               {isActive&&<text x={gX+bW/2} y={H-lH+6} textAnchor="middle" fontSize="6" fill="#5b8db8" fontWeight="700">100%</text>}
               <rect x={gX+bW+gap} y={H-fH+10} width={bW} height={fH} fill={isActive?'#c04070':'#e8729a'} rx="2"/>
               {isActive&&<text x={gX+bW+gap+bW/2} y={H-fH+6} textAnchor="middle" fontSize="6" fill="#e8729a" fontWeight="700">{gi===0?'0.17%':'100%'}</text>}
-              <text x={gX+groupW/2} y={H+22} textAnchor="middle" fontSize="11" fontWeight={isActive?700:500} fill={isActive?'#1a1a1a':'#666'}>{g.label}</text>
+              <text x={gX+groupW/2} y={H+22} textAnchor="middle" fontSize="5" fontWeight={isActive?700:500} fill={isActive?'#1a1a1a':'#666'}>{g.label}</text>
             </g>
           );
         })}
         <g transform={`translate(${padL},${H+34})`}>
-          <rect width="7" height="7" fill="#5b8db8" rx="1"/><text x="10" y="6" fontSize="11" fill="#888">Legitimate</text>
-          <rect x="76" width="7" height="7" fill="#e8729a" rx="1"/><text x="86" y="6" fontSize="11" fill="#888">Fraud</text>
+          <rect width="7" height="7" fill="#5b8db8" rx="1"/><text x="10" y="6" fontSize="5" fill="#888">Legitimate</text>
+          <rect x="76" width="7" height="7" fill="#e8729a" rx="1"/><text x="86" y="6" fontSize="5" fill="#888">Fraud</text>
         </g>
       </svg>
       {active&&<div className={styles.chartExplain} style={{borderLeftColor:'#5b8db8'}}><div className={styles.chartExplainTitle} style={{color:'#1a1a1a'}}>{groups.find(g=>g.key===active)?.label}</div><div className={styles.chartExplainNote}>{groups.find(g=>g.key===active)?.explain}</div></div>}
