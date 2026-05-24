@@ -1788,8 +1788,12 @@ export default function Portfolio() {
                               <div className={styles.panelContent}>
                                 <div className={styles.problemBox}>
                                   <div className={styles.problemLabel}>Research Question</div>
-                                  <div className={styles.problemText}>{project.researchQuestion}</div>
-                                </div>
+                                 <div className={styles.problemText}>
+  <ul style={{listStyle:'none',padding:0,margin:0,display:'flex',flexDirection:'column',gap:8}}>
+    <li>Which classification technique — Logistic Regression, Decision Tree, or Random Forest — best detects credit card fraud in a highly imbalanced banking dataset?</li>
+    <li>How can class imbalance be mitigated without sacrificing recall on the minority (fraud) class?</li>
+  </ul>
+</div>
                                 <div className={styles.approachGrid}>
                                   {[{icon:'01',label:'Classify',desc:'Binary classification — Fraud (1) vs Legitimate (0)'},{icon:'02',label:'Handle Imbalance',desc:'SMOTE oversampling to balance 0.17% minority class'},{icon:'03',label:'Compare Models',desc:'Logistic Regression, Decision Tree, Random Forest'},{icon:'04',label:'Optimize Recall',desc:'Maximize fraud detection, minimize false positives'}].map((a,i)=>(
                                     <div key={i} className={styles.approachCard}><div className={styles.approachIcon}>{a.icon}</div><div className={styles.approachLabel}>{a.label}</div><div className={styles.approachDesc}>{a.desc}</div></div>
