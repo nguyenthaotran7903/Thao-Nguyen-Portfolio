@@ -364,7 +364,6 @@ function EdaCards() {
   const activeCard = cards.find(c=>c.key===active);
   return (
     <div style={{display:'flex',flexDirection:'column',gap:0,border:'1px solid #ebebeb',borderRadius:8,overflow:'hidden'}}>
-      {/* Tab row */}
       <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',borderBottom:'1px solid #ebebeb'}}>
         {cards.map(c=>{
           const isActive = active===c.key;
@@ -381,7 +380,9 @@ function EdaCards() {
           );
         })}
       </div>
-
+    </div>
+  );
+}
 /* ── Interactive Pipeline Steps ── */
 function PipelineSteps({steps, hasCharts}) {
   const [active, setActive] = useState(null);
