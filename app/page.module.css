@@ -131,8 +131,7 @@
 /* ===== OVERVIEW TAB ===== */
 .problemBox { background: #1a1a1a; color: #fff; border-radius: 8px; padding: 24px 28px; display: flex; flex-direction: column; gap: 10px; }
 .problemLabel { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: #7db8d8; font-weight: 700; }
-.problemText { font-size: 15px; line-height: 1.8; color: #f0f0f0; font-style: normal; font-weight: 400; }
-.statRow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #ebebeb; border: 1px solid #ebebeb; border-radius: 8px; overflow: hidden; }
+.problemText { font-size: 15px; line-height: 1.8; color: #f0f0f0; font-style: normal; font-weight: 400; text-align: justify; }.statRow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #ebebeb; border: 1px solid #ebebeb; border-radius: 8px; overflow: hidden; }
 .statBox { background: #fff; padding: 20px 16px; text-align: center; display: flex; flex-direction: column; gap: 4px; }
 .statNum { font-size: 24px; font-weight: 800; color: #1a1a1a; letter-spacing: -1px; line-height: 1; }
 .statLabel { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
