@@ -101,8 +101,7 @@
       "highlights": [
   "Used Excel (VLOOKUP, IF, IFERROR) to cross-check portfolio data and classify loans per SBV's Circular 31/2024",
   "Identified common errors across departments and flagged for correction; cross-verified corporate clients' financial statements before credit risk assessment",
-  "Built fraud detection models (Random Forest, SMOTE) on 284,807 transactions as internship thesis — pushed recall from 63% to 84% with only 10 false positives",
-  "Presented fraud detection findings to the Planning & Risk Management Department — model and early warning approach received positive feedback from leadership"
+  "Built fraud detection models (Random Forest, SMOTE) on 284,807 transactions as internship thesis, pushed recall from 63% to 84% with only 10 false positives"
 ]
     }
   ],
