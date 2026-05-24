@@ -254,7 +254,7 @@ function CorrelationViz() {
   const n=8, cellSize=14, cellGap=2, padL=28, padT=20, W=380;
   const labels=['V1','V2','V3','V4','V5','V6','V14','Class'];
   return (
-    <svg width="100%" viewBox={`0 0 ${W} 140`} style={{display:'block'}}>
+    <svg width="100%" viewBox={`0 0 ${W} 158`} style={{display:'block'}}>
       {labels.map((l,i)=>(
         <text key={`rl${i}`} x={padL-4} y={padT+i*(cellSize+cellGap)+cellSize/2+3} textAnchor="end" fontSize="6" fill="#bbb">{l}</text>
       ))}
@@ -270,7 +270,7 @@ function CorrelationViz() {
             <rect key={`${i}-${j}`}
               x={padL+j*(cellSize+cellGap)} y={padT+i*(cellSize+cellGap)}
               width={cellSize} height={cellSize}
-              fill={highlight?'#e8729a':i===j?'#1a1a1a':'#5b8db8'}
+              fill={highlight?'#3a7db8':i===j?'#1a1a1a':'#5b8db8'}
               opacity={isHov?1:highlight?0.85:i===j?1:v*0.6+0.1}
               rx="1" style={{cursor:'pointer',transition:'opacity 0.15s'}}
               onMouseEnter={()=>setHovCell([i,j])} onMouseLeave={()=>setHovCell(null)}/>
@@ -285,13 +285,13 @@ function CorrelationViz() {
         const tx = x > W-120 ? x-108 : x+16;
         return(
           <g>
-            <rect x={tx} y={y-2} width={100} height={26} fill="white" stroke={highlight?'#e8729a':'#5b8db8'} strokeWidth="1" rx="3"/>
+            <rect x={tx} y={y-2} width={100} height={26} fill="white" stroke={highlight?'#3a7db8':'#5b8db8'} strokeWidth="1" rx="3"/>
             <text x={tx+6} y={y+9} fontSize="7" fill="#1a1a1a" fontWeight="600">{labels[i]} vs {labels[j]}</text>
-            <text x={tx+6} y={y+19} fontSize="6" fill={highlight?'#e8729a':'#888'}>{highlight?'r = 0.8+ (fraud signal)':'r = '+v.toFixed(2)}</text>
+            <text x={tx+6} y={y+19} fontSize="6" fill={highlight?'#3a7db8':'#888'}>{highlight?'r = 0.8+ (fraud signal)':'r = '+v.toFixed(2)}</text>
           </g>
         );
       })()}
-      <text x={padL} y="133" fontSize="6" fill="#bbb">Pink = correlated with Class (fraud target)</text>
+      <text x={padL} y={152} fontSize="6" fill="#bbb">Blue = correlated with Class (fraud target)</text>
     </svg>
   );
 }
