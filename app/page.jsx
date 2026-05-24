@@ -947,20 +947,31 @@ function P6CrashTimeline() {
             </g>
           );
         })}
-        {active!==null&&(()=>{
-          const e=events[active], cx=getX(active), cy=getY(e.idx);
-          const tx=cx>W-150?cx-148:cx+8;
-          const dotColor=e.peak?'#1a6b5c':e.crash?'#c04040':'#5b8db8';
-          const shortNote=e.note.length>50?e.note.substring(0,50)+'...':e.note;
-          return(
-            <g>
-              <line x1={cx} y1={12} x2={cx} y2={H-padB} stroke={dotColor+'50'} strokeWidth="1" strokeDasharray="3,2"/>
-              <rect x={tx} y={Math.max(4,cy-20)} width={140} height={34} fill="white" stroke={dotColor} strokeWidth="1" rx="3"/>
-              <text x={tx+6} y={Math.max(4,cy-20)+12} fontSize="7" fontWeight="700" fill="#1a1a1a">{e.label} ({e.year})</text>
-              <text x={tx+6} y={Math.max(4,cy-20)+23} fontSize="6" fill="#666">{shortNote}</text>
-            </g>
-          );
-        })()}
+{active!==null&&(()=>{
+  const e=events[active], cx=getX(active), cy=getY(e.idx);
+  const dotColor=e.peak?'#1a6b5c':e.crash?'#c04040':'#5b8db8';
+  const shortNote=e.note.length>50?e.note.substring(0,50)+'...':e.note;
+ 
+  // Tính vị trí tooltip ban đầu (ưu tiên hiện bên phải điểm)
+  const rawTx = cx + 8;
+  // Clamp: không cho tooltip tràn ra bên phải
+  const safeX = Math.min(rawTx, W - padR - 148);
+  // Clamp: không cho tooltip tràn trên/dưới
+  const safeY = Math.max(6, Math.min(cy - 20, H - padB - 40));
+ 
+  return(
+    <g>
+      {/* Đường kẻ dọc từ điểm xuống trục X */}
+      <line x1={cx} y1={12} x2={cx} y2={H-padB} stroke={dotColor+'50'} strokeWidth="1" strokeDasharray="3,2"/>
+      {/* Box tooltip */}
+      <rect x={safeX} y={safeY} width={142} height={36} fill="white" stroke={dotColor} strokeWidth="1.5" rx="3"/>
+      {/* Dòng 1: label + năm */}
+      <text x={safeX+7} y={safeY+13} fontSize="7" fontWeight="700" fill="#1a1a1a">{e.label} ({e.year})</text>
+      {/* Dòng 2: mô tả ngắn */}
+      <text x={safeX+7} y={safeY+26} fontSize="6" fill="#666">{shortNote}</text>
+    </g>
+  );
+})()}
         <g transform={`translate(${padL},${H-padB+10})`}>
           <circle cx="4" cy="4" r="4" fill="#1a6b5c"/><text x="12" y="7" fontSize="6" fill="#1a6b5c">Peak</text>
           <circle cx="54" cy="4" r="4" fill="#c04040"/><text x="62" y="7" fontSize="6" fill="#c04040">Crash</text>
