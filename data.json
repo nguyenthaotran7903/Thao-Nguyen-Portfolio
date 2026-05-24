@@ -99,11 +99,11 @@
       "period": "Dec 2024 \u2013 Mar 2025",
       "projectId": 1,
       "highlights": [
-        "Built fraud detection models (Random Forest, SMOTE) on 284,807 real credit card transactions from Agribank's internal system",
-        "Achieved 99.95% accuracy and 84.16% recall with only 10 false positives using Random Forest \u2014 best model across 3 classifiers",
-        "Applied SMOTE to handle severe class imbalance (fraud = 0.172%) and Robust Scaler for outlier-resistant normalization",
-        "Proposed AI/ML-integrated 3-tier early warning system \u2014 well-received by Planning & Risk Management Department leadership"
-      ]
+  "Used Excel (VLOOKUP, IF, IFERROR) to cross-check portfolio data and classify loans per SBV's Circular 31/2024",
+  "Identified common errors across departments and flagged for correction; cross-verified corporate clients' financial statements before credit risk assessment",
+  "Built fraud detection models (Random Forest, SMOTE) on 284,807 transactions as internship thesis — pushed recall from 63% to 84% with only 10 false positives",
+  "Presented fraud detection findings to the Planning & Risk Management Department — model and early warning approach received positive feedback from leadership"
+]
     }
   ],
   "projects": [
