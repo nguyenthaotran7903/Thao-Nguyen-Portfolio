@@ -1566,7 +1566,7 @@ export default function Portfolio() {
         </div>
         <h1 className={styles.name}>{data.profile.name}</h1>
         <p className={styles.title}>{data.profile.title}</p>
-        <p className={styles.tagline}>"{data.profile.tagline}"</p>
+        <p className={styles.tagline}>{data.profile.tagline}</p>
         <div className={styles.contact}>
           <a href={`mailto:${data.profile.email}`} className={styles.contactLink}>Email</a>
           <span className={styles.contactDot}>·</span>
