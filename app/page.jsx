@@ -1029,14 +1029,14 @@ function P6SignalChart() {
 function P6ModelCompare() {
   const [active, setActive] = useState(null);
   const models = [
-    { name:'Random guess', f1:50, color:'#ccc', note:'No better than flipping a coin. But many retail investors effectively do this.', best:false },
+    { name:'Random', f1:50, color:'#bbb', note:'No better than flipping a coin. But many retail investors effectively do this.', best:false },
     { name:'Search only', f1:72, color:'#9060c0', note:'Google Trends alone captures retail FOMO but misses early structural signals. Catches the bubble late.', best:false },
     { name:'Math only', f1:85, color:'#5b8db8', note:'Hurst and Asymmetry alone are strong but blind to human behavior. Missed the 2021 retail-driven recovery timing.', best:false },
     { name:'Combined', f1:97.5, color:'#5a9e82', note:'Both signals together. F1 97.5%, AUC 0.992. Sharpe ratio 1.87 vs 0.94 buy-and-hold. Max drawdown cut from 47% to 18%.', best:true },
   ];
-  const W=360, H=100, padL=28, padB=20, bW=22, gap=14;
-  const groupW=models.length*(bW+gap)-gap;
-  const startX=(W-padL-groupW)/2+padL;
+  const W=360, H=110, padL=32, padB=24, bW=28, gap=20;
+  const totalW = models.length*(bW+gap)-gap;
+  const startX = (W-padL-totalW)/2+padL;
   const info=active!==null?models[active]:null;
   return (
     <div className={styles.chartWrap}>
@@ -1053,13 +1053,13 @@ function P6ModelCompare() {
           const isActive=active===i;
           return(
             <g key={i} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:i)}>
-              <rect x={x} y={y} width={bW} height={bH} fill={isActive?m.color:m.best?m.color+'cc':m.color+'44'} rx="2" style={{transition:'all 0.15s'}}/>
-              <text x={x+bW/2} y={y-4} textAnchor="middle" fontSize="7" fontWeight="700" fill={m.best?m.color:'#999'}>{m.f1}%</text>
-              <text x={x+bW/2} y={H+14} textAnchor="middle" fontSize="6" fill={isActive?'#1a1a1a':m.best?'#1a1a1a':'#bbb'}>{m.best?'Best':m.name.split(' ')[0]}</text>
+              <rect x={x} y={y} width={bW} height={bH} fill={isActive?m.color:m.best?m.color+'cc':m.color+'44'} rx="3" style={{transition:'all 0.15s'}}/>
+              <text x={x+bW/2} y={y-5} textAnchor="middle" fontSize="7" fontWeight="700" fill={m.best?m.color:'#999'}>{m.f1}%</text>
+              <text x={x+bW/2} y={H+16} textAnchor="middle" fontSize="7" fill={isActive?'#1a1a1a':m.best?'#1a1a1a':'#bbb'}>{m.best?'Best':m.name}</text>
             </g>
           );
         })}
-        <text x={W/2} y={20} textAnchor="middle" fontSize="7" fill="#888">Detection Accuracy (F1 Score)</text>
+        <text x={W/2} y={18} textAnchor="middle" fontSize="7" fill="#888">Detection Accuracy (F1 Score)</text>
       </svg>
       {info&&(
         <div className={styles.chartExplain} style={{borderLeftColor:info.color}}>
