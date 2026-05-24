@@ -951,7 +951,7 @@ function P6CrashTimeline() {
           const e=events[active], cx=getX(active), cy=getY(e.idx);
           const tx=cx>W-150?cx-148:cx+8;
           const dotColor=e.peak?'#1a6b5c':e.crash?'#c04040':'#5b8db8';
-          const shortNote=e.note.length>55?e.note.substring(0,55)+'...':e.note;
+          const shortNote=e.note.length>50?e.note.substring(0,50)+'...':e.note;
           return(
             <g>
               <line x1={cx} y1={12} x2={cx} y2={H-padB} stroke={dotColor+'50'} strokeWidth="1" strokeDasharray="3,2"/>
