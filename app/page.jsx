@@ -147,7 +147,7 @@ function ModelCompareChart() {
           return(
             <g key={i} transform={`translate(${lx},${ly})`} style={{cursor:'pointer'}} onClick={()=>setActive(active===i?null:i)}>
               <rect width="8" height="8" fill={m.best?'#1a1a1a':'#ccc'} rx="1"/>
-              <text x="11" y="7" fontSize="7" fontWeight={m.best||active===i?700:400} fill={m.best?'#1a1a1a':active===i?'#333':'#888'}>{m.name}{m.best?' ★':''}</text>
+              <text x="11" y="7" fontSize="6" fontWeight={m.best||active===i?700:400} fill={m.best?'#1a1a1a':active===i?'#333':'#888'}>{m.name}{m.best?' ★':''}</text>
             </g>
           );
         })}
