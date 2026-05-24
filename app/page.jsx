@@ -8,6 +8,7 @@ import styles from './page.module.css';
 
 /* ── Interactive charts ── */
 
+
 function PieChart() {
   const [active, setActive] = useState(null);
   const cx = 70, cy = 70, r = 60;
