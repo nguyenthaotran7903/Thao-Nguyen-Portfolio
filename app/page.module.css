@@ -65,7 +65,7 @@
 .trainingOrg { font-size: 14px; color: #888; display: block; line-height: 1.5; }
 .trainingTopics { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-direction: column; gap: 6px; }
 .trainingTopics li { font-size: 14px; color: #555; padding-left: 16px; position: relative; line-height: 1.55; }
-.trainingTopics li:before { content: "â€“"; position: absolute; left: 0; color: #5a9e82; }
+.trainingTopics li:before { content: "-"; position: absolute; left: 0; color: #5a9e82; }
 
 /* ===== CERTS ===== */
 .certList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
