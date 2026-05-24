@@ -2129,7 +2129,8 @@ export default function Portfolio() {
                                         <li>Address <span className={styles.reflectHL}>MAPE=55.55%</span> — try XGBoost or Elastic Net; the high MAPE suggests non-linear relationships the linear model misses</li>
                                         <li>Expand dataset: <span className={styles.reflectHL}>include 2021 imputed data</span> and extend to non-listed banks for a balanced panel</li>
                                         <li>DAP increases risk but the model can't tell whether mature core banking softens that effect. This is the open question I'd test next with a <span className={styles.reflectHL}>COB × DAP interaction term</span></li>
-                                    </div>
+                                      </ul>
+                                      </div>
                                   </div>
                                 </div>
                                 <div className={styles.panelBlock}>
