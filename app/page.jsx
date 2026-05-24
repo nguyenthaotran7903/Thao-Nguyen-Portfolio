@@ -375,27 +375,12 @@ function EdaCards() {
                 <span style={{fontSize:12,color:c.color,fontWeight:700}}>{c.icon}</span>
                 <span style={{fontSize:11,fontWeight:700,color:'#1a1a1a',textTransform:'uppercase',letterSpacing:'1px'}}>{c.title}</span>
               </div>
-              <div style={{fontSize:22,fontWeight:800,color:c.color,letterSpacing:'-0.5px',lineHeight:1}}>{c.stat}</div>
+              <div style={{fontSize:15,fontWeight:800,color:c.color,letterSpacing:'-0.5px',lineHeight:1}}>{c.stat}</div>
               <div style={{fontSize:10,color:'#888',textTransform:'uppercase',letterSpacing:'0.5px',marginTop:3}}>{c.statLabel}</div>
             </div>
           );
         })}
       </div>
-      {/* Chart area */}
-      {activeCard&&(
-        <div style={{background:'#fff',padding:'20px',display:'flex',flexDirection:'column',gap:16,animation:'fadeIn 0.2s ease'}}>
-          <div style={{width:'100%',overflow:'hidden'}}>
-            <activeCard.Viz/>
-          </div>
-          <div style={{borderLeft:`3px solid ${activeCard.color}`,paddingLeft:14,display:'flex',flexDirection:'column',gap:4}}>
-            <div style={{fontSize:11,fontWeight:700,color:activeCard.color,textTransform:'uppercase',letterSpacing:'0.5px'}}>{activeCard.title}</div>
-            <div style={{fontSize:13,color:'#555',lineHeight:1.65}}>{activeCard.detail}</div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
 
 /* ── Interactive Pipeline Steps ── */
 function PipelineSteps({steps, hasCharts}) {
