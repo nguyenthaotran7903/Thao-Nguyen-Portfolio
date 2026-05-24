@@ -1833,20 +1833,25 @@ export default function Portfolio() {
                                 <ConfusionMatrix/>
                               </div>
                             )}
-                            {currentTab==='outcome'&&(
-                              <div className={styles.panelContent}>
-                                <div className={styles.panelBlock}>
-                                  <span className={styles.panelLabel}>Impact</span>
-                                  <div className={styles.impactRow} style={{gridTemplateColumns:'repeat(2,1fr)'}}>
-                                    <div className={styles.impactStat} style={{borderColor:'#e8729a'}}><div className={styles.impactNum} style={{color:'#e8729a'}}>84%</div><div className={styles.impactLabel}>Fraud Caught</div><div className={styles.impactSub}>Before financial loss</div></div>
-                                    <div className={styles.impactStat} style={{borderColor:'#9060c0'}}><div className={styles.impactNum} style={{color:'#9060c0'}}>10</div><div className={styles.impactLabel}>False Positives</div><div className={styles.impactSub}>vs 1,393 from LR</div></div>
-                                  </div>
-                                  <div className={styles.tierGrid}>
-                                    <div className={styles.tierCard} style={{borderTopColor:'#5a9e82'}}><div className={styles.tierLabel} style={{color:'#5a9e82'}}>Now: Deploy</div><div className={styles.tierDesc}>3-tier alert system replacing manual review.</div></div>
-                                    <div className={styles.tierCard} style={{borderTopColor:'#f0a030'}}><div className={styles.tierLabel} style={{color:'#f0a030'}}>Next: Explain</div><div className={styles.tierDesc}>SHAP explainability for compliance.</div></div>
-                                    <div className={styles.tierCard} style={{borderTopColor:'#5b8db8'}}><div className={styles.tierLabel} style={{color:'#5b8db8'}}>Future: Real-time</div><div className={styles.tierDesc}>Sub-second stream scoring.</div></div>
-                                  </div>
-                                </div>
+<div className={styles.panelBlock}>
+  <span className={styles.panelLabel}>Impact</span>
+  <div style={{background:'#fff',border:'1px solid #ebebeb',borderRadius:8,padding:'20px 24px'}}>
+    <ul style={{listStyle:'none',padding:0,margin:0,display:'flex',flexDirection:'column',gap:12}}>
+      <li style={{fontSize:14,color:'#3a3a3a',lineHeight:1.7,paddingLeft:16,position:'relative'}}>
+        <span style={{position:'absolute',left:0}}>•</span>
+        Benchmark cho bài toán mất cân bằng cực độ: Với tỷ lệ fraud chỉ 0,17%, Random Forest đạt recall 84% và chỉ 10 false positives, con số cụ thể để các nghiên cứu sau so sánh khi thử nghiệm mô hình khác trên cùng điều kiện.
+      </li>
+      <li style={{fontSize:14,color:'#3a3a3a',lineHeight:1.7,paddingLeft:16,position:'relative'}}>
+        <span style={{position:'absolute',left:0}}>•</span>
+        Lượng hóa hiệu quả của SMOTE và Robust Scaler: Project chứng minh SMOTE cải thiện recall từ 63% lên 94% cho Logistic Regression, và Robust Scaler xử lý thành công outlier 25.691 USD là những chi tiết kỹ thuật có thể tái sử dụng và kiểm chứng.
+      </li>
+      <li style={{fontSize:14,color:'#3a3a3a',lineHeight:1.7,paddingLeft:16,position:'relative'}}>
+        <span style={{position:'absolute',left:0}}>•</span>
+        Làm rõ trade-off giữa các mô hình phân loại: Logistic Regression (ưu tiên bắt hết gian lận, chấp nhận false positives cao), Decision Tree (trung gian) và Random Forest (cân bằng nhất) giúp nghiên cứu sau chọn mô hình phù hợp với ngưỡng rủi ro của họ.
+      </li>
+    </ul>
+  </div>
+</div>
                                 <div className={styles.panelBlock}>
                                   <span className={styles.panelLabel}>Reflection</span>
                                   <div className={styles.reflectGrid}>
