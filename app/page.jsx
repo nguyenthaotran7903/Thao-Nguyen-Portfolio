@@ -1998,7 +1998,7 @@ export default function Portfolio() {
                                       <ul className={styles.reflectList}>
                                         <li>Build a <span className={styles.reflectHL}>predictive layer</span> — forecast next quarter revenue by category using time series models</li>
                                         <li>Add <span className={styles.reflectHL}>customer lifetime value (CLV)</span> segmentation within the 25-45 cohort to identify highest-value sub-segments</li>
-                                        <li>The analysis couldn't measure whether SEASONALOFFER21 actually drove profit or just volume.  In a follow-up study I'd track <span className={styles.reflectHL}>net margin per discount code</span>, not just transaction count
+                                        <li>The analysis couldn't measure whether SEASONALOFFER21 actually drove profit or just volume.  In a follow-up study I'd track <span className={styles.reflectHL}>net margin per discount code</span>, not just transaction count</li>
                                       </ul>
                                     </div>
                                   </div>
