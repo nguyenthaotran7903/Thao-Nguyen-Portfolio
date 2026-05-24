@@ -1076,7 +1076,7 @@ function P6AlertSystem() {
   const [active, setActive] = useState(null);
   const levels = [
     { level:'Yellow Alert', trigger:'Hurst H crossing 0.65 and Google Trends momentum rising', meaning:'Market entering overheated territory. Not a crash yet — reduce new positions and review stop-losses.', action:'Reduce exposure by 20%. Tighten stop-loss orders.', color:'#c08820', who:'Individual investors, fund managers' },
-    { level:'Orange Alert', trigger:'H above 0.70, Asymmetry above 0.25, and Search volume spike above 50%', meaning:'Classic bubble signature. All three signals firing simultaneously. High probability of correction within 4 to 8 weeks.', action:'Reduce exposure by 50%. Hedge with options or move to cash.', color:'#9060c0', who:'Institutional risk committees, portfolio managers' },
+    { level:'Orange Alert', trigger:'H above 0.70, Asymmetry above 0.25, and Search volume spike above 50%', meaning:'Classic bubble signature. All three signals firing simultaneously. High probability of correction within 4 to 8 weeks.', action:'Reduce exposure by 50%. Hedge with options or move to cash.', color:'#c07820', who:'Institutional risk committees, portfolio managers' },
     { level:'Red Alert', trigger:'All signals at maximum and price momentum diverging from fundamentals', meaning:'Crash imminent. Historical base rate: correction of 25 to 40% follows within 2 to 4 weeks when all red criteria met.', action:'Exit long positions. Preserve capital. Wait for stabilization signal.', color:'#c04040', who:'State Securities Commission, systemic risk monitors' },
   ];
   return (
