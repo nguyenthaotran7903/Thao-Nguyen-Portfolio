@@ -143,7 +143,7 @@ function ModelCompareChart() {
           );
         })}
         {models.map((m,i)=>{
-          const lx=padL+(i%2)*160; const ly=H+32+(Math.floor(i/2)*13);
+          const lx=padL+(i%2)*175; const ly=H+32+(Math.floor(i/2)*13);
           return(
             <g key={i} transform={`translate(${lx},${ly})`} style={{cursor:'pointer'}} onClick={()=>setActive(active===i?null:i)}>
               <rect width="8" height="8" fill={m.best?'#1a1a1a':'#ccc'} rx="1"/>
