@@ -143,7 +143,7 @@ function ModelCompareChart() {
           );
         })}
         {models.map((m,i)=>{
-          const lx=padL+(i%2)*295; const ly=H+32+(Math.floor(i/2)*13);
+          const lx=padL+(i%2)*275; const ly=H+32+(Math.floor(i/2)*13);
           return(
             <g key={i} transform={`translate(${lx},${ly})`} style={{cursor:'pointer'}} onClick={()=>setActive(active===i?null:i)}>
               <rect width="8" height="8" fill={m.best?'#1a1a1a':'#ccc'} rx="1"/>
@@ -1790,7 +1790,7 @@ export default function Portfolio() {
       <div className={styles.problemLabel}>Research Question</div>
       <div className={styles.problemText}>
         <ul style={{listStyle:'none',padding:0,margin:0,display:'flex',flexDirection:'column',gap:8}}>
-          <li>Which classification technique — Logistic Regression, Decision Tree, or Random Forest — best detects credit card fraud in a highly imbalanced banking dataset?</li>
+          <li>Which classification technique: Logistic Regression, Decision Tree, or Random Forest is best detects credit card fraud in a highly imbalanced banking dataset?</li>
           <li>How can class imbalance be mitigated without sacrificing recall on the minority (fraud) class?</li>
         </ul>
       </div>
