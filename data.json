@@ -83,15 +83,14 @@
   "experience": [
     {
       "id": 1,
-      "title": "Quantitative Research Specialist",
+      "title": "AI Agent Project Collaborator",
       "company": "Hung Vuong University, Ho Chi Minh City",
       "period": "July 2025 \u2013 Jan 2026",
       "highlights": [
-        "Collected, stored, and queried market data using SQL for internal analytics platform with 100% data integrity",
-        "Built early-warning system for VN-Index and sectoral indices \u2014 generated sell signals 2\u20134 weeks before major corrections",
-        "Reduced maximum drawdown from 47% to 18% in backtests through improved portfolio risk management",
-        "Standardized financial and regulatory data into auditable, reproducible formats for AI research project"
-      ]
+  "Collected and stored multi-source research data in PostgreSQL across multiple joined tables to support an internal AI project",
+  "Wrote PostgreSQL queries (joins, aggregations, filters) to pull and transform raw data into clean datasets for the validation team",
+  "Structured model outputs for back-testing and performance review; summarized prediction vs. actual results after each milestone"
+]
     },
     {
       "id": 2,
