@@ -1589,27 +1589,6 @@ export default function Portfolio() {
         {activeTab === 'about' && (
           <section className={styles.section}>
             <p className={styles.aboutBio}>{data.profile.bio}</p>
-            <div className={styles.aboutGrid}>
-              <div className={styles.aboutCard}>
-                <span className={styles.cardLabel}>Background</span>
-                <div>
-                  <p>{data.about.background}</p>
-                  {data.about.exchange && <p>{data.about.exchange}</p>}
-                </div>
-              </div>
-              <div className={styles.aboutCard}>
-                <span className={styles.cardLabel}>Focus</span>
-                <p>{data.about.professional_focus}</p>
-              </div>
-              <div className={styles.aboutCard}>
-                <span className={styles.cardLabel}>Strengths</span>
-                <ul className={styles.strengthsList}>
-                  {data.about.strengths.map((s, i) => (
-                    <li key={i}>{s}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
 
             <Divider label="Education" />
             {data.education.map((edu, i) => (
