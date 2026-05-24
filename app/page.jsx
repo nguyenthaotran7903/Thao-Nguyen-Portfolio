@@ -138,19 +138,20 @@ function ModelCompareChart() {
                   </g>
                 );
               })}
-              <text x={gX+groupW/2} y={H+20} textAnchor="middle" fontSize="7" fontWeight="600" fill="#555">{m.label}</text>
+              <text x={gX+groupW/2} y={H+20} textAnchor="middle" fontSize="6" fontWeight="600" fill="#555">{m.label}</text>
             </g>
           );
         })}
-        {models.map((m,i)=>{
-          const lx=padL+(i%2)*120; const ly=H+32+(Math.floor(i/2)*14);
-          return(
-            <g key={i} transform={`translate(${lx},${ly})`} style={{cursor:'pointer'}} onClick={()=>setActive(active===i?null:i)}>
-              <rect width="8" height="8" fill={m.best?'#1a1a1a':'#ccc'} rx="1"/>
-              <text x="11" y="7" fontSize="6" fontWeight={m.best||active===i?700:400} fill={m.best?'#1a1a1a':active===i?'#333':'#888'}>{m.name}{m.best?' ★':''}</text>
-            </g>
-          );
-        })}
+{models.map((m,i)=>{
+  const lx=padL+(i*(W-padL)/models.length);
+  const ly=H+32;
+  return(
+    <g key={i} transform={`translate(${lx},${ly})`} style={{cursor:'pointer'}} onClick={()=>setActive(active===i?null:i)}>
+      <rect width="8" height="8" fill={m.best?'#1a1a1a':'#ccc'} rx="1"/>
+      <text x="11" y="7" fontSize="8" fontWeight={m.best||active===i?700:400} fill={m.best?'#1a1a1a':active===i?'#333':'#888'}>{m.name}{m.best?' ★':''}</text>
+    </g>
+  );
+})}
       </svg>
       {info && (
         <div className={styles.chartExplain} style={{borderLeftColor:info.best?'#1a1a1a':'#5b8db8'}}>
