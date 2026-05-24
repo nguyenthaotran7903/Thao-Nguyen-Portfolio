@@ -1769,19 +1769,21 @@ export default function Portfolio() {
                           {/* ══ PROJECT 1 TABS ══ */}
                           {hasCharts&&(
                             <>
-                            {currentTab==='context'&&(
-                              <div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}>
-                                <div className={styles.problemBox}>
-                                  <div className={styles.problemLabel}>The Problem</div>
-                                  <div className={styles.problemText}>{"Vietnam's rapid credit expansion has intensified fraud risk in personal credit portfolios. This study addresses a critical gap: Agribank Saigon Branch lacked an automated, data-driven early-warning system for credit card fraud detection, relying instead on manual review processes vulnerable to human error."}</div>
-                                </div>
-                                <div className={styles.statRow}>
-                                  <div className={styles.statBox}><div className={styles.statNum} style={{color:'#e8729a'}}>0.17%</div><div className={styles.statLabel}>Fraud Rate</div></div>
-                                  <div className={styles.statBox}><div className={styles.statNum}>Manual</div><div className={styles.statLabel}>Detection Method</div></div>
-                                  <div className={styles.statBox}><div className={styles.statNum}>1.5%</div><div className={styles.statLabel}>NPL Ratio</div></div>
-                                  <div className={styles.statBox}><div className={styles.statNum}>Tier 1</div><div className={styles.statLabel}>Branch Rank</div></div>
-                                </div>
-                                {project.supervisor&&(<div className={styles.contextMeta}><span>Supervisor: {project.supervisor}</span><span>{project.institution} / {project.period}</span></div>)}
+{currentTab==='context'&&(
+  <div className={`${styles.panelContent} ${contextHighlight===project.id?styles.panelContentHighlight:''}`}>
+    <div className={styles.problemBox}>
+      <div className={styles.problemLabel}>The Problem</div>
+      <div className={styles.problemText}>{"Vietnam's rapid credit expansion has intensified fraud risk in personal credit portfolios. This study addresses a critical gap: Agribank Saigon Branch lacked an automated, data-driven early-warning system for credit card fraud detection, relying instead on manual review processes vulnerable to human error."}</div>
+    </div>
+    <div className={styles.statRow}>
+      <div className={styles.statBox}><div className={styles.statNum} style={{color:'#e8729a'}}>0.17%</div><div className={styles.statLabel}>Fraud Rate</div></div>
+      <div className={styles.statBox}><div className={styles.statNum}>Manual</div><div className={styles.statLabel}>Detection Method</div></div>
+      <div className={styles.statBox}><div className={styles.statNum}>1.5%</div><div className={styles.statLabel}>NPL Ratio</div></div>
+      <div className={styles.statBox}><div className={styles.statNum}>Tier 1</div><div className={styles.statLabel}>Branch Rank</div></div>
+    </div>
+    {project.supervisor&&(<div className={styles.contextMeta}><span>Supervisor: {project.supervisor}</span><span>{project.institution} / {project.period}</span></div>)}
+  </div>
+)}
 {currentTab==='approach'&&(
   <div className={styles.panelContent}>
     <div className={styles.problemBox}>
