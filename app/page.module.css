@@ -43,7 +43,7 @@
 .eduPeriod { font-size: 13px; color: #888; display: block; line-height: 1.5; }
 .eduStatus { font-size: 11px; color: #bbb; display: block; text-transform: uppercase; }
 .eduRight { display: flex; flex-direction: column; gap: 7px; }
-.eduDegree { font-size: 17px; font-weight: 700; color: #1a1a1a; display: block; line-height: 1.3; }
+.eduDegree { font-size: 16px; font-weight: 700; color: #1a1a1a; display: block; line-height: 1.3; }
 .eduInst { font-size: 15px; color: #5b8db8; display: block; line-height: 1.4; font-weight: 500; }
 .eduField { font-size: 14px; color: #888; display: block; line-height: 1.5; }
 
@@ -98,8 +98,7 @@
 .projectMeta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 .projectCategory { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #5a9e82; font-weight: 700; }
 .projectYear { font-size: 12px; color: #bbb; }
-.projectTitle { font-size: 18px; font-weight: 700; color: #1a1a1a; line-height: 1.35; margin: 0 0 6px; }
-.projectType { font-size: 13px; color: #999; margin: 0 0 12px; font-style: italic; }
+.projectTitle { font-size: 16px; font-weight: 700; color: #1a1a1a; line-height: 1.35; margin: 0 0 6px; }.projectType { font-size: 13px; color: #999; margin: 0 0 12px; font-style: italic; }
 .projectContext { font-size: 15px; color: #555; line-height: 1.65; margin: 0 0 16px; }
 .projectQuickResults { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; padding: 14px 16px; background: #f0f6fb; border-left: 2px solid #5b8db8; border-radius: 0 4px 4px 0; }
 .quickResult { display: flex; gap: 10px; align-items: flex-start; }
@@ -215,7 +214,7 @@
 .timelineDot { width: 8px; height: 8px; border-radius: 50%; background: #5b8db8; flex-shrink: 0; margin-top: 5px; }
 .timelineTrack { width: 1px; flex: 1; background: #ebebeb; margin-top: 8px; }
 .timelineRight { padding-left: 20px; }
-.jobTitle { font-size: 19px; font-weight: 700; color: #1a1a1a; margin: 0 0 5px; line-height: 1.25; }
+.jobTitle { font-size: 16px; font-weight: 700; color: #1a1a1a; margin: 0 0 5px; line-height: 1.25; }
 .jobCompany { font-size: 14px; color: #5b8db8; display: block; margin-bottom: 18px; font-weight: 500; }
 .highlightsList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
 .highlightsList li { font-size: 15px; color: #3a3a3a; padding-left: 20px; position: relative; line-height: 1.65; }
