@@ -143,7 +143,7 @@ function ModelCompareChart() {
           );
         })}
         {models.map((m,i)=>{
-          const lx=padL+(i%2)*300; const ly=H+32+(Math.floor(i/2)*13);
+          const lx=padL+(i%2)*295; const ly=H+32+(Math.floor(i/2)*13);
           return(
             <g key={i} transform={`translate(${lx},${ly})`} style={{cursor:'pointer'}} onClick={()=>setActive(active===i?null:i)}>
               <rect width="8" height="8" fill={m.best?'#1a1a1a':'#ccc'} rx="1"/>
@@ -1782,26 +1782,25 @@ export default function Portfolio() {
                                   <div className={styles.statBox}><div className={styles.statNum}>Tier 1</div><div className={styles.statLabel}>Branch Rank</div></div>
                                 </div>
                                 {project.supervisor&&(<div className={styles.contextMeta}><span>Supervisor: {project.supervisor}</span><span>{project.institution} / {project.period}</span></div>)}
-                              </div>
-                            )}
-                            {currentTab==='approach'&&(
-                              <div className={styles.panelContent}>
-                                <div className={styles.problemBox}>
-                                  <div className={styles.problemLabel}>Research Question</div>
-                                 <div className={styles.problemText}>
-  <ul style={{listStyle:'none',padding:0,margin:0,display:'flex',flexDirection:'column',gap:8}}>
-    <li>Which classification technique — Logistic Regression, Decision Tree, or Random Forest — best detects credit card fraud in a highly imbalanced banking dataset?</li>
-    <li>How can class imbalance be mitigated without sacrificing recall on the minority (fraud) class?</li>
-  </ul>
-</div>
-                                <div className={styles.approachGrid}>
-                                  {[{icon:'01',label:'Classify',desc:'Binary classification — Fraud (1) vs Legitimate (0)'},{icon:'02',label:'Handle Imbalance',desc:'SMOTE oversampling to balance 0.17% minority class'},{icon:'03',label:'Compare Models',desc:'Logistic Regression, Decision Tree, Random Forest'},{icon:'04',label:'Optimize Recall',desc:'Maximize fraud detection, minimize false positives'}].map((a,i)=>(
-                                    <div key={i} className={styles.approachCard}><div className={styles.approachIcon}>{a.icon}</div><div className={styles.approachLabel}>{a.label}</div><div className={styles.approachDesc}>{a.desc}</div></div>
-                                  ))}
-                                </div>
-                                <div className={styles.toolsRow}><span className={styles.panelLabel}>Tools</span><div className={styles.toolsList} style={{marginTop:8}}>{project.tools?.map((t,i)=><span key={i} className={styles.tool} style={{fontSize:13,padding:'5px 12px'}}>{t}</span>)}</div></div>
-                              </div>
-                            )}
+{currentTab==='approach'&&(
+  <div className={styles.panelContent}>
+    <div className={styles.problemBox}>
+      <div className={styles.problemLabel}>Research Question</div>
+      <div className={styles.problemText}>
+        <ul style={{listStyle:'none',padding:0,margin:0,display:'flex',flexDirection:'column',gap:8}}>
+          <li>Which classification technique — Logistic Regression, Decision Tree, or Random Forest — best detects credit card fraud in a highly imbalanced banking dataset?</li>
+          <li>How can class imbalance be mitigated without sacrificing recall on the minority (fraud) class?</li>
+        </ul>
+      </div>
+    </div>
+    <div className={styles.approachGrid}>
+      {[{icon:'01',label:'Classify',desc:'Binary classification — Fraud (1) vs Legitimate (0)'},{icon:'02',label:'Handle Imbalance',desc:'SMOTE oversampling to balance 0.17% minority class'},{icon:'03',label:'Compare Models',desc:'Logistic Regression, Decision Tree, Random Forest'},{icon:'04',label:'Optimize Recall',desc:'Maximize fraud detection, minimize false positives'}].map((a,i)=>(
+        <div key={i} className={styles.approachCard}><div className={styles.approachIcon}>{a.icon}</div><div className={styles.approachLabel}>{a.label}</div><div className={styles.approachDesc}>{a.desc}</div></div>
+      ))}
+    </div>
+    <div className={styles.toolsRow}><span className={styles.panelLabel}>Tools</span><div className={styles.toolsList} style={{marginTop:8}}>{project.tools?.map((t,i)=><span key={i} className={styles.tool} style={{fontSize:13,padding:'5px 12px'}}>{t}</span>)}</div></div>
+  </div>
+)}
                             {currentTab==='analysis'&&(
                               <div className={styles.panelContent}>
                                 <div className={styles.statRow}>
