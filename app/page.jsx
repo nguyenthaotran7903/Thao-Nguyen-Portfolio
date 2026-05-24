@@ -304,33 +304,38 @@ function TimeViz() {
   const getY=v=>H-padB-(v/maxV)*(H-padB-10);
   const pathD=pts.map((v,i)=>`${i===0?'M':'L'}${getX(i)},${getY(v)}`).join(' ');
   return (
-    <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{display:'block'}} onMouseLeave={()=>setHovHour(null)}>
-      <path d={pathD} fill="none" stroke="#9060c0" strokeWidth="2"/>
-      <path d={`${pathD} L${getX(n-1)},${H-padB} L${getX(0)},${H-padB} Z`} fill="#9060c0" opacity="0.08"/>
-      <line x1={padL} y1={H-padB} x2={W-padL} y2={H-padB} stroke="#eee" strokeWidth="1"/>
-      {pts.map((v,i)=>(
-        <rect key={i} x={getX(i)-8} y={10} width={16} height={H-padB-10} fill="transparent"
-          style={{cursor:'crosshair'}} onMouseEnter={()=>setHovHour(i)}/>
-      ))}
-      {hovHour!==null&&(()=>{
-        const x=getX(hovHour), y=getY(pts[hovHour]), isFraud=hovHour<4||hovHour>20;
-        const tx = x > W-130 ? x-120 : x+8;
-        return(
-          <g>
-            <line x1={x} y1={10} x2={x} y2={H-padB} stroke="#9060c060" strokeWidth="1" strokeDasharray="3,2"/>
-            <circle cx={x} cy={y} r={4} fill="#9060c0"/>
-            <rect x={tx} y={y-18} width={112} height={26} fill="white" stroke="#9060c0" strokeWidth="1" rx="3"/>
-            <text x={tx+6} y={y-7} fontSize="7" fill="#1a1a1a" fontWeight="600">{hovHour}:00 — {hovHour+1}:00</text>
-            <text x={tx+6} y={y+2} fontSize="6" fill={isFraud?'#e8729a':'#888'}>{isFraud?'Higher fraud risk period':'Normal activity'}</text>
-          </g>
-        );
-      })()}
-      <text x={padL} y={H-4} fontSize="6" fill="#bbb">0h</text>
-      <text x={W/2-6} y={H-4} fontSize="6" fill="#bbb">12h</text>
-      <text x={W-22} y={H-4} fontSize="6" fill="#bbb">24h</text>
-      <text x="68" y="18" fontSize="6" fill="#9060c0" fontWeight="700">Morning peak</text>
-      <text x="210" y="18" fontSize="6" fill="#9060c0" fontWeight="700">Afternoon peak</text>
-    </svg>
+    <div style={{position:'relative'}}>
+      <div style={{display:'flex',justifyContent:'space-between',padding:'0 16px',marginBottom:2}}>
+        <span style={{fontSize:9,color:'#9060c0',fontWeight:'700',letterSpacing:'0.3px'}}>Morning peak</span>
+        <span style={{fontSize:9,color:'#9060c0',fontWeight:'700',letterSpacing:'0.3px'}}>Afternoon peak</span>
+        <span style={{fontSize:9,color:'#888'}}>Night</span>
+      </div>
+      <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{display:'block'}} onMouseLeave={()=>setHovHour(null)}>
+        <path d={pathD} fill="none" stroke="#9060c0" strokeWidth="2"/>
+        <path d={`${pathD} L${getX(n-1)},${H-padB} L${getX(0)},${H-padB} Z`} fill="#9060c0" opacity="0.08"/>
+        <line x1={padL} y1={H-padB} x2={W-padL} y2={H-padB} stroke="#eee" strokeWidth="1"/>
+        {pts.map((v,i)=>(
+          <rect key={i} x={getX(i)-8} y={10} width={16} height={H-padB-10} fill="transparent"
+            style={{cursor:'crosshair'}} onMouseEnter={()=>setHovHour(i)}/>
+        ))}
+        {hovHour!==null&&(()=>{
+          const x=getX(hovHour), y=getY(pts[hovHour]), isFraud=hovHour<4||hovHour>20;
+          const tx = x > W-130 ? x-120 : x+8;
+          return(
+            <g>
+              <line x1={x} y1={10} x2={x} y2={H-padB} stroke="#9060c060" strokeWidth="1" strokeDasharray="3,2"/>
+              <circle cx={x} cy={y} r={4} fill="#9060c0"/>
+              <rect x={tx} y={y-18} width={112} height={26} fill="white" stroke="#9060c0" strokeWidth="1" rx="3"/>
+              <text x={tx+6} y={y-7} fontSize="7" fill="#1a1a1a" fontWeight="600">{hovHour}:00 — {hovHour+1}:00</text>
+              <text x={tx+6} y={y+2} fontSize="6" fill={isFraud?'#9060c0':'#888'}>{isFraud?'Higher fraud risk period':'Normal activity'}</text>
+            </g>
+          );
+        })()}
+        <text x={padL} y={H-4} fontSize="6" fill="#bbb">0h</text>
+        <text x={W/2-6} y={H-4} fontSize="6" fill="#bbb">12h</text>
+        <text x={W-22} y={H-4} fontSize="6" fill="#bbb">24h</text>
+      </svg>
+    </div>
   );
 }
 
