@@ -362,36 +362,39 @@ function EdaCards() {
   ];
   const activeCard = cards.find(c=>c.key===active);
   return (
-    <div className={styles.edaInteractive}>
-      <div className={styles.eda3col}>
-        {cards.map(c=>(
-          <div key={c.key}
-            className={`${styles.edaCard} ${active===c.key?styles.edaCardActive:''}`}
-            style={{borderColor:active===c.key?c.color:'#ebebeb',cursor:'pointer'}}
-            onClick={()=>setActive(c.key)}>
-            <div className={styles.edaCardHeader}>
-              <span className={styles.edaIcon} style={{color:c.color}}>{c.icon}</span>
-              <span className={styles.edaTitle}>{c.title}</span>
-              <span className={styles.edaArrow}>{active===c.key?'▲':'▼'}</span>
+    <div style={{display:'flex',flexDirection:'column',gap:0,border:'1px solid #ebebeb',borderRadius:8,overflow:'hidden'}}>
+      {/* Tab row */}
+      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',borderBottom:'1px solid #ebebeb'}}>
+        {cards.map(c=>{
+          const isActive = active===c.key;
+          return(
+            <div key={c.key} onClick={()=>setActive(c.key)}
+              style={{padding:'16px 20px',cursor:'pointer',background:isActive?'#fff':'#fafafa',borderBottom:isActive?`3px solid ${c.color}`:'3px solid transparent',transition:'all 0.15s',borderRight:'1px solid #ebebeb'}}>
+              <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:6}}>
+                <span style={{fontSize:12,color:c.color,fontWeight:700}}>{c.icon}</span>
+                <span style={{fontSize:11,fontWeight:700,color:'#1a1a1a',textTransform:'uppercase',letterSpacing:'1px'}}>{c.title}</span>
+              </div>
+              <div style={{fontSize:22,fontWeight:800,color:c.color,letterSpacing:'-0.5px',lineHeight:1}}>{c.stat}</div>
+              <div style={{fontSize:10,color:'#888',textTransform:'uppercase',letterSpacing:'0.5px',marginTop:3}}>{c.statLabel}</div>
             </div>
-            <div className={styles.edaStat} style={{color:c.color}}>{c.stat}</div>
-            <div className={styles.edaStatLabel}>{c.statLabel}</div>
-            <div className={styles.edaDesc}>{c.summary}</div>
-          </div>
-        ))}
+          );
+        })}
       </div>
+      {/* Chart area */}
       {activeCard&&(
-        <div className={styles.edaDetail} style={{borderLeftColor:activeCard.color}}>
-          <div className={styles.edaDetailViz}><activeCard.Viz/></div>
-          <div className={styles.edaDetailText}>
-            <div className={styles.edaDetailTitle} style={{color:activeCard.color}}>{activeCard.title}</div>
-            <div className={styles.edaDetailBody}>{activeCard.detail}</div>
+        <div style={{background:'#fff',padding:'20px',display:'flex',flexDirection:'column',gap:16,animation:'fadeIn 0.2s ease'}}>
+          <div style={{width:'100%',overflow:'hidden'}}>
+            <activeCard.Viz/>
+          </div>
+          <div style={{borderLeft:`3px solid ${activeCard.color}`,paddingLeft:14,display:'flex',flexDirection:'column',gap:4}}>
+            <div style={{fontSize:11,fontWeight:700,color:activeCard.color,textTransform:'uppercase',letterSpacing:'0.5px'}}>{activeCard.title}</div>
+            <div style={{fontSize:13,color:'#555',lineHeight:1.65}}>{activeCard.detail}</div>
           </div>
         </div>
       )}
     </div>
   );
-}
+}Vous avez dit : đổi vào đâu
 
 /* ── Interactive Pipeline Steps ── */
 function PipelineSteps({steps, hasCharts}) {
