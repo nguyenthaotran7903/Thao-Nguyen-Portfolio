@@ -581,37 +581,7 @@
       ]
     },
     {
-      "id": 6,
-      "title": "Stock Market Bubble Detection: Multifractal Analysis + Behavioral Signals",
-      "category": "Risk Analysis",
-      "type": "Independent Research (Working Paper)",
-      "year": 2024,
-      "context": "VN-Index crashed 35% in 6 months in 2018 and 2022. Can we detect bubbles earlier by combining market complexity with behavioral signals?",
-      "methodology": [
-        "VN-Index daily data (2015\u20132024)",
-        "MFDFA: 3 features \u2014 Delta-alpha, Hurst Exponent (H), Asymmetry (A)",
-        "Google Trends: SVI & Search Momentum (Delta-SVI)",
-        "Random Forest + XGBoost, SVM, Neural Networks + SHAP explainability"
-      ],
-      "results": [
-        "Integrated model: F1 = 97.5%, AUC = 0.992",
-        "vs. multifractal-only (F1 = 84.7%) or behavioral-only (F1 = 72.3%)",
-        "Trading strategy Sharpe ratio: 1.87 vs. 0.94 (buy-and-hold)",
-        "Maximum drawdown reduced: 47% to 18%",
-        "Proposed 3-tier alert framework for State Securities Commission: Yellow / Orange / Red"
-      ],
-      "tools": [
-        "Python (MF-DFA, Random Forest, XGBoost, SHAP)",
-        "Google Trends API"
-      ],
-      "tags": [
-        "bubble-detection",
-        "time-series",
-        "machine-learning",
-        "financial-risk",
-        "python"
-      ]
-    }
+
   ],
   "skills": {
     "technical_tools": {
