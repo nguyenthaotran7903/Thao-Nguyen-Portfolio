@@ -105,7 +105,7 @@ function ModelCompareChart() {
   ];
   const metrics = [
     {key:'acc',    label:'Accuracy',  color:'#5b8db8'},
-    {key:'recall', label:'Recall',    color:'#e8729a'},
+    {key:'recall', label:'Recall',    color:'#6b9ec4'},
     {key:'prec',   label:'Precision', color:'#5a9e82'},
   ];
   const W=380, H=120, padL=32, padB=52, bW=12, bGap=3;
