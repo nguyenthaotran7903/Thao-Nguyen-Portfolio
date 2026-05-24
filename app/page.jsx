@@ -1839,7 +1839,7 @@ export default function Portfolio() {
                                   <span className={styles.panelLabel}>Impact</span>
                                   <div className={styles.impactRow} style={{gridTemplateColumns:'repeat(2,1fr)'}}>
                                     <div className={styles.impactStat} style={{borderColor:'#e8729a'}}><div className={styles.impactNum} style={{color:'#e8729a'}}>84%</div><div className={styles.impactLabel}>Fraud Caught</div><div className={styles.impactSub}>Before financial loss</div></div>
-                                    <div className={styles.impactStat} style={{borderColor:'#5b8db8'}}><div className={styles.impactNum} style={{color:'#5b8db8'}}>~99%</div><div className={styles.impactLabel}>Workload Cut</div><div className={styles.impactSub}>Manual review reduced</div></div>
+                                    <div className={styles.impactStat} style={{borderColor:'#5b8db8'}}><div className={styles.impactNum} style={{color:'#5b8db8'}}>84.16%</div><div className={styles.impactLabel}>Recall on Fraud</div><div className={styles.impactSub}>85 of 101 fraud cases caught</div></div>
                                   </div>
                                   <div className={styles.tierGrid}>
                                     <div className={styles.tierCard} style={{borderTopColor:'#5a9e82'}}><div className={styles.tierLabel} style={{color:'#5a9e82'}}>Now: Deploy</div><div className={styles.tierDesc}>3-tier alert system replacing manual review.</div></div>
