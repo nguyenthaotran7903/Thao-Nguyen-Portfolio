@@ -856,9 +856,9 @@ function P5MacroChart() {
             </g>
           );
         })()}
-        <g transform="translate(190,12)">
-          <line x1="0" y1="4" x2="12" y2="4" stroke="#5b8db8" strokeWidth="2"/><text x="14" y="7" fontSize="7" fill="#5b8db8">NPL %</text>
-          <line x1="60" y1="4" x2="72" y2="4" stroke="#9060c0" strokeWidth="1.5" strokeDasharray="4,2"/><text x="74" y="7" fontSize="7" fill="#9060c0">Unemp %</text>
+        <g transform="translate(8,8)">
+          <line x1="0" y1="4" x2="12" y2="4" stroke="#5b8db8" strokeWidth="2"/><text x="15" y="7" fontSize="6" fill="#5b8db8">NPL %</text>
+          <line x1="52" y1="4" x2="64" y2="4" stroke="#9060c0" strokeWidth="1.5" strokeDasharray="4,2"/><text x="67" y="7" fontSize="6" fill="#9060c0">Unemp %</text>
         </g>
       </svg>
       <div className={styles.legendNote}>When unemployment rises, bad loans follow. Click any year to see the numbers.</div>
