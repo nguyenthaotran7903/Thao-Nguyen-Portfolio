@@ -27,7 +27,7 @@
 .section { max-width: 900px; }
 
 /* ===== ABOUT ===== */
-.aboutBio { font-size: 14px; color: #555; line-height: 1.8; font-weight: 400; max-width: 100%; border-left: 3px solid #5b8db8; padding-left: 24px; margin: 0 0 48px; text-align: justify; }.aboutGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; background: transparent; border: none; margin-bottom: 8px; }
+.aboutBio { font-size: 15px; color: #555; line-height: 1.8; font-weight: 400; max-width: 100%; border-left: 3px solid #5b8db8; padding-left: 24px; margin: 0 0 48px; text-align: justify; }.aboutGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; background: transparent; border: none; margin-bottom: 8px; }
 .aboutCard { background: transparent; padding: 0; transition: none; }
 .aboutCard:hover { background: transparent; }
 .cardLabel { display: block; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: #5a9e82; margin-bottom: 14px; font-weight: 700; }
