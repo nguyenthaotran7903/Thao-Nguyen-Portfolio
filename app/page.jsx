@@ -1829,29 +1829,31 @@ export default function Portfolio() {
                                   <div className={styles.heroStat} style={{borderColor:'#e8729a'}}><div className={styles.heroNum} style={{color:'#e8729a'}}>84.16%</div><div className={styles.heroLabel}>Recall on Fraud</div><div className={styles.heroSub}>85 of 101 caught</div></div>
                                   <div className={styles.heroStat} style={{borderColor:'#5a9e82'}}><div className={styles.heroNum} style={{color:'#5a9e82'}}>10</div><div className={styles.heroLabel}>False Positives</div><div className={styles.heroSub}>vs 1,393 (LR+SMOTE)</div></div>
                                 </div>
-                                <ModelCompareChart/>
+<ModelCompareChart/>
                                 <ConfusionMatrix/>
                               </div>
                             )}
-<div className={styles.panelBlock}>
-  <span className={styles.panelLabel}>Impact</span>
-  <div style={{background:'#fff',border:'1px solid #ebebeb',borderRadius:8,padding:'20px 24px'}}>
-    <ul style={{listStyle:'none',padding:0,margin:0,display:'flex',flexDirection:'column',gap:12}}>
-      <li style={{fontSize:14,color:'#3a3a3a',lineHeight:1.7,paddingLeft:16,position:'relative'}}>
-        <span style={{position:'absolute',left:0}}>•</span>
-        Benchmark cho bài toán mất cân bằng cực độ: Với tỷ lệ fraud chỉ 0,17%, Random Forest đạt recall 84% và chỉ 10 false positives, con số cụ thể để các nghiên cứu sau so sánh khi thử nghiệm mô hình khác trên cùng điều kiện.
-      </li>
-      <li style={{fontSize:14,color:'#3a3a3a',lineHeight:1.7,paddingLeft:16,position:'relative'}}>
-        <span style={{position:'absolute',left:0}}>•</span>
-        Lượng hóa hiệu quả của SMOTE và Robust Scaler: Project chứng minh SMOTE cải thiện recall từ 63% lên 94% cho Logistic Regression, và Robust Scaler xử lý thành công outlier 25.691 USD là những chi tiết kỹ thuật có thể tái sử dụng và kiểm chứng.
-      </li>
-      <li style={{fontSize:14,color:'#3a3a3a',lineHeight:1.7,paddingLeft:16,position:'relative'}}>
-        <span style={{position:'absolute',left:0}}>•</span>
-        Làm rõ trade-off giữa các mô hình phân loại: Logistic Regression (ưu tiên bắt hết gian lận, chấp nhận false positives cao), Decision Tree (trung gian) và Random Forest (cân bằng nhất) giúp nghiên cứu sau chọn mô hình phù hợp với ngưỡng rủi ro của họ.
-      </li>
-    </ul>
-  </div>
-</div>
+                            {currentTab==='outcome'&&(
+                              <div className={styles.panelContent}>
+                                <div className={styles.panelBlock}>
+                                  <span className={styles.panelLabel}>Impact</span>
+                                  <div style={{background:'#fff',border:'1px solid #ebebeb',borderRadius:8,padding:'20px 24px'}}>
+                                    <ul style={{listStyle:'none',padding:0,margin:0,display:'flex',flexDirection:'column',gap:12}}>
+                                      <li style={{fontSize:14,color:'#3a3a3a',lineHeight:1.7,paddingLeft:16,position:'relative'}}>
+                                        <span style={{position:'absolute',left:0}}>•</span>
+                                        Benchmark cho bài toán mất cân bằng cực độ: Với tỷ lệ fraud chỉ 0,17%, Random Forest đạt recall 84% và chỉ 10 false positives, con số cụ thể để các nghiên cứu sau so sánh khi thử nghiệm mô hình khác trên cùng điều kiện.
+                                      </li>
+                                      <li style={{fontSize:14,color:'#3a3a3a',lineHeight:1.7,paddingLeft:16,position:'relative'}}>
+                                        <span style={{position:'absolute',left:0}}>•</span>
+                                        Lượng hóa hiệu quả của SMOTE và Robust Scaler: Project chứng minh SMOTE cải thiện recall từ 63% lên 94% cho Logistic Regression, và Robust Scaler xử lý thành công outlier 25.691 USD là những chi tiết kỹ thuật có thể tái sử dụng và kiểm chứng.
+                                      </li>
+                                      <li style={{fontSize:14,color:'#3a3a3a',lineHeight:1.7,paddingLeft:16,position:'relative'}}>
+                                        <span style={{position:'absolute',left:0}}>•</span>
+                                        Làm rõ trade-off giữa các mô hình phân loại: Logistic Regression (ưu tiên bắt hết gian lận, chấp nhận false positives cao), Decision Tree (trung gian) và Random Forest (cân bằng nhất) giúp nghiên cứu sau chọn mô hình phù hợp với ngưỡng rủi ro của họ.
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
                                 <div className={styles.panelBlock}>
                                   <span className={styles.panelLabel}>Reflection</span>
                                   <div className={styles.reflectGrid}>
