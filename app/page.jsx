@@ -1841,15 +1841,15 @@ export default function Portfolio() {
                                     <ul style={{listStyle:'none',padding:0,margin:0,display:'flex',flexDirection:'column',gap:12}}>
 <li style={{fontSize:14,color:'#3a3a3a',lineHeight:1.7,paddingLeft:16,position:'relative',textAlign:'justify'}}>
   <span style={{position:'absolute',left:0}}>•</span>
-  <strong>Benchmark for extreme class imbalance:</strong> With a fraud rate of only 0.17%, Random Forest achieved <span style={{background:'#fdf5f8',color:'#c04070',fontWeight:700,padding:'0 3px',borderRadius:2}}>84% recall</span> with just <span style={{background:'#fdf5f8',color:'#c04070',fontWeight:700,padding:'0 3px',borderRadius:2}}>10 false positives</span>, providing concrete numbers for future studies to reference when testing other models under the same conditions.
+  <strong>Benchmark for extreme class imbalance:</strong> With a fraud rate of only 0.17%, Random Forest achieved 84% recall with just 10 false positives, providing concrete numbers for future studies to reference when testing other models under the same conditions.
 </li>
 <li style={{fontSize:14,color:'#3a3a3a',lineHeight:1.7,paddingLeft:16,position:'relative',textAlign:'justify'}}>
   <span style={{position:'absolute',left:0}}>•</span>
-  <strong>Quantified impact of SMOTE and Robust Scaler:</strong> SMOTE improved recall from <span style={{background:'#fdf5f8',color:'#c04070',fontWeight:700,padding:'0 3px',borderRadius:2}}>63% to 94%</span> for Logistic Regression, and Robust Scaler successfully handled the <span style={{background:'#fdf5f8',color:'#c04070',fontWeight:700,padding:'0 3px',borderRadius:2}}>$25,691 outlier</span>, making both techniques reusable and verifiable for future work.
+  <strong>Quantified impact of SMOTE and Robust Scaler:</strong> SMOTE improved recall from 63% to 94% for Logistic Regression, and Robust Scaler successfully handled the $25,691 outlier, making both techniques <span style={{background:'#fdf5f8',color:'#c04070',fontWeight:700,padding:'0 3px',borderRadius:2}}>reusable and verifiable</span> for future work.
 </li>
 <li style={{fontSize:14,color:'#3a3a3a',lineHeight:1.7,paddingLeft:16,position:'relative',textAlign:'justify'}}>
   <span style={{position:'absolute',left:0}}>•</span>
-  <strong>Clarified trade-offs across classifiers:</strong> <span style={{background:'#fdf5f8',color:'#c04070',fontWeight:700,padding:'0 3px',borderRadius:2}}>Logistic Regression</span> maximizes recall but accepts high false positives, <span style={{background:'#fdf5f8',color:'#c04070',fontWeight:700,padding:'0 3px',borderRadius:2}}>Decision Tree</span> sits in the middle ground, and <span style={{background:'#fdf5f8',color:'#c04070',fontWeight:700,padding:'0 3px',borderRadius:2}}>Random Forest</span> delivers the best balance, helping future studies select the right model for their risk threshold.
+  <strong>Clarified trade-offs across classifiers:</strong> Logistic Regression maximizes recall but accepts high false positives, Decision Tree sits in the middle ground, and Random Forest delivers the best balance, <span style={{background:'#fdf5f8',color:'#c04070',fontWeight:700,padding:'0 3px',borderRadius:2}}>helping future studies select the right model for their risk threshold</span>.
 </li>
                                     </ul>
                                   </div>
