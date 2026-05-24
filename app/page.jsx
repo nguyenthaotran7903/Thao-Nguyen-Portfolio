@@ -85,8 +85,8 @@ function SmoteChart() {
           );
         })}
         <g transform={`translate(${padL},${H+34})`}>
-          <rect width="7" height="7" fill="#5b8db8" rx="1"/><text x="10" y="6" fontSize="8" fill="#888">Legitimate</text>
-          <rect x="76" width="7" height="7" fill="#e8729a" rx="1"/><text x="86" y="6" fontSize="8" fill="#888">Fraud</text>
+          <rect width="7" height="7" fill="#5b8db8" rx="1"/><text x="10" y="6" fontSize="11" fill="#888">Legitimate</text>
+          <rect x="76" width="7" height="7" fill="#e8729a" rx="1"/><text x="86" y="6" fontSize="11" fill="#888">Fraud</text>
         </g>
       </svg>
       {active&&<div className={styles.chartExplain} style={{borderLeftColor:'#5b8db8'}}><div className={styles.chartExplainTitle} style={{color:'#1a1a1a'}}>{groups.find(g=>g.key===active)?.label}</div><div className={styles.chartExplainNote}>{groups.find(g=>g.key===active)?.explain}</div></div>}
