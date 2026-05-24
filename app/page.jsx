@@ -558,7 +558,7 @@ function GSCAPathChart() {
 function SectorLoadingChart() {
   const [active, setActive] = useState(null);
   const [activeSector, setActiveSector] = useState('sc');
-  const W=380, H=160, padL=44, padB=28;
+  const W=380, H=140, padL=44, padB=36;  // padB tăng từ 28->36, H giảm từ 160->140
   const sectors = [
     { key:'sc', label:'Transportation (SC)', color:'#5b8db8', items:[{name:'PDP',val:0.727,desc:'Demand forecasting & price optimization'},{name:'CS',val:0.690,desc:'Automated customer support'},{name:'AVE',val:0.674,desc:'User authentication & evaluation'},{name:'PMA',val:0.671,desc:'Predictive maintenance & repair'},{name:'SO',val:0.633,desc:'Schedule optimization'}] },
     { key:'hs', label:'Accommodation (HS)', color:'#5a9e82', items:[{name:'FDT',val:0.704,desc:'Demand forecasting & trend analysis'},{name:'PS',val:0.687,desc:'Recommendation system'},{name:'VAS',val:0.681,desc:'Enhanced authentication & security'},{name:'EVE',val:0.632,desc:'Enhanced user experience (chatbot)'}] },
@@ -576,22 +576,22 @@ function SectorLoadingChart() {
           </button>
         ))}
       </div>
-      <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
+      <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block',overflow:'visible'}}>
         {[0.60,0.65,0.70,0.75,0.80].map(v=>{
           const y=H-padB-((v-minVal)/(maxVal-minVal))*(H-padB-10);
           return(<g key={v}><line x1={padL} y1={y} x2={W-8} y2={y} stroke="#f0f0f0" strokeWidth="1"/><text x={padL-4} y={y+4} textAnchor="end" fontSize="6" fill="#bbb">{v}</text></g>);
         })}
         {current.items.map((item,i)=>{
-          const bW=Math.floor((W-padL-16)/current.items.length)-6;
-          const x=padL+8+i*(bW+6);
+          const bW=Math.floor((W-padL-16)/current.items.length)-8;
+          const x=padL+8+i*(bW+8);
           const bH=((item.val-minVal)/(maxVal-minVal))*(H-padB-10);
           const y=H-padB-bH;
           const isActive=active===i;
           return(
             <g key={i} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:i)}>
               <rect x={x} y={y} width={bW} height={bH} fill={isActive?current.color:current.color+'77'} rx="2" style={{transition:'all 0.15s'}}/>
-              <text x={x+bW/2} y={y-4} textAnchor="middle" fontSize="8" fontWeight="700" fill={current.color}>{item.val}</text>
-              <text x={x+bW/2} y={H-padB+12} textAnchor="middle" fontSize="8" fontWeight={isActive?700:400} fill={isActive?'#1a1a1a':'#666'}>{item.name}</text>
+              <text x={x+bW/2} y={y-4} textAnchor="middle" fontSize="7" fontWeight="700" fill={current.color}>{item.val}</text>
+              <text x={x+bW/2} y={H-padB+14} textAnchor="middle" fontSize="7" fontWeight={isActive?700:400} fill={isActive?'#1a1a1a':'#666'}>{item.name}</text>
             </g>
           );
         })}
@@ -609,20 +609,20 @@ function BAILoadingChart() {
     {name:'BSH', label:'Accommodation Benefit',  val:0.816, color:'#5a9e82', note:'Second highest (0.816): AI-driven benefits in accommodation strongly reflect overall AI impact.'},
     {name:'BSC', label:'Transportation Benefit', val:0.797, color:'#5b8db8', note:'Third (0.797): Despite transportation having the strongest path coefficient (β=0.385), its benefit loading is slightly lower — impact is broad, not concentrated.'},
   ];
-  const W=380, H=90, padL=60, maxVal=0.85, minVal=0.78;
+  const W=380, H=110, padL=60, maxVal=0.85, minVal=0.78;
   return (
     <div className={styles.chartWrap}>
       <div className={styles.chartTitle}>BAI Benefit Dimension Loadings <span className={styles.chartHint}>click a bar</span></div>
       <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",display:'block'}}>
         {dims.map((d,i)=>{
-          const bW=((d.val-minVal)/(maxVal-minVal))*(W-padL-20);
-          const y=10+i*26;
+          const bW=((d.val-minVal)/(maxVal-minVal))*(W-padL-24);
+          const y=10+i*32;  // 32px per row instead of 26
           const isActive=active===i;
           return(
             <g key={i} style={{cursor:'pointer'}} onClick={()=>setActive(isActive?null:i)}>
-              <text x={padL-6} y={y+11} textAnchor="end" fontSize="9" fontWeight={isActive?700:500} fill={isActive?d.color:'#555'}>{d.name}</text>
-              <rect x={padL} y={y} width={bW} height={18} fill={isActive?d.color:d.color+'88'} rx="2" style={{transition:'all 0.15s'}}/>
-              <text x={padL+bW+4} y={y+12} fontSize="8" fontWeight="700" fill={d.color}>{d.val}</text>
+              <text x={padL-8} y={y+13} textAnchor="end" fontSize="9" fontWeight={isActive?700:500} fill={isActive?d.color:'#555'}>{d.name}</text>
+              <rect x={padL} y={y} width={bW} height={20} fill={isActive?d.color:d.color+'88'} rx="2" style={{transition:'all 0.15s'}}/>
+              <text x={padL+bW+6} y={y+14} fontSize="9" fontWeight="700" fill={d.color}>{d.val}</text>
             </g>
           );
         })}
