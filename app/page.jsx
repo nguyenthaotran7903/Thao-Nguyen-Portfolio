@@ -395,8 +395,18 @@ function EdaCards() {
 /* ── Interactive Pipeline Steps ── */
 function PipelineSteps({steps, hasCharts}) {
   const [active, setActive] = useState(null);
-  const stepNames = ['EDA','Data Preprocessing','Correlation Analysis','Train/Test Split','Imbalance Handling','Model Training','Evaluation'];
-  const stepColors = ['#5b8db8','#5a9e82','#9060c0','#f0a030','#e8729a','#1a1a1a','#5b8db8'];
+  const stepNames = [
+    'EDA',
+    'Data Preprocessing',
+    'Correlation Analysis',
+    'Train/Test Split',
+    'Imbalance Handling',
+    'Model Training',
+    'Evaluation',
+    'Model Fit Assessment',
+    'Path Interpretation & Reporting',
+  ];
+  const stepColors = ['#5b8db8','#5a9e82','#9060c0','#f0a030','#5b8db8','#1a1a1a','#5a9e82','#5b8db8','#5a9e82'];
   return (
     <div className={styles.panelBlock}>
       <span className={styles.panelLabel}>Pipeline</span>
@@ -405,6 +415,9 @@ function PipelineSteps({steps, hasCharts}) {
           const isActive = active===i;
           const color = stepColors[i] || '#888';
           const name = stepNames[i] || `Step ${i+1}`;
+          // Extract description and capitalize first letter
+          let desc = step.includes(':') ? step.split(':').slice(1).join(':').trim() : step;
+          desc = desc.charAt(0).toUpperCase() + desc.slice(1);
           return(
             <div key={i} className={`${styles.pipelineRow} ${isActive?styles.pipelineRowActive:''}`}
               style={{borderLeftColor:isActive?color:'#ebebeb'}}
@@ -416,7 +429,7 @@ function PipelineSteps({steps, hasCharts}) {
               </div>
               {isActive&&(
                 <div className={styles.pipelineDetail}>
-                  <div className={styles.pipelineDetailText}>{step.includes(':')?step.split(':').slice(1).join(':').trim():step}</div>
+                  <div className={styles.pipelineDetailText}>{desc}</div>
                   {i===4&&hasCharts&&<SmoteChart/>}
                 </div>
               )}
