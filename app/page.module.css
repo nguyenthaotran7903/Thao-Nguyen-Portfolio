@@ -28,7 +28,7 @@
 
 /* ===== ABOUT ===== */
 .aboutBio { font-size: 17px; color: #3a3a3a; line-height: 1.85; font-weight: 400; max-width: 100%; border-left: 3px solid #5b8db8; padding-left: 24px; margin: 0 0 48px; text-align: justify; }
-.aboutGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #ebebeb; border: 1px solid #ebebeb; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
+.aboutGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; background: transparent; border: none; margin-bottom: 8px; }
 .aboutCard { background: #ffffff; padding: 28px; transition: background 0.2s; }
 .aboutCard:hover { background: #f7f7f7; }
 .cardLabel { display: block; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: #5a9e82; margin-bottom: 14px; font-weight: 700; }
