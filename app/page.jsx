@@ -394,7 +394,7 @@ function EdaCards() {
       )}
     </div>
   );
-}Vous avez dit : đổi vào đâu
+}
 
 /* ── Interactive Pipeline Steps ── */
 function PipelineSteps({steps, hasCharts}) {
